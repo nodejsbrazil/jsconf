@@ -4,6 +4,17 @@
 @use 'speakers' as *;
 @use 'benefits' as *;
 
+// 404
+.hero__title {
+  margin-top: 12.5rem !important;
+
+  &,
+  ~ p {
+    padding-inline: 2rem;
+    text-align: center;
+  }
+}
+
 #root {
   flex-grow: 1;
   width: 100%;
