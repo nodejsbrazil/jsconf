@@ -70,6 +70,7 @@
           animation: perspective-in 0.75s var(--ease-out-quad) forwards;
           animation-delay: 0.25s;
           will-change: transform, opacity;
+          white-space: pre;
 
           .odometer {
             position: relative;
