@@ -1,0 +1,19 @@
+:root {
+  --ifm-link-hover-decoration: none;
+  font-size: 62.5%;
+}
+
+html {
+  scroll-behavior: smooth;
+  color: #fff;
+}
+
+img,
+svg {
+  user-select: none;
+}
+
+* {
+  box-sizing: border-box;
+  line-height: normal;
+}

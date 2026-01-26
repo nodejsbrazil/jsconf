@@ -1,0 +1,64 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    position: relative;
+    top: 4rem;
+    opacity: 0;
+  }
+
+  100% {
+    position: relative;
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes odometer-out {
+  0% {
+    transform: translateY(0);
+    filter: blur(0.1rem);
+  }
+  100% {
+    transform: translateY(-100%);
+    filter: blur(0);
+  }
+}
+
+@keyframes odometer-in {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes perspective-in {
+  0% {
+    transform: rotateY(-25deg) translateZ(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateY(0deg) translateZ(0);
+    opacity: 1;
+  }
+}

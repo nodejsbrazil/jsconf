@@ -1,0 +1,229 @@
+@use '../global/mixins' as *;
+
+@mixin speakers {
+  &#speakers,
+  &#team {
+    padding-bottom: 12.5rem;
+
+    & > .content {
+      gap: 5rem;
+      opacity: 0;
+
+      &.show {
+        animation: fadeUp 0.5s var(--ease-bounce-strong) forwards;
+      }
+
+      & > small {
+        margin-top: -2.5rem;
+      }
+
+      .speakers {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3rem;
+
+        @media (max-width: 1280px) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 1080px) {
+          grid-template-columns: repeat(2, 1fr);
+          max-width: 72rem;
+          max-width: 72rem;
+        }
+
+        @media (max-width: 780px) {
+          grid-template-columns: 1fr;
+          max-width: 40rem;
+        }
+
+        .person {
+          background: #1f2120;
+          border-radius: 1rem;
+          overflow: hidden;
+          transition:
+            transform 0.5s var(--ease-back-out-soft),
+            border-color 0.5s var(--ease-back-out-soft);
+          border: 0.15rem solid transparent;
+          text-align: left;
+          opacity: 0;
+
+          &.show {
+            animation: fadeUp 1.5s var(--ease-back-out-soft) forwards;
+          }
+
+          & > header {
+            position: relative;
+            width: 100%;
+            height: 25rem;
+            overflow: hidden;
+            box-shadow: 0 0.5rem 1rem #0000004e;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center;
+              aspect-ratio: 1;
+              object-fit: cover;
+              display: block;
+              transition: transform 0.5s var(--ease-back-out-soft);
+            }
+
+            & > footer {
+              position: absolute;
+              bottom: 1rem;
+              left: 3rem;
+              right: 3rem;
+              @include flex(row, center, center);
+              gap: 1.5rem;
+              padding: 1rem;
+              background-color: #0000003e;
+              backdrop-filter: blur(0.5rem);
+              border-radius: 2rem;
+              border: 0.1rem solid #ffffff3a;
+              transition:
+                gap 0.25s var(--ease-bounce-soft),
+                background-color 0.5s var(--ease-back-out-soft);
+              overflow: hidden;
+
+              &:hover {
+                background-color: #000000c6;
+              }
+
+              a {
+                @include flex(row, center, center);
+                transition: transform 0.5s var(--ease-back-out-soft);
+
+                &.youtube {
+                  svg {
+                    width: 2.4rem;
+                    height: 2.4rem;
+                    opacity: 0.75;
+                  }
+                }
+
+                svg {
+                  filter: drop-shadow(0.1rem 0.1rem 0.25rem #000);
+                  stroke: #fff;
+                  transition:
+                    stroke 0.2s ease,
+                    stroke-width 0.2s ease;
+                  stroke-width: 0.1rem;
+                }
+
+                &:hover {
+                  transform: scale(1.1);
+
+                  svg {
+                    opacity: 1;
+                    stroke: var(--ifm-navbar-link-color);
+                    stroke-width: 0.15rem;
+                  }
+                }
+
+                svg {
+                  width: 1.8rem;
+                  height: 1.8rem;
+                }
+              }
+            }
+          }
+
+          & > main {
+            @include flex(column, center, center);
+            gap: 0;
+            padding: 1.5rem 2rem;
+
+            header {
+              h3,
+              h4,
+              h5 {
+                width: 100%;
+                margin-bottom: 0;
+              }
+
+              h3 {
+                font-family: var(--ifm-font-family-title);
+                font-size: 2.4rem;
+                font-weight: 600;
+                color: #fff;
+                transition: color 0.5s var(--ease-back-out-soft);
+              }
+
+              .position {
+                margin-top: 0.5rem;
+                font-size: 1.4rem;
+                font-weight: 600;
+                opacity: 0.65;
+              }
+
+              .company {
+                font-size: 1.2rem;
+                font-weight: 600;
+                opacity: 0.5;
+              }
+            }
+
+            .line {
+              width: 15rem;
+              max-width: 100%;
+              transform: translateY(1rem);
+
+              &,
+              * {
+                fill: #303432 !important;
+              }
+            }
+
+            main {
+              margin-top: 2rem;
+
+              .bio {
+                font-size: 1.4rem;
+                line-height: 1.5;
+                opacity: 0.9;
+                text-align: justify;
+                text-align-last: left;
+                hyphens: auto;
+              }
+            }
+          }
+
+          &:hover {
+            border-color: var(--ifm-color-primary-darker);
+            transform: translateY(-0.5rem);
+
+            h3 {
+              color: var(--ifm-color-primary);
+            }
+
+            img {
+              transform: scale(1.05);
+            }
+
+            footer {
+              gap: 1.7rem;
+              background-color: #00000070;
+            }
+
+            @media (max-width: 780px) {
+              &:hover {
+                transform: none;
+                border-color: #022514;
+
+                img {
+                  transform: none;
+                }
+
+                footer {
+                  gap: 1.5rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

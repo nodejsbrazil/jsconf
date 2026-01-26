@@ -1,0 +1,38 @@
+@use '../global/mixins' as *;
+@use 'base' as *;
+@use 'home' as *;
+@use 'speakers' as *;
+@use 'benefits' as *;
+
+#root {
+  flex-grow: 1;
+  width: 100%;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  &,
+  & > main {
+    @include flex(column, center, center);
+    width: 100%;
+  }
+
+  & > main {
+    @include base;
+
+    &[id] {
+      position: relative;
+      padding-inline: 8rem;
+      overflow: hidden;
+
+      @media (max-width: 630px) {
+        padding-inline: 2rem;
+      }
+
+      @include home;
+      @include benefits;
+      @include speakers;
+    }
+  }
+}

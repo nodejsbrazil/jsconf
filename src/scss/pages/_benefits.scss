@@ -1,0 +1,175 @@
+@use '../global/mixins' as *;
+
+@mixin benefits {
+  &#benefits {
+    padding-bottom: 12.5rem;
+
+    & > .content {
+      gap: 5rem;
+      opacity: 0;
+      animation: fadeUp 0.75s var(--ease-bounce-strong) forwards;
+      // animation-delay: 1.25s;
+
+      @media (max-width: 630px) {
+        gap: 3.5rem;
+      }
+
+      @media (max-width: 429px) {
+        gap: 2rem;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3rem;
+
+        @media (max-width: 1080px) {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.25rem;
+          max-width: 72rem;
+        }
+
+        @media (max-width: 429px) {
+          grid-template-columns: 1fr;
+          max-width: 36rem;
+        }
+
+        .card {
+          position: relative;
+          @include flex(column, center, center);
+          gap: 1rem;
+          background-color: rgba(1, 26, 12, 0.25);
+          border: 0.1rem solid #022514;
+          border-radius: 2rem;
+          padding: 4rem 3rem;
+          transition: transform 0.5s var(--ease-back-out-soft);
+          top: 4rem;
+          opacity: 0;
+
+          header {
+            @include flex(column, center, center);
+            transition: transform 0.35s var(--ease-bounce-strong);
+
+            svg {
+              width: 4.2rem;
+              height: 4.2rem;
+              stroke: var(--ifm-color-primary-darker);
+            }
+          }
+
+          h3 {
+            font-family: var(--ifm-font-family-title);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-top: 3rem;
+            margin-bottom: 0;
+            color: #fff;
+          }
+
+          p {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-top: 1.5rem;
+            opacity: 0.75;
+          }
+
+          &.show {
+            animation: fadeUp 1.5s var(--ease-back-out-soft) forwards;
+          }
+
+          // Height
+          @media (min-height: 901px) {
+            @for $card from 1 through 4 {
+              &:nth-child(#{$card}) {
+                animation-delay: #{0.5 + ($card - 1) * 0.15}s;
+              }
+            }
+
+            @for $card from 5 through 8 {
+              &:nth-child(#{$card}) {
+                animation-delay: #{($card - 5) * 0.15}s;
+              }
+            }
+          }
+
+          @media (max-height: 900px) {
+            @for $card from 1 through 4 {
+              &:nth-child(#{$card}) {
+                animation-delay: #{($card - 1) * 0.15}s;
+              }
+            }
+
+            @for $card from 5 through 8 {
+              &:nth-child(#{$card}) {
+                animation-delay: #{($card - 5) * 0.15}s;
+              }
+            }
+          }
+
+          // Width
+          @media (max-width: 780px) {
+            padding: 2rem 1.5rem;
+            gap: 5rem;
+
+            header {
+              svg {
+                width: 2.6rem;
+                height: 2.6rem;
+              }
+            }
+
+            h3 {
+              font-size: 1.5rem;
+              margin-top: 1.5rem;
+            }
+
+            p {
+              font-size: 1.2rem;
+              margin-top: 1rem;
+            }
+          }
+
+          @media (max-width: 429px) {
+            padding: 3rem 2.5rem;
+
+            header {
+              svg {
+                width: 3.2rem;
+                height: 3.2rem;
+              }
+            }
+
+            h3 {
+              font-size: 1.5rem;
+              margin-top: 2rem;
+            }
+
+            p {
+              font-size: 1.4rem;
+              margin-top: 2rem;
+            }
+          }
+
+          &:hover {
+            transform: translateY(-0.5rem);
+
+            header {
+              transform: scale(1.125);
+            }
+
+            @media (max-width: 780px) {
+              &:hover {
+                transform: none;
+
+                header {
+                  transform: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

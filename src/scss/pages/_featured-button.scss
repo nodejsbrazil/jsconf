@@ -1,0 +1,51 @@
+@use '../global/mixins' as *;
+
+.btn-split {
+  position: relative;
+  z-index: 2;
+  @include flex(row, center, center);
+  gap: 1rem;
+  padding: 1.752rem 2.75rem;
+  border-radius: 0.75rem;
+  font-family: var(--ifm-font-family-title);
+  font-size: 1.3rem;
+  color: #fff;
+  text-shadow: 0.1rem 0.1rem 0.2rem #071f0dca;
+  box-shadow: 0 0 2.5rem 1rem rgba(0, 0, 0, 0.75);
+  background: linear-gradient(90deg, #0a8d1b, #17ae2b);
+  transition: gap 0.2s var(--ease-bounce-strong);
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    gap: 1.25rem;
+
+    .btn-content {
+      transform: scale(1.025);
+    }
+  }
+
+  .btn-content {
+    transition: transform 0.2s var(--ease-bounce-strong);
+  }
+
+  .btn-icon {
+    @include flex(row, center, center);
+
+    svg {
+      width: 1.7rem;
+      height: 1.7rem;
+      stroke-width: 0.25rem;
+      filter: drop-shadow(0.1rem 0.1rem 0.1rem #17381fa5);
+      transition: transform 0.25s var(--ease-bounce-soft);
+    }
+  }
+
+  &.cta {
+    transform: scale(1.1);
+
+    .btn-content {
+      font-weight: 800;
+    }
+  }
+}

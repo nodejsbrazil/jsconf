@@ -1,0 +1,26 @@
+@use 'sass:meta' as *;
+
+@include load-css('reset');
+
+body {
+  min-width: 32rem;
+  background-color: var(--background-color);
+  transition: background-color 0.25s ease;
+  font-size: 1.6rem;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+
+  #__docusaurus {
+    background: unset;
+    height: 100% !important;
+    overflow: auto !important;
+
+    #__docusaurus_skipToContent_fallback {
+      animation: fadeIn 0.25s ease-in forwards;
+    }
+
+    @include load-css('navbar');
+    @include load-css('footer');
+  }
+}
