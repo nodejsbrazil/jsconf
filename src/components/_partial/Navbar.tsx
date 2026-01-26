@@ -30,27 +30,29 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
-    const doc = document.querySelector('#__docusaurus');
-    if (!doc) return;
+    try {
+      const doc = document.querySelector('#__docusaurus');
+      if (!doc) return;
 
-    if (!location.hash) {
-      toTop(doc);
-      return;
-    }
+      if (!location.hash) {
+        toTop(doc);
+        return;
+      }
 
-    const anchor = document.querySelector(location.hash);
-    if (!anchor) {
-      toTop(doc);
-      return;
-    }
+      const anchor = document.querySelector(location.hash);
+      if (!anchor) {
+        toTop(doc);
+        return;
+      }
 
-    const top = anchor.getBoundingClientRect().top + window.scrollY - 50;
+      const top = anchor.getBoundingClientRect().top + window.scrollY - 50;
 
-    doc.scrollTo({
-      top,
-      left: 0,
-      behavior: 'smooth',
-    });
+      doc.scrollTo({
+        top,
+        left: 0,
+        behavior: 'smooth',
+      });
+    } catch {}
   }, [location.key]);
 
   return (
