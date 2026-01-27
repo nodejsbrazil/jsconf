@@ -21,7 +21,8 @@
     "lint:fix": "prettier --write .",
     "update": "pu && npm i && npm update && (npm audit fix || true)",
     "postupdate": "npm run lint:fix",
-    "purge": "tsx --env-file-if-exists=.env tools/purge-cache.mts"
+    "purge": "tsx --env-file-if-exists=.env tools/purge-cache.mts",
+    "test": "npm run typecheck && npm run lint && npm run build"
   },
   "devDependencies": {
     "@docusaurus/core": "^3.9.2",
@@ -40,10 +41,10 @@
     "poku": "^3.0.3-canary.c443b1b8",
     "prettier": "^3.8.1",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "react-intersection-observer": "^10.0.2",
-    "react-parallax-tilt": "^1.7.316",
+    "react-parallax-tilt": "^1.7.317",
     "react-typed": "^2.0.12",
     "sass": "^1.97.3",
     "tsx": "^4.21.0",
