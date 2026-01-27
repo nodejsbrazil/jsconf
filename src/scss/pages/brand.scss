@@ -62,10 +62,14 @@
       }
     }
 
+    .actions {
+      @include flex(row);
+      gap: 1.2rem;
+    }
+
     .download {
       @include flex(row, center);
       gap: 0.8rem;
-      width: fit-content;
       background-color: var(--ifm-color-primary-darkest);
       border: none;
       color: #fff;

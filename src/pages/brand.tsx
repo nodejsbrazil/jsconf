@@ -27,11 +27,11 @@ export default () => {
     }
   };
 
-  const download = () => {
+  const download = (extension: 'svg' | 'png') => {
     const link = document.createElement('a');
 
-    link.href = '/img/logo.svg';
-    link.download = 'jsconf-brasil-logo.svg';
+    link.href = `/img/logo.${extension}`;
+    link.download = `jsconf-brasil-logo.${extension}`;
     link.click();
   };
 
@@ -63,10 +63,24 @@ export default () => {
               </Parallax>
             </div>
           </div>
-          <button type='button' className='download' onClick={download}>
-            <Download />
-            Baixar SVG
-          </button>
+          <div className='actions'>
+            <button
+              type='button'
+              className='download'
+              onClick={() => download('svg')}
+            >
+              <Download />
+              Baixar SVG
+            </button>
+            <button
+              type='button'
+              className='download'
+              onClick={() => download('png')}
+            >
+              <Download />
+              Baixar PNG
+            </button>
+          </div>
         </section>
 
         <section className='colors'>
