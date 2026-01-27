@@ -1,14 +1,14 @@
 import { useRef } from 'react';
-import { cleanupAnimation } from '../shared/animation';
-import { useVisibility } from '../useVisibility';
 import {
   createElapsedTimeGetter,
   handleVisibilityOff,
   handleVisibilityOn,
-} from './animation';
-import { updateCanvasSize } from './canvas';
-import { createInitialState } from './helpers';
-import { AnimationRefs, AnimationState } from './types';
+} from '@site/src/hooks/BR/animation';
+import { updateCanvasSize } from '@site/src/hooks/BR/canvas';
+import { createInitialState } from '@site/src/hooks/BR/helpers';
+import { AnimationRefs, AnimationState } from '@site/src/hooks/BR/types';
+import { cleanupAnimation } from '@site/src/hooks/shared/animation';
+import { useVisibility } from '@site/src/hooks/useVisibility';
 
 export const useBR = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

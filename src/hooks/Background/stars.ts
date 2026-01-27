@@ -1,4 +1,8 @@
-import type { AnimationState, RecycleDirection, Star } from './types';
+import type {
+  AnimationState,
+  RecycleDirection,
+  Star,
+} from '@site/src/hooks/Background/types';
 
 export const createStar = (minScale: number): Star => ({
   x: 0,

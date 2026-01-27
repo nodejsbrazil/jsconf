@@ -1,4 +1,4 @@
-import type { BackgroundConfig } from './types';
+import type { BackgroundConfig } from '@site/src/hooks/Background/types';
 
 export const DEFAULT_CONFIG: BackgroundConfig = {
   starColor: '#ffffff',
