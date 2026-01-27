@@ -1,9 +1,23 @@
 import type { FC } from 'react';
 import { useRef } from 'react';
-import { Github, Instagram, Link, Linkedin, Youtube } from 'lucide-react';
+import {
+  Building,
+  Github,
+  Instagram,
+  Link,
+  Linkedin,
+  Youtube,
+} from 'lucide-react';
 import { useScroll } from '@site/src/hooks/useScroll';
-import Line from '../../assets/img/line.svg';
 import { SafeLink } from './SafeLink';
+
+type SocialLinks = {
+  linkedin?: string;
+  instagram?: string;
+  github?: string;
+  youtube?: string;
+  website?: string;
+};
 
 type MemberProps = {
   name: string;
@@ -11,11 +25,7 @@ type MemberProps = {
   position?: string;
   company?: string;
   bio?: string;
-  linkedin?: string;
-  instagram?: string;
-  github?: string;
-  youtube?: string;
-  website?: string;
+  social?: SocialLinks;
 };
 
 export const Person: FC<MemberProps> = ({
@@ -24,11 +34,7 @@ export const Person: FC<MemberProps> = ({
   position,
   company,
   bio,
-  instagram,
-  linkedin,
-  github,
-  youtube,
-  website,
+  social,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -40,46 +46,48 @@ export const Person: FC<MemberProps> = ({
     <section ref={ref} className='person'>
       <header>
         <img src={img} alt={`Foto (${name})`} />
-        <footer>
-          {typeof linkedin === 'string' && (
-            <SafeLink
-              to={`https://linkedin.com/in/${linkedin.trim()}/`}
-              title='LinkedIn'
-            >
-              <Linkedin />
-            </SafeLink>
-          )}
-          {typeof instagram === 'string' && (
-            <SafeLink
-              to={`https://instagram.com/${instagram.trim()}/`}
-              title='Instagram'
-            >
-              <Instagram />
-            </SafeLink>
-          )}
-          {typeof youtube === 'string' && (
-            <SafeLink
-              className='youtube'
-              to={`https://youtube.com/${youtube}`}
-              title='YouTube'
-            >
-              <Youtube />
-            </SafeLink>
-          )}
-          {typeof github === 'string' && (
-            <SafeLink
-              to={`https://github.com/${github.trim()}/`}
-              title='GitHub'
-            >
-              <Github />
-            </SafeLink>
-          )}
-          {typeof website === 'string' && (
-            <SafeLink to={website.trim()} title='Website'>
-              <Link />
-            </SafeLink>
-          )}
-        </footer>
+        {social && (
+          <footer>
+            {social.linkedin && (
+              <SafeLink
+                to={`https://linkedin.com/in/${social.linkedin.trim()}/`}
+                title='LinkedIn'
+              >
+                <Linkedin />
+              </SafeLink>
+            )}
+            {social.instagram && (
+              <SafeLink
+                to={`https://instagram.com/${social.instagram.trim()}/`}
+                title='Instagram'
+              >
+                <Instagram />
+              </SafeLink>
+            )}
+            {social.youtube && (
+              <SafeLink
+                className='youtube'
+                to={`https://youtube.com/${social.youtube}`}
+                title='YouTube'
+              >
+                <Youtube />
+              </SafeLink>
+            )}
+            {social.github && (
+              <SafeLink
+                to={`https://github.com/${social.github.trim()}/`}
+                title='GitHub'
+              >
+                <Github />
+              </SafeLink>
+            )}
+            {social.website && (
+              <SafeLink to={social.website.trim()} title='Website'>
+                <Link />
+              </SafeLink>
+            )}
+          </footer>
+        )}
       </header>
       <main>
         <header>
@@ -88,10 +96,11 @@ export const Person: FC<MemberProps> = ({
             <h4 className='position'>{position.trim()}</h4>
           )}
           {typeof company === 'string' && (
-            <h5 className='company'>@ {company.trim()}</h5>
+            <h5 className='company'>
+              <Building /> {company.trim()}
+            </h5>
           )}
         </header>
-        <Line className='line' />
         <main>
           {typeof bio === 'string' && <p className='bio'>{bio.trim()}</p>}
         </main>

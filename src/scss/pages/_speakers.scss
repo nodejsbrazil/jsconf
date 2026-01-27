@@ -76,7 +76,7 @@
               left: 3rem;
               right: 3rem;
               @include flex(row, center, center);
-              gap: 1.5rem;
+              gap: 1rem;
               padding: 1rem;
               background-color: #0000003e;
               backdrop-filter: blur(0.5rem);
@@ -132,7 +132,6 @@
 
           & > main {
             @include flex(column, center, center);
-            gap: 0;
             padding: 1.5rem 2rem;
 
             header {
@@ -161,20 +160,18 @@
               }
 
               .company {
-                font-size: 1.2rem;
+                @include flex(row, center, center);
+                gap: 0.5rem;
+                width: fit-content;
+                margin-top: 0.5rem;
+                font-size: 1.15rem;
                 font-weight: 600;
                 opacity: 0.5;
-              }
-            }
 
-            .line {
-              width: 15rem;
-              max-width: 100%;
-              transform: translateY(1rem);
-
-              &,
-              * {
-                fill: #303432 !important;
+                svg {
+                  width: 1.15rem;
+                  height: 1.15rem;
+                }
               }
             }
 
@@ -182,7 +179,9 @@
               margin-top: 2rem;
 
               .bio {
-                font-size: 1.4rem;
+                padding-left: 1rem;
+                border-left: 0.3rem solid #303432;
+                font-size: 1.3rem;
                 line-height: 1.5;
                 opacity: 0.9;
                 text-align: justify;

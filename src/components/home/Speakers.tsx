@@ -25,13 +25,15 @@ export const Speakers = () => {
             name='Erick Wendel'
             img='/img/speakers/erick-wendel.webp'
             bio='Erick Wendel é um palestrante experiente em conferências de tecnologia, conhecido como keynote speaker, e um renomado desenvolvedor da equipe principal do Node.js.'
-            instagram='erickwendel_'
-            youtube='@ErickWendelAcademy'
-            linkedin='erickwendel'
-            github='erickwendel'
-            website='https://ew.academy/'
             position='Criador de Conteúdo e Empreendedor'
             company='EW Academy'
+            social={{
+              instagram: 'erickwendel_',
+              youtube: '@ErickWendelAcademy',
+              linkedin: 'erickwendel',
+              github: 'erickwendel',
+              website: 'https://ew.academy/',
+            }}
           />
         </section>
       </div>
