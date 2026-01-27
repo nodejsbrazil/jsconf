@@ -78,11 +78,14 @@
               border-radius: 0.75rem;
               background-color: var(--ifm-color-main);
               color: var(--background-color);
+
+              @media (max-width: 630px) {
+                display: none;
+              }
             }
           }
 
           small {
-            @include flex(row, center, center);
             font-size: 0.975rem;
             font-weight: 500;
             text-transform: uppercase;
@@ -90,6 +93,12 @@
             line-height: normal;
             opacity: 0.6;
             transition: color 0.25s var(--ease-back-out);
+
+            span {
+              @media screen and (max-width: 630px) {
+                display: none;
+              }
+            }
           }
         }
 
@@ -142,21 +151,69 @@
       }
     }
 
-    .hamburger {
-      display: none;
-      padding: 0.75rem;
-      background: transparent;
-      border: none;
-      cursor: pointer;
+    .desktop {
+      @include flex(row, center, center);
+      gap: 2.5rem;
 
-      @media (max-width: 800px) {
-        display: block;
+      @media (max-width: 1100px) {
+        display: none;
       }
 
-      svg {
-        width: 2.4rem;
-        height: 2.4rem;
+      a {
+        font-family: var(--ifm-font-family-title);
+        font-size: 1.05rem;
+        font-weight: 800;
         color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.05rem;
+        opacity: 0.6;
+        transition:
+          opacity 0.2s,
+          color 0.2s;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &.active {
+          color: var(--ifm-color-main);
+          opacity: 1;
+        }
+
+        &[data-priority='1'] {
+          @media (max-width: 1300px) {
+            display: none;
+          }
+        }
+
+        &[data-priority='2'] {
+          @media (max-width: 1100px) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .actions {
+      @include flex(row, center, center);
+      gap: 1rem;
+
+      .hamburger {
+        display: none;
+        padding: 0.75rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+
+        @media (max-width: 1100px) {
+          display: block;
+        }
+
+        svg {
+          width: 2.4rem;
+          height: 2.4rem;
+          color: #fff;
+        }
       }
     }
   }
