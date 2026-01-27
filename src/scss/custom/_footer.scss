@@ -1,6 +1,8 @@
 @use '../global/mixins' as *;
 
 .main-footer {
+  position: relative;
+  z-index: 1;
   @include flex(column, center, center);
   gap: 3rem;
   padding-top: 4rem;

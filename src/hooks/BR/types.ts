@@ -18,7 +18,7 @@ export type AnimationState = {
 };
 
 export type AnimationRefs = {
-  requestAnimationFrameId: number;
+  animationFrameId: number;
   lastFrameTime: number;
   elapsedBeforePause: number;
   pauseTime: number | null;

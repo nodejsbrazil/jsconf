@@ -1,4 +1,8 @@
 import type { AnimationRefs, AnimationState } from './types';
+import {
+  initializeResizeObserver,
+  stopAnimationFrame,
+} from '../shared/animation';
 import { draw } from './canvas';
 import { FINAL_COLOR, INITIAL_COLOR } from './definitions';
 
@@ -42,14 +46,10 @@ const createAnimationLoop = (
       animation.lastFrameTime = timestamp;
     }
 
-    animation.requestAnimationFrameId = requestAnimationFrame(animate);
+    animation.animationFrameId = requestAnimationFrame(animate);
   };
 
   return animate;
-};
-
-const stopAnimationFrame = (animation: AnimationRefs): void => {
-  cancelAnimationFrame(animation.requestAnimationFrameId);
 };
 
 const resetPauseState = (animation: AnimationRefs): void => {
@@ -57,17 +57,6 @@ const resetPauseState = (animation: AnimationRefs): void => {
 
   animation.startTime = null;
   animation.pauseTime = null;
-};
-
-const initializeResizeObserver = (
-  canvas: HTMLCanvasElement,
-  animation: AnimationRefs,
-  handleResize: () => void
-): void => {
-  if (animation.resizeObserver) return;
-
-  animation.resizeObserver = new ResizeObserver(handleResize);
-  animation.resizeObserver.observe(canvas);
 };
 
 const savePauseState = (animation: AnimationRefs): void => {
@@ -91,7 +80,7 @@ const startAnimationLoop = (
   stopAnimationFrame(animation);
   requestAnimationFrame(() => {
     handleResize();
-    animation.requestAnimationFrameId = requestAnimationFrame(animate);
+    animation.animationFrameId = requestAnimationFrame(animate);
   });
 };
 
@@ -111,15 +100,10 @@ export const handleVisibilityOff = (animation: AnimationRefs): void => {
   stopAnimationFrame(animation);
 };
 
-export const cleanupAnimation = (animation: AnimationRefs): void => {
-  stopAnimationFrame(animation);
-  animation.resizeObserver?.disconnect();
-  animation.resizeObserver = null;
-};
-
 export const createElapsedTimeGetter =
   (animation: AnimationRefs) => (): number => {
     if (animation.startTime === null) return 0;
+
     return (
       performance.now() - animation.startTime + animation.elapsedBeforePause
     );

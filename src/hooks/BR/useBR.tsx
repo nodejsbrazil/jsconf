@@ -1,7 +1,7 @@
 import { useRef } from 'react';
+import { cleanupAnimation } from '../shared/animation';
 import { useVisibility } from '../useVisibility';
 import {
-  cleanupAnimation,
   createElapsedTimeGetter,
   handleVisibilityOff,
   handleVisibilityOn,
@@ -14,7 +14,7 @@ export function useBR() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stateRef = useRef<AnimationState | null>(null);
   const animationRef = useRef<AnimationRefs>({
-    requestAnimationFrameId: 0,
+    animationFrameId: 0,
     lastFrameTime: 0,
     elapsedBeforePause: 0,
     pauseTime: null,
