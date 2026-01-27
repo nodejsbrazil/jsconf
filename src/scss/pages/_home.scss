@@ -37,6 +37,11 @@
         transform-origin: center center;
         transform: scale(1.5);
 
+        @media (max-height: 990px) {
+          left: 9rem;
+          transform: scale(1.15);
+        }
+
         @media (max-width: 630px) {
           top: 11rem;
           left: 7.5rem;
