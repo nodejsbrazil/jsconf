@@ -10,7 +10,7 @@ import Logo from '../../assets/img/logo.svg';
 const SECTIONS: {
   id: string;
   label: string;
-  /** 1: wide screen, 2: medium screen */
+  /** No priority: hides first, 1: hides later, 2: hides last */
   priority?: 1 | 2;
   showInDesktop?: boolean;
 }[] = [
@@ -60,7 +60,7 @@ export const Navbar = () => {
         return;
       }
 
-      const top = anchor.getBoundingClientRect().top + doc.scrollTop - 150;
+      const top = anchor.getBoundingClientRect().top + doc.scrollTop - 125;
 
       doc.scrollTo({
         top,
@@ -119,14 +119,25 @@ export const Navbar = () => {
         </div>
       </div>
       <div ref={menuNode} className='mobile-menu'>
-        <button
-          type='button'
-          className='close'
-          onClick={closeMenu}
-          aria-label='Fechar menu'
-        >
-          <X />
-        </button>
+        <header>
+          <Link className='brand' to='/' onClick={closeMenu}>
+            <Logo className='logo' />
+            <div className='group'>
+              <h2>
+                JSConf <span>Brasil</span>
+              </h2>
+              <small>28 NOV 2026</small>
+            </div>
+          </Link>
+          <button
+            type='button'
+            className='close'
+            onClick={closeMenu}
+            aria-label='Fechar menu'
+          >
+            <X />
+          </button>
+        </header>
         <nav>
           {SECTIONS.map(({ id, label }) => (
             <Link

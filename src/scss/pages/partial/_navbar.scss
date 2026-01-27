@@ -1,5 +1,42 @@
 @use '../../global/mixins' as *;
 
+@mixin brand {
+  @include flex(column, flex-start, center);
+
+  h2 {
+    @include flex(row, center, flex-start);
+    gap: 0.55rem;
+    margin: 0;
+    font-family: var(--ifm-font-family-title);
+    font-size: 2.6rem;
+    letter-spacing: -0.1rem;
+    line-height: normal;
+
+    span {
+      color: var(--ifm-color-main);
+    }
+
+    strong {
+      @include flex(row, center, center);
+      gap: 0.5rem;
+      padding: 0.125rem 0.65rem;
+      font-size: 1.1rem;
+      border-radius: 0.75rem;
+      background-color: var(--ifm-color-main);
+      color: var(--background-color);
+    }
+  }
+
+  small {
+    font-size: 0.975rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    line-height: normal;
+    opacity: 0.6;
+  }
+}
+
 .main-navbar {
   position: fixed;
   top: 0;
@@ -47,38 +84,18 @@
         }
 
         .group {
-          @include flex(column, flex-start, center);
+          @include brand;
 
           @media (max-width: 429px) {
             display: none;
           }
 
           h2 {
-            @include flex(row, center, flex-start);
-            gap: 0.55rem;
-            margin: 0;
-            font-family: var(--ifm-font-family-title);
-            font-size: 2.6rem;
-            letter-spacing: -0.1rem;
-            line-height: normal;
-
             @media (max-width: 630px) {
               font-size: 2rem;
             }
 
-            span {
-              color: var(--ifm-color-main);
-            }
-
             strong {
-              @include flex(row, center, center);
-              gap: 0.5rem;
-              padding: 0.125rem 0.65rem;
-              font-size: 1.1rem;
-              border-radius: 0.75rem;
-              background-color: var(--ifm-color-main);
-              color: var(--background-color);
-
               @media (max-width: 630px) {
                 display: none;
               }
@@ -86,16 +103,10 @@
           }
 
           small {
-            font-size: 0.975rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-            line-height: normal;
-            opacity: 0.6;
             transition: color 0.25s var(--ease-back-out);
 
             span {
-              @media screen and (max-width: 630px) {
+              @media (max-width: 630px) {
                 display: none;
               }
             }
@@ -131,6 +142,10 @@
         font-weight: 700;
         color: var(--title-color);
         text-shadow: 0.1rem 0.1rem 0.1rem #000000b7;
+
+        @media (max-width: 1100px) {
+          display: none;
+        }
 
         svg {
           width: 1.6rem;
@@ -180,6 +195,12 @@
           opacity: 1;
         }
 
+        &:not([data-priority]) {
+          @media (max-width: 1400px) {
+            display: none;
+          }
+        }
+
         &[data-priority='1'] {
           @media (max-width: 1300px) {
             display: none;
@@ -200,19 +221,29 @@
 
       .hamburger {
         display: none;
-        padding: 0.75rem;
         background: transparent;
         border: none;
         cursor: pointer;
+        padding: 0;
+        transition: transform 0.15s var(--ease-back-out);
 
         @media (max-width: 1100px) {
           display: block;
         }
 
+        &:hover {
+          transform: scale(1.1);
+        }
+
+        &:active {
+          transform: scale(0.9);
+        }
+
         svg {
-          width: 2.4rem;
-          height: 2.4rem;
-          color: #fff;
+          width: 3rem;
+          height: 3rem;
+          stroke-width: 0.3rem;
+          stroke: #fff;
         }
       }
     }
@@ -229,7 +260,7 @@
     gap: 3rem;
     height: 100vh;
     height: 100dvh;
-    padding: 8rem 3rem 3rem;
+    padding: 3rem;
     background-color: var(--background-color);
     transform: translateX(100%);
     transition: transform 0.4s var(--ease-back-out-soft);
@@ -240,19 +271,46 @@
       pointer-events: auto;
     }
 
-    .close {
-      position: absolute;
-      top: 1.5rem;
-      right: 2rem;
-      padding: 0.75rem;
-      background: transparent;
-      border: none;
-      cursor: pointer;
+    header {
+      @include flex(row, center, space-between);
+      width: 100%;
 
-      svg {
-        width: 2.8rem;
-        height: 2.8rem;
-        color: #fff;
+      .brand {
+        @include flex(row, center, center);
+        gap: 1.25rem;
+
+        .logo {
+          width: 4.8rem;
+          height: 4.8rem;
+          filter: drop-shadow(0.1rem 0.1rem 0.1rem #000000b7);
+        }
+
+        .group {
+          @include brand;
+        }
+      }
+
+      .close {
+        padding: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.15s var(--ease-back-out);
+
+        &:hover {
+          transform: scale(1.1);
+        }
+
+        &:active {
+          transform: scale(0.9);
+        }
+
+        svg {
+          width: 3rem;
+          height: 3rem;
+          stroke-width: 0.3rem;
+          stroke: #fff;
+        }
       }
     }
 
