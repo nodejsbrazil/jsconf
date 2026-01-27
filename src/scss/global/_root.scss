@@ -12,6 +12,14 @@ body {
     radial-gradient(circle at top right, rgba(0, 255, 81, 0.01), transparent),
     radial-gradient(circle at 20% 80%, rgba(0, 183, 255, 0.01), transparent);
 
+  &.menu-open {
+    overflow: hidden;
+
+    #__docusaurus {
+      overflow: hidden !important;
+    }
+  }
+
   #__docusaurus {
     background: unset;
     height: 100% !important;
