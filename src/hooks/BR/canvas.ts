@@ -38,10 +38,12 @@ export const draw = (
 
   for (let dotIndex = 0; dotIndex < state.dots.length; dotIndex++) {
     const dotState = state.dots[dotIndex];
+    if (!dotState) continue;
+
     const result = calculateDotProgress(dotState, elapsed);
 
-    state.dots[dotIndex].visible = result.visible;
-    state.dots[dotIndex].disappearAt = result.disappearAt;
+    dotState.visible = result.visible;
+    dotState.disappearAt = result.disappearAt;
 
     if (result.progress > 0) {
       visibleCount++;

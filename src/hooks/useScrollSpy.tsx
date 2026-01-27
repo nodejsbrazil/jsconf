@@ -34,6 +34,8 @@ export const useScrollSpy = <T extends readonly Section[]>(
 
       const observer = new IntersectionObserver(
         ([entry]) => {
+          if (!entry) return;
+
           if (entry.isIntersecting)
             visibleSections.set(id, entry.intersectionRatio);
           else visibleSections.delete(id);

@@ -33,6 +33,8 @@ export const useScroll = (
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return;
+
         cb(entry.isIntersecting, target);
 
         if (entry.isIntersecting && eject) observer.unobserve(target);

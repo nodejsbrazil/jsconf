@@ -49,6 +49,8 @@ export const useVisibility = <T extends Element>(
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return;
+
         elementVisibleRef.current = entry.isIntersecting;
         notify();
 

@@ -18,10 +18,13 @@ const shuffleArray = <T>(array: T[]): T[] => {
   for (let currentIndex = result.length - 1; currentIndex > 0; currentIndex--) {
     const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
 
-    [result[currentIndex], result[randomIndex]] = [
-      result[randomIndex],
-      result[currentIndex],
-    ];
+    const currentValue = result[currentIndex];
+    const randomValue = result[randomIndex];
+
+    if (currentValue !== undefined && randomValue !== undefined) {
+      result[currentIndex] = randomValue;
+      result[randomIndex] = currentValue;
+    }
   }
 
   return result;
@@ -111,9 +114,13 @@ const scheduleDotsForRemoval = (
   while (state.nextRemovalAt <= elapsed && visibleIndices.length > 0) {
     const randomIndex = Math.floor(Math.random() * visibleIndices.length);
     const dotIndex = visibleIndices.splice(randomIndex, 1)[0];
+    const dot = dotIndex !== undefined ? state.dots[dotIndex] : undefined;
 
-    state.dots[dotIndex].disappearAt = state.nextRemovalAt;
-    state.dots[dotIndex].appearAt = state.nextDelay;
+    if (dot) {
+      dot.disappearAt = state.nextRemovalAt;
+      dot.appearAt = state.nextDelay;
+    }
+
     state.nextDelay += DELAY_PER_DOT;
     state.nextRemovalAt += DELAY_PER_DOT;
   }
@@ -152,7 +159,7 @@ export const createInitialState = (): AnimationState => {
     dots: (dots as RawDotData[]).map((rawDot, index) => ({
       dot: mapRawDotToDot(rawDot),
       visible: false,
-      appearAt: indices[index] * DELAY_PER_DOT,
+      appearAt: (indices[index] ?? index) * DELAY_PER_DOT,
       disappearAt: null,
     })),
     nextDelay: dots.length * DELAY_PER_DOT,

@@ -40,7 +40,7 @@ export const useBR = () => {
       };
 
       const visibilityState = isFullyVisible ? 'visible' : 'hidden';
-      visibilityHandlers[visibilityState]();
+      visibilityHandlers[visibilityState]?.();
     },
     {
       onReset: () => cleanupAnimation(animationRef.current),
