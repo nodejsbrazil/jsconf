@@ -28,13 +28,10 @@ export const Footer = () => {
               <Link to='/'>Início</Link>
             </li>
             <li>
-              <Link to='/#benefits'>O que você vai encontrar?</Link>
-            </li>
-            <li>
               <Link to='/#speakers'>Palestrantes</Link>
             </li>
             <li>
-              <Link to='/#team'>Nosso Time</Link>
+              <Link to='/brand'>Identidade Visual</Link>
             </li>
             <li>
               <Link to='/coc'>Código de Conduta</Link>
