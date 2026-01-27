@@ -11,7 +11,6 @@ export default function Index() {
   const { canvasRef } = useBackground({
     intensity: 0.0025,
     zoomSpeed: 0.0005,
-    friction: 0.95,
     starColor: '#073f294f',
   });
 
