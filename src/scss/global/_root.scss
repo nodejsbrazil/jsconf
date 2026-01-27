@@ -1,7 +1,5 @@
 @use 'sass:meta' as *;
 
-@include load-css('reset');
-
 body {
   min-width: 32rem;
   transition: background-color 0.25s ease;
@@ -23,8 +21,8 @@ body {
       animation: fadeIn 0.25s ease-in forwards;
     }
 
-    @include load-css('navbar');
-    @include load-css('footer');
+    @include load-css('../pages/partial/navbar');
+    @include load-css('../pages/partial/footer');
   }
 
   canvas.bg {

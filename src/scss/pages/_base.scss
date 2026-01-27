@@ -80,7 +80,7 @@
         margin: 0;
         padding: 0;
 
-        @include load-css('featured-button');
+        @include load-css('../custom/featured-button');
       }
 
       nav {

@@ -44,5 +44,6 @@ mark {
   text-shadow: none;
 }
 
+@include load-css('global/reset');
 @include load-css('global/animations');
-@include load-css('custom/root');
+@include load-css('global/root');
