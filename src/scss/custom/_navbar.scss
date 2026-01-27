@@ -54,6 +54,8 @@
           }
 
           h2 {
+            @include flex(row, center, flex-start);
+            gap: 0.55rem;
             margin: 0;
             font-family: var(--ifm-font-family-title);
             font-size: 2.6rem;
@@ -64,34 +66,30 @@
               font-size: 2rem;
             }
 
-            &::after {
-              content: '';
-              display: block;
-              width: 100%;
-              height: 0.15rem;
-              margin-bottom: 0.3rem;
-              border-radius: 0.25rem;
-              background-color: #ffffff20;
-            }
-
             span {
               color: var(--ifm-color-main);
+            }
+
+            strong {
+              @include flex(row, center, center);
+              gap: 0.5rem;
+              padding: 0.125rem 0.65rem;
+              font-size: 1.1rem;
+              border-radius: 0.75rem;
+              background-color: var(--ifm-color-main);
+              color: var(--background-color);
             }
           }
 
           small {
             @include flex(row, center, center);
-            font-size: 1rem;
+            font-size: 0.975rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.1rem;
             line-height: normal;
-            opacity: 0.75;
+            opacity: 0.6;
             transition: color 0.25s var(--ease-back-out);
-
-            @media (max-width: 630px) {
-              font-size: 1.1rem;
-            }
           }
         }
 

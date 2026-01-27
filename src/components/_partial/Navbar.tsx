@@ -66,7 +66,7 @@ export const Navbar = () => {
           />
           <div className='group'>
             <h2>
-              JSConf <span>Brasil</span>
+              JSConf <span>Brasil</span> <strong>2026</strong>
             </h2>
             <small>28 NOV 2026 • São Paulo</small>
           </div>
