@@ -47,7 +47,9 @@ const resetPointer = (pointer: Pointer): void => {
   pointer.y = null;
 };
 
-export function useBackground(options: UseBackgroundOptions = {}) {
+export const useBackground = (
+  options: UseBackgroundOptions = Object.create(null)
+) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stateRef = useRef<AnimationState>(createInitialState(options));
   const refsRef = useRef<AnimationRefs>({
@@ -112,4 +114,4 @@ export function useBackground(options: UseBackgroundOptions = {}) {
   }, [handleResize, handleMouseMove, handlePointerLeave]);
 
   return { canvasRef };
-}
+};

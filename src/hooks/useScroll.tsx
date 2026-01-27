@@ -13,11 +13,11 @@ type Options = {
   onReset?: (target: HTMLElement) => void;
 };
 
-export function useScroll(
+export const useScroll = (
   ref: RefObject<HTMLElement | null>,
   cb: (isVisible: boolean, target: HTMLElement) => void,
   options?: Options
-) {
+) => {
   const {
     threshold = 0.1,
     eject = true,
@@ -46,4 +46,4 @@ export function useScroll(
       observer.disconnect();
     };
   }, [ref, ...deps]);
-}
+};

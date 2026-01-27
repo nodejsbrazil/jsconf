@@ -1,4 +1,5 @@
 import { CalendarDays, Tickets } from 'lucide-react';
+import { link } from '@site/src/configs/definitions';
 import { BR } from '../shared/BR';
 import { SafeLink } from '../shared/SafeLink';
 
@@ -28,7 +29,7 @@ export const Home = () => (
       </p>
       <menu>
         <section>
-          <SafeLink to='#' className='btn-split cta'>
+          <SafeLink to={link.tickets} className='btn-split cta'>
             <span className='btn-icon'>
               <Tickets />
             </span>

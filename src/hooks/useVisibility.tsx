@@ -14,11 +14,11 @@ type Options<T extends Element> = {
   onReset?: (target: T) => void;
 };
 
-export function useVisibility<T extends Element>(
+export const useVisibility = <T extends Element>(
   ref: RefObject<T | null>,
   cb: (state: VisibilityState, target: T) => void,
   options?: Options<T>
-) {
+) => {
   const {
     threshold = 0.1,
     eject = false,
@@ -71,4 +71,4 @@ export function useVisibility<T extends Element>(
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [ref, ...deps]);
-}
+};

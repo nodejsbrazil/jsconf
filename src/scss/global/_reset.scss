@@ -13,6 +13,12 @@ svg {
   user-select: none;
 }
 
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
 * {
   box-sizing: border-box;
   line-height: normal;

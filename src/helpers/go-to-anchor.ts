@@ -15,5 +15,7 @@ export const goToAnchor = (id: string): void => {
       left: 0,
       behavior: 'smooth',
     });
-  } catch {}
+  } catch (error) {
+    console.error(error);
+  }
 };

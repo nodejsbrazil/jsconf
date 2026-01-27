@@ -3,7 +3,7 @@ import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import { ExternalLink } from 'lucide-react';
 import { SafeLink } from '@site/src/components/shared/SafeLink';
-import { goToAnchor } from '@site/src/helpers/go-to-anchor';
+import { link } from '@site/src/configs/definitions';
 import { useScrollSpy } from '@site/src/hooks/useScrollSpy';
 import Logo from '../../assets/img/logo.svg';
 
@@ -19,15 +19,15 @@ export const Navbar = () => {
   const navbarNode = useRef<HTMLElement>(null);
   const anchorNode = useRef<HTMLSpanElement>(null);
 
-  useScrollSpy(anchorNode, SECTIONS);
-
   const toTop = (element: Element) => {
     element.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'instant',
+      behavior: 'smooth',
     });
   };
+
+  useScrollSpy(anchorNode, SECTIONS);
 
   useEffect(() => {
     try {
@@ -45,20 +45,22 @@ export const Navbar = () => {
         return;
       }
 
-      const top = anchor.getBoundingClientRect().top + window.scrollY - 50;
+      const top = anchor.getBoundingClientRect().top + doc.scrollTop - 150;
 
       doc.scrollTo({
         top,
         left: 0,
         behavior: 'smooth',
       });
-    } catch {}
+    } catch (error) {
+      console.error(error);
+    }
   }, [location.key]);
 
   return (
     <header ref={navbarNode} className='main-navbar'>
       <div className='content'>
-        <Link className='top' onClick={() => goToAnchor('#home')}>
+        <Link className='top' to='/'>
           <Logo
             className='logo'
             aria-label='Voltar para o topo'
@@ -72,7 +74,7 @@ export const Navbar = () => {
           </div>
         </Link>
         <span ref={anchorNode} id='anchor' />
-        <SafeLink className='tickets' to='#'>
+        <SafeLink className='tickets' to={link.tickets}>
           INGRESSOS <ExternalLink />
         </SafeLink>
       </div>

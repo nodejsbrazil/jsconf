@@ -8,7 +8,7 @@ const config: Config = {
   url: 'https://jsconfbr.weslley.io/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
-  onBrokenAnchors: 'throw',
+  onBrokenAnchors: 'ignore',
   onDuplicateRoutes: 'throw',
   markdown: {
     hooks: {

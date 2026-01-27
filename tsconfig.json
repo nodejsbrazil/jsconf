@@ -17,6 +17,8 @@
     "noUnusedParameters": false,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
+    "noPropertyAccessFromIndexSignature": true,
+    // "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

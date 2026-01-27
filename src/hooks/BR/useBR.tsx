@@ -10,7 +10,7 @@ import { updateCanvasSize } from './canvas';
 import { createInitialState } from './helpers';
 import { AnimationRefs, AnimationState } from './types';
 
-export function useBR() {
+export const useBR = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stateRef = useRef<AnimationState | null>(null);
   const animationRef = useRef<AnimationRefs>({
@@ -48,4 +48,4 @@ export function useBR() {
   );
 
   return { canvasRef };
-}
+};

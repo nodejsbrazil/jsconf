@@ -1,0 +1,134 @@
+.markdown {
+  color: #e0e0e0;
+  line-height: 1.8;
+
+  h1 {
+    font-family: var(--ifm-font-family-title);
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--title-color);
+    margin-bottom: 2.4rem;
+    text-shadow: 0 0.2rem 0.4rem var(--title-shadow-color);
+  }
+
+  h2 {
+    font-family: var(--ifm-font-family-title);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ifm-color-primary);
+    margin-top: 3.2rem;
+    margin-bottom: 1.6rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 0.1rem solid rgba(141, 248, 34, 0.2);
+  }
+
+  h3 {
+    font-family: var(--ifm-font-family-title);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ifm-color-primary-light);
+    margin-top: 2.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  p {
+    margin-bottom: 1.6rem;
+
+    + p {
+      margin-top: 1.6rem;
+    }
+  }
+
+  strong {
+    color: var(--ifm-color-primary-light);
+    font-weight: 600;
+  }
+
+  hr {
+    border: none;
+    height: 0.1rem;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--ifm-color-primary-dark) 50%,
+      transparent
+    );
+    margin: 3.2rem 0;
+    opacity: 0.5;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 2rem;
+    margin-block: 1.6rem;
+
+    li {
+      position: relative;
+      margin-bottom: 0.8rem;
+      padding-left: 1.6rem;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.8rem;
+        width: 0.6rem;
+        height: 0.6rem;
+        background-color: var(--ifm-color-primary);
+        border-radius: 50%;
+      }
+    }
+  }
+
+  ol {
+    list-style: none;
+    padding-left: 2rem;
+    margin-block: 1.6rem;
+    counter-reset: list-counter;
+
+    li {
+      position: relative;
+      margin-bottom: 0.8rem;
+      padding-left: 2.4rem;
+      counter-increment: list-counter;
+
+      &::before {
+        content: counter(list-counter) '.';
+        position: absolute;
+        left: 0;
+        font-weight: 600;
+        color: var(--ifm-color-primary);
+      }
+    }
+  }
+
+  blockquote {
+    position: relative;
+    margin: 2.4rem 0;
+    padding: 1.6rem 2rem;
+    background: linear-gradient(
+      135deg,
+      rgba(141, 248, 34, 0.08),
+      rgba(141, 248, 34, 0.02)
+    );
+    border-left: 0.3rem solid var(--ifm-color-primary);
+    border-radius: 0 0.8rem 0.8rem 0;
+    font-style: italic;
+    color: #b3d0ac;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+    transition: color 0.2s var(--ease-out-quad);
+
+    &:hover {
+      color: var(--ifm-color-primary-light);
+      text-decoration: underline;
+    }
+  }
+}
