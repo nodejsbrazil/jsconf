@@ -92,12 +92,13 @@
 
             .letter:first-child {
               animation: odometer-out 0.4s var(--ease-in-quad) forwards;
-              animation-delay: 1.75s;
+              animation-delay: 1.7s;
+              user-select: none;
             }
 
             .letter:last-child {
               animation: odometer-in 0.4s var(--ease-out-quad) forwards;
-              animation-delay: 1.75s;
+              animation-delay: 1.7s;
             }
           }
         }
