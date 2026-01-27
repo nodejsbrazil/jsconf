@@ -3,23 +3,21 @@ import { getColor } from './animation';
 import { VIEWBOX_WIDTH } from './definitions';
 import { calculateDotProgress, processRemovals } from './helpers';
 
-const drawDot = (
+const drawSquare = (
   context: CanvasRenderingContext2D,
   dot: Dot,
   progress: number,
   scale: number
 ): void => {
   const color = getColor(progress);
+  const size = dot.radius * 2 * scale;
+  const x = dot.centerX * scale - size / 2;
+  const y = dot.centerY * scale - size / 2;
+  const borderRadius = size * 0.2;
 
   context.fillStyle = color;
   context.beginPath();
-  context.arc(
-    dot.centerX * scale,
-    dot.centerY * scale,
-    dot.radius * scale,
-    0,
-    Math.PI * 2
-  );
+  context.roundRect(x, y, size, size, borderRadius);
   context.fill();
 };
 
@@ -54,7 +52,7 @@ export const draw = (
       }
     }
 
-    drawDot(context, dotState.dot, result.progress, scale);
+    drawSquare(context, dotState.dot, result.progress, scale);
   }
 
   processRemovals(state, visibleIndices, visibleCount, elapsed);
