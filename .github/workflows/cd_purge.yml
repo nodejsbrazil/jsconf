@@ -1,17 +1,16 @@
-name: '🧪 CI (Website) — Testing'
+name: '🗑️ CD (Website) — Purge Cache'
 
 on:
-  pull_request:
   workflow_dispatch:
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    name: Test
+    name: Deploy
     steps:
       - name: Actions - Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Actions - Setup Node.js
         uses: actions/setup-node@v6
@@ -20,7 +19,7 @@ jobs:
           node-version: lts/*
 
       - name: Cache Dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
@@ -29,11 +28,8 @@ jobs:
       - name: Installing Dependencies
         run: npm ci
 
-      - name: Checking Types
-        run: npm run typecheck
-
-      - name: Checking Lint
-        run: npm run lint
-
-      - name: Building Site
-        run: npm run build
+      - name: Purge Cache
+        run: npm run purge
+        env:
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_TOKEN: ${{ secrets.CF_TOKEN }}
