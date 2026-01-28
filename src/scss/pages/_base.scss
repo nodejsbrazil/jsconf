@@ -27,7 +27,7 @@
       gap: 1rem;
     }
 
-    h1 {
+    .title {
       @include flex(row, center, center);
       gap: 1.5rem;
       margin-bottom: 0;
@@ -42,14 +42,14 @@
         display: inline-block;
       }
 
-      svg {
+      .icon {
         width: 2.8rem;
         height: 2.8rem;
         color: var(--ifm-color-primary);
       }
     }
 
-    small {
+    .subtitle {
       margin-top: 0.75rem;
       font-size: 1.6rem;
       font-weight: 400;

@@ -13,10 +13,10 @@ export const Speakers = () => {
   return (
     <main id='speakers'>
       <div className='content' ref={ref}>
-        <h1>
-          <MicVocal /> Palestrantes
+        <h1 className='title'>
+          <MicVocal className='icon' /> Palestrantes
         </h1>
-        <small>
+        <small className='subtitle'>
           Especialistas internacionais e talentos locais compartilhando o futuro
           da web.
         </small>

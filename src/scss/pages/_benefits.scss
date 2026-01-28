@@ -46,7 +46,7 @@
           top: 4rem;
           opacity: 0;
 
-          header {
+          .icon {
             @include flex(column, center, center);
             transition: transform 0.35s var(--ease-bounce-strong);
 
@@ -57,7 +57,7 @@
             }
           }
 
-          h3 {
+          .title {
             font-family: var(--ifm-font-family-title);
             font-size: 2rem;
             font-weight: 800;
@@ -66,7 +66,7 @@
             color: #fff;
           }
 
-          p {
+          .description {
             font-size: 1.5rem;
             font-weight: 500;
             line-height: 1.5;
@@ -112,19 +112,19 @@
             padding: 2rem 1.5rem;
             gap: 5rem;
 
-            header {
+            .icon {
               svg {
                 width: 2.6rem;
                 height: 2.6rem;
               }
             }
 
-            h3 {
+            .title {
               font-size: 1.5rem;
               margin-top: 1.5rem;
             }
 
-            p {
+            .description {
               font-size: 1.2rem;
               margin-top: 1rem;
             }
@@ -133,19 +133,19 @@
           @media (max-width: 429px) {
             padding: 3rem 2.5rem;
 
-            header {
+            .icon {
               svg {
                 width: 3.2rem;
                 height: 3.2rem;
               }
             }
 
-            h3 {
+            .title {
               font-size: 1.5rem;
               margin-top: 2rem;
             }
 
-            p {
+            .description {
               font-size: 1.4rem;
               margin-top: 2rem;
             }
@@ -154,7 +154,7 @@
           &:hover {
             transform: translateY(-0.5rem);
 
-            header {
+            .icon {
               transform: scale(1.125);
             }
 
@@ -162,7 +162,7 @@
               &:hover {
                 transform: none;
 
-                header {
+                .icon {
                   transform: none;
                 }
               }

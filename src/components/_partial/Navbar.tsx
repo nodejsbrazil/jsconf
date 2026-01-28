@@ -82,11 +82,12 @@ export const Navbar = () => {
             title='Voltar para o topo'
           />
           <div className='group'>
-            <h2>
-              JSConf <span>Brasil</span> <strong>2026</strong>
+            <h2 className='title'>
+              JSConf <span className='highlight'>Brasil</span>{' '}
+              <strong className='badge'>2026</strong>
             </h2>
-            <small>
-              28 NOV 2026<span> • São Paulo</span>
+            <small className='date'>
+              28 NOV 2026<span className='location'> • São Paulo</span>
             </small>
           </div>
         </Link>
@@ -114,19 +115,19 @@ export const Navbar = () => {
             onClick={openMenu}
             aria-label='Abrir menu'
           >
-            <Menu />
+            <Menu className='icon' />
           </button>
         </div>
       </div>
       <div ref={menuNode} className='mobile-menu'>
-        <header>
+        <header className='header'>
           <Link className='brand' to='/' onClick={closeMenu}>
             <Logo className='logo' />
             <div className='group'>
-              <h2>
-                JSConf <span>Brasil</span>
+              <h2 className='title'>
+                JSConf <span className='highlight'>Brasil</span>
               </h2>
-              <small>28 NOV 2026</small>
+              <small className='date'>28 NOV 2026</small>
             </div>
           </Link>
           <button
@@ -135,10 +136,10 @@ export const Navbar = () => {
             onClick={closeMenu}
             aria-label='Fechar menu'
           >
-            <X />
+            <X className='icon' />
           </button>
         </header>
-        <nav>
+        <nav className='nav'>
           {SECTIONS.map(({ id, label }) => (
             <Link
               key={id}

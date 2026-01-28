@@ -65,7 +65,7 @@ const benefits: CardProps[] = [
 export const Benefits = () => (
   <main id='benefits'>
     <div className='content'>
-      <h1>O que você vai encontrar?</h1>
+      <h1 className='title'>O que você vai encontrar?</h1>
       <Cards items={benefits} />
     </div>
   </main>

@@ -22,9 +22,9 @@ const Card: FC<CardProps> = ({ icon, title, description }) => {
   return (
     <div className={`card`} ref={ref}>
       <div className='containter'>
-        <header>{icon}</header>
-        <h3>{title}</h3>
-        <p>{description}</p>
+        <header className='icon'>{icon}</header>
+        <h3 className='title'>{title}</h3>
+        <p className='description'>{description}</p>
       </div>
     </div>
   );

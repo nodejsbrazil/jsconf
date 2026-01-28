@@ -13,10 +13,10 @@ export const Team = () => {
   return (
     <main id='team'>
       <div className='content' ref={ref}>
-        <h1>
-          <Boxes /> Nosso Time
+        <h1 className='title'>
+          <Boxes className='icon' /> Nosso Time
         </h1>
-        <small>
+        <small className='subtitle'>
           Especialistas internacionais e talentos locais compartilhando o futuro
           da web.
         </small>

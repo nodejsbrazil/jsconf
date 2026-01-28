@@ -41,8 +41,8 @@ export default () => {
       description='Baixe os arquivos oficiais e consulte os guias de estilo para representar corretamente a JSConf Brasil 2026'
     >
       <div className='page-content brand-page'>
-        <header>
-          <h1>Identidade Visual</h1>
+        <header className='header'>
+          <h1 className='title'>Identidade Visual</h1>
           <p className='intro'>
             Baixe os arquivos oficiais e consulte os guias de estilo para
             representar corretamente a JSConf Brasil 2026.
@@ -50,7 +50,7 @@ export default () => {
         </header>
 
         <section className='logo'>
-          <h2>Logotipo</h2>
+          <h2 className='section-title'>Logotipo</h2>
           <div className='grid'>
             <div className='container dark'>
               <Parallax tiltMaxAngleX={5} tiltMaxAngleY={5}>
@@ -69,7 +69,7 @@ export default () => {
               className='download'
               onClick={() => download('svg')}
             >
-              <Download />
+              <Download className='icon' />
               Baixar SVG
             </button>
             <button
@@ -77,14 +77,14 @@ export default () => {
               className='download'
               onClick={() => download('png')}
             >
-              <Download />
+              <Download className='icon' />
               Baixar PNG
             </button>
           </div>
         </section>
 
         <section className='colors'>
-          <h2>Cores</h2>
+          <h2 className='section-title'>Cores</h2>
           <div className='grid'>
             {colors.map((color) => (
               <button
@@ -98,7 +98,11 @@ export default () => {
                   <div className='name'>{color.name}</div>
                   <div className='hex'>
                     {color.hex}
-                    {copiedColor === color.hex ? <Check /> : <Copy />}
+                    {copiedColor === color.hex ? (
+                      <Check className='icon' />
+                    ) : (
+                      <Copy className='icon' />
+                    )}
                   </div>
                 </div>
               </button>
@@ -107,11 +111,11 @@ export default () => {
         </section>
 
         <section className='guidelines'>
-          <h2>Guias de Uso</h2>
+          <h2 className='section-title'>Guias de Uso</h2>
           <div className='grid'>
             <div className='card do'>
-              <h3>
-                <CircleCheck />
+              <h3 className='title'>
+                <CircleCheck className='icon' />
                 Correto
               </h3>
               <ul>
@@ -122,8 +126,8 @@ export default () => {
               </ul>
             </div>
             <div className='card dont'>
-              <h3>
-                <CircleX />
+              <h3 className='title'>
+                <CircleX className='icon' />
                 Evite
               </h3>
               <ul>

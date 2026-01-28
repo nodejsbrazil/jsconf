@@ -44,10 +44,10 @@ export const Person: FC<MemberProps> = ({
 
   return (
     <section ref={ref} className='person'>
-      <header>
-        <img src={img} alt={`Foto (${name})`} />
+      <header className='photo'>
+        <img className='image' src={img} alt={`Foto (${name})`} />
         {social && (
-          <footer>
+          <footer className='social'>
             {social.linkedin && (
               <SafeLink
                 to={`https://linkedin.com/in/${social.linkedin.trim()}/`}
@@ -89,9 +89,9 @@ export const Person: FC<MemberProps> = ({
           </footer>
         )}
       </header>
-      <main>
-        <header>
-          <h3>{name.trim()}</h3>
+      <main className='info'>
+        <header className='details'>
+          <h3 className='name'>{name.trim()}</h3>
           {typeof position === 'string' && (
             <h4 className='position'>{position.trim()}</h4>
           )}
@@ -101,7 +101,7 @@ export const Person: FC<MemberProps> = ({
             </h5>
           )}
         </header>
-        <main>
+        <main className='content'>
           {typeof bio === 'string' && <p className='bio'>{bio.trim()}</p>}
         </main>
       </main>

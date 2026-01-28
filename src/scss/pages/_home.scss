@@ -60,14 +60,14 @@
         }
       }
 
-      & > h1 {
+      & > .title {
         font-size: 6rem;
         text-shadow: 0 0 5rem rgb(0, 0, 0);
         perspective: 75rem;
         opacity: 0;
         animation: fadeIn 1s var(--ease-out-quad) forwards;
 
-        span {
+        .highlight {
           position: relative;
           display: inline-block;
           color: var(--ifm-color-main);
@@ -105,7 +105,7 @@
         }
       }
 
-      & > small {
+      & > .date {
         @include flex(row, center, center);
         gap: 0.75rem;
         transform: translateY(-1.5rem);
@@ -117,7 +117,7 @@
         text-shadow: 0 0 5rem rgb(0, 0, 0);
         animation: fadeIn 1.5s var(--ease-out-quad) forwards;
 
-        svg {
+        .icon {
           width: 2rem;
           height: 2rem;
         }
@@ -125,14 +125,14 @@
         @media (max-width: 630px) {
           font-size: 1.4rem;
 
-          svg {
+          .icon {
             width: 1.4rem;
             height: 1.4rem;
           }
         }
       }
 
-      & > p {
+      & > .description {
         font-size: 2rem;
         font-weight: 600;
         text-shadow: 0 0 5rem rgb(0, 0, 0);
@@ -143,21 +143,21 @@
         }
       }
 
-      & > footer {
+      & > .credits {
         @include flex(column, center, center);
         gap: 1.5rem;
         margin-top: 2.5rem;
         pointer-events: none;
         animation: fadeIn 1.5s var(--ease-out-quad) forwards;
 
-        span {
+        .label {
           font-size: 1.3rem;
           font-weight: 600;
           text-shadow: 0 0 5rem rgb(0, 0, 0);
           opacity: 0.75;
         }
 
-        img {
+        .logo {
           height: 3.2rem;
           pointer-events: none;
           filter: drop-shadow(0 0 2.5rem rgba(0, 0, 0, 0.75));

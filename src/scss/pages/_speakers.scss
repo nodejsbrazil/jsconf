@@ -13,7 +13,7 @@
         animation: fadeUp 0.5s var(--ease-bounce-strong) forwards;
       }
 
-      & > small {
+      & > .subtitle {
         margin-top: -2.5rem;
       }
 
@@ -52,14 +52,14 @@
             animation: fadeUp 1.5s var(--ease-back-out-soft) forwards;
           }
 
-          & > header {
+          & > .photo {
             position: relative;
             width: 100%;
             height: 25rem;
             overflow: hidden;
             box-shadow: 0 0.5rem 1rem #0000004e;
 
-            img {
+            .image {
               width: 100%;
               height: 100%;
               object-fit: cover;
@@ -70,7 +70,7 @@
               transition: transform 0.5s var(--ease-back-out-soft);
             }
 
-            & > footer {
+            & > .social {
               position: absolute;
               bottom: 1rem;
               left: 3rem;
@@ -130,21 +130,21 @@
             }
           }
 
-          & > main {
+          & > .info {
             @include flex(column, center, center);
             padding: 1.5rem 2rem;
 
-            header {
+            .details {
               width: 100%;
 
-              h3,
-              h4,
-              h5 {
+              .name,
+              .position,
+              .company {
                 width: 100%;
                 margin-bottom: 0;
               }
 
-              h3 {
+              .name {
                 font-family: var(--ifm-font-family-title);
                 font-size: 2.4rem;
                 font-weight: 600;
@@ -175,7 +175,7 @@
               }
             }
 
-            main {
+            .content {
               margin-top: 2rem;
 
               .bio {
@@ -195,15 +195,15 @@
             border-color: var(--ifm-color-primary-darker);
             transform: translateY(-0.5rem);
 
-            h3 {
+            .name {
               color: var(--ifm-color-primary);
             }
 
-            img {
+            .image {
               transform: scale(1.05);
             }
 
-            footer {
+            .social {
               gap: 1.7rem;
               background-color: #00000070;
             }
@@ -213,11 +213,11 @@
                 transform: none;
                 border-color: #022514;
 
-                img {
+                .image {
                   transform: none;
                 }
 
-                footer {
+                .social {
                   gap: 1.5rem;
                 }
               }

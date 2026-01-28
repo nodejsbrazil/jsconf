@@ -6,23 +6,23 @@ export const Footer = () => {
   return (
     <footer className='main-footer'>
       <div className='content'>
-        <aside>
-          <h2>
+        <aside className='about'>
+          <h2 className='title'>
             <Logo
               className='logo'
               aria-label='Voltar para o topo'
               title='Voltar para o topo'
             />{' '}
-            JSConf <span>Brasil</span>
+            JSConf <span className='highlight'>Brasil</span>
           </h2>
-          <p>
+          <p className='description'>
             Feito pela e para a comunidade. A JSConf Brasil é um evento sem fins
             lucrativos dedicado a impulsionar o desenvolvimento web e fortalecer
             a comunidade JavaScript no nosso país.
           </p>
         </aside>
-        <aside>
-          <h3>Evento</h3>
+        <aside className='links'>
+          <h3 className='title'>Evento</h3>
           <ul>
             <li>
               <Link to='/'>Início</Link>
