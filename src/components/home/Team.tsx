@@ -3,7 +3,6 @@ import { Boxes } from 'lucide-react';
 import { useScroll } from '../../hooks/useScroll';
 import { Person } from '../shared/Person';
 
-
 export const Team = () => {
   const ref = useRef<HTMLDivElement>(null);
 
