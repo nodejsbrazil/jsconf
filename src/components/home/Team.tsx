@@ -3,6 +3,7 @@ import { Boxes } from 'lucide-react';
 import { useScroll } from '../../hooks/useScroll';
 import { Person } from '../shared/Person';
 
+
 export const Team = () => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -33,6 +34,57 @@ export const Team = () => {
               linkedin: 'erickwendel',
               github: 'erickwendel',
               website: 'https://ew.academy/',
+            }}
+          />
+          <Person
+            name='Ana Neri'
+            img='/img/speakers/ana-neri.webp'
+            bio='Ana Neri é dev sênior que atua em empresas do vale do silício atualmente na Clutch desenvolvendo o futuro das credit unios, é líder da NodeBR e criadora de conteúdo tech'
+            position='Senior Software Engineer'
+            company='Clutch'
+            social={{
+              instagram: 'ananeridev',
+              youtube: '@AnaNeriDev',
+              linkedin: 'anabeatrizdev',
+              github: 'ananeridev',
+              website: 'https://ananeri.dev/',
+            }}
+          />
+          <Person
+            name='Weslley'
+            img='/img/speakers/wells.webp'
+            bio='Wells criou o melhor test runner o poku e é o mantenedor do mySQL'
+            position='Senior Software Engineer'
+            company='Poku'
+            social={{
+              instagram: '@wellwelwel',
+              youtube: '@weslleyio',
+              linkedin: 'wellwelwel',
+              github: 'wellwelwel',
+              website: 'https://weslley.io/',
+            }}
+          />
+          <Person
+            name='Lojhan'
+            img='/img/speakers/lojhan.webp'
+            bio='He is DEV, co-founder and CEO of Meli'
+            position='Senior Software Engineer'
+            company='MELI'
+            social={{
+              instagram: 'lojhan.dev',
+              linkedin: 'lojhan',
+              github: 'Lojhan',
+              website: 'https://www.lojhan.com/en-US',
+            }}
+          />
+          <Person
+            name='Micaele Magalhães'
+            img='/img/speakers/mi.webp'
+            bio='Micaele é UX Designer, especialista em experiência do usuário e faz as ilustrações mais lindas (e sem IA)'
+            position='Senior UX Designer e Ilustradora profissional'
+            company='Clutch'
+            social={{
+              instagram: 'https://www.instagram.com/micaele_magalhaes/',
             }}
           />
         </section>
