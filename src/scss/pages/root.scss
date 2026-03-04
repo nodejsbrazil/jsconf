@@ -3,6 +3,7 @@
 @use 'home' as *;
 @use 'speakers' as *;
 @use 'benefits' as *;
+@use 'location' as *;
 
 // 404
 .hero__title {
@@ -44,6 +45,7 @@
       @include home;
       @include benefits;
       @include speakers;
+      @include location;
     }
   }
 }

@@ -17,6 +17,7 @@ const SECTIONS: {
   { id: 'home', label: 'Início', showInDesktop: false },
   { id: 'benefits', label: 'O que você vai encontrar?', priority: 1 },
   { id: 'speakers', label: 'Palestrantes', priority: 2 },
+  { id: 'location', label: 'Localização', priority: 1 },
   { id: 'team', label: 'Nosso Time', priority: 2 },
 ];
 
@@ -104,6 +105,9 @@ export const Navbar = () => {
               </Link>
             )
           )}
+          <Link to='/sponsors' data-priority={1}>
+            Patrocinadores
+          </Link>
         </nav>
         <div className='actions'>
           <SafeLink className='tickets' to={link.tickets}>
@@ -149,6 +153,9 @@ export const Navbar = () => {
               {label}
             </Link>
           ))}
+          <Link to='/sponsors' onClick={closeMenu}>
+            Patrocinadores
+          </Link>
         </nav>
         <SafeLink className='tickets' to={link.tickets}>
           INGRESSOS <ExternalLink />

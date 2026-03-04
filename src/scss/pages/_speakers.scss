@@ -17,6 +17,37 @@
         margin-top: -2.5rem;
       }
 
+      .coming-soon {
+        @include flex(column, center, center);
+        gap: 1.5rem;
+        padding: 6rem 3rem;
+        border: 0.15rem dashed rgba(141, 248, 34, 0.25);
+        border-radius: 1.5rem;
+        background: rgba(31, 33, 32, 0.5);
+        max-width: 50rem;
+
+        .coming-soon-icon {
+          width: 5rem;
+          height: 5rem;
+          color: var(--ifm-color-primary);
+          opacity: 0.8;
+        }
+
+        .coming-soon-title {
+          font-family: var(--ifm-font-family-title);
+          font-size: 3rem;
+          font-weight: 700;
+          color: var(--ifm-color-primary);
+          margin: 0;
+        }
+
+        .coming-soon-text {
+          font-size: 1.5rem;
+          opacity: 0.7;
+          margin: 0;
+        }
+      }
+
       .speakers {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
