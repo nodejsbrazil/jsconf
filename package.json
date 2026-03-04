@@ -6,7 +6,9 @@
     "docusaurus": "docusaurus",
     "prestart": "tsx tools/host.ts",
     "start": "docusaurus start --host 0.0.0.0",
-    "build": "docusaurus build",
+    "start:en": "docusaurus start --host 0.0.0.0 --locale en-US",
+    "start:es": "docusaurus start --host 0.0.0.0 --locale es-419",
+    "build": "docusaurus build --all-locales",
     "swizzle": "docusaurus swizzle",
     "clear": "docusaurus clear",
     "reset": "(npm run clear || true) && rm -rf node_modules package-lock.json && npm i && npm run update",
@@ -20,7 +22,8 @@
     "update": "pu && npm i && npm update && (npm audit fix || true)",
     "postupdate": "npm run lint:fix",
     "purge": "tsx --env-file-if-exists=.env tools/purge-cache.mts",
-    "test": "npm run typecheck && npm run lint && npm run build"
+    "test": "npm run typecheck && npm run lint && npm run build",
+    "test:unit": "poku"
   },
   "devDependencies": {
     "@docusaurus/core": "^3.9.2",

@@ -1,0 +1,358 @@
+{
+  "navbar.section.home": {
+    "message": "Início",
+    "description": "Navbar home section link"
+  },
+  "navbar.section.benefits": {
+    "message": "O que você vai encontrar?",
+    "description": "Navbar benefits section link"
+  },
+  "navbar.section.speakers": {
+    "message": "Palestrantes",
+    "description": "Navbar speakers section link"
+  },
+  "navbar.section.location": {
+    "message": "Localização",
+    "description": "Navbar location section link"
+  },
+  "navbar.section.team": {
+    "message": "Nosso Time",
+    "description": "Navbar team section link"
+  },
+  "navbar.section.sponsors": {
+    "message": "Patrocinadores",
+    "description": "Navbar sponsors link"
+  },
+  "navbar.tickets": {
+    "message": "INGRESSOS",
+    "description": "Tickets CTA button"
+  },
+  "navbar.aria.openMenu": {
+    "message": "Abrir menu",
+    "description": "Aria label for hamburger button"
+  },
+  "navbar.aria.closeMenu": {
+    "message": "Fechar menu",
+    "description": "Aria label for close menu button"
+  },
+  "navbar.aria.logo": {
+    "message": "Voltar para o topo",
+    "description": "Aria label for logo link"
+  },
+  "navbar.locale.label": {
+    "message": "Idioma",
+    "description": "Aria label for locale switcher"
+  },
+  "footer.description": {
+    "message": "Feito pela e para a comunidade. A JSConf Brasil é um evento sem fins lucrativos dedicado a impulsionar o desenvolvimento web e fortalecer a comunidade JavaScript no nosso país.",
+    "description": "Footer about description"
+  },
+  "footer.event": {
+    "message": "Evento",
+    "description": "Footer event section heading"
+  },
+  "footer.copyright": {
+    "message": "© 2026 JSConf Brasil. Realização",
+    "description": "Footer copyright line prefix"
+  },
+  "home.date": {
+    "message": "28 de novembro, 2026 • São Paulo",
+    "description": "Event date and city shown on home"
+  },
+  "home.description": {
+    "message": "Junte-se à comunidade de desenvolvedores em um dia repleto de código, inovação e networking de alta qualidade.",
+    "description": "Home section main description"
+  },
+  "home.cta.tickets": {
+    "message": "COMPRAR INGRESSOS",
+    "description": "Home tickets CTA button text"
+  },
+  "home.credits.label": {
+    "message": "Realização",
+    "description": "Home credits label"
+  },
+  "benefits.title": {
+    "message": "O que você vai encontrar?",
+    "description": "Benefits section title"
+  },
+  "benefits.quality.title": {
+    "message": "Conteúdo de Qualidade",
+    "description": "Benefits quality card title"
+  },
+  "benefits.quality.description": {
+    "message": "Palestras e workshops com especialistas do setor, últimas novidades e tendências em desenvolvimento",
+    "description": "Benefits quality card description"
+  },
+  "benefits.international.title": {
+    "message": "Palestras Internacionais",
+    "description": "Benefits international talks card title"
+  },
+  "benefits.international.description": {
+    "message": "Convidados renomados mundialmente compartilhando conhecimento e experiências",
+    "description": "Benefits international talks card description"
+  },
+  "benefits.translators.title": {
+    "message": "Tradutores",
+    "description": "Benefits translators card title"
+  },
+  "benefits.translators.description": {
+    "message": "Equipe dedicada para garantir que o conteúdo seja acessível a todos, independentemente do idioma do palestrante",
+    "description": "Benefits translators card description"
+  },
+  "benefits.networking.title": {
+    "message": "Networking",
+    "description": "Benefits networking card title"
+  },
+  "benefits.networking.description": {
+    "message": "Conheça profissionais da área e amplie sua rede de contatos e possibilidades de colaboração",
+    "description": "Benefits networking card description"
+  },
+  "benefits.career.title": {
+    "message": "Oportunidades de Carreira",
+    "description": "Benefits career card title"
+  },
+  "benefits.career.description": {
+    "message": "Empresas parceiras em busca de talentos, com oportunidades reais de emprego e conexões diretas com recrutadores",
+    "description": "Benefits career card description"
+  },
+  "benefits.workshops.title": {
+    "message": "Workshops Hands-on",
+    "description": "Benefits workshops card title"
+  },
+  "benefits.workshops.description": {
+    "message": "Sessões práticas onde você coloca a mão na massa, aprendendo tecnologias e ferramentas de forma interativa e aplicada",
+    "description": "Benefits workshops card description"
+  },
+  "benefits.certificate.title": {
+    "message": "Certificado de Participação",
+    "description": "Benefits certificate card title"
+  },
+  "benefits.certificate.description": {
+    "message": "Receba um certificado oficial do evento para comprovar sua participação e agregar valor ao seu currículo profissional",
+    "description": "Benefits certificate card description"
+  },
+  "benefits.prizes.title": {
+    "message": "Brindes e Sorteios",
+    "description": "Benefits prizes card title"
+  },
+  "benefits.prizes.description": {
+    "message": "Kits exclusivos, camisetas, adesivos e sorteios de prêmios oferecidos pelos patrocinadores e pela organização do evento",
+    "description": "Benefits prizes card description"
+  },
+  "speakers.title": {
+    "message": "Palestrantes",
+    "description": "Speakers section title"
+  },
+  "speakers.subtitle": {
+    "message": "Especialistas internacionais e talentos locais compartilhando o futuro da web.",
+    "description": "Speakers section subtitle"
+  },
+  "speakers.comingSoon.title": {
+    "message": "Em Breve",
+    "description": "Speakers coming soon title"
+  },
+  "speakers.comingSoon.text": {
+    "message": "Os palestrantes serão anunciados em breve. Fique ligado!",
+    "description": "Speakers coming soon body text"
+  },
+  "location.title": {
+    "message": "Localização",
+    "description": "Location section title"
+  },
+  "location.subtitle": {
+    "message": "Saiba onde será a JSConf Brasil 2026.",
+    "description": "Location section subtitle"
+  },
+  "location.venue.address": {
+    "message": "Universidade Municipal de São Caetano do Sul",
+    "description": "Venue full address name"
+  },
+  "location.venue.city": {
+    "message": "São Caetano do Sul, SP",
+    "description": "Venue city and state"
+  },
+  "location.venue.date": {
+    "message": "28 de novembro de 2026",
+    "description": "Venue event date"
+  },
+  "location.venue.imgAlt": {
+    "message": "USCS - Universidade Municipal de São Caetano do Sul",
+    "description": "Venue image alt text"
+  },
+  "team.title": {
+    "message": "Nosso Time",
+    "description": "Team section title"
+  },
+  "team.subtitle": {
+    "message": "Especialistas internacionais e talentos locais compartilhando o futuro da web.",
+    "description": "Team section subtitle"
+  },
+  "sponsors.pageTitle": {
+    "message": "Patrocinadores",
+    "description": "Sponsors page title"
+  },
+  "sponsors.pageDescription": {
+    "message": "Apoie a JSConf Brasil 2026 e conecte sua marca à maior conferência de JavaScript do mundo",
+    "description": "Sponsors page meta description"
+  },
+  "sponsors.hero.title": {
+    "message": "Seja um Patrocinador",
+    "description": "Sponsors hero heading"
+  },
+  "sponsors.hero.intro": {
+    "message": "Apoie a JSConf Brasil 2026 e conecte sua marca à maior comunidade de JavaScript do país.",
+    "description": "Sponsors hero intro paragraph"
+  },
+  "sponsors.why.title": {
+    "message": "Por que apoiar?",
+    "description": "Sponsors why-support section heading"
+  },
+  "sponsors.visibility.title": {
+    "message": "Visibilidade",
+    "description": "Sponsors visibility card title"
+  },
+  "sponsors.visibility.text": {
+    "message": "Apresente sua empresa, produtos e oportunidades de emprego para centenas de desenvolvedores engajados.",
+    "description": "Sponsors visibility card body"
+  },
+  "sponsors.community.title": {
+    "message": "Comunidade",
+    "description": "Sponsors community card title"
+  },
+  "sponsors.community.text": {
+    "message": "Contribua com um evento sem fins lucrativos que fortalece o ecossistema JavaScript e Node.js no Brasil.",
+    "description": "Sponsors community card body"
+  },
+  "sponsors.benefits.title": {
+    "message": "O que você ganha",
+    "description": "Sponsors benefits section heading"
+  },
+  "sponsors.benefits.item1": {
+    "message": "Espaço de 10 minutos para apresentar sua empresa",
+    "description": "Sponsors benefit item 1"
+  },
+  "sponsors.benefits.item2": {
+    "message": "Logo e links divulgados em nossos canais oficiais",
+    "description": "Sponsors benefit item 2"
+  },
+  "sponsors.benefits.item3": {
+    "message": "Compartilhamento com toda a nossa base de contatos",
+    "description": "Sponsors benefit item 3"
+  },
+  "sponsors.benefits.item4": {
+    "message": "Networking direto com a comunidade de desenvolvedores",
+    "description": "Sponsors benefit item 4"
+  },
+  "sponsors.cta.title": {
+    "message": "Quer apoiar a JSConf Brasil 2026?",
+    "description": "Sponsors CTA section heading"
+  },
+  "sponsors.cta.text": {
+    "message": "Preencha o formulário e nossa equipe entrará em contato.",
+    "description": "Sponsors CTA body"
+  },
+  "sponsors.cta.button": {
+    "message": "QUERO SER PATROCINADOR",
+    "description": "Sponsors CTA button label"
+  },
+  "brand.pageTitle": {
+    "message": "Identidade Visual",
+    "description": "Brand page title"
+  },
+  "brand.pageDescription": {
+    "message": "Baixe os arquivos oficiais e consulte os guias de estilo para representar corretamente a JSConf Brasil 2026",
+    "description": "Brand page meta description"
+  },
+  "brand.hero.title": {
+    "message": "Identidade Visual",
+    "description": "Brand page hero heading"
+  },
+  "brand.hero.intro": {
+    "message": "Baixe os arquivos oficiais e consulte os guias de estilo para representar corretamente a JSConf Brasil 2026.",
+    "description": "Brand page hero intro"
+  },
+  "brand.logo.title": {
+    "message": "Logotipo",
+    "description": "Brand logo section title"
+  },
+  "brand.download.svg": {
+    "message": "Baixar SVG",
+    "description": "Download SVG button"
+  },
+  "brand.download.png": {
+    "message": "Baixar PNG",
+    "description": "Download PNG button"
+  },
+  "brand.colors.title": {
+    "message": "Cores",
+    "description": "Brand colors section title"
+  },
+  "brand.color.green": {
+    "message": "Verde",
+    "description": "Green color name"
+  },
+  "brand.color.yellow": {
+    "message": "Amarelo",
+    "description": "Yellow color name"
+  },
+  "brand.color.blue": {
+    "message": "Azul",
+    "description": "Blue color name"
+  },
+  "brand.color.white": {
+    "message": "Branco",
+    "description": "White color name"
+  },
+  "brand.guidelines.title": {
+    "message": "Guias de Uso",
+    "description": "Brand guidelines section title"
+  },
+  "brand.correct.title": {
+    "message": "Correto",
+    "description": "Brand do section title"
+  },
+  "brand.correct.item1": {
+    "message": "Mantenha espaço livre ao redor do logo",
+    "description": "Brand correct item 1"
+  },
+  "brand.correct.item2": {
+    "message": "Use sobre fundos que garantam contraste",
+    "description": "Brand correct item 2"
+  },
+  "brand.correct.item3": {
+    "message": "Mantenha as proporções originais",
+    "description": "Brand correct item 3"
+  },
+  "brand.correct.item4": {
+    "message": "Use as cores oficiais da paleta",
+    "description": "Brand correct item 4"
+  },
+  "brand.avoid.title": {
+    "message": "Evite",
+    "description": "Brand avoid section title"
+  },
+  "brand.avoid.item1": {
+    "message": "Alterar as cores do logo",
+    "description": "Brand avoid item 1"
+  },
+  "brand.avoid.item2": {
+    "message": "Distorcer ou rotacionar o logo",
+    "description": "Brand avoid item 2"
+  },
+  "brand.avoid.item3": {
+    "message": "Adicionar efeitos como sombras ou brilhos",
+    "description": "Brand avoid item 3"
+  },
+  "brand.avoid.item4": {
+    "message": "Usar o logo em tamanhos muito pequenos",
+    "description": "Brand avoid item 4"
+  },
+  "coc.pageTitle": {
+    "message": "Código de Conduta",
+    "description": "CoC page title"
+  },
+  "coc.pageDescription": {
+    "message": "Código de Conduta da JSConf Brasil",
+    "description": "CoC page meta description"
+  }
+}

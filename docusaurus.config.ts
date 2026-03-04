@@ -17,7 +17,17 @@ const config: Config = {
   },
   i18n: {
     defaultLocale: 'pt-BR',
-    locales: ['pt-BR'],
+    locales: ['pt-BR', 'en-US', 'es-419'],
+    localeConfigs: {
+      'en-US': {
+        label: 'English',
+        path: 'en-US',
+      },
+      'es-419': {
+        label: 'Español',
+        path: 'es-419',
+      },
+    },
   },
   presets: [
     [

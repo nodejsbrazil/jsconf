@@ -219,6 +219,28 @@
       @include flex(row, center, center);
       gap: 1rem;
 
+      .locale-switcher {
+        @include flex(row, center, center);
+        gap: 0.4rem;
+        font-family: var(--ifm-font-family-title);
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.05rem;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        .icon {
+          width: 1.2rem;
+          height: 1.2rem;
+        }
+      }
+
       .hamburger {
         display: none;
         background: transparent;

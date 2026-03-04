@@ -1,31 +1,72 @@
 import { useCallback, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
-import { ExternalLink, Menu, X } from 'lucide-react';
+import { translate } from '@docusaurus/Translate';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { ExternalLink, Globe, Menu, X } from 'lucide-react';
 import { SafeLink } from '@site/src/components/shared/SafeLink';
 import { link } from '@site/src/configs/definitions';
+import { useLocalePath } from '@site/src/hooks/useLocalePath';
 import { useScrollSpy } from '@site/src/hooks/useScrollSpy';
 import Logo from '../../assets/img/logo.svg';
 
-const SECTIONS: {
+type Section = {
   id: string;
   label: string;
   /** No priority: hides first, 1: hides later, 2: hides last */
   priority?: 1 | 2;
   showInDesktop?: boolean;
-}[] = [
-  { id: 'home', label: 'Início', showInDesktop: false },
-  { id: 'benefits', label: 'O que você vai encontrar?', priority: 1 },
-  { id: 'speakers', label: 'Palestrantes', priority: 2 },
-  { id: 'location', label: 'Localização', priority: 1 },
-  { id: 'team', label: 'Nosso Time', priority: 2 },
-];
+};
 
 export const Navbar = () => {
   const location = useLocation();
+  const { i18n } = useDocusaurusContext();
+  const { currentLocale, locales, localeConfigs } = i18n;
   const navbarNode = useRef<HTMLElement>(null);
   const menuNode = useRef<HTMLDivElement>(null);
+
+  const SECTIONS: Section[] = [
+    {
+      id: 'home',
+      label: translate({ id: 'navbar.section.home', message: 'Início' }),
+      showInDesktop: false,
+    },
+    {
+      id: 'benefits',
+      label: translate({
+        id: 'navbar.section.benefits',
+        message: 'O que você vai encontrar?',
+      }),
+      priority: 1,
+    },
+    {
+      id: 'speakers',
+      label: translate({
+        id: 'navbar.section.speakers',
+        message: 'Palestrantes',
+      }),
+      priority: 2,
+    },
+    {
+      id: 'location',
+      label: translate({
+        id: 'navbar.section.location',
+        message: 'Localização',
+      }),
+      priority: 1,
+    },
+    {
+      id: 'team',
+      label: translate({ id: 'navbar.section.team', message: 'Nosso Time' }),
+      priority: 2,
+    },
+  ];
+
   const activeSection = useScrollSpy(SECTIONS);
+
+  const { localePath, getLocaleUrl } = useLocalePath();
+
+  const otherLocales = locales.filter((l) => l !== currentLocale);
 
   const openMenu = useCallback(() => {
     menuNode.current?.classList.add('open');
@@ -37,13 +78,13 @@ export const Navbar = () => {
     document.body.classList.remove('menu-open');
   }, []);
 
-  const toTop = (element: Element) => {
+  const toTop = useCallback((element: Element) => {
     element.scrollTo({
       top: 0,
       left: 0,
       behavior: 'smooth',
     });
-  };
+  }, []);
 
   useEffect(() => {
     try {
@@ -71,16 +112,22 @@ export const Navbar = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [location.key]);
+  }, [location.hash, toTop]);
 
   return (
     <header ref={navbarNode} className='main-navbar'>
       <div className='content'>
-        <Link className='top' to='/'>
+        <Link className='top' to={localePath('/')}>
           <Logo
             className='logo'
-            aria-label='Voltar para o topo'
-            title='Voltar para o topo'
+            aria-label={translate({
+              id: 'navbar.aria.logo',
+              message: 'Voltar para o topo',
+            })}
+            title={translate({
+              id: 'navbar.aria.logo',
+              message: 'Voltar para o topo',
+            })}
           />
           <div className='group'>
             <h2 className='title'>
@@ -97,7 +144,7 @@ export const Navbar = () => {
             ({ id, priority, label }) => (
               <Link
                 key={id}
-                to={`/#${id}`}
+                to={localePath(`/#${id}`)}
                 className={activeSection === id ? 'active' : undefined}
                 data-priority={priority}
               >
@@ -105,19 +152,40 @@ export const Navbar = () => {
               </Link>
             )
           )}
-          <Link to='/sponsors' data-priority={1}>
-            Patrocinadores
+          <Link to={localePath('/sponsors')} data-priority={1}>
+            {translate({
+              id: 'navbar.section.sponsors',
+              message: 'Patrocinadores',
+            })}
           </Link>
         </nav>
         <div className='actions'>
+          {otherLocales.map((locale) => (
+            <a
+              key={locale}
+              href={getLocaleUrl(locale)}
+              className='locale-switcher'
+              aria-label={translate({
+                id: 'navbar.locale.label',
+                message: 'Idioma',
+              })}
+            >
+              <Globe className='icon' />
+              {(localeConfigs[locale] as { label?: string })?.label ?? locale}
+            </a>
+          ))}
           <SafeLink className='tickets' to={link.tickets}>
-            INGRESSOS <ExternalLink />
+            {translate({ id: 'navbar.tickets', message: 'INGRESSOS' })}{' '}
+            <ExternalLink />
           </SafeLink>
           <button
             type='button'
             className='hamburger'
             onClick={openMenu}
-            aria-label='Abrir menu'
+            aria-label={translate({
+              id: 'navbar.aria.openMenu',
+              message: 'Abrir menu',
+            })}
           >
             <Menu className='icon' />
           </button>
@@ -125,7 +193,7 @@ export const Navbar = () => {
       </div>
       <div ref={menuNode} className='mobile-menu'>
         <header className='header'>
-          <Link className='brand' to='/' onClick={closeMenu}>
+          <Link className='brand' to={localePath('/')} onClick={closeMenu}>
             <Logo className='logo' />
             <div className='group'>
               <h2 className='title'>
@@ -138,7 +206,10 @@ export const Navbar = () => {
             type='button'
             className='close'
             onClick={closeMenu}
-            aria-label='Fechar menu'
+            aria-label={translate({
+              id: 'navbar.aria.closeMenu',
+              message: 'Fechar menu',
+            })}
           >
             <X className='icon' />
           </button>
@@ -147,18 +218,22 @@ export const Navbar = () => {
           {SECTIONS.map(({ id, label }) => (
             <Link
               key={id}
-              to={id === 'home' ? '/' : `/#${id}`}
+              to={localePath(id === 'home' ? '/' : `/#${id}`)}
               onClick={closeMenu}
             >
               {label}
             </Link>
           ))}
-          <Link to='/sponsors' onClick={closeMenu}>
-            Patrocinadores
+          <Link to={localePath('/sponsors')} onClick={closeMenu}>
+            {translate({
+              id: 'navbar.section.sponsors',
+              message: 'Patrocinadores',
+            })}
           </Link>
         </nav>
         <SafeLink className='tickets' to={link.tickets}>
-          INGRESSOS <ExternalLink />
+          {translate({ id: 'navbar.tickets', message: 'INGRESSOS' })}{' '}
+          <ExternalLink />
         </SafeLink>
       </div>
     </header>

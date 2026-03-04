@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { translate } from '@docusaurus/Translate';
 import { Boxes } from 'lucide-react';
 import { useScroll } from '../../hooks/useScroll';
 import { Person } from '../shared/Person';
@@ -14,11 +15,15 @@ export const Team = () => {
     <main id='team'>
       <div className='content' ref={ref}>
         <h1 className='title'>
-          <Boxes className='icon' /> Nosso Time
+          <Boxes className='icon' />{' '}
+          {translate({ id: 'team.title', message: 'Nosso Time' })}
         </h1>
         <small className='subtitle'>
-          Especialistas internacionais e talentos locais compartilhando o futuro
-          da web.
+          {translate({
+            id: 'team.subtitle',
+            message:
+              'Especialistas internacionais e talentos locais compartilhando o futuro da web.',
+          })}
         </small>
         <section className='speakers'>
           <Person
