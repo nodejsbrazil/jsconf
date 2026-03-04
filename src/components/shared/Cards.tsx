@@ -3,16 +3,17 @@ import { useRef } from 'react';
 import { useScroll } from '../../hooks/useScroll';
 
 export type CardProps = {
+  id?: string;
   icon: ReactNode;
-  title: string;
-  description: string;
+  title: ReactNode;
+  description: ReactNode;
 };
 
 type CardsProps = {
   items: CardProps[];
 };
 
-const Card: FC<CardProps> = ({ icon, title, description }) => {
+const Card: FC<CardProps> = ({ id, icon, title, description }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useScroll(ref, (isVisible, target) => {
@@ -20,7 +21,7 @@ const Card: FC<CardProps> = ({ icon, title, description }) => {
   });
 
   return (
-    <div className={`card`} ref={ref}>
+    <div className={`card`} ref={ref} id={id}>
       <div className='containter'>
         <header className='icon'>{icon}</header>
         <h3 className='title'>{title}</h3>
@@ -32,8 +33,14 @@ const Card: FC<CardProps> = ({ icon, title, description }) => {
 
 export const Cards: FC<CardsProps> = ({ items }) => (
   <section className='cards'>
-    {items.map(({ icon, title, description }) => (
-      <Card key={title} icon={icon} title={title} description={description} />
+    {items.map(({ id, icon, title, description }) => (
+      <Card
+        key={id}
+        id={id}
+        icon={icon}
+        title={title}
+        description={description}
+      />
     ))}
   </section>
 );

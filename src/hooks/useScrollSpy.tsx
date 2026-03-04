@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 type Section = {
   id: string;
-  label: string;
 };
 
 type Options = {
