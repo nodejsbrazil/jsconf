@@ -31,6 +31,12 @@ export const Footer = () => {
               <Link to='/#speakers'>Palestrantes</Link>
             </li>
             <li>
+              <Link to='/#location'>Localização</Link>
+            </li>
+            <li>
+              <Link to='/sponsors'>Patrocinadores</Link>
+            </li>
+            <li>
               <Link to='/brand'>Identidade Visual</Link>
             </li>
             <li>

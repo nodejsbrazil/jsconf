@@ -1,7 +1,6 @@
 import { useRef } from 'react';
-import { MicVocal } from 'lucide-react';
+import { Clock, MicVocal } from 'lucide-react';
 import { useScroll } from '../../hooks/useScroll';
-import { Person } from '../shared/Person';
 
 export const Speakers = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,21 +19,12 @@ export const Speakers = () => {
           Especialistas internacionais e talentos locais compartilhando o futuro
           da web.
         </small>
-        <section className='speakers'>
-          <Person
-            name='Erick Wendel'
-            img='/img/speakers/erick-wendel.webp'
-            bio='Erick Wendel é um palestrante experiente em conferências de tecnologia, conhecido como keynote speaker, e um renomado desenvolvedor da equipe principal do Node.js.'
-            position='Criador de Conteúdo e Empreendedor'
-            company='EW Academy'
-            social={{
-              instagram: 'erickwendel_',
-              youtube: '@ErickWendelAcademy',
-              linkedin: 'erickwendel',
-              github: 'erickwendel',
-              website: 'https://ew.academy/',
-            }}
-          />
+        <section className='coming-soon'>
+          <Clock className='coming-soon-icon' />
+          <h2 className='coming-soon-title'>Em Breve</h2>
+          <p className='coming-soon-text'>
+            Os palestrantes serão anunciados em breve. Fique ligado!
+          </p>
         </section>
       </div>
     </main>

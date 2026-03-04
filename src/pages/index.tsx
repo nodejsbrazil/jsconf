@@ -1,5 +1,6 @@
 import { Benefits } from '../components/home/Benefits';
 import { Home } from '../components/home/Home';
+import { Location } from '../components/home/Location';
 import { Speakers } from '../components/home/Speakers';
 import { Team } from '../components/home/Team';
 import { Page } from '../components/shared/Page';
@@ -9,6 +10,7 @@ export default () => (
     <Home />
     <Benefits />
     <Speakers />
+    <Location />
     <Team />
   </Page>
 );
