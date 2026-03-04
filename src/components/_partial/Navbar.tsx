@@ -51,6 +51,23 @@ const SECTIONS: Section[] = [
   },
 ];
 
+function setLocaleMenuOpen(
+  container: HTMLDivElement,
+  open: boolean,
+  menuSelector: string
+) {
+  container.classList.toggle('open', open);
+  const button = container.querySelector<HTMLButtonElement>('.locale-trigger');
+  const menu = container.querySelector<HTMLElement>(menuSelector);
+  if (button) button.setAttribute('aria-expanded', String(open));
+  if (menu) {
+    menu.setAttribute('aria-hidden', String(!open));
+    menu.querySelectorAll<HTMLAnchorElement>('a').forEach((a) => {
+      a.tabIndex = open ? 0 : -1;
+    });
+  }
+}
+
 export const Navbar = () => {
   const location = useLocation();
   const { i18n } = useDocusaurusContext();
@@ -70,13 +87,13 @@ export const Navbar = () => {
     if (!localeDropdownRef.current) return;
     if (!(e.target instanceof Node)) return;
     if (!localeDropdownRef.current.contains(e.target)) {
-      localeDropdownRef.current.classList.remove('open');
+      setLocaleMenuOpen(localeDropdownRef.current, false, '.locale-menu');
     }
 
     if (!localeMobileRef.current) return;
     if (!(e.target instanceof Node)) return;
     if (!localeMobileRef.current.contains(e.target)) {
-      localeMobileRef.current.classList.remove('open');
+      setLocaleMenuOpen(localeMobileRef.current, false, '.locale-links');
     }
   }, []);
 
@@ -93,7 +110,9 @@ export const Navbar = () => {
   const closeMenu = useCallback(() => {
     menuNode.current?.classList.remove('open');
     document.body.classList.remove('menu-open');
-    localeMobileRef.current?.classList.remove('open');
+    if (localeMobileRef.current) {
+      setLocaleMenuOpen(localeMobileRef.current, false, '.locale-links');
+    }
   }, []);
 
   const toTop = useCallback((element: Element) => {
@@ -180,9 +199,17 @@ export const Navbar = () => {
               <button
                 type='button'
                 className='locale-trigger'
-                onClick={() =>
-                  localeDropdownRef.current?.classList.toggle('open')
-                }
+                aria-expanded='false'
+                aria-controls='locale-menu-desktop'
+                onClick={() => {
+                  if (localeDropdownRef.current) {
+                    setLocaleMenuOpen(
+                      localeDropdownRef.current,
+                      !localeDropdownRef.current.classList.contains('open'),
+                      '.locale-menu'
+                    );
+                  }
+                }}
                 aria-label={translate({
                   id: 'navbar.locale.label',
                   message: 'Idioma',
@@ -191,9 +218,13 @@ export const Navbar = () => {
                 <Globe className='icon' />
                 <ChevronDown className='chevron' />
               </button>
-              <div className='locale-menu'>
+              <div
+                id='locale-menu-desktop'
+                className='locale-menu'
+                aria-hidden='true'
+              >
                 {otherLocales.map((locale) => (
-                  <a key={locale} href={getLocaleUrl(locale)}>
+                  <a key={locale} href={getLocaleUrl(locale)} tabIndex={-1}>
                     {(localeConfigs[locale] as { label?: string })?.label ??
                       locale}
                   </a>
@@ -259,9 +290,17 @@ export const Navbar = () => {
               <button
                 type='button'
                 className='locale-trigger'
-                onClick={() =>
-                  localeMobileRef.current?.classList.toggle('open')
-                }
+                aria-expanded='false'
+                aria-controls='locale-menu-mobile'
+                onClick={() => {
+                  if (localeMobileRef.current) {
+                    setLocaleMenuOpen(
+                      localeMobileRef.current,
+                      !localeMobileRef.current.classList.contains('open'),
+                      '.locale-links'
+                    );
+                  }
+                }}
                 aria-label={translate({
                   id: 'navbar.locale.label',
                   message: 'Idioma',
@@ -271,9 +310,13 @@ export const Navbar = () => {
                 <Translate id='navbar.locale.label'>Idioma</Translate>
                 <ChevronDown className='chevron' />
               </button>
-              <div className='locale-links'>
+              <div
+                id='locale-menu-mobile'
+                className='locale-links'
+                aria-hidden='true'
+              >
                 {otherLocales.map((locale) => (
-                  <a key={locale} href={getLocaleUrl(locale)}>
+                  <a key={locale} href={getLocaleUrl(locale)} tabIndex={-1}>
                     {(localeConfigs[locale] as { label?: string })?.label ??
                       locale}
                   </a>
