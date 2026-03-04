@@ -4,6 +4,12 @@ import { link } from '@site/src/configs/definitions';
 import { BR } from '../shared/BR';
 import { SafeLink } from '../shared/SafeLink';
 
+const TranslateStrong = (props: { id: string; children?: string }) => (
+  <strong>
+    <Translate id={props.id}>{props.children}</Translate>
+  </strong>
+);
+
 export const Home = () => (
   <main id='home'>
     <div className='content'>
@@ -25,9 +31,29 @@ export const Home = () => (
         <Translate id='home.date'>28 de novembro, 2026 • São Paulo</Translate>
       </small>
       <p className='description'>
-        <Translate id='home.description'>
-          Junte-se à comunidade de desenvolvedores em um dia repleto de código,
-          inovação e networking de alta qualidade.
+        <Translate
+          id='home.description'
+          values={{
+            code: (
+              <TranslateStrong id='home.description.code'>
+                código
+              </TranslateStrong>
+            ),
+            innovation: (
+              <TranslateStrong id='home.description.innovation'>
+                inovação
+              </TranslateStrong>
+            ),
+            networking: (
+              <TranslateStrong id='home.description.networking'>
+                networking de alta qualidade
+              </TranslateStrong>
+            ),
+          }}
+        >
+          {
+            'Junte-se à comunidade de desenvolvedores em um dia repleto de {code}, {innovation} e {networking}.'
+          }
         </Translate>
       </p>
       <menu>
