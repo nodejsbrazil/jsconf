@@ -14,14 +14,14 @@ Al participar en JSConf Brasil, aceptas seguir este código de conducta. El equi
 
 Todas las personas deben sentirse bienvenidas, independientemente de:
 
-* Género, identidad o expresión de género
-* Orientación sexual
-* Discapacidad
-* Apariencia física o complexión corporal
-* Edad
-* Etnia o color de piel
-* Religión (o ausencia de ella)
-* Tecnologías o lenguajes de programación utilizados
+- Género, identidad o expresión de género
+- Orientación sexual
+- Discapacidad
+- Apariencia física o complexión corporal
+- Edad
+- Etnia o color de piel
+- Religión (o ausencia de ella)
+- Tecnologías o lenguajes de programación utilizados
 
 **Sé respetuoso. No seas maleducado.**
 
@@ -29,12 +29,12 @@ Todas las personas deben sentirse bienvenidas, independientemente de:
 
 ## 🚫 Ejemplos de comportamiento inaceptable
 
-* Comentarios ofensivos o despectivos
-* Imágenes sexuales en cualquier contexto del evento
-* Intimidación, acecho o acoso deliberado
-* Contacto físico inapropiado o atención sexual no deseada
-* Interrupciones agresivas durante charlas, paneles o debates
-* Fotografías vergonzosas o sin consentimiento
+- Comentarios ofensivos o despectivos
+- Imágenes sexuales en cualquier contexto del evento
+- Intimidación, acecho o acoso deliberado
+- Contacto físico inapropiado o atención sexual no deseada
+- Interrupciones agresivas durante charlas, paneles o debates
+- Fotografías vergonzosas o sin consentimiento
 
 > Esto aplica a todas las áreas del evento: charlas, pasillos, fiestas, stands, redes sociales, etc.
 
@@ -44,9 +44,9 @@ Todas las personas deben sentirse bienvenidas, independientemente de:
 
 Los patrocinadores y representantes deben cumplir este código en su totalidad. **No se permitirán**:
 
-* Materiales, obsequios o actividades con connotación sexual
-* Uniformes o vestuario sexualizado
-* Ambientes que promuevan la objetificación o la exclusión
+- Materiales, obsequios o actividades con connotación sexual
+- Uniformes o vestuario sexualizado
+- Ambientes que promuevan la objetificación o la exclusión
 
 ---
 
@@ -54,15 +54,15 @@ Los patrocinadores y representantes deben cumplir este código en su totalidad. 
 
 Si alguien actúa de forma abusiva o irrespetuosa, la organización podrá intervenir con:
 
-* Advertencia formal
-* Retirada del credencial y expulsión del evento, sin reembolso
-* Notificación a las autoridades, si fuera necesario
+- Advertencia formal
+- Retirada del credencial y expulsión del evento, sin reembolso
+- Notificación a las autoridades, si fuera necesario
 
 Acércate a nosotros de inmediato si:
 
-* Sufres o presencias cualquier forma de acoso
-* Sientes que algo está mal
-* Necesitas ayuda o quieres hablar
+- Sufres o presencias cualquier forma de acoso
+- Sientes que algo está mal
+- Necesitas ayuda o quieres hablar
 
 > El equipo será identificable por camisetas específicas.
 
@@ -72,9 +72,9 @@ Acércate a nosotros de inmediato si:
 
 Si es necesario, vamos a:
 
-* Acompañarte a un lugar seguro
-* Contactar a seguridad o apoyo médico
-* Ayudarte con transporte o cualquier otro apoyo básico
+- Acompañarte a un lugar seguro
+- Contactar a seguridad o apoyo médico
+- Ayudarte con transporte o cualquier otro apoyo básico
 
 ---
 
@@ -82,9 +82,9 @@ Si es necesario, vamos a:
 
 Este código aplica a:
 
-* Todas las actividades oficiales de JSConf Brasil
-* Eventos sociales paralelos promovidos por la comunidad
-* Grupos en línea y canales relacionados con el evento
+- Todas las actividades oficiales de JSConf Brasil
+- Eventos sociales paralelos promovidos por la comunidad
+- Grupos en línea y canales relacionados con el evento
 
 ---
 
