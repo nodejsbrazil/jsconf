@@ -1,6 +1,6 @@
 import '@site/src/scss/pages/brand.scss';
 import { useRef, useState } from 'react';
-import { translate } from '@docusaurus/Translate';
+import Translate, { translate } from '@docusaurus/Translate';
 import { Check, CircleCheck, CircleX, Copy, Download } from 'lucide-react';
 import Logo from '@site/src/assets/img/logo.svg';
 import { Page } from '@site/src/components/shared/Page';
@@ -10,26 +10,26 @@ import { Parallax } from '../components/shared/Parallax';
 export default () => {
   const colors = [
     {
-      name: translate({ id: 'brand.color.green', message: 'Verde' }),
+      name: <Translate id='brand.color.green'>Verde</Translate>,
       hex: '#37c400',
       className: 'green',
     },
     {
-      name: translate({ id: 'brand.color.yellow', message: 'Amarelo' }),
+      name: <Translate id='brand.color.yellow'>Amarelo</Translate>,
       hex: '#ffd000',
       className: 'yellow',
     },
     {
-      name: translate({ id: 'brand.color.blue', message: 'Azul' }),
+      name: <Translate id='brand.color.blue'>Azul</Translate>,
       hex: '#1a5fce',
       className: 'blue',
     },
     {
-      name: translate({ id: 'brand.color.white', message: 'Branco' }),
+      name: <Translate id='brand.color.white'>Branco</Translate>,
       hex: '#ffffff',
       className: 'white',
     },
-  ] as const;
+  ];
 
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -64,23 +64,19 @@ export default () => {
       <div className='page-content brand-page'>
         <header className='header'>
           <h1 className='title'>
-            {translate({
-              id: 'brand.hero.title',
-              message: 'Identidade Visual',
-            })}
+            <Translate id='brand.hero.title'>Identidade Visual</Translate>
           </h1>
           <p className='intro'>
-            {translate({
-              id: 'brand.hero.intro',
-              message:
-                'Baixe os arquivos oficiais e consulte os guias de estilo para representar corretamente a JSConf Brasil 2026.',
-            })}
+            <Translate id='brand.hero.intro'>
+              Baixe os arquivos oficiais e consulte os guias de estilo para
+              representar corretamente a JSConf Brasil 2026.
+            </Translate>
           </p>
         </header>
 
         <section className='logo'>
           <h2 className='section-title'>
-            {translate({ id: 'brand.logo.title', message: 'Logotipo' })}
+            <Translate id='brand.logo.title'>Logotipo</Translate>
           </h2>
           <div className='grid'>
             <div className='container dark'>
@@ -101,7 +97,7 @@ export default () => {
               onClick={() => download('svg')}
             >
               <Download className='icon' />
-              {translate({ id: 'brand.download.svg', message: 'Baixar SVG' })}
+              <Translate id='brand.download.svg'>Baixar SVG</Translate>
             </button>
             <button
               type='button'
@@ -109,14 +105,14 @@ export default () => {
               onClick={() => download('png')}
             >
               <Download className='icon' />
-              {translate({ id: 'brand.download.png', message: 'Baixar PNG' })}
+              <Translate id='brand.download.png'>Baixar PNG</Translate>
             </button>
           </div>
         </section>
 
         <section className='colors'>
           <h2 className='section-title'>
-            {translate({ id: 'brand.colors.title', message: 'Cores' })}
+            <Translate id='brand.colors.title'>Cores</Translate>
           </h2>
           <div className='grid'>
             {colors.map((color) => (
@@ -145,73 +141,62 @@ export default () => {
 
         <section className='guidelines'>
           <h2 className='section-title'>
-            {translate({
-              id: 'brand.guidelines.title',
-              message: 'Guias de Uso',
-            })}
+            <Translate id='brand.guidelines.title'>Guias de Uso</Translate>
           </h2>
           <div className='grid'>
             <div className='card do'>
               <h3 className='title'>
                 <CircleCheck className='icon' />
-                {translate({ id: 'brand.correct.title', message: 'Correto' })}
+                <Translate id='brand.correct.title'>Correto</Translate>
               </h3>
               <ul>
                 <li>
-                  {translate({
-                    id: 'brand.correct.item1',
-                    message: 'Mantenha espaço livre ao redor do logo',
-                  })}
+                  <Translate id='brand.correct.item1'>
+                    Mantenha espaço livre ao redor do logo
+                  </Translate>
                 </li>
                 <li>
-                  {translate({
-                    id: 'brand.correct.item2',
-                    message: 'Use sobre fundos que garantam contraste',
-                  })}
+                  <Translate id='brand.correct.item2'>
+                    Use sobre fundos que garantam contraste
+                  </Translate>
                 </li>
                 <li>
-                  {translate({
-                    id: 'brand.correct.item3',
-                    message: 'Mantenha as proporções originais',
-                  })}
+                  <Translate id='brand.correct.item3'>
+                    Mantenha as proporções originais
+                  </Translate>
                 </li>
                 <li>
-                  {translate({
-                    id: 'brand.correct.item4',
-                    message: 'Use as cores oficiais da paleta',
-                  })}
+                  <Translate id='brand.correct.item4'>
+                    Use as cores oficiais da paleta
+                  </Translate>
                 </li>
               </ul>
             </div>
             <div className='card dont'>
               <h3 className='title'>
                 <CircleX className='icon' />
-                {translate({ id: 'brand.avoid.title', message: 'Evite' })}
+                <Translate id='brand.avoid.title'>Evite</Translate>
               </h3>
               <ul>
                 <li>
-                  {translate({
-                    id: 'brand.avoid.item1',
-                    message: 'Alterar as cores do logo',
-                  })}
+                  <Translate id='brand.avoid.item1'>
+                    Alterar as cores do logo
+                  </Translate>
                 </li>
                 <li>
-                  {translate({
-                    id: 'brand.avoid.item2',
-                    message: 'Distorcer ou rotacionar o logo',
-                  })}
+                  <Translate id='brand.avoid.item2'>
+                    Distorcer ou rotacionar o logo
+                  </Translate>
                 </li>
                 <li>
-                  {translate({
-                    id: 'brand.avoid.item3',
-                    message: 'Adicionar efeitos como sombras ou brilhos',
-                  })}
+                  <Translate id='brand.avoid.item3'>
+                    Adicionar efeitos como sombras ou brilhos
+                  </Translate>
                 </li>
                 <li>
-                  {translate({
-                    id: 'brand.avoid.item4',
-                    message: 'Usar o logo em tamanhos muito pequenos',
-                  })}
+                  <Translate id='brand.avoid.item4'>
+                    Usar o logo em tamanhos muito pequenos
+                  </Translate>
                 </li>
               </ul>
             </div>

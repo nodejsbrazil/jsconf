@@ -1,5 +1,5 @@
 import '@site/src/scss/pages/sponsors.scss';
-import { translate } from '@docusaurus/Translate';
+import Translate, { translate } from '@docusaurus/Translate';
 import { ExternalLink, Handshake, Heart } from 'lucide-react';
 import { Page } from '@site/src/components/shared/Page';
 import { SafeLink } from '@site/src/components/shared/SafeLink';
@@ -17,55 +17,43 @@ export default () => (
     <div className='page-content sponsors-page'>
       <header className='header'>
         <h1 className='title'>
-          {translate({
-            id: 'sponsors.hero.title',
-            message: 'Seja um Patrocinador',
-          })}
+          <Translate id='sponsors.hero.title'>Seja um Patrocinador</Translate>
         </h1>
         <p className='intro'>
-          {translate({
-            id: 'sponsors.hero.intro',
-            message:
-              'Apoie a JSConf Brasil 2026 e conecte sua marca à maior comunidade de JavaScript do país.',
-          })}
+          <Translate id='sponsors.hero.intro'>
+            Apoie a JSConf Brasil 2026 e conecte sua marca à maior comunidade de
+            JavaScript do país.
+          </Translate>
         </p>
       </header>
 
       <section className='why'>
         <h2 className='section-title'>
-          {translate({ id: 'sponsors.why.title', message: 'Por que apoiar?' })}
+          <Translate id='sponsors.why.title'>Por que apoiar?</Translate>
         </h2>
         <div className='grid'>
           <div className='card'>
             <Handshake className='card-icon' />
             <h3 className='card-title'>
-              {translate({
-                id: 'sponsors.visibility.title',
-                message: 'Visibilidade',
-              })}
+              <Translate id='sponsors.visibility.title'>Visibilidade</Translate>
             </h3>
             <p className='card-text'>
-              {translate({
-                id: 'sponsors.visibility.text',
-                message:
-                  'Apresente sua empresa, produtos e oportunidades de emprego para centenas de desenvolvedores engajados.',
-              })}
+              <Translate id='sponsors.visibility.text'>
+                Apresente sua empresa, produtos e oportunidades de emprego para
+                centenas de desenvolvedores engajados.
+              </Translate>
             </p>
           </div>
           <div className='card'>
             <Heart className='card-icon' />
             <h3 className='card-title'>
-              {translate({
-                id: 'sponsors.community.title',
-                message: 'Comunidade',
-              })}
+              <Translate id='sponsors.community.title'>Comunidade</Translate>
             </h3>
             <p className='card-text'>
-              {translate({
-                id: 'sponsors.community.text',
-                message:
-                  'Contribua com um evento sem fins lucrativos que fortalece o ecossistema JavaScript e Node.js no Brasil.',
-              })}
+              <Translate id='sponsors.community.text'>
+                Contribua com um evento sem fins lucrativos que fortalece o
+                ecossistema JavaScript e Node.js no Brasil.
+              </Translate>
             </p>
           </div>
         </div>
@@ -73,57 +61,45 @@ export default () => (
 
       <section className='benefits'>
         <h2 className='section-title'>
-          {translate({
-            id: 'sponsors.benefits.title',
-            message: 'O que você ganha',
-          })}
+          <Translate id='sponsors.benefits.title'>O que você ganha</Translate>
         </h2>
         <ul className='benefits-list'>
           <li>
-            {translate({
-              id: 'sponsors.benefits.item1',
-              message: 'Espaço de 10 minutos para apresentar sua empresa',
-            })}
+            <Translate id='sponsors.benefits.item1'>
+              Espaço de 10 minutos para apresentar sua empresa
+            </Translate>
           </li>
           <li>
-            {translate({
-              id: 'sponsors.benefits.item2',
-              message: 'Logo e links divulgados em nossos canais oficiais',
-            })}
+            <Translate id='sponsors.benefits.item2'>
+              Logo e links divulgados em nossos canais oficiais
+            </Translate>
           </li>
           <li>
-            {translate({
-              id: 'sponsors.benefits.item3',
-              message: 'Compartilhamento com toda a nossa base de contatos',
-            })}
+            <Translate id='sponsors.benefits.item3'>
+              Compartilhamento com toda a nossa base de contatos
+            </Translate>
           </li>
           <li>
-            {translate({
-              id: 'sponsors.benefits.item4',
-              message: 'Networking direto com a comunidade de desenvolvedores',
-            })}
+            <Translate id='sponsors.benefits.item4'>
+              Networking direto com a comunidade de desenvolvedores
+            </Translate>
           </li>
         </ul>
       </section>
 
       <section className='cta-section'>
         <h2 className='cta-title'>
-          {translate({
-            id: 'sponsors.cta.title',
-            message: 'Quer apoiar a JSConf Brasil 2026?',
-          })}
+          <Translate id='sponsors.cta.title'>
+            Quer apoiar a JSConf Brasil 2026?
+          </Translate>
         </h2>
         <p className='cta-text'>
-          {translate({
-            id: 'sponsors.cta.text',
-            message: 'Preencha o formulário e nossa equipe entrará em contato.',
-          })}
+          <Translate id='sponsors.cta.text'>
+            Preencha o formulário e nossa equipe entrará em contato.
+          </Translate>
         </p>
         <SafeLink to={link.sponsors} className='cta-button'>
-          {translate({
-            id: 'sponsors.cta.button',
-            message: 'QUERO SER PATROCINADOR',
-          })}{' '}
+          <Translate id='sponsors.cta.button'>QUERO SER PATROCINADOR</Translate>{' '}
           <ExternalLink className='icon' />
         </SafeLink>
       </section>

@@ -1,4 +1,4 @@
-import { translate } from '@docusaurus/Translate';
+import Translate from '@docusaurus/Translate';
 import { CalendarDays, Tickets } from 'lucide-react';
 import { link } from '@site/src/configs/definitions';
 import { BR } from '../shared/BR';
@@ -22,17 +22,13 @@ export const Home = () => (
       </h1>
       <small className='date'>
         <CalendarDays className='icon' />{' '}
-        {translate({
-          id: 'home.date',
-          message: '28 de novembro, 2026 • São Paulo',
-        })}
+        <Translate id='home.date'>28 de novembro, 2026 • São Paulo</Translate>
       </small>
       <p className='description'>
-        {translate({
-          id: 'home.description',
-          message:
-            'Junte-se à comunidade de desenvolvedores em um dia repleto de código, inovação e networking de alta qualidade.',
-        })}
+        <Translate id='home.description'>
+          Junte-se à comunidade de desenvolvedores em um dia repleto de código,
+          inovação e networking de alta qualidade.
+        </Translate>
       </p>
       <menu>
         <section>
@@ -42,10 +38,7 @@ export const Home = () => (
             </span>
             <span className='btn-content'>
               <span className='text'>
-                {translate({
-                  id: 'home.cta.tickets',
-                  message: 'COMPRAR INGRESSOS',
-                })}
+                <Translate id='home.cta.tickets'>COMPRAR INGRESSOS</Translate>
               </span>
             </span>
           </SafeLink>
@@ -53,7 +46,7 @@ export const Home = () => (
       </menu>
       <footer className='credits'>
         <span className='label'>
-          {translate({ id: 'home.credits.label', message: 'Realização' })}
+          <Translate id='home.credits.label'>Realização</Translate>
         </span>
         <img
           className='logo'

@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import { useCallback, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
-import { translate } from '@docusaurus/Translate';
+import Translate, { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ChevronDown, ExternalLink, Globe, Menu, X } from 'lucide-react';
 import { SafeLink } from '@site/src/components/shared/SafeLink';
@@ -12,11 +13,43 @@ import Logo from '../../assets/img/logo.svg';
 
 type Section = {
   id: string;
-  label: string;
+  label: ReactNode;
   /** No priority: hides first, 1: hides later, 2: hides last */
   priority?: 1 | 2;
   showInDesktop?: boolean;
 };
+
+const SECTIONS: Section[] = [
+  {
+    id: 'home',
+    label: <Translate id='navbar.section.home'>Início</Translate>,
+    showInDesktop: false,
+  },
+  {
+    id: 'benefits',
+    label: (
+      <Translate id='navbar.section.benefits'>
+        O que você vai encontrar?
+      </Translate>
+    ),
+    priority: 1,
+  },
+  {
+    id: 'speakers',
+    label: <Translate id='navbar.section.speakers'>Palestrantes</Translate>,
+    priority: 2,
+  },
+  {
+    id: 'location',
+    label: <Translate id='navbar.section.location'>Localização</Translate>,
+    priority: 1,
+  },
+  {
+    id: 'team',
+    label: <Translate id='navbar.section.team'>Nosso Time</Translate>,
+    priority: 2,
+  },
+];
 
 export const Navbar = () => {
   const location = useLocation();
@@ -26,43 +59,6 @@ export const Navbar = () => {
   const menuNode = useRef<HTMLDivElement>(null);
   const localeDropdownRef = useRef<HTMLDivElement>(null);
   const localeMobileRef = useRef<HTMLDivElement>(null);
-
-  const SECTIONS: Section[] = [
-    {
-      id: 'home',
-      label: translate({ id: 'navbar.section.home', message: 'Início' }),
-      showInDesktop: false,
-    },
-    {
-      id: 'benefits',
-      label: translate({
-        id: 'navbar.section.benefits',
-        message: 'O que você vai encontrar?',
-      }),
-      priority: 1,
-    },
-    {
-      id: 'speakers',
-      label: translate({
-        id: 'navbar.section.speakers',
-        message: 'Palestrantes',
-      }),
-      priority: 2,
-    },
-    {
-      id: 'location',
-      label: translate({
-        id: 'navbar.section.location',
-        message: 'Localização',
-      }),
-      priority: 1,
-    },
-    {
-      id: 'team',
-      label: translate({ id: 'navbar.section.team', message: 'Nosso Time' }),
-      priority: 2,
-    },
-  ];
 
   const activeSection = useScrollSpy(SECTIONS);
 
@@ -134,7 +130,7 @@ export const Navbar = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [location.hash, toTop]);
+  }, [location.key, toTop]);
 
   return (
     <header ref={navbarNode} className='main-navbar'>
@@ -175,10 +171,7 @@ export const Navbar = () => {
             )
           )}
           <Link to={localePath('/sponsors')} data-priority={1}>
-            {translate({
-              id: 'navbar.section.sponsors',
-              message: 'Patrocinadores',
-            })}
+            <Translate id='navbar.section.sponsors'>Patrocinadores</Translate>
           </Link>
         </nav>
         <div className='actions'>
@@ -209,7 +202,7 @@ export const Navbar = () => {
             </div>
           )}
           <SafeLink className='tickets' to={link.tickets}>
-            {translate({ id: 'navbar.tickets', message: 'INGRESSOS' })}{' '}
+            <Translate id='navbar.tickets'>INGRESSOS</Translate>{' '}
             <ExternalLink />
           </SafeLink>
           <button
@@ -259,10 +252,7 @@ export const Navbar = () => {
             </Link>
           ))}
           <Link to={localePath('/sponsors')} onClick={closeMenu}>
-            {translate({
-              id: 'navbar.section.sponsors',
-              message: 'Patrocinadores',
-            })}
+            <Translate id='navbar.section.sponsors'>Patrocinadores</Translate>
           </Link>
           {otherLocales.length > 0 && (
             <div ref={localeMobileRef} className='locale-mobile'>
@@ -278,7 +268,7 @@ export const Navbar = () => {
                 })}
               >
                 <Globe className='icon' />
-                {translate({ id: 'navbar.locale.label', message: 'Idioma' })}
+                <Translate id='navbar.locale.label'>Idioma</Translate>
                 <ChevronDown className='chevron' />
               </button>
               <div className='locale-links'>
@@ -293,8 +283,7 @@ export const Navbar = () => {
           )}
         </nav>
         <SafeLink className='tickets' to={link.tickets}>
-          {translate({ id: 'navbar.tickets', message: 'INGRESSOS' })}{' '}
-          <ExternalLink />
+          <Translate id='navbar.tickets'>INGRESSOS</Translate> <ExternalLink />
         </SafeLink>
       </div>
     </header>
