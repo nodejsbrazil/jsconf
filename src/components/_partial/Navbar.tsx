@@ -3,7 +3,7 @@ import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { ExternalLink, Globe, Menu, X } from 'lucide-react';
+import { ChevronDown, ExternalLink, Globe, Menu, X } from 'lucide-react';
 import { SafeLink } from '@site/src/components/shared/SafeLink';
 import { link } from '@site/src/configs/definitions';
 import { useLocalePath } from '@site/src/hooks/useLocalePath';
@@ -24,6 +24,8 @@ export const Navbar = () => {
   const { currentLocale, locales, localeConfigs } = i18n;
   const navbarNode = useRef<HTMLElement>(null);
   const menuNode = useRef<HTMLDivElement>(null);
+  const localeDropdownRef = useRef<HTMLDivElement>(null);
+  const localeMobileRef = useRef<HTMLDivElement>(null);
 
   const SECTIONS: Section[] = [
     {
@@ -68,6 +70,18 @@ export const Navbar = () => {
 
   const otherLocales = locales.filter((l) => l !== currentLocale);
 
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (!localeDropdownRef.current) return;
+    if (!(e.target instanceof Node)) return;
+
+    localeDropdownRef.current.classList.remove('open');
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [handleClickOutside]);
+
   const openMenu = useCallback(() => {
     menuNode.current?.classList.add('open');
     document.body.classList.add('menu-open');
@@ -76,6 +90,7 @@ export const Navbar = () => {
   const closeMenu = useCallback(() => {
     menuNode.current?.classList.remove('open');
     document.body.classList.remove('menu-open');
+    localeMobileRef.current?.classList.remove('open');
   }, []);
 
   const toTop = useCallback((element: Element) => {
@@ -160,20 +175,32 @@ export const Navbar = () => {
           </Link>
         </nav>
         <div className='actions'>
-          {otherLocales.map((locale) => (
-            <a
-              key={locale}
-              href={getLocaleUrl(locale)}
-              className='locale-switcher'
-              aria-label={translate({
-                id: 'navbar.locale.label',
-                message: 'Idioma',
-              })}
-            >
-              <Globe className='icon' />
-              {(localeConfigs[locale] as { label?: string })?.label ?? locale}
-            </a>
-          ))}
+          {otherLocales.length > 0 && (
+            <div ref={localeDropdownRef} className='locale-dropdown'>
+              <button
+                type='button'
+                className='locale-trigger'
+                onClick={() =>
+                  localeDropdownRef.current?.classList.toggle('open')
+                }
+                aria-label={translate({
+                  id: 'navbar.locale.label',
+                  message: 'Idioma',
+                })}
+              >
+                <Globe className='icon' />
+                <ChevronDown className='chevron' />
+              </button>
+              <div className='locale-menu'>
+                {otherLocales.map((locale) => (
+                  <a key={locale} href={getLocaleUrl(locale)}>
+                    {(localeConfigs[locale] as { label?: string })?.label ??
+                      locale}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
           <SafeLink className='tickets' to={link.tickets}>
             {translate({ id: 'navbar.tickets', message: 'INGRESSOS' })}{' '}
             <ExternalLink />
@@ -230,6 +257,33 @@ export const Navbar = () => {
               message: 'Patrocinadores',
             })}
           </Link>
+          {otherLocales.length > 0 && (
+            <div ref={localeMobileRef} className='locale-mobile'>
+              <button
+                type='button'
+                className='locale-trigger'
+                onClick={() =>
+                  localeMobileRef.current?.classList.toggle('open')
+                }
+                aria-label={translate({
+                  id: 'navbar.locale.label',
+                  message: 'Idioma',
+                })}
+              >
+                <Globe className='icon' />
+                {translate({ id: 'navbar.locale.label', message: 'Idioma' })}
+                <ChevronDown className='chevron' />
+              </button>
+              <div className='locale-links'>
+                {otherLocales.map((locale) => (
+                  <a key={locale} href={getLocaleUrl(locale)}>
+                    {(localeConfigs[locale] as { label?: string })?.label ??
+                      locale}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </nav>
         <SafeLink className='tickets' to={link.tickets}>
           {translate({ id: 'navbar.tickets', message: 'INGRESSOS' })}{' '}
