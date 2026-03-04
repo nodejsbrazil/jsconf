@@ -8,7 +8,7 @@
     "start": "docusaurus start --host 0.0.0.0",
     "start:en": "docusaurus start --host 0.0.0.0 --locale en-US",
     "start:es": "docusaurus start --host 0.0.0.0 --locale es-419",
-    "build": "docusaurus build --all-locales",
+    "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "clear": "docusaurus clear",
     "reset": "(npm run clear || true) && rm -rf node_modules package-lock.json && npm i && npm run update",

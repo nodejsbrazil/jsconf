@@ -5,115 +5,157 @@ const PT_BR = 'pt-BR';
 const EN_US = 'en-US';
 const configs = { [EN_US]: { path: 'en-US' } };
 
+type LocalePathCase = [
+  label: string,
+  path: string,
+  locale: string,
+  expected: string,
+  overrideConfigs?: Parameters<typeof buildLocalePath>[3],
+];
+
+const localePathCases: LocalePathCase[] = [
+  ['default locale: /sponsors', '/sponsors', PT_BR, '/sponsors'],
+  ['default locale: /#benefits', '/#benefits', PT_BR, '/#benefits'],
+  ['default locale: /', '/', PT_BR, '/'],
+
+  ['en-US: /sponsors', '/sponsors', EN_US, '/en-US/sponsors'],
+  ['en-US: /#benefits', '/#benefits', EN_US, '/en-US/#benefits'],
+  ['en-US: /', '/', EN_US, '/en-US/'],
+
+  [
+    'no config entry falls back to locale key',
+    '/sponsors',
+    'fr-FR',
+    '/fr-FR/sponsors',
+    {},
+  ],
+  [
+    'config entry without path falls back to locale key',
+    '/sponsors',
+    EN_US,
+    '/en-US/sponsors',
+    { [EN_US]: {} },
+  ],
+];
+
 describe('buildLocalePath', () => {
-  it('returns the path unchanged for the default locale', () => {
-    assert.strictEqual(
-      buildLocalePath('/sponsors', PT_BR, PT_BR, configs),
-      '/sponsors'
-    );
-    assert.strictEqual(
-      buildLocalePath('/#benefits', PT_BR, PT_BR, configs),
-      '/#benefits'
-    );
-    assert.strictEqual(buildLocalePath('/', PT_BR, PT_BR, configs), '/');
-  });
-
-  it('prefixes the path with the locale config path', () => {
-    assert.strictEqual(
-      buildLocalePath('/sponsors', EN_US, PT_BR, configs),
-      '/en-US/sponsors'
-    );
-    assert.strictEqual(
-      buildLocalePath('/#benefits', EN_US, PT_BR, configs),
-      '/en-US/#benefits'
-    );
-    assert.strictEqual(buildLocalePath('/', EN_US, PT_BR, configs), '/en-US/');
-  });
-
-  it('falls back to the locale key when localeConfigs has no path entry', () => {
-    assert.strictEqual(
-      buildLocalePath('/sponsors', 'fr-FR', PT_BR, {}),
-      '/fr-FR/sponsors'
-    );
-  });
-
-  it('falls back to the locale key when the locale has no path property', () => {
-    assert.strictEqual(
-      buildLocalePath('/sponsors', EN_US, PT_BR, { [EN_US]: {} }),
-      '/en-US/sponsors'
-    );
-  });
+  for (const [
+    label,
+    path,
+    locale,
+    expected,
+    overrideConfigs,
+  ] of localePathCases) {
+    it(label, () => {
+      assert.strictEqual(
+        buildLocalePath(path, locale, PT_BR, overrideConfigs ?? configs),
+        expected
+      );
+    });
+  }
 });
 
+type LocaleUrlCase = [
+  label: string,
+  target: string,
+  current: string,
+  pathname: string,
+  hash: string,
+  expected: string,
+  overrideConfigs?: Parameters<typeof buildLocaleUrl>[3],
+];
+
+const localeUrlCases: LocaleUrlCase[] = [
+  [
+    'default→en-US: /sponsors',
+    EN_US,
+    PT_BR,
+    '/sponsors',
+    '',
+    '/en-US/sponsors',
+  ],
+  [
+    'default→en-US: preserves hash',
+    EN_US,
+    PT_BR,
+    '/',
+    '#benefits',
+    '/en-US/#benefits',
+  ],
+  ['default→en-US: root path', EN_US, PT_BR, '/', '', '/en-US/'],
+  [
+    'en-US→default: strips prefix',
+    PT_BR,
+    EN_US,
+    '/en-US/sponsors',
+    '',
+    '/sponsors',
+  ],
+  [
+    'en-US→default: preserves hash when stripping',
+    PT_BR,
+    EN_US,
+    '/en-US/',
+    '#benefits',
+    '/#benefits',
+  ],
+  [
+    'en-US→default: empty path after strip becomes /',
+    PT_BR,
+    EN_US,
+    '/en-US',
+    '',
+    '/',
+  ],
+  [
+    'same locale non-default: no change',
+    EN_US,
+    EN_US,
+    '/en-US/sponsors',
+    '',
+    '/en-US/sponsors',
+  ],
+  [
+    'same locale default: no change',
+    PT_BR,
+    PT_BR,
+    '/sponsors',
+    '',
+    '/sponsors',
+  ],
+  [
+    'empty configs: uses locale key as prefix',
+    'fr-FR',
+    PT_BR,
+    '/sponsors',
+    '',
+    '/fr-FR/sponsors',
+    {},
+  ],
+];
+
 describe('buildLocaleUrl', () => {
-  describe('from default locale to non-default', () => {
-    it('prepends the target locale prefix', () => {
+  for (const [
+    label,
+    target,
+    current,
+    pathname,
+    hash,
+    expected,
+    overrideConfigs,
+  ] of localeUrlCases) {
+    it(label, () => {
       assert.strictEqual(
-        buildLocaleUrl(EN_US, PT_BR, PT_BR, configs, '/sponsors', ''),
-        '/en-US/sponsors'
+        buildLocaleUrl(
+          target,
+          current,
+          PT_BR,
+          overrideConfigs ?? configs,
+          pathname,
+          hash
+        ),
+        expected
       );
     });
-
-    it('preserves the hash', () => {
-      assert.strictEqual(
-        buildLocaleUrl(EN_US, PT_BR, PT_BR, configs, '/', '#benefits'),
-        '/en-US/#benefits'
-      );
-    });
-
-    it('handles root path', () => {
-      assert.strictEqual(
-        buildLocaleUrl(EN_US, PT_BR, PT_BR, configs, '/', ''),
-        '/en-US/'
-      );
-    });
-  });
-
-  describe('from non-default locale to default', () => {
-    it('strips the current locale prefix', () => {
-      assert.strictEqual(
-        buildLocaleUrl(PT_BR, EN_US, PT_BR, configs, '/en-US/sponsors', ''),
-        '/sponsors'
-      );
-    });
-
-    it('preserves the hash when stripping prefix', () => {
-      assert.strictEqual(
-        buildLocaleUrl(PT_BR, EN_US, PT_BR, configs, '/en-US/', '#benefits'),
-        '/#benefits'
-      );
-    });
-
-    it('returns / when stripping leaves an empty path', () => {
-      assert.strictEqual(
-        buildLocaleUrl(PT_BR, EN_US, PT_BR, configs, '/en-US', ''),
-        '/'
-      );
-    });
-  });
-
-  describe('same locale as target', () => {
-    it('returns the same URL for non-default locale', () => {
-      assert.strictEqual(
-        buildLocaleUrl(EN_US, EN_US, PT_BR, configs, '/en-US/sponsors', ''),
-        '/en-US/sponsors'
-      );
-    });
-
-    it('returns the same URL for default locale', () => {
-      assert.strictEqual(
-        buildLocaleUrl(PT_BR, PT_BR, PT_BR, configs, '/sponsors', ''),
-        '/sponsors'
-      );
-    });
-  });
-
-  describe('fallback when localeConfigs is empty', () => {
-    it('uses the locale key as the prefix for non-default target', () => {
-      assert.strictEqual(
-        buildLocaleUrl('fr-FR', PT_BR, PT_BR, {}, '/sponsors', ''),
-        '/fr-FR/sponsors'
-      );
-    });
-  });
+  }
 });
