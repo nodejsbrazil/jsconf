@@ -23,7 +23,7 @@ export const Team = () => {
         <section className='speakers'>
           <Person
             name='Erick Wendel'
-            img='/img/speakers/erick-wendel.webp'
+            img='/img/team/erick-wendel.webp'
             bio='Erick Wendel é um palestrante experiente em conferências de tecnologia, conhecido como keynote speaker, e um renomado desenvolvedor da equipe principal do Node.js.'
             position='Criador de Conteúdo e Empreendedor'
             company='EW Academy'
@@ -37,7 +37,7 @@ export const Team = () => {
           />
           <Person
             name='Ana Neri'
-            img='/img/speakers/ana-neri.webp'
+            img='/img/team/ana-neri.webp'
             bio='Ana Neri é dev sênior que atua em empresas do vale do silício atualmente na Clutch desenvolvendo o futuro das credit unios, é líder da NodeBR e criadora de conteúdo tech'
             position='Senior Software Engineer'
             company='Clutch'
@@ -51,7 +51,7 @@ export const Team = () => {
           />
           <Person
             name='Weslley'
-            img='/img/speakers/wells.webp'
+            img='/img/team/wells.webp'
             bio='Wells criou o melhor test runner o poku e é o mantenedor do mySQL'
             position='Senior Software Engineer'
             company='Poku'
@@ -65,7 +65,7 @@ export const Team = () => {
           />
           <Person
             name='Lojhan'
-            img='/img/speakers/lojhan.webp'
+            img='/img/team/lojhan.webp'
             bio='He is DEV, co-founder and CEO of Meli'
             position='Senior Software Engineer'
             company='MELI'
@@ -73,12 +73,12 @@ export const Team = () => {
               instagram: 'lojhan.dev',
               linkedin: 'lojhan',
               github: 'Lojhan',
-              website: 'https://www.lojhan.com/en-US',
+              website: 'https://www.lojhan.com',
             }}
           />
           <Person
             name='Micaele Magalhães'
-            img='/img/speakers/mi.webp'
+            img='/img/team/mi.webp'
             bio='Micaele é UX Designer, especialista em experiência do usuário e faz as ilustrações mais lindas (e sem IA)'
             position='Senior UX Designer e Ilustradora profissional'
             company='Clutch'
