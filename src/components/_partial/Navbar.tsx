@@ -73,8 +73,15 @@ export const Navbar = () => {
   const handleClickOutside = useCallback((e: MouseEvent) => {
     if (!localeDropdownRef.current) return;
     if (!(e.target instanceof Node)) return;
+    if (!localeDropdownRef.current.contains(e.target)) {
+      localeDropdownRef.current.classList.remove('open');
+    }
 
-    localeDropdownRef.current.classList.remove('open');
+    if (!localeMobileRef.current) return;
+    if (!(e.target instanceof Node)) return;
+    if (!localeMobileRef.current.contains(e.target)) {
+      localeMobileRef.current.classList.remove('open');
+    }
   }, []);
 
   useEffect(() => {
