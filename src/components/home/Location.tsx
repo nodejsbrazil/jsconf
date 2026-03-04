@@ -22,7 +22,7 @@ export const Location = () => {
           <div className='venue-photo'>
             <img
               className='image'
-              src='/img/venue.png'
+              src='/img/venue.webp'
               alt='USCS - Universidade Municipal de São Caetano do Sul'
             />
           </div>
