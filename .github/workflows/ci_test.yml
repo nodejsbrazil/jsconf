@@ -1,4 +1,4 @@
-name: "🧪 CI (Website) — Testing"
+name: '🧪 CI (Website) — Testing'
 
 on:
   pull_request:
