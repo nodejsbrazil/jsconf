@@ -366,5 +366,29 @@
   "coc.pageDescription": {
     "message": "Código de Conduta da JSConf Brasil",
     "description": "CoC page meta description"
+  },
+  "home.waitlist.label": {
+    "message": "Receba novidades em primeira mão",
+    "description": "Waitlist form label"
+  },
+  "home.waitlist.placeholder": {
+    "message": "seu@email.com",
+    "description": "Waitlist email input placeholder"
+  },
+  "home.waitlist.submit": {
+    "message": "Entrar na lista",
+    "description": "Waitlist submit button text"
+  },
+  "home.waitlist.submitting": {
+    "message": "Enviando...",
+    "description": "Waitlist submit button loading text"
+  },
+  "home.waitlist.success": {
+    "message": "Você está na lista! Avisaremos quando abrir novidades.",
+    "description": "Waitlist success message"
+  },
+  "home.waitlist.error": {
+    "message": "Algo deu errado. Tente novamente mais tarde.",
+    "description": "Waitlist generic error message"
   }
 }

@@ -3,6 +3,7 @@ import { CalendarDays, Tickets } from 'lucide-react';
 import { link } from '@site/src/configs/definitions';
 import { BR } from '../shared/BR';
 import { SafeLink } from '../shared/SafeLink';
+import { Waitlist } from './Waitlist';
 
 const TranslateStrong = (props: { id: string; children?: string }) => (
   <strong>
@@ -69,6 +70,7 @@ export const Home = () => (
             </span>
           </SafeLink>
         </section>
+        <Waitlist />
       </menu>
       <footer className='credits'>
         <span className='label'>

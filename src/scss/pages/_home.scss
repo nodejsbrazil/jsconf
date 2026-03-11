@@ -143,6 +143,131 @@
         }
       }
 
+      .waitlist {
+        @include flex(column, center, center);
+        gap: 1rem;
+        width: 100%;
+        max-width: 48rem;
+        animation: fadeIn 1.5s var(--ease-out-quad) forwards;
+
+        .waitlist-website {
+          position: absolute;
+          left: -9999rem;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .waitlist-label {
+          font-size: 1.3rem;
+          font-weight: 600;
+          opacity: 0.75;
+          text-shadow: 0 0 5rem rgb(0, 0, 0);
+        }
+
+        .waitlist-form {
+          @include flex(row, center, center);
+          gap: 0.75rem;
+          width: 100%;
+
+          @media (max-width: 540px) {
+            flex-direction: column;
+          }
+        }
+
+        .waitlist-input-wrapper {
+          position: relative;
+          flex: 1;
+
+          .waitlist-input-icon {
+            position: absolute;
+            top: 50%;
+            left: 1.25rem;
+            transform: translateY(-50%);
+            width: 1.6rem;
+            height: 1.6rem;
+            color: var(--ifm-color-primary);
+            pointer-events: none;
+          }
+
+          .waitlist-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem 1.2rem 3.75rem;
+            border-radius: 0.75rem;
+            border: 0.15rem solid rgba(141, 248, 34, 0.25);
+            background: rgba(0, 14, 6, 0.75);
+            color: #fff;
+            font-size: 1.4rem;
+            font-family: var(--ifm-font-family-base);
+            outline: none;
+            transition:
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+            backdrop-filter: blur(0.5rem);
+
+            &::placeholder {
+              color: rgba(255, 255, 255, 0.35);
+            }
+
+            &:focus {
+              border-color: var(--ifm-color-primary);
+              box-shadow: 0 0 0 0.3rem rgba(141, 248, 34, 0.15);
+            }
+
+            &:disabled {
+              opacity: 0.6;
+              cursor: not-allowed;
+            }
+          }
+        }
+
+        .waitlist-submit {
+          padding: 1.2rem 2rem;
+          border-radius: 0.75rem;
+          border: none;
+          background: linear-gradient(90deg, #0a8d1b, #17ae2b);
+          color: #fff;
+          font-size: 1.3rem;
+          font-weight: 800;
+          font-family: var(--ifm-font-family-title);
+          text-shadow: 0.1rem 0.1rem 0.2rem #071f0dca;
+          cursor: pointer;
+          white-space: nowrap;
+          transition:
+            opacity 0.2s ease,
+            transform 0.2s var(--ease-bounce-strong);
+
+          &:hover:not(:disabled) {
+            transform: scale(1.04);
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+        }
+
+        .waitlist-feedback {
+          margin: 0;
+          font-size: 1.3rem;
+          font-weight: 600;
+
+          &.success {
+            color: var(--ifm-color-primary);
+          }
+
+          &.duplicate {
+            color: #f0c040;
+          }
+
+          &.error {
+            color: #ff6b6b;
+          }
+        }
+      }
+
       & > .credits {
         @include flex(column, center, center);
         gap: 1.5rem;

@@ -31,7 +31,7 @@
       "@site/*": ["./*"]
     }
   },
-  "exclude": ["static", ".docusaurus", "build"],
+  "exclude": ["static", ".docusaurus", "build", "worker"],
   "mdx": {
     "checkMdx": true
   }

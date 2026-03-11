@@ -1,0 +1,26 @@
+{
+  "name": "jsconf-br-waitlist-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:test": "wrangler dev --port 8788",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create jsconf-br-waitlist",
+    "db:init": "wrangler d1 execute jsconf-br-waitlist --file=schema.sql",
+    "db:init:remote": "wrangler d1 execute jsconf-br-waitlist --remote --file=schema.sql",
+    "test:unit": "poku src/__tests__ --exclude=integration",
+    "test:integration": "poku src/__tests__/integration.test.ts",
+    "test": "npm run test:unit && npm run test:integration"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
+    "poku": "^4.1.0",
+    "tsx": "^4.21.0",
+    "wrangler": "^4.0.0"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  }
+}
