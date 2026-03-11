@@ -5,7 +5,7 @@ const config: Config = {
   title: 'JSConf Brasil',
   favicon: 'favicon.ico',
   baseUrl: '/',
-  url: 'https://jsconfbr.weslley.io/',
+  url: 'https://jsconf.nodebr.org/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'ignore',
