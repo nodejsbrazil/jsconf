@@ -40,8 +40,8 @@ Use `<Text />` para conteúdo JSX e `text()` para atributos HTML ( `aria-label` 
 
 `<Text />` e `text()` são abstrações do [ `<Translate />` ](https://docusaurus.io/docs/docusaurus-core#translate) do **Docusaurus**:
 
-* IDs tipados com autocomplete a partir de `i18n/pt-BR/code.json`
-* Fallback automático do idioma principal (`pt-BR`) — não é necessário passar `children`
+- IDs tipados com autocomplete a partir de `i18n/pt-BR/code.json`
+- Fallback automático do idioma principal (`pt-BR`) — não é necessário passar `children`
 
 Para adicionar um novo texto:
 
