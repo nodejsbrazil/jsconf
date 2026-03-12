@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const BodySchema = z.object({
-  email: z.email(),
+  email: z.email().max(254),
   website: z.string().default(''),
   utmSource: z
     .union([
