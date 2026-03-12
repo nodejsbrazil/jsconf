@@ -35,7 +35,7 @@ jobs:
       - name: Checking Lint
         run: npm run lint
 
-      - name: Running Worker Tests
+      - name: Testing
         run: npm test
 
       - name: Cache Docusaurus
