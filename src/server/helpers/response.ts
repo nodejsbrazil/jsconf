@@ -1,4 +1,4 @@
-export const json = (
+export const response = (
   body: unknown,
   status: number,
   extra: Record<string, string> = Object.create(null)
