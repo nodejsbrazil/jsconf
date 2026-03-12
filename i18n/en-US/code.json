@@ -1,382 +1,287 @@
 {
   "navbar.section.home": {
-    "message": "Home",
-    "description": "Navbar home section link"
+    "message": "Home"
   },
   "navbar.section.benefits": {
-    "message": "What will you find?",
-    "description": "Navbar benefits section link"
+    "message": "What will you find?"
   },
   "navbar.section.speakers": {
-    "message": "Speakers",
-    "description": "Navbar speakers section link"
+    "message": "Speakers"
   },
   "navbar.section.location": {
-    "message": "Location",
-    "description": "Navbar location section link"
+    "message": "Location"
   },
   "navbar.section.team": {
-    "message": "Our Team",
-    "description": "Navbar team section link"
+    "message": "Our Team"
   },
   "navbar.section.sponsors": {
-    "message": "Sponsors",
-    "description": "Navbar sponsors link"
+    "message": "Sponsors"
   },
   "navbar.tickets": {
-    "message": "TICKETS",
-    "description": "Tickets CTA button"
+    "message": "TICKETS"
   },
   "navbar.aria.openMenu": {
-    "message": "Open menu",
-    "description": "Aria label for hamburger button"
+    "message": "Open menu"
   },
   "navbar.aria.closeMenu": {
-    "message": "Close menu",
-    "description": "Aria label for close menu button"
+    "message": "Close menu"
   },
   "navbar.aria.logo": {
-    "message": "Back to top",
-    "description": "Aria label for logo link"
+    "message": "Back to top"
   },
   "navbar.locale.label": {
-    "message": "Language",
-    "description": "Aria label for locale switcher"
+    "message": "Language"
   },
   "footer.description": {
-    "message": "Made by and for the community. JSConf Brasil is a non-profit event dedicated to driving web development and strengthening the JavaScript community in Brazil.",
-    "description": "Footer about description"
+    "message": "Made by and for the community. JSConf Brasil is a non-profit event dedicated to driving web development and strengthening the JavaScript community in Brazil."
   },
   "footer.event": {
-    "message": "Event",
-    "description": "Footer event section heading"
+    "message": "Event"
   },
   "footer.copyright": {
-    "message": "© 2026 JSConf Brasil. Organized by",
-    "description": "Footer copyright line prefix"
+    "message": "© 2026 JSConf Brasil. Organized by"
   },
   "home.date": {
-    "message": "November 28, 2026 • São Paulo",
-    "description": "Event date and city shown on home"
+    "message": "November 28, 2026 • São Paulo"
   },
   "home.description": {
-    "message": "Join the developer community for a day filled with code, innovation and high-quality networking.",
-    "description": "Home hero description"
+    "message": "Join the developer community for a day filled with code, innovation and high-quality networking."
   },
   "home.cta.tickets": {
-    "message": "BUY TICKETS",
-    "description": "Home tickets CTA button text"
+    "message": "BUY TICKETS"
   },
   "home.credits.label": {
-    "message": "Organized by",
-    "description": "Home credits label"
+    "message": "Organized by"
   },
   "benefits.title": {
-    "message": "What will you find?",
-    "description": "Benefits section title"
+    "message": "What will you find?"
   },
   "benefits.quality.title": {
-    "message": "Quality Content",
-    "description": "Benefits quality card title"
+    "message": "Quality Content"
   },
   "benefits.quality.description": {
-    "message": "Talks and workshops with industry experts, latest news and trends in development",
-    "description": "Benefits quality card description"
+    "message": "Talks and workshops with industry experts, latest news and trends in development"
   },
   "benefits.international.title": {
-    "message": "International Talks",
-    "description": "Benefits international talks card title"
+    "message": "International Talks"
   },
   "benefits.international.description": {
-    "message": "World-renowned guests sharing knowledge and experiences",
-    "description": "Benefits international talks card description"
+    "message": "World-renowned guests sharing knowledge and experiences"
   },
   "benefits.translators.title": {
-    "message": "Translators",
-    "description": "Benefits translators card title"
+    "message": "Translators"
   },
   "benefits.translators.description": {
-    "message": "Dedicated team to ensure content is accessible to everyone, regardless of the speaker's language",
-    "description": "Benefits translators card description"
+    "message": "Dedicated team to ensure content is accessible to everyone, regardless of the speaker's language"
   },
   "benefits.networking.title": {
-    "message": "Networking",
-    "description": "Benefits networking card title"
+    "message": "Networking"
   },
   "benefits.networking.description": {
-    "message": "Meet industry professionals and expand your network of contacts and collaboration opportunities",
-    "description": "Benefits networking card description"
+    "message": "Meet industry professionals and expand your network of contacts and collaboration opportunities"
   },
   "benefits.career.title": {
-    "message": "Career Opportunities",
-    "description": "Benefits career card title"
+    "message": "Career Opportunities"
   },
   "benefits.career.description": {
-    "message": "Partner companies looking for talent, with real job opportunities and direct connections with recruiters",
-    "description": "Benefits career card description"
+    "message": "Partner companies looking for talent, with real job opportunities and direct connections with recruiters"
   },
   "benefits.workshops.title": {
-    "message": "Hands-on Workshops",
-    "description": "Benefits workshops card title"
+    "message": "Hands-on Workshops"
   },
   "benefits.workshops.description": {
-    "message": "Practical sessions where you get hands-on, learning technologies and tools in an interactive and applied way",
-    "description": "Benefits workshops card description"
+    "message": "Practical sessions where you get hands-on, learning technologies and tools in an interactive and applied way"
   },
   "benefits.certificate.title": {
-    "message": "Participation Certificate",
-    "description": "Benefits certificate card title"
+    "message": "Participation Certificate"
   },
   "benefits.certificate.description": {
-    "message": "Receive an official event certificate to prove your participation and add value to your professional resume",
-    "description": "Benefits certificate card description"
+    "message": "Receive an official event certificate to prove your participation and add value to your professional resume"
   },
   "benefits.prizes.title": {
-    "message": "Merchandise & Raffles",
-    "description": "Benefits prizes card title"
+    "message": "Merchandise & Raffles"
   },
   "benefits.prizes.description": {
-    "message": "Exclusive kits, t-shirts, stickers and prize draws offered by sponsors and the event organization",
-    "description": "Benefits prizes card description"
+    "message": "Exclusive kits, t-shirts, stickers and prize draws offered by sponsors and the event organization"
   },
   "speakers.title": {
-    "message": "Speakers",
-    "description": "Speakers section title"
+    "message": "Speakers"
   },
   "speakers.subtitle": {
-    "message": "International experts and local talent sharing the future of the web.",
-    "description": "Speakers section subtitle"
+    "message": "International experts and local talent sharing the future of the web."
   },
   "speakers.comingSoon.title": {
-    "message": "Coming Soon",
-    "description": "Speakers coming soon title"
+    "message": "Coming Soon"
   },
   "speakers.comingSoon.text": {
-    "message": "Speakers will be announced soon. Stay tuned!",
-    "description": "Speakers coming soon body text"
+    "message": "Speakers will be announced soon. Stay tuned!"
   },
   "location.title": {
-    "message": "Location",
-    "description": "Location section title"
+    "message": "Location"
   },
   "location.subtitle": {
-    "message": "Find out where JSConf Brasil 2026 will be held.",
-    "description": "Location section subtitle"
+    "message": "Find out where JSConf Brasil 2026 will be held."
   },
   "location.venue.address": {
-    "message": "Municipal University of São Caetano do Sul",
-    "description": "Venue full address name"
+    "message": "Municipal University of São Caetano do Sul"
   },
   "location.venue.city": {
-    "message": "São Caetano do Sul, SP",
-    "description": "Venue city and state"
+    "message": "São Caetano do Sul, SP"
   },
   "location.venue.date": {
-    "message": "November 28, 2026",
-    "description": "Venue event date"
+    "message": "November 28, 2026"
   },
   "location.venue.imgAlt": {
-    "message": "USCS - Municipal University of São Caetano do Sul",
-    "description": "Venue image alt text"
+    "message": "USCS - Municipal University of São Caetano do Sul"
   },
   "team.title": {
-    "message": "Our Team",
-    "description": "Team section title"
+    "message": "Our Team"
   },
   "team.subtitle": {
-    "message": "International experts and local talent sharing the future of the web.",
-    "description": "Team section subtitle"
+    "message": "International experts and local talent sharing the future of the web."
   },
   "sponsors.pageTitle": {
-    "message": "Sponsors",
-    "description": "Sponsors page title"
+    "message": "Sponsors"
   },
   "sponsors.pageDescription": {
-    "message": "Support JSConf Brasil 2026 and connect your brand to the world's largest JavaScript conference",
-    "description": "Sponsors page meta description"
+    "message": "Support JSConf Brasil 2026 and connect your brand to the world's largest JavaScript conference"
   },
   "sponsors.hero.title": {
-    "message": "Become a Sponsor",
-    "description": "Sponsors hero heading"
+    "message": "Become a Sponsor"
   },
   "sponsors.hero.intro": {
-    "message": "Support JSConf Brasil 2026 and connect your brand to Brazil's largest JavaScript community.",
-    "description": "Sponsors hero intro paragraph"
+    "message": "Support JSConf Brasil 2026 and connect your brand to Brazil's largest JavaScript community."
   },
   "sponsors.why.title": {
-    "message": "Why support?",
-    "description": "Sponsors why-support section heading"
+    "message": "Why support?"
   },
   "sponsors.visibility.title": {
-    "message": "Visibility",
-    "description": "Sponsors visibility card title"
+    "message": "Visibility"
   },
   "sponsors.visibility.text": {
-    "message": "Present your company, products and job opportunities to hundreds of engaged developers.",
-    "description": "Sponsors visibility card body"
+    "message": "Present your company, products and job opportunities to hundreds of engaged developers."
   },
   "sponsors.community.title": {
-    "message": "Community",
-    "description": "Sponsors community card title"
+    "message": "Community"
   },
   "sponsors.community.text": {
-    "message": "Contribute to a non-profit event that strengthens the JavaScript and Node.js ecosystem in Brazil.",
-    "description": "Sponsors community card body"
+    "message": "Contribute to a non-profit event that strengthens the JavaScript and Node.js ecosystem in Brazil."
   },
   "sponsors.benefits.title": {
-    "message": "What you get",
-    "description": "Sponsors benefits section heading"
+    "message": "What you get"
   },
   "sponsors.benefits.item1": {
-    "message": "10‑minute slot to present your company",
-    "description": "Sponsors benefit item 1"
+    "message": "10‑minute slot to present your company"
   },
   "sponsors.benefits.item2": {
-    "message": "Logo and links shared on our official channels",
-    "description": "Sponsors benefit item 2"
+    "message": "Logo and links shared on our official channels"
   },
   "sponsors.benefits.item3": {
-    "message": "Shared with our entire contact base",
-    "description": "Sponsors benefit item 3"
+    "message": "Shared with our entire contact base"
   },
   "sponsors.benefits.item4": {
-    "message": "Direct networking with the developer community",
-    "description": "Sponsors benefit item 4"
+    "message": "Direct networking with the developer community"
   },
   "sponsors.cta.title": {
-    "message": "Want to support JSConf Brasil 2026?",
-    "description": "Sponsors CTA section heading"
+    "message": "Want to support JSConf Brasil 2026?"
   },
   "sponsors.cta.text": {
-    "message": "Fill out the form and our team will get in touch.",
-    "description": "Sponsors CTA body"
+    "message": "Fill out the form and our team will get in touch."
   },
   "sponsors.cta.button": {
-    "message": "I WANT TO BE A SPONSOR",
-    "description": "Sponsors CTA button label"
+    "message": "I WANT TO BE A SPONSOR"
   },
   "brand.pageTitle": {
-    "message": "Brand Identity",
-    "description": "Brand page title"
+    "message": "Brand Identity"
   },
   "brand.pageDescription": {
-    "message": "Download official files and consult style guides to correctly represent JSConf Brasil 2026",
-    "description": "Brand page meta description"
+    "message": "Download official files and consult style guides to correctly represent JSConf Brasil 2026"
   },
   "brand.hero.title": {
-    "message": "Brand Identity",
-    "description": "Brand page hero heading"
+    "message": "Brand Identity"
   },
   "brand.hero.intro": {
-    "message": "Download official files and consult the style guides to correctly represent JSConf Brasil 2026.",
-    "description": "Brand page hero intro"
+    "message": "Download official files and consult the style guides to correctly represent JSConf Brasil 2026."
   },
   "brand.logo.title": {
-    "message": "Logo",
-    "description": "Brand logo section title"
+    "message": "Logo"
   },
   "brand.download.svg": {
-    "message": "Download SVG",
-    "description": "Download SVG button"
+    "message": "Download SVG"
   },
   "brand.download.png": {
-    "message": "Download PNG",
-    "description": "Download PNG button"
+    "message": "Download PNG"
   },
   "brand.colors.title": {
-    "message": "Colors",
-    "description": "Brand colors section title"
+    "message": "Colors"
   },
   "brand.color.green": {
-    "message": "Green",
-    "description": "Green color name"
+    "message": "Green"
   },
   "brand.color.yellow": {
-    "message": "Yellow",
-    "description": "Yellow color name"
+    "message": "Yellow"
   },
   "brand.color.blue": {
-    "message": "Blue",
-    "description": "Blue color name"
+    "message": "Blue"
   },
   "brand.color.white": {
-    "message": "White",
-    "description": "White color name"
+    "message": "White"
   },
   "brand.guidelines.title": {
-    "message": "Usage Guidelines",
-    "description": "Brand guidelines section title"
+    "message": "Usage Guidelines"
   },
   "brand.correct.title": {
-    "message": "Correct",
-    "description": "Brand do section title"
+    "message": "Correct"
   },
   "brand.correct.item1": {
-    "message": "Keep clear space around the logo",
-    "description": "Brand correct item 1"
+    "message": "Keep clear space around the logo"
   },
   "brand.correct.item2": {
-    "message": "Use on backgrounds that ensure contrast",
-    "description": "Brand correct item 2"
+    "message": "Use on backgrounds that ensure contrast"
   },
   "brand.correct.item3": {
-    "message": "Maintain original proportions",
-    "description": "Brand correct item 3"
+    "message": "Maintain original proportions"
   },
   "brand.correct.item4": {
-    "message": "Use official palette colors",
-    "description": "Brand correct item 4"
+    "message": "Use official palette colors"
   },
   "brand.avoid.title": {
-    "message": "Avoid",
-    "description": "Brand avoid section title"
+    "message": "Avoid"
   },
   "brand.avoid.item1": {
-    "message": "Altering the logo colors",
-    "description": "Brand avoid item 1"
+    "message": "Altering the logo colors"
   },
   "brand.avoid.item2": {
-    "message": "Distorting or rotating the logo",
-    "description": "Brand avoid item 2"
+    "message": "Distorting or rotating the logo"
   },
   "brand.avoid.item3": {
-    "message": "Adding effects like shadows or glows",
-    "description": "Brand avoid item 3"
+    "message": "Adding effects like shadows or glows"
   },
   "brand.avoid.item4": {
-    "message": "Using the logo at very small sizes",
-    "description": "Brand avoid item 4"
+    "message": "Using the logo at very small sizes"
   },
   "home.waitlist.label": {
-    "message": "Be the first to know",
-    "description": "Waitlist form label"
+    "message": "Be the first to know"
   },
   "home.waitlist.placeholder": {
-    "message": "your@email.com",
-    "description": "Waitlist email input placeholder"
+    "message": "your@email.com"
   },
   "home.waitlist.submit": {
-    "message": "Join the list",
-    "description": "Waitlist submit button text"
+    "message": "Join the list"
   },
   "home.waitlist.submitting": {
-    "message": "Sending...",
-    "description": "Waitlist submit button loading text"
+    "message": "Sending..."
   },
   "home.waitlist.success": {
-    "message": "You're on the list! We'll let you know when news drops.",
-    "description": "Waitlist success message"
+    "message": "You're on the list! We'll let you know when news drops."
   },
   "home.waitlist.error": {
-    "message": "Something went wrong. Please try again later.",
-    "description": "Waitlist generic error message"
+    "message": "Something went wrong. Please try again later."
   },
   "coc.pageTitle": {
-    "message": "Code of Conduct",
-    "description": "CoC page title"
+    "message": "Code of Conduct"
   },
   "coc.pageDescription": {
-    "message": "JSConf Brasil Code of Conduct",
-    "description": "CoC page meta description"
+    "message": "JSConf Brasil Code of Conduct"
   }
 }
