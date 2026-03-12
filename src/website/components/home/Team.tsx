@@ -38,7 +38,7 @@ export const Team = () => {
           <Person
             name='Ana Neri'
             img='/img/team/ana-neri.webp'
-            bio='Ana Neri é dev sênior que atua em empresas do vale do silício atualmente na Clutch desenvolvendo o futuro das credit unios, é líder da NodeBR e criadora de conteúdo tech'
+            bio='Ana Neri é dev sênior que atua em empresas do Vale do Silício, atualmente na Clutch desenvolvendo o futuro das credit unions, é líder da NodeBR e criadora de conteúdo tech.'
             position='Senior Software Engineer'
             company='Clutch'
             social={{
@@ -52,9 +52,9 @@ export const Team = () => {
           <Person
             name='Weslley'
             img='/img/team/wells.webp'
-            bio='Wells criou o melhor test runner o poku e é o mantenedor do mySQL'
-            position='Senior Software Engineer'
-            company='Poku'
+            bio='Weslley Araújo é um desenvolvedor com mais de 11 anos de experiência, mantenedor do MySQL2 e criador do Poku, um test runner de alta performance que desafia a própria linguagem de programação.'
+            position='Principal Developer'
+            company='weslley.io'
             social={{
               instagram: '@wellwelwel',
               youtube: '@weslleyio',
@@ -66,9 +66,9 @@ export const Team = () => {
           <Person
             name='Lojhan'
             img='/img/team/lojhan.webp'
-            bio='He is DEV, co-founder and CEO of Meli'
-            position='Senior Software Engineer'
-            company='MELI'
+            bio='Tech Lead & Full Stack Developer. Ajudando equipes a construir aplicações escaláveis com tecnologias modernas. Especializado em frontend, backend e design de arquitetura.'
+            position='Tech Lead'
+            company='Mercado Livre'
             social={{
               instagram: 'lojhan.dev',
               linkedin: 'lojhan',
@@ -79,11 +79,32 @@ export const Team = () => {
           <Person
             name='Micaele Magalhães'
             img='/img/team/mi.webp'
-            bio='Micaele é UX Designer, especialista em experiência do usuário e faz as ilustrações mais lindas (e sem IA)'
-            position='Senior UX Designer e Ilustradora profissional'
-            company='Clutch'
             social={{
-              instagram: 'https://www.instagram.com/micaele_magalhaes/',
+              instagram: 'micaele_magalhaes',
+            }}
+          />
+          <Person
+            name='Cristian Silva'
+            img='/img/team/cristian.webp'
+            bio='Formado em Análise e Desenvolvimento de Sistemas pela Fatec Rubens Lara, sou apaixonado por tecnologia e resolver problemas. Amo aprender coisas novas todos os dias e adoro ensinar aqueles que me cercam.'
+            position='Software Engineer'
+            company='Luizalabs'
+            social={{
+              linkedin: 'cristian-silva-dev',
+              github: 'Cristuker',
+            }}
+          />
+          <Person
+            name='Monica Craveiro'
+            img='/img/team/monica.webp'
+            bio='Carioca da gema, ex-patinadora artística, gamer, #TechMaromba, Dev Emocionada, costumava fazer cálculos por aí mas hoje em dia fico “só nos compiuter”, amante de energético e aspirante a Influencer Tech.'
+            position='Software Engineer'
+            company='Luizalabs'
+            social={{
+              linkedin: 'mocraveirodev',
+              instagram: 'mocraveirodev',
+              github: 'mocraveirodev',
+              website: 'https://5tr.in/mocraveirodev/',
             }}
           />
         </section>
