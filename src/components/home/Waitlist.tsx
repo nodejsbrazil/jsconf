@@ -14,10 +14,12 @@ const extractMetadataFromQueryParams = () => {
 
 export const Waitlist = () => {
   const { siteConfig } = useDocusaurusContext();
-  const workerDomain = siteConfig.customFields?.['workerDomain'] as string;
+  const workerDomain = siteConfig.customFields?.['workerDomain'];
   const [email, setEmail] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [state, setState] = useState<FormState>('idle');
+
+  if (typeof workerDomain !== 'string') return null;
 
   const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();

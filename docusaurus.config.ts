@@ -1,7 +1,9 @@
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 
-process.loadEnvFile?.();
+try {
+  process.loadEnvFile?.();
+} catch {}
 
 const config: Config = {
   title: 'JSConf Brasil',
