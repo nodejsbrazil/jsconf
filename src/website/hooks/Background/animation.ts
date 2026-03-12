@@ -1,12 +1,12 @@
 import type {
   AnimationRefs,
   AnimationState,
-} from '@site/src/hooks/Background/types';
+} from '@site/src/website/hooks/Background/types';
 import {
   isStarOutOfBounds,
   recycleStar,
-} from '@site/src/hooks/Background/stars';
-import { stopAnimationFrame } from '@site/src/hooks/shared/animation';
+} from '@site/src/website/hooks/Background/stars';
+import { stopAnimationFrame } from '@site/src/website/hooks/shared/animation';
 
 const updateVelocity = (state: AnimationState): void => {
   const { velocity, config } = state;

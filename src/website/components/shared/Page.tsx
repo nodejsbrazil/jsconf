@@ -1,4 +1,4 @@
-import '@site/src/scss/pages/root.scss';
+import '@site/src/website/scss/pages/root.scss';
 import Head from '@docusaurus/Head';
 import Layout from '@theme/Layout';
 import { useBackground } from '../../hooks/Background/useBackground';

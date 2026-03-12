@@ -1,6 +1,6 @@
 import Link from '@docusaurus/Link';
 import Translate from '@docusaurus/Translate';
-import { useLocalePath } from '@site/src/hooks/useLocalePath';
+import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import Logo from '../../assets/img/logo.svg';
 import { SafeLink } from '../shared/SafeLink';
 

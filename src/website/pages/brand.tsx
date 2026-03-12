@@ -1,10 +1,10 @@
-import '@site/src/scss/pages/brand.scss';
+import '@site/src/website/scss/pages/brand.scss';
 import { useRef, useState } from 'react';
 import Translate, { translate } from '@docusaurus/Translate';
 import { Check, CircleCheck, CircleX, Copy, Download } from 'lucide-react';
-import Logo from '@site/src/assets/img/logo.svg';
-import { Page } from '@site/src/components/shared/Page';
-import { copyToClipboard } from '@site/src/helpers/copy-to-clipboard';
+import Logo from '@site/src/website/assets/img/logo.svg';
+import { Page } from '@site/src/website/components/shared/Page';
+import { copyToClipboard } from '@site/src/website/helpers/copy-to-clipboard';
 import { Parallax } from '../components/shared/Parallax';
 
 export default () => {

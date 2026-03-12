@@ -8,8 +8,8 @@ import {
   Linkedin,
   Youtube,
 } from 'lucide-react';
-import { SafeLink } from '@site/src/components/shared/SafeLink';
-import { useScroll } from '@site/src/hooks/useScroll';
+import { SafeLink } from '@site/src/website/components/shared/SafeLink';
+import { useScroll } from '@site/src/website/hooks/useScroll';
 
 type SocialLinks = {
   linkedin?: string;

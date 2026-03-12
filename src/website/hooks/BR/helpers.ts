@@ -4,13 +4,13 @@ import type {
   DotProgressResult,
   DotState,
   RawDotData,
-} from '@site/src/hooks/BR/types';
+} from '@site/src/website/hooks/BR/types';
 import {
   ANIMATION_DURATION,
   DELAY_PER_DOT,
   VISIBLE_THRESHOLD,
-} from '@site/src/hooks/BR/definitions';
-import dots from '@site/src/hooks/BR/dots.json';
+} from '@site/src/website/hooks/BR/definitions';
+import dots from '@site/src/website/hooks/BR/dots.json';
 
 const shuffleArray = <T>(array: T[]): T[] => {
   const result = [...array];

@@ -1,6 +1,6 @@
 import Translate from '@docusaurus/Translate';
 import { CalendarDays, Tickets } from 'lucide-react';
-import { link } from '@site/src/configs/definitions';
+import { link } from '@site/src/website/configs/definitions';
 import { BR } from '../shared/BR';
 import { SafeLink } from '../shared/SafeLink';
 

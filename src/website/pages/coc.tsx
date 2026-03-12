@@ -1,4 +1,4 @@
-import '@site/src/scss/pages/markdown.scss';
+import '@site/src/website/scss/pages/markdown.scss';
 import { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import CoC_enUS from '../assets/md/CoC.en-US.md';

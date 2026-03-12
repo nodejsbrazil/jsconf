@@ -3,15 +3,18 @@ import type {
   AnimationState,
   Pointer,
   UseBackgroundOptions,
-} from '@site/src/hooks/Background/types';
+} from '@site/src/website/hooks/Background/types';
 import { useCallback, useEffect, useRef } from 'react';
-import { startAnimation } from '@site/src/hooks/Background/animation';
+import { startAnimation } from '@site/src/website/hooks/Background/animation';
 import {
   calculateStarCount,
   DEFAULT_CONFIG,
-} from '@site/src/hooks/Background/definitions';
-import { createStars, placeAllStars } from '@site/src/hooks/Background/stars';
-import { cleanupAnimation } from '@site/src/hooks/shared/animation';
+} from '@site/src/website/hooks/Background/definitions';
+import {
+  createStars,
+  placeAllStars,
+} from '@site/src/website/hooks/Background/stars';
+import { cleanupAnimation } from '@site/src/website/hooks/shared/animation';
 
 const createInitialState = (options: UseBackgroundOptions): AnimationState => {
   const config = { ...DEFAULT_CONFIG, ...options };

@@ -1,9 +1,9 @@
-import '@site/src/scss/pages/sponsors.scss';
+import '@site/src/website/scss/pages/sponsors.scss';
 import Translate, { translate } from '@docusaurus/Translate';
 import { ExternalLink, Handshake, Heart } from 'lucide-react';
-import { Page } from '@site/src/components/shared/Page';
-import { SafeLink } from '@site/src/components/shared/SafeLink';
-import { link } from '@site/src/configs/definitions';
+import { Page } from '@site/src/website/components/shared/Page';
+import { SafeLink } from '@site/src/website/components/shared/SafeLink';
+import { link } from '@site/src/website/configs/definitions';
 
 export default () => (
   <Page

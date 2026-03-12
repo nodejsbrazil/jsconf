@@ -1,5 +1,8 @@
 import { assert, describe, it } from 'poku';
-import { buildLocalePath, buildLocaleUrl } from '../../src/helpers/locale-path';
+import {
+  buildLocalePath,
+  buildLocaleUrl,
+} from '../../src/website/helpers/locale-path';
 
 const PT_BR = 'pt-BR';
 const EN_US = 'en-US';

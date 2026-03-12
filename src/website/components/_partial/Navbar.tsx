@@ -5,10 +5,10 @@ import { useLocation } from '@docusaurus/router';
 import Translate, { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ChevronDown, ExternalLink, Globe, Menu, X } from 'lucide-react';
-import { SafeLink } from '@site/src/components/shared/SafeLink';
-import { link } from '@site/src/configs/definitions';
-import { useLocalePath } from '@site/src/hooks/useLocalePath';
-import { useScrollSpy } from '@site/src/hooks/useScrollSpy';
+import { SafeLink } from '@site/src/website/components/shared/SafeLink';
+import { link } from '@site/src/website/configs/definitions';
+import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
+import { useScrollSpy } from '@site/src/website/hooks/useScrollSpy';
 import Logo from '../../assets/img/logo.svg';
 
 type Section = {

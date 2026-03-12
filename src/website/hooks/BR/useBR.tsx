@@ -3,12 +3,15 @@ import {
   createElapsedTimeGetter,
   handleVisibilityOff,
   handleVisibilityOn,
-} from '@site/src/hooks/BR/animation';
-import { updateCanvasSize } from '@site/src/hooks/BR/canvas';
-import { createInitialState } from '@site/src/hooks/BR/helpers';
-import { AnimationRefs, AnimationState } from '@site/src/hooks/BR/types';
-import { cleanupAnimation } from '@site/src/hooks/shared/animation';
-import { useVisibility } from '@site/src/hooks/useVisibility';
+} from '@site/src/website/hooks/BR/animation';
+import { updateCanvasSize } from '@site/src/website/hooks/BR/canvas';
+import { createInitialState } from '@site/src/website/hooks/BR/helpers';
+import {
+  AnimationRefs,
+  AnimationState,
+} from '@site/src/website/hooks/BR/types';
+import { cleanupAnimation } from '@site/src/website/hooks/shared/animation';
+import { useVisibility } from '@site/src/website/hooks/useVisibility';
 
 export const useBR = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

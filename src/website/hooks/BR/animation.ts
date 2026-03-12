@@ -1,10 +1,16 @@
-import type { AnimationRefs, AnimationState } from '@site/src/hooks/BR/types';
-import { draw } from '@site/src/hooks/BR/canvas';
-import { FINAL_COLOR, INITIAL_COLOR } from '@site/src/hooks/BR/definitions';
+import type {
+  AnimationRefs,
+  AnimationState,
+} from '@site/src/website/hooks/BR/types';
+import { draw } from '@site/src/website/hooks/BR/canvas';
+import {
+  FINAL_COLOR,
+  INITIAL_COLOR,
+} from '@site/src/website/hooks/BR/definitions';
 import {
   initializeResizeObserver,
   stopAnimationFrame,
-} from '@site/src/hooks/shared/animation';
+} from '@site/src/website/hooks/shared/animation';
 
 const easeIn = (progress: number): number => progress * progress;
 

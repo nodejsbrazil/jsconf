@@ -1,10 +1,10 @@
-import type { AnimationState, Dot } from '@site/src/hooks/BR/types';
-import { getColor } from '@site/src/hooks/BR/animation';
-import { VIEWBOX_WIDTH } from '@site/src/hooks/BR/definitions';
+import type { AnimationState, Dot } from '@site/src/website/hooks/BR/types';
+import { getColor } from '@site/src/website/hooks/BR/animation';
+import { VIEWBOX_WIDTH } from '@site/src/website/hooks/BR/definitions';
 import {
   calculateDotProgress,
   processRemovals,
-} from '@site/src/hooks/BR/helpers';
+} from '@site/src/website/hooks/BR/helpers';
 
 const drawSquare = (
   context: CanvasRenderingContext2D,
