@@ -33,8 +33,7 @@ export default {
     })();
     if (!body) return response({ error: 'invalid_json' }, 400, cors);
 
-    const url = new URL(request.url);
-    const pathname = { url };
+    const { pathname } = new URL(request.url);
 
     // Routes
     switch (`${method} ${pathname}`) {
