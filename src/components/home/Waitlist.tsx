@@ -1,18 +1,20 @@
 import type { SubmitEventHandler } from 'react';
 import { useState } from 'react';
 import Translate, { translate } from '@docusaurus/Translate';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Mail } from 'lucide-react';
-import { waitlistApiUrl } from '@site/src/configs/definitions';
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
 const extractMetadataFromQueryParams = () => {
   const params = new URLSearchParams(window.location.search);
   const utmSource = params.get('utm_source');
-  return { utmSource };
+  return utmSource ? { utmSource } : Object.create(null);
 };
 
 export const Waitlist = () => {
+  const { siteConfig } = useDocusaurusContext();
+  const workerDomain = siteConfig.customFields?.['workerDomain'] as string;
   const [email, setEmail] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [state, setState] = useState<FormState>('idle');
@@ -23,7 +25,7 @@ export const Waitlist = () => {
     setState('loading');
 
     try {
-      const res = await fetch(`${waitlistApiUrl}/api/waitlist`, {
+      const res = await fetch(`${workerDomain}/api/waitlist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -1,17 +1,17 @@
-import type { WaitlistDB } from '../handler';
+import type { Env } from '../handler.js';
 import { assert, beforeEach, describe, it } from 'poku';
-import { handleWaitlist } from '../handler';
+import { handleWaitlist } from '../handler.js';
 
 const ORIGIN = 'https://example.com';
 const URL_BASE = 'https://worker.example.com';
 
-type MockDB = WaitlistDB & {
+type MockDB = Env['DB'] & {
   _lastInsertedEmail: string | null;
   _lastInsertedUtmSource: string | null | undefined;
   _throwOnInsert: Error | null;
 };
 
-function makeMockDB(opts: { throwOnInsert?: Error } = {}): MockDB {
+const makeMockDB = (opts: { throwOnInsert?: Error } = {}): MockDB => {
   const db: MockDB = {
     _lastInsertedEmail: null,
     _lastInsertedUtmSource: undefined,
@@ -31,22 +31,28 @@ function makeMockDB(opts: { throwOnInsert?: Error } = {}): MockDB {
     },
   };
   return db;
-}
+};
 
-function post(body: unknown, db: WaitlistDB): Promise<Response> {
+const makeEnv = (db: MockDB, allowedOrigin?: string): Env =>
+  ({ DB: db, ALLOWED_ORIGIN: allowedOrigin }) as unknown as Env;
+
+const post = (body: unknown, db: MockDB): Promise<Response> => {
   const req = new Request(`${URL_BASE}/api/waitlist`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', Origin: ORIGIN },
     body: JSON.stringify(body),
   });
-  return handleWaitlist(req, db, ORIGIN);
-}
+  return handleWaitlist(req, makeEnv(db));
+};
 
 await describe('handleWaitlist — CORS', async () => {
   await it('responds to OPTIONS preflight with 204 and CORS headers', async () => {
     const db = makeMockDB();
-    const req = new Request(`${URL_BASE}/api/waitlist`, { method: 'OPTIONS' });
-    const res = await handleWaitlist(req, db, ORIGIN);
+    const req = new Request(`${URL_BASE}/api/waitlist`, {
+      method: 'OPTIONS',
+      headers: { Origin: ORIGIN },
+    });
+    const res = await handleWaitlist(req, makeEnv(db));
     assert.equal(res.status, 204);
     assert.equal(res.headers.get('Access-Control-Allow-Origin'), ORIGIN);
   });
@@ -56,6 +62,22 @@ await describe('handleWaitlist — CORS', async () => {
     const res = await post({ email: 'a@b.com', website: '' }, db);
     assert.equal(res.headers.get('Access-Control-Allow-Origin'), ORIGIN);
   });
+
+  await it('uses ALLOWED_ORIGIN when set', async () => {
+    const db = makeMockDB();
+    const req = new Request(`${URL_BASE}/api/waitlist`, {
+      method: 'OPTIONS',
+      headers: { Origin: 'http://localhost:3000' },
+    });
+    const res = await handleWaitlist(
+      req,
+      makeEnv(db, 'https://production.com')
+    );
+    assert.equal(
+      res.headers.get('Access-Control-Allow-Origin'),
+      'https://production.com'
+    );
+  });
 });
 
 await describe('handleWaitlist — routing', async () => {
@@ -63,17 +85,20 @@ await describe('handleWaitlist — routing', async () => {
     const db = makeMockDB();
     const req = new Request(`${URL_BASE}/unknown`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Origin: ORIGIN },
       body: JSON.stringify({ email: 'a@b.com' }),
     });
-    const res = await handleWaitlist(req, db, ORIGIN);
+    const res = await handleWaitlist(req, makeEnv(db));
     assert.equal(res.status, 404);
   });
 
   await it('returns 404 for a GET request to the correct path', async () => {
     const db = makeMockDB();
-    const req = new Request(`${URL_BASE}/api/waitlist`, { method: 'GET' });
-    const res = await handleWaitlist(req, db, ORIGIN);
+    const req = new Request(`${URL_BASE}/api/waitlist`, {
+      method: 'GET',
+      headers: { Origin: ORIGIN },
+    });
+    const res = await handleWaitlist(req, makeEnv(db));
     assert.equal(res.status, 404);
   });
 });
@@ -83,10 +108,10 @@ await describe('handleWaitlist — input validation', async () => {
     const db = makeMockDB();
     const req = new Request(`${URL_BASE}/api/waitlist`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Origin: ORIGIN },
       body: 'not json{{{',
     });
-    const res = await handleWaitlist(req, db, ORIGIN);
+    const res = await handleWaitlist(req, makeEnv(db));
     assert.equal(res.status, 400);
     assert.deepEqual(await res.json(), { error: 'invalid_json' });
   });
@@ -120,7 +145,6 @@ await describe('handleWaitlist — honeypot', async () => {
     );
     assert.equal(res.status, 201);
     assert.deepEqual(await res.json(), { success: true });
-    // Must NOT have inserted into the DB
     assert.equal(db._lastInsertedEmail, null);
   });
 });

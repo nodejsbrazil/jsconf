@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 export const BodySchema = z.object({
   email: z.email(),
-  /** Honeypot field — real users never fill this; any non-empty value means a bot */
   website: z.string().default(''),
   utmSource: z
     .union([
@@ -14,7 +13,8 @@ export const BodySchema = z.object({
       z.literal('github'),
       z.literal('instagram'),
       z.literal('bluesky'),
-      z.literal('other'),
+      z.literal('slack'),
+      z.literal('newsletter'),
     ])
     .optional(),
 });

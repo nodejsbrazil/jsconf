@@ -1,8 +1,6 @@
-import { corsHeaders } from './cors';
-import { json } from './json';
-import { BodySchema } from './schema';
+import { json } from './json.js';
+import { BodySchema } from './schema.js';
 
-/** Minimal DB interface — keeps the handler decoupled from Cloudflare's D1 specifics */
 export interface WaitlistDB {
   prepare(sql: string): {
     bind(...values: unknown[]): {
@@ -11,12 +9,22 @@ export interface WaitlistDB {
   };
 }
 
-export async function handleWaitlist(
+export interface Env {
+  DB: WaitlistDB;
+  ALLOWED_ORIGIN?: string;
+}
+
+export const handleWaitlist = async (
   request: Request,
-  db: WaitlistDB,
-  allowedOrigin: string
-): Promise<Response> {
-  const cors = corsHeaders(allowedOrigin);
+  env: Env
+): Promise<Response> => {
+  const origin = env.ALLOWED_ORIGIN || request.headers.get('Origin') || '*';
+  const cors = {
+    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    Vary: 'Origin',
+  };
 
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: cors });
@@ -48,17 +56,18 @@ export async function handleWaitlist(
   }
 
   try {
-    await db
-      .prepare('INSERT INTO waitlist (email, utm_source) VALUES (?, ?)')
+    await env.DB.prepare(
+      'INSERT INTO waitlist (email, utm_source) VALUES (?, ?)'
+    )
       .bind(email, utmSource ?? null)
       .run();
   } catch (e) {
-    // Return the same success response on duplicate to avoid leaking whether an email is registered
     if (e instanceof Error && e.message.includes('UNIQUE')) {
       return json({ success: true }, 201, cors);
     }
+
     return json({ error: 'internal_error' }, 500, cors);
   }
 
   return json({ success: true }, 201, cors);
-}
+};

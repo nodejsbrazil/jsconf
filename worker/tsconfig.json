@@ -12,6 +12,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noUncheckedIndexedAccess": true,
     "noEmit": true
   },
   "include": ["src"],

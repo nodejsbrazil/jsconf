@@ -2,10 +2,8 @@ name = "jsconf-br-waitlist"
 main = "src/index.ts"
 compatibility_date = "2025-01-01"
 
-[vars]
-ALLOWED_ORIGIN = "https://jsconf.nodebr.org/"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "jsconf-br-waitlist"
-database_id = <db_id>
+database_id = "local"

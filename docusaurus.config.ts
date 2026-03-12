@@ -1,6 +1,8 @@
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 
+process.loadEnvFile?.();
+
 const config: Config = {
   title: 'JSConf Brasil',
   favicon: 'favicon.ico',
@@ -41,6 +43,9 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
+  customFields: {
+    workerDomain: process.env['WORKER_DOMAIN'],
+  },
   staticDirectories: ['./src/assets'],
   plugins: ['docusaurus-plugin-sass'],
 };
