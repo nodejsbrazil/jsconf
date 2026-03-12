@@ -3,7 +3,9 @@ import { assert, describe, it } from 'poku';
 import { waitlist } from '../../src/server/repositories/waitlist.js';
 
 const stub = {
-  prepare: () => ({ bind: () => ({ run: async () => {} }) }),
+  prepare: () => ({
+    bind: () => ({ run: async () => {}, all: async () => ({ results: [] }) }),
+  }),
 } as Database;
 const { schema } = waitlist(stub);
 

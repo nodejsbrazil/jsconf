@@ -13,20 +13,28 @@ type MockDatabase = {
   database: Database;
   lastInsertedEmail: string | null;
   lastInsertedUtmSource: string | null | undefined;
+  lastInsertedIpHash: string | null;
+  ipCount: number;
 };
 
-const makeMockDatabase = (opts: { throwOnRun?: Error } = {}): MockDatabase => {
+const makeMockDatabase = (
+  opts: { throwOnRun?: Error; ipCount?: number } = {}
+): MockDatabase => {
   const mock: MockDatabase = {
     lastInsertedEmail: null,
     lastInsertedUtmSource: undefined,
+    lastInsertedIpHash: null,
+    ipCount: opts.ipCount ?? 0,
     database: {
       prepare: () => ({
         bind: (...values: unknown[]) => ({
           run: async () => {
             if (opts.throwOnRun) throw opts.throwOnRun;
             mock.lastInsertedEmail = values[0] as string;
-            mock.lastInsertedUtmSource = (values[1] as string | null) ?? null;
+            mock.lastInsertedIpHash = values[1] as string;
+            mock.lastInsertedUtmSource = (values[2] as string | null) ?? null;
           },
+          all: async <T>() => ({ results: [{ total: mock.ipCount }] as T[] }),
         }),
       }),
     },
@@ -34,8 +42,12 @@ const makeMockDatabase = (opts: { throwOnRun?: Error } = {}): MockDatabase => {
   return mock;
 };
 
-const post = async (body: unknown, mock: MockDatabase): Promise<Response> =>
-  routes.waitlist(body, cors, mock.database);
+const post = async (
+  body: unknown,
+  mock: MockDatabase,
+  ip = 'abc123'
+): Promise<Response> =>
+  routes.waitlist({ body, cors, database: mock.database, ip });
 
 describe('routes.waitlist', async () => {
   await describe('input validation', async () => {

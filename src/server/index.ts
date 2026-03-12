@@ -1,5 +1,6 @@
 import type { Env } from './types.js';
-import { checkRateLimit } from './configs/rate-limit.js';
+import { checkRateLimit, getRateLimitKey } from './configs/rate-limit.js';
+import { hash } from './helpers/hash.js';
 import { response } from './helpers/response.js';
 import { routes } from './routes.js';
 
@@ -34,11 +35,12 @@ export default {
     if (!body) return response({ error: 'invalid_json' }, 400, cors);
 
     const { pathname } = new URL(request.url);
+    const ip = await hash(getRateLimitKey(request));
 
     // Routes
     switch (`${method} ${pathname}`) {
       case 'POST /api/waitlist':
-        return routes.waitlist(body, cors, env.DB);
+        return routes.waitlist({ body, cors, database: env.DB, ip });
       default:
         return response({ error: 'not_found' }, 404, cors);
     }

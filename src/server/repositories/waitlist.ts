@@ -4,6 +4,8 @@ import { z } from 'zod';
 export type Waitlist = ReturnType<typeof waitlist>;
 
 export const waitlist = (database: Database) => {
+  const dailyLimit = 10;
+
   const schema = z.object({
     email: z.email().max(254),
     website: z.string().default(''),
@@ -23,14 +25,28 @@ export const waitlist = (database: Database) => {
       .optional(),
   });
 
+  const canInsert = async (ip: string): Promise<boolean> => {
+    const { results } = await database
+      .prepare(
+        "SELECT COUNT(*) as total FROM waitlist WHERE ip = ? AND created_at >= date('now')"
+      )
+      .bind(ip)
+      .all<{ total: number }>();
+
+    return (results[0]?.total ?? 0) < dailyLimit;
+  };
+
   const insert = async (
     email: string,
-    utmSource?: string
+    utmSource: string | undefined,
+    ip: string
   ): Promise<boolean> => {
     try {
       await database
-        .prepare('INSERT INTO waitlist (email, utm_source) VALUES (?, ?)')
-        .bind(email, utmSource ?? null)
+        .prepare(
+          'INSERT INTO waitlist (email, ip, utm_source) VALUES (?, ?, ?)'
+        )
+        .bind(email, ip, utmSource ?? null)
         .run();
 
       return true;
@@ -44,6 +60,7 @@ export const waitlist = (database: Database) => {
 
   return {
     schema,
+    canInsert,
     insert,
   };
 };
