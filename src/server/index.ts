@@ -25,22 +25,13 @@ export default {
         'Retry-After': String(rateLimit.retryAfterSeconds),
       });
 
-    const body = await (async () => {
-      try {
-        return await request.json();
-      } catch {
-        return;
-      }
-    })();
-    if (!body) return response({ error: 'Invalid JSON.' }, 400, cors);
-
     const { pathname } = new URL(request.url);
     const ip = await hash(getRateLimitKey(request));
 
     // Routes
     switch (`${method} ${pathname}`) {
       case 'POST /api/waitlist':
-        return routes.waitlist({ body, cors, database: env.DB, ip });
+        return routes.waitlist({ request, cors, database: env.DB, ip });
       default:
         return response({ error: 'Not found.' }, 404, cors);
     }

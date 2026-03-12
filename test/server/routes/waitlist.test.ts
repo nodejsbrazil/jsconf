@@ -42,12 +42,24 @@ const makeMockDatabase = (
   return mock;
 };
 
+const makeRequest = (body: unknown): Request =>
+  new Request('http://localhost/api/waitlist', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+
 const post = async (
   body: unknown,
   mock: MockDatabase,
   ip = 'abc123'
 ): Promise<Response> =>
-  routes.waitlist({ body, cors, database: mock.database, ip });
+  routes.waitlist({
+    request: makeRequest(body),
+    cors,
+    database: mock.database,
+    ip,
+  });
 
 describe('routes.waitlist', async () => {
   await describe('input validation', async () => {
