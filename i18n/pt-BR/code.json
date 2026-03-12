@@ -140,6 +140,42 @@
   "team.subtitle": {
     "message": "Especialistas internacionais e talentos locais compartilhando o futuro da web."
   },
+  "team.erick.bio": {
+    "message": "Erick Wendel é um palestrante experiente em conferências de tecnologia, conhecido como keynote speaker, e um renomado desenvolvedor da equipe principal do Node.js."
+  },
+  "team.erick.position": {
+    "message": "Criador de Conteúdo e Empreendedor"
+  },
+  "team.ana.bio": {
+    "message": "Ana Neri é dev sênior que atua em empresas do Vale do Silício, atualmente na Clutch desenvolvendo o futuro das credit unions, é líder da NodeBR e criadora de conteúdo tech."
+  },
+  "team.ana.position": {
+    "message": "Senior Software Engineer"
+  },
+  "team.weslley.bio": {
+    "message": "Weslley Araújo é um desenvolvedor com mais de 11 anos de experiência, mantenedor do MySQL2 e criador do Poku, um test runner de alta performance que desafia a própria linguagem de programação."
+  },
+  "team.weslley.position": {
+    "message": "Principal Developer"
+  },
+  "team.lojhan.bio": {
+    "message": "Tech Lead & Full Stack Developer. Ajudando equipes a construir aplicações escaláveis com tecnologias modernas. Especializado em frontend, backend e design de arquitetura."
+  },
+  "team.lojhan.position": {
+    "message": "Tech Lead"
+  },
+  "team.cristian.bio": {
+    "message": "Formado em Análise e Desenvolvimento de Sistemas pela Fatec Rubens Lara, sou apaixonado por tecnologia e resolver problemas. Amo aprender coisas novas todos os dias e adoro ensinar aqueles que me cercam."
+  },
+  "team.cristian.position": {
+    "message": "Software Engineer"
+  },
+  "team.monica.bio": {
+    "message": "Carioca da gema, ex-patinadora artística, gamer, #TechMaromba, Dev Emocionada, costumava fazer cálculos por aí mas hoje em dia fico \"só nos compiuter\", amante de energético e aspirante a Influencer Tech."
+  },
+  "team.monica.position": {
+    "message": "Desenvolvedora Back-end"
+  },
   "sponsors.pageTitle": {
     "message": "Patrocinadores"
   },

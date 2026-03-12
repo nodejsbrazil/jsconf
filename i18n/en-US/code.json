@@ -140,6 +140,42 @@
   "team.subtitle": {
     "message": "International experts and local talent sharing the future of the web."
   },
+  "team.erick.bio": {
+    "message": "Erick Wendel is an experienced tech conference speaker, known as a keynote speaker, and a renowned developer on the Node.js core team."
+  },
+  "team.erick.position": {
+    "message": "Content Creator and Entrepreneur"
+  },
+  "team.ana.bio": {
+    "message": "Ana Neri is a senior dev working at Silicon Valley companies, currently at Clutch building the future of credit unions, NodeBR leader and tech content creator."
+  },
+  "team.ana.position": {
+    "message": "Senior Software Engineer"
+  },
+  "team.weslley.bio": {
+    "message": "Weslley Araújo is a developer with over 11 years of experience, MySQL2 maintainer and creator of Poku, a high-performance test runner that challenges the programming language itself."
+  },
+  "team.weslley.position": {
+    "message": "Principal Developer"
+  },
+  "team.lojhan.bio": {
+    "message": "Tech Lead & Full Stack Developer. Helping teams build scalable applications with modern technologies. Specialized in frontend, backend and architecture design."
+  },
+  "team.lojhan.position": {
+    "message": "Tech Lead"
+  },
+  "team.cristian.bio": {
+    "message": "Graduated in Systems Analysis and Development from Fatec Rubens Lara, passionate about technology and problem solving. I love learning new things every day and teaching those around me."
+  },
+  "team.cristian.position": {
+    "message": "Software Engineer"
+  },
+  "team.monica.bio": {
+    "message": "Born and raised in Rio, former artistic roller skater, gamer, #TechMaromba, Emotional Dev, used to do calculations but nowadays I'm \"just on the compiuter\", energy drink lover and aspiring Tech Influencer."
+  },
+  "team.monica.position": {
+    "message": "Back-end Developer"
+  },
   "sponsors.pageTitle": {
     "message": "Sponsors"
   },

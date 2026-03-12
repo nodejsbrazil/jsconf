@@ -140,6 +140,42 @@
   "team.subtitle": {
     "message": "Expertos internacionales y talentos locales compartiendo el futuro de la web."
   },
+  "team.erick.bio": {
+    "message": "Erick Wendel es un ponente experimentado en conferencias de tecnología, conocido como keynote speaker, y un reconocido desarrollador del equipo principal de Node.js."
+  },
+  "team.erick.position": {
+    "message": "Creador de Contenido y Emprendedor"
+  },
+  "team.ana.bio": {
+    "message": "Ana Neri es dev sénior que trabaja en empresas de Silicon Valley, actualmente en Clutch construyendo el futuro de las credit unions, líder de NodeBR y creadora de contenido tech."
+  },
+  "team.ana.position": {
+    "message": "Senior Software Engineer"
+  },
+  "team.weslley.bio": {
+    "message": "Weslley Araújo es un desarrollador con más de 11 años de experiencia, mantenedor de MySQL2 y creador de Poku, un test runner de alto rendimiento que desafía al propio lenguaje de programación."
+  },
+  "team.weslley.position": {
+    "message": "Principal Developer"
+  },
+  "team.lojhan.bio": {
+    "message": "Tech Lead & Full Stack Developer. Ayudando a equipos a construir aplicaciones escalables con tecnologías modernas. Especializado en frontend, backend y diseño de arquitectura."
+  },
+  "team.lojhan.position": {
+    "message": "Tech Lead"
+  },
+  "team.cristian.bio": {
+    "message": "Graduado en Análisis y Desarrollo de Sistemas por Fatec Rubens Lara, soy apasionado por la tecnología y la resolución de problemas. Me encanta aprender cosas nuevas todos los días y enseñar a quienes me rodean."
+  },
+  "team.cristian.position": {
+    "message": "Software Engineer"
+  },
+  "team.monica.bio": {
+    "message": "Carioca de pura cepa, ex-patinadora artística, gamer, #TechMaromba, Dev Emocionada, solía hacer cálculos por ahí pero hoy en día estoy \"solo en la compiuter\", amante de las bebidas energéticas y aspirante a Influencer Tech."
+  },
+  "team.monica.position": {
+    "message": "Desarrolladora Back-end"
+  },
   "sponsors.pageTitle": {
     "message": "Patrocinadores"
   },
