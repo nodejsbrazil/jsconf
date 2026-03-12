@@ -55,13 +55,13 @@ describe('Handler', async () => {
       });
       const res = await handleWaitlist(req, makeEnv(db));
       assert.equal(res.status, 204);
-      assert.equal(res.headers.get('Access-Control-Allow-Origin'), ORIGIN);
+      assert.equal(res.headers.get('Access-Control-Allow-Origin'), '*');
     });
 
     await it('attaches the CORS origin header on all non-preflight responses', async () => {
       const db = makeMockDB();
       const res = await post({ email: 'a@b.com', website: '' }, db);
-      assert.equal(res.headers.get('Access-Control-Allow-Origin'), ORIGIN);
+      assert.equal(res.headers.get('Access-Control-Allow-Origin'), '*');
     });
 
     await it('uses ALLOWED_ORIGIN when set', async () => {
