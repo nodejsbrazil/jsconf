@@ -23,12 +23,16 @@ const config: Config = {
     defaultLocale: 'pt-BR',
     locales: ['pt-BR', 'en-US', 'es-419'],
     localeConfigs: {
+      'pt-BR': {
+        label: '🇧🇷 Português',
+        path: 'pt-BR',
+      },
       'en-US': {
-        label: 'English',
+        label: '🇺🇸 English',
         path: 'en-US',
       },
       'es-419': {
-        label: 'Español',
+        label: '🇪🇸 Español',
         path: 'es-419',
       },
     },

@@ -1,10 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { cwd } from 'node:process';
 import { assert, describe, it } from 'poku';
 
-const ROOT = join(fileURLToPath(import.meta.url), '..', '..', '..');
-
+const ROOT = cwd();
 const LOCALES = ['pt-BR', 'en-US', 'es-419'] as const;
 
 type LocaleKey = (typeof LOCALES)[number];

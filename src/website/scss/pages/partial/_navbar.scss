@@ -267,7 +267,7 @@
           top: calc(100% + 0.75rem);
           right: 0;
           @include flex(column, flex-start, flex-start);
-          min-width: 10rem;
+          min-width: 12.5rem;
           background-color: rgba(0, 14, 6, 0.95);
           border: 0.1rem solid rgba(255, 255, 255, 0.1);
           border-radius: 0.5rem;

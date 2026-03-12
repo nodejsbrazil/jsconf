@@ -1,59 +1,46 @@
 import '@site/src/website/scss/pages/sponsors.scss';
-import Translate, { translate } from '@docusaurus/Translate';
 import { ExternalLink, Handshake, Heart } from 'lucide-react';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import { Page } from '@site/src/website/components/shared/Page';
 import { SafeLink } from '@site/src/website/components/shared/SafeLink';
 import { link } from '@site/src/website/configs/definitions';
 
 export default () => (
   <Page
-    title={translate({ id: 'sponsors.pageTitle', message: 'Patrocinadores' })}
-    description={translate({
-      id: 'sponsors.pageDescription',
-      message:
-        'Apoie a JSConf Brasil 2026 e conecte sua marca à maior conferência de JavaScript do mundo',
-    })}
+    title={text({ id: 'sponsors.pageTitle' })}
+    description={text({ id: 'sponsors.pageDescription' })}
   >
     <div className='page-content sponsors-page'>
       <header className='header'>
         <h1 className='title'>
-          <Translate id='sponsors.hero.title'>Seja um Patrocinador</Translate>
+          <Text id='sponsors.hero.title' />
         </h1>
         <p className='intro'>
-          <Translate id='sponsors.hero.intro'>
-            Apoie a JSConf Brasil 2026 e conecte sua marca à maior comunidade de
-            JavaScript do país.
-          </Translate>
+          <Text id='sponsors.hero.intro' />
         </p>
       </header>
 
       <section className='why'>
         <h2 className='section-title'>
-          <Translate id='sponsors.why.title'>Por que apoiar?</Translate>
+          <Text id='sponsors.why.title' />
         </h2>
         <div className='grid'>
           <div className='card'>
             <Handshake className='card-icon' />
             <h3 className='card-title'>
-              <Translate id='sponsors.visibility.title'>Visibilidade</Translate>
+              <Text id='sponsors.visibility.title' />
             </h3>
             <p className='card-text'>
-              <Translate id='sponsors.visibility.text'>
-                Apresente sua empresa, produtos e oportunidades de emprego para
-                centenas de desenvolvedores engajados.
-              </Translate>
+              <Text id='sponsors.visibility.text' />
             </p>
           </div>
           <div className='card'>
             <Heart className='card-icon' />
             <h3 className='card-title'>
-              <Translate id='sponsors.community.title'>Comunidade</Translate>
+              <Text id='sponsors.community.title' />
             </h3>
             <p className='card-text'>
-              <Translate id='sponsors.community.text'>
-                Contribua com um evento sem fins lucrativos que fortalece o
-                ecossistema JavaScript e Node.js no Brasil.
-              </Translate>
+              <Text id='sponsors.community.text' />
             </p>
           </div>
         </div>
@@ -61,46 +48,33 @@ export default () => (
 
       <section className='benefits'>
         <h2 className='section-title'>
-          <Translate id='sponsors.benefits.title'>O que você ganha</Translate>
+          <Text id='sponsors.benefits.title' />
         </h2>
         <ul className='benefits-list'>
           <li>
-            <Translate id='sponsors.benefits.item1'>
-              Espaço de 10 minutos para apresentar sua empresa
-            </Translate>
+            <Text id='sponsors.benefits.item1' />
           </li>
           <li>
-            <Translate id='sponsors.benefits.item2'>
-              Logo e links divulgados em nossos canais oficiais
-            </Translate>
+            <Text id='sponsors.benefits.item2' />
           </li>
           <li>
-            <Translate id='sponsors.benefits.item3'>
-              Compartilhamento com toda a nossa base de contatos
-            </Translate>
+            <Text id='sponsors.benefits.item3' />
           </li>
           <li>
-            <Translate id='sponsors.benefits.item4'>
-              Networking direto com a comunidade de desenvolvedores
-            </Translate>
+            <Text id='sponsors.benefits.item4' />
           </li>
         </ul>
       </section>
 
       <section className='cta-section'>
         <h2 className='cta-title'>
-          <Translate id='sponsors.cta.title'>
-            Quer apoiar a JSConf Brasil 2026?
-          </Translate>
+          <Text id='sponsors.cta.title' />
         </h2>
         <p className='cta-text'>
-          <Translate id='sponsors.cta.text'>
-            Preencha o formulário e nossa equipe entrará em contato.
-          </Translate>
+          <Text id='sponsors.cta.text' />
         </p>
         <SafeLink to={link.sponsors} className='cta-button'>
-          <Translate id='sponsors.cta.button'>QUERO SER PATROCINADOR</Translate>{' '}
-          <ExternalLink className='icon' />
+          <Text id='sponsors.cta.button' /> <ExternalLink className='icon' />
         </SafeLink>
       </section>
     </div>

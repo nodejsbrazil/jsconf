@@ -1,5 +1,6 @@
-import Translate from '@docusaurus/Translate';
+import type { TranslationId } from '@site/src/website/i18n';
 import { CalendarDays, Tickets } from 'lucide-react';
+import { Text } from '@site/src/website/components/shared/i18n';
 import { link } from '@site/src/website/configs/definitions';
 import { BR } from '../shared/BR';
 import { Image } from '../shared/Image';
@@ -7,9 +8,9 @@ import { SafeLink } from '../shared/SafeLink';
 
 // import { Waitlist } from './Waitlist';
 
-const TranslateStrong = (props: { id: string; children?: string }) => (
+const TranslateStrong = (props: { id: TranslationId }) => (
   <strong>
-    <Translate id={props.id}>{props.children}</Translate>
+    <Text id={props.id} />
   </strong>
 );
 
@@ -30,34 +31,17 @@ export const Home = () => (
         2026
       </h1>
       <small className='date'>
-        <CalendarDays className='icon' />{' '}
-        <Translate id='home.date'>28 de novembro, 2026 • São Paulo</Translate>
+        <CalendarDays className='icon' /> <Text id='home.date' />
       </small>
       <p className='description'>
-        <Translate
+        <Text
           id='home.description'
           values={{
-            code: (
-              <TranslateStrong id='home.description.code'>
-                código
-              </TranslateStrong>
-            ),
-            innovation: (
-              <TranslateStrong id='home.description.innovation'>
-                inovação
-              </TranslateStrong>
-            ),
-            networking: (
-              <TranslateStrong id='home.description.networking'>
-                networking de alta qualidade
-              </TranslateStrong>
-            ),
+            code: <TranslateStrong id='home.description.code' />,
+            innovation: <TranslateStrong id='home.description.innovation' />,
+            networking: <TranslateStrong id='home.description.networking' />,
           }}
-        >
-          {
-            'Junte-se à comunidade de desenvolvedores em um dia repleto de {code}, {innovation} e {networking}.'
-          }
-        </Translate>
+        />
       </p>
       <menu>
         <section>
@@ -67,7 +51,7 @@ export const Home = () => (
             </span>
             <span className='btn-content'>
               <span className='text'>
-                <Translate id='home.cta.tickets'>COMPRAR INGRESSOS</Translate>
+                <Text id='home.cta.tickets' />
               </span>
             </span>
           </SafeLink>
@@ -76,7 +60,7 @@ export const Home = () => (
       </menu>
       <footer className='credits'>
         <span className='label'>
-          <Translate id='home.credits.label'>Realização</Translate>
+          <Text id='home.credits.label' />
         </span>
         <Image
           className='logo'
