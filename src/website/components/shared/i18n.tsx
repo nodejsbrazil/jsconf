@@ -1,10 +1,11 @@
 import type { InterpolateValues } from '@docusaurus/Interpolate';
-import type { TranslationId } from '@site/src/website/i18n';
 import type { ReactNode } from 'react';
+import type * as Translation from '../../../../i18n/pt-BR/code.json';
 import OriginalTranslate, {
   translate as originalTranslate,
 } from '@docusaurus/Translate';
 
+type TranslationId = keyof typeof Translation;
 type TextProps<Message extends string> = {
   id: TranslationId;
   values?: InterpolateValues<Message, ReactNode>;

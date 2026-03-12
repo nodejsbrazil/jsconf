@@ -3,16 +3,14 @@
   "version": "0.1.0",
   "license": "AGPL-3.0-only",
   "scripts": {
-    "start": "concurrently \"npm:website -- pt-BR\" \"npm:server\" \"npm:i18n:watch\"",
-    "start:en": "concurrently \"npm:website -- en-US\" \"npm:server\" \"npm:i18n:watch\"",
-    "start:es": "concurrently \"npm:website -- es-419\" \"npm:server\" \"npm:i18n:watch\"",
+    "start": "concurrently \"npm:website -- pt-BR\" \"npm:server\"",
+    "start:en": "concurrently \"npm:website -- en-US\" \"npm:server\"",
+    "start:es": "concurrently \"npm:website -- es-419\" \"npm:server\"",
     "website": "docusaurus start --host 0.0.0.0 --locale",
     "server": "wrangler dev",
     "host": "tsx tools/host.ts",
     "db:init": "wrangler d1 execute jsconf-br --file='resources/schema.sql'",
     "db:init:remote": "npm run db:init -- --remote",
-    "i18n:generate": "tsx tools/generate-i18n-types.ts",
-    "i18n:watch": "tsx tools/generate-i18n-types.ts --watch",
     "build": "npm run i18n:generate && docusaurus build",
     "clear": "docusaurus clear",
     "reset": "(npm run clear || true) && rm -rf node_modules package-lock.json && npm i && npm run update",
@@ -22,7 +20,7 @@
     "lint:fix": "prettier --write .",
     "update": "pu && npm i && npm update && (npm audit fix || true) && npm run lint:fix",
     "purge": "tsx --env-file-if-exists=.env tools/purge-cache.mts",
-    "test": "npm run i18n:generate && poku -r=compact"
+    "test": "npm run poku -r=compact"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260312.1",
