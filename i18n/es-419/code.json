@@ -359,6 +359,30 @@
     "message": "Usar el logotipo en tamaños muy pequeños",
     "description": "Brand avoid item 4"
   },
+  "home.waitlist.label": {
+    "message": "Recibe novedades antes que nadie",
+    "description": "Waitlist form label"
+  },
+  "home.waitlist.placeholder": {
+    "message": "tu@email.com",
+    "description": "Waitlist email input placeholder"
+  },
+  "home.waitlist.submit": {
+    "message": "Unirse a la lista",
+    "description": "Waitlist submit button text"
+  },
+  "home.waitlist.submitting": {
+    "message": "Enviando...",
+    "description": "Waitlist submit button loading text"
+  },
+  "home.waitlist.success": {
+    "message": "¡Estás en la lista! Te avisaremos cuando haya novedades.",
+    "description": "Waitlist success message"
+  },
+  "home.waitlist.error": {
+    "message": "Algo salió mal. Por favor, inténtalo más tarde.",
+    "description": "Waitlist generic error message"
+  },
   "coc.pageTitle": {
     "message": "Código de Conducta",
     "description": "CoC page title"

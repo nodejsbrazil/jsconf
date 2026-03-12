@@ -1,6 +1,10 @@
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 
+try {
+  process.loadEnvFile?.();
+} catch {}
+
 const config: Config = {
   title: 'JSConf Brasil',
   favicon: 'favicon.ico',
@@ -35,14 +39,30 @@ const config: Config = {
       {
         blog: false,
         docs: false,
+        pages: {
+          path: 'src/website/pages',
+        },
         theme: {
-          customCss: ['./src/scss/themes.scss'],
+          customCss: ['./src/website/scss/themes.scss'],
         },
       } satisfies Preset.Options,
     ],
   ],
-  staticDirectories: ['./src/assets'],
-  plugins: ['docusaurus-plugin-sass'],
+  customFields: {
+    workerDomain: process.env['WORKER_DOMAIN'],
+  },
+  staticDirectories: ['./src/website/assets'],
+  plugins: [
+    'docusaurus-plugin-sass',
+    function themeRedirectPlugin() {
+      return {
+        name: 'theme-redirect',
+        getThemePath() {
+          return './src/website/theme';
+        },
+      };
+    },
+  ],
 };
 
 export default config;
