@@ -1,4 +1,3 @@
-import type { TranslationId } from '@site/src/website/i18n';
 import { CalendarDays, Tickets } from 'lucide-react';
 import { Text } from '@site/src/website/components/shared/i18n';
 import { link } from '@site/src/website/configs/definitions';
@@ -7,12 +6,6 @@ import { Image } from '../shared/Image';
 import { SafeLink } from '../shared/SafeLink';
 
 // import { Waitlist } from './Waitlist';
-
-const TranslateStrong = (props: { id: TranslationId }) => (
-  <strong>
-    <Text id={props.id} />
-  </strong>
-);
 
 export const Home = () => (
   <main id='home'>
@@ -34,14 +27,7 @@ export const Home = () => (
         <CalendarDays className='icon' /> <Text id='home.date' />
       </small>
       <p className='description'>
-        <Text
-          id='home.description'
-          values={{
-            code: <TranslateStrong id='home.description.code' />,
-            innovation: <TranslateStrong id='home.description.innovation' />,
-            networking: <TranslateStrong id='home.description.networking' />,
-          }}
-        />
+        <Text id='home.description' />
       </p>
       <menu>
         <section>

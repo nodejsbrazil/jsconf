@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Boxes } from 'lucide-react';
-import { text } from '@site/src/website/components/shared/i18n';
+import { Text } from '@site/src/website/components/shared/i18n';
 import { useScroll } from '../../hooks/useScroll';
 import { Person } from '../shared/Person';
 
@@ -15,9 +15,11 @@ export const Team = () => {
     <main id='team'>
       <div className='content' ref={ref}>
         <h1 className='title'>
-          <Boxes className='icon' /> {text({ id: 'team.title' })}
+          <Boxes className='icon' /> <Text id='team.title' />
         </h1>
-        <small className='subtitle'>{text({ id: 'team.subtitle' })}</small>
+        <small className='subtitle'>
+          <Text id='team.subtitle' />
+        </small>
         <section className='speakers'>
           <Person
             name='Erick Wendel'

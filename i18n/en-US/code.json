@@ -60,20 +60,8 @@
     "description": "Event date and city shown on home"
   },
   "home.description": {
-    "message": "Join the developer community for a day filled with {code}, {innovation} and {networking}.",
-    "description": "Home section main description"
-  },
-  "home.description.code": {
-    "message": "code",
-    "description": "Bold word in home description"
-  },
-  "home.description.innovation": {
-    "message": "innovation",
-    "description": "Bold word in home description"
-  },
-  "home.description.networking": {
-    "message": "high-quality networking",
-    "description": "Bold phrase in home description"
+    "message": "Join the developer community for a day filled with code, innovation and high-quality networking.",
+    "description": "Home hero description"
   },
   "home.cta.tickets": {
     "message": "BUY TICKETS",

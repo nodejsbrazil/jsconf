@@ -60,20 +60,8 @@
     "description": "Event date and city shown on home"
   },
   "home.description": {
-    "message": "Junte-se à comunidade de desenvolvedores em um dia repleto de {code}, {innovation} e {networking}.",
-    "description": "Home section main description"
-  },
-  "home.description.code": {
-    "message": "código",
-    "description": "Bold word in home description"
-  },
-  "home.description.innovation": {
-    "message": "inovação",
-    "description": "Bold word in home description"
-  },
-  "home.description.networking": {
-    "message": "networking de alta qualidade",
-    "description": "Bold phrase in home description"
+    "message": "Junte-se à comunidade de desenvolvedores em um dia repleto de código, inovação e networking de alta qualidade.",
+    "description": "Home hero description"
   },
   "home.cta.tickets": {
     "message": "COMPRAR INGRESSOS",

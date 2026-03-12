@@ -7,9 +7,11 @@ const ROOT = cwd();
 const SOURCE = resolve(ROOT, 'i18n', 'pt-BR', 'code.json');
 const OUTPUT = resolve(ROOT, 'src', 'website', 'i18n.ts');
 
-const sourceKeys = Object.keys(
-  JSON.parse(readFileSync(SOURCE, 'utf-8')) as Record<string, unknown>
-);
+const sourceEntries = JSON.parse(readFileSync(SOURCE, 'utf-8')) as Record<
+  string,
+  { message: string }
+>;
+const sourceKeys = Object.keys(sourceEntries);
 
 const generatedContent = readFileSync(OUTPUT, 'utf-8');
 
@@ -61,4 +63,23 @@ describe('generate-i18n-types — output integrity', () => {
       `Expected ${sourceKeys.length} keys but found ${generatedKeys.length}`
     );
   });
+});
+
+describe('generate-i18n-types — defaultMessages', () => {
+  it('exports defaultMessages', () => {
+    assert.ok(
+      generatedContent.includes('export const defaultMessages'),
+      'Missing "export const defaultMessages" declaration'
+    );
+  });
+
+  for (const [key, { message }] of Object.entries(sourceEntries)) {
+    it(`defaultMessages contains correct value for "${key}"`, () => {
+      const escaped = message.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      assert.ok(
+        generatedContent.includes(`'${key}': '${escaped}'`),
+        `Missing or incorrect defaultMessages entry for "${key}"`
+      );
+    });
+  }
 });

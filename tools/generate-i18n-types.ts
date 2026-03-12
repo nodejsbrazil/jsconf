@@ -9,11 +9,18 @@ const OUTPUT = resolve(ROOT, 'src', 'website', 'i18n.ts');
 const generate = () => {
   const json = JSON.parse(readFileSync(SOURCE, 'utf-8')) as Record<
     string,
-    unknown
+    { message: string }
   >;
-  const keys = Object.keys(json);
+  const entries = Object.entries(json);
 
-  const union = keys.map((key) => `  | '${key}'`).join('\n');
+  const union = entries.map(([key]) => `  | '${key}'`).join('\n');
+
+  const records = entries
+    .map(([key, { message }]) => {
+      const escaped = message.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      return `  '${key}': '${escaped}',`;
+    })
+    .join('\n');
 
   const content = [
     '/** generated via `npx tsx tools/generate-i18n-types.ts` */',
@@ -21,10 +28,14 @@ const generate = () => {
     'export type TranslationId =',
     union + ';',
     '',
+    'export const defaultMessages: Record<TranslationId, string> = {',
+    records,
+    '};',
+    '',
   ].join('\n');
 
   writeFileSync(OUTPUT, content);
-  console.log(`[i18n] Generated ${keys.length} keys → src/website/i18n.ts`);
+  console.log(`[i18n] Generated ${entries.length} keys → src/website/i18n.ts`);
 };
 
 generate();

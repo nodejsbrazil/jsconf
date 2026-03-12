@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Clock, MicVocal } from 'lucide-react';
-import { text } from '@site/src/website/components/shared/i18n';
+import { Text } from '@site/src/website/components/shared/i18n';
 import { useScroll } from '../../hooks/useScroll';
 
 export const Speakers = () => {
@@ -14,16 +14,18 @@ export const Speakers = () => {
     <main id='speakers'>
       <div className='content' ref={ref}>
         <h1 className='title'>
-          <MicVocal className='icon' /> {text({ id: 'speakers.title' })}
+          <MicVocal className='icon' /> <Text id='speakers.title' />
         </h1>
-        <small className='subtitle'>{text({ id: 'speakers.subtitle' })}</small>
+        <small className='subtitle'>
+          <Text id='speakers.subtitle' />
+        </small>
         <section className='coming-soon'>
           <Clock className='coming-soon-icon' />
           <h2 className='coming-soon-title'>
-            {text({ id: 'speakers.comingSoon.title' })}
+            <Text id='speakers.comingSoon.title' />
           </h2>
           <p className='coming-soon-text'>
-            {text({ id: 'speakers.comingSoon.text' })}
+            <Text id='speakers.comingSoon.text' />
           </p>
         </section>
       </div>
