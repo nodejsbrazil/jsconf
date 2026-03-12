@@ -1,48 +1,54 @@
+import type { Database } from '../../src/server/types.js';
 import { assert, describe, it } from 'poku';
-import { BodySchema } from '../../src/server/schema';
+import { waitlist } from '../../src/server/repositories/waitlist.js';
 
-describe('BodySchema', () => {
+const stub = {
+  prepare: () => ({ bind: () => ({ run: async () => {} }) }),
+} as Database;
+const { schema } = waitlist(stub);
+
+describe('schema', () => {
   describe('email validation', () => {
     it('accepts a valid email', () => {
-      const result = BodySchema.safeParse({ email: 'user@example.com' });
+      const result = schema.safeParse({ email: 'user@example.com' });
       assert.ok(result.success);
     });
 
     it('rejects a missing email', () => {
-      const result = BodySchema.safeParse({});
+      const result = schema.safeParse({});
       assert.ok(!result.success);
     });
 
     it('rejects an empty string', () => {
-      const result = BodySchema.safeParse({ email: '' });
+      const result = schema.safeParse({ email: '' });
       assert.ok(!result.success);
     });
 
     it('rejects an address without @', () => {
-      const result = BodySchema.safeParse({ email: 'not-an-email' });
+      const result = schema.safeParse({ email: 'not-an-email' });
       assert.ok(!result.success);
     });
 
     it('rejects an address without a domain', () => {
-      const result = BodySchema.safeParse({ email: 'user@' });
+      const result = schema.safeParse({ email: 'user@' });
       assert.ok(!result.success);
     });
 
     it('rejects a non-string email value', () => {
-      const result = BodySchema.safeParse({ email: 42 });
+      const result = schema.safeParse({ email: 42 });
       assert.ok(!result.success);
     });
   });
 
   describe('website (honeypot) field', () => {
     it('defaults to an empty string when absent', () => {
-      const result = BodySchema.safeParse({ email: 'user@example.com' });
+      const result = schema.safeParse({ email: 'user@example.com' });
       assert.ok(result.success);
       if (result.success) assert.equal(result.data.website, '');
     });
 
     it('accepts an empty string explicitly', () => {
-      const result = BodySchema.safeParse({
+      const result = schema.safeParse({
         email: 'user@example.com',
         website: '',
       });
@@ -50,7 +56,7 @@ describe('BodySchema', () => {
     });
 
     it('accepts a non-empty string (bot detection handled in handler)', () => {
-      const result = BodySchema.safeParse({
+      const result = schema.safeParse({
         email: 'user@example.com',
         website: 'http://spam.io',
       });

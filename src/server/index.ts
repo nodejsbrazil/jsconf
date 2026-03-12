@@ -1,8 +1,39 @@
 import type { Env } from './types.js';
-import { handleWaitlist } from './handler.js';
+import { response } from './helpers/response.js';
+import { routes } from './routes.js';
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    return handleWaitlist(request, env);
+    const origin = env.ALLOWED_ORIGIN || '*';
+    const cors = {
+      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      Vary: 'Origin',
+    };
+
+    const { method } = request;
+    if (method === 'OPTIONS')
+      return new Response(null, { status: 204, headers: cors });
+
+    const body = await (async () => {
+      try {
+        return await request.json();
+      } catch {
+        return;
+      }
+    })();
+    if (!body) return response({ error: 'invalid_json' }, 400, cors);
+
+    const url = new URL(request.url);
+    const pathname = { url };
+
+    // Routes
+    switch (`${method} ${pathname}`) {
+      case 'POST /api/waitlist':
+        return routes.waitlist(body, cors, env.DB);
+      default:
+        return response({ error: 'not_found' }, 404, cors);
+    }
   },
 } satisfies ExportedHandler<Env>;

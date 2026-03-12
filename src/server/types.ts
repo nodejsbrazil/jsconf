@@ -1,7 +1,4 @@
-import type { z } from 'zod';
-import type { BodySchema } from './schema.js';
-
-export interface WaitlistDB {
+export interface Database {
   prepare(sql: string): {
     bind(...values: unknown[]): {
       run(): Promise<unknown>;
@@ -10,8 +7,6 @@ export interface WaitlistDB {
 }
 
 export interface Env {
-  DB: WaitlistDB;
+  DB: Database;
   ALLOWED_ORIGIN?: string;
 }
-
-export type WaitlistBody = z.infer<typeof BodySchema>;
