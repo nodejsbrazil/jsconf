@@ -33,9 +33,9 @@ const Card: FC<CardProps> = ({ id, icon, title, description }) => {
 
 export const Cards: FC<CardsProps> = ({ items }) => (
   <section className='cards'>
-    {items.map(({ id, icon, title, description }) => (
+    {items.map(({ id, icon, title, description }, index) => (
       <Card
-        key={id}
+        key={`card:${id ?? index}`}
         id={id}
         icon={icon}
         title={title}
