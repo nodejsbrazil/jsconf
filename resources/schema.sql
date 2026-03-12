@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS waitlist;
 
 CREATE TABLE waitlist (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  email TEXT NOT NULL UNIQUE COLLATE NOCASE,
-  utm_source TEXT,
-  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  email VARCHAR(254) NOT NULL UNIQUE COLLATE NOCASE CHECK(length(email) <= 254),
+  utm_source VARCHAR(64),
+  created_at VARCHAR(20) NOT NULL DEFAULT (datetime('now'))
 );

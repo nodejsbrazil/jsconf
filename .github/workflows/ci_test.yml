@@ -1,4 +1,4 @@
-name: '🧪 CI (Website) — Testing'
+name: '🧪 CI — Testing'
 
 on:
   pull_request:
@@ -47,17 +47,5 @@ jobs:
       - name: Building Site
         run: npm run build
 
-      - name: Cache Worker Dependencies
-        uses: actions/cache@v5
-        with:
-          path: worker/node_modules
-          key: npm-worker-${{ hashFiles('worker/package.json') }}
-          restore-keys: npm-worker-
-
-      - name: Installing Worker Dependencies
-        run: npm ci
-        working-directory: worker
-
       - name: Running Worker Tests
-        run: npm run test
-        working-directory: worker
+        run: npm test

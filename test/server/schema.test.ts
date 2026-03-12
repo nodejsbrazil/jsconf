@@ -1,5 +1,5 @@
 import { assert, describe, it } from 'poku';
-import { BodySchema } from '../schema';
+import { BodySchema } from '../../src/server/schema';
 
 describe('BodySchema', () => {
   describe('email validation', () => {

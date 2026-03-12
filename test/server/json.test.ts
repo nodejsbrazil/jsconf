@@ -1,5 +1,5 @@
 import { assert, describe, it } from 'poku';
-import { json } from '../json';
+import { json } from '../../src/server/json';
 
 describe('json()', () => {
   it('serializes the body to JSON', async () => {

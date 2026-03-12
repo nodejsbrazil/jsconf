@@ -1,5 +1,7 @@
+/.wrangler
 /node_modules
 /build
+/dist
 .docusaurus
 .cache-loader
 .DS_Store
