@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { translate } from '@docusaurus/Translate';
 import { CalendarDays, MapPin } from 'lucide-react';
 import { useScroll } from '../../hooks/useScroll';
+import { Image } from '../shared/Image';
 
 export const Location = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -25,7 +26,7 @@ export const Location = () => {
         </small>
         <section className='venue'>
           <div className='venue-photo'>
-            <img
+            <Image
               className='image'
               src='/img/venue.webp'
               alt={translate({

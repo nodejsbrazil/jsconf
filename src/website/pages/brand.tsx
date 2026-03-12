@@ -1,13 +1,14 @@
 import '@site/src/website/scss/pages/brand.scss';
 import { useRef, useState } from 'react';
 import Translate, { translate } from '@docusaurus/Translate';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import { Check, CircleCheck, CircleX, Copy, Download } from 'lucide-react';
 import Logo from '@site/src/website/assets/img/logo.svg';
 import { Page } from '@site/src/website/components/shared/Page';
 import { copyToClipboard } from '@site/src/website/helpers/copy-to-clipboard';
 import { Parallax } from '../components/shared/Parallax';
 
-export default () => {
+export default function BrandPage() {
   const colors = [
     {
       name: <Translate id='brand.color.green'>Verde</Translate>,
@@ -31,6 +32,8 @@ export default () => {
     },
   ];
 
+  const svgUrl = useBaseUrl('/img/logo.svg');
+  const pngUrl = useBaseUrl('/img/logo.png');
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -47,7 +50,7 @@ export default () => {
   const download = (extension: 'svg' | 'png') => {
     const link = document.createElement('a');
 
-    link.href = `/img/logo.${extension}`;
+    link.href = extension === 'svg' ? svgUrl : pngUrl;
     link.download = `jsconf-brasil-logo.${extension}`;
     link.click();
   };
@@ -205,4 +208,4 @@ export default () => {
       </div>
     </Page>
   );
-};
+}

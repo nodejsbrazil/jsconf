@@ -8,6 +8,7 @@ import {
   Linkedin,
   Youtube,
 } from 'lucide-react';
+import { Image } from '@site/src/website/components/shared/Image';
 import { SafeLink } from '@site/src/website/components/shared/SafeLink';
 import { useScroll } from '@site/src/website/hooks/useScroll';
 
@@ -45,7 +46,7 @@ export const Person: FC<MemberProps> = ({
   return (
     <section ref={ref} className='person'>
       <header className='photo'>
-        <img className='image' src={img} alt={`Foto (${name})`} />
+        <Image className='image' src={img} alt={`Foto (${name})`} />
         {social && (
           <footer className='social'>
             {social.linkedin && (
