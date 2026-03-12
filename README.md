@@ -4,7 +4,7 @@
 
 ```sh
 npm ci
-npm start # Inicia o website e o servidor localmente
+npm start # Inicia o website e o servidor localmente (pt-BR)
 ```
 
 ---
