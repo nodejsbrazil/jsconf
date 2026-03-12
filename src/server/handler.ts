@@ -18,7 +18,7 @@ export const handleWaitlist = async (
   request: Request,
   env: Env
 ): Promise<Response> => {
-  const origin = env.ALLOWED_ORIGIN || request.headers.get('Origin') || '*';
+  const origin = env.ALLOWED_ORIGIN || '*';
   const cors = {
     'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
