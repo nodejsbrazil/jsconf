@@ -4,7 +4,8 @@ import { link } from '@site/src/website/configs/definitions';
 import { BR } from '../shared/BR';
 import { Image } from '../shared/Image';
 import { SafeLink } from '../shared/SafeLink';
-import { Waitlist } from './Waitlist';
+
+// import { Waitlist } from './Waitlist';
 
 export const Home = () => (
   <main id='home'>
@@ -41,7 +42,7 @@ export const Home = () => (
             </span>
           </SafeLink>
         </section>
-        <Waitlist />
+        {/* <Waitlist /> */}
       </menu>
       <footer className='credits'>
         <span className='label'>
