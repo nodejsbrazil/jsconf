@@ -1,18 +1,6 @@
+import type { Env } from './types.js';
 import { json } from './json.js';
 import { BodySchema } from './schema.js';
-
-export interface WaitlistDB {
-  prepare(sql: string): {
-    bind(...values: unknown[]): {
-      run(): Promise<unknown>;
-    };
-  };
-}
-
-export interface Env {
-  DB: WaitlistDB;
-  ALLOWED_ORIGIN?: string;
-}
 
 export const handleWaitlist = async (
   request: Request,

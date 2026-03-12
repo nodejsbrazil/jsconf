@@ -1,4 +1,4 @@
-import type { Env } from './handler.js';
+import type { Env } from './types.js';
 import { handleWaitlist } from './handler.js';
 
 export default {

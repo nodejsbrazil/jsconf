@@ -18,5 +18,3 @@ export const BodySchema = z.object({
     ])
     .optional(),
 });
-
-export type WaitlistBody = z.infer<typeof BodySchema>;

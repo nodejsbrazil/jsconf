@@ -1,4 +1,4 @@
-import type { Env } from '../../src/server/handler.js';
+import type { Env } from '../../src/server/types.js';
 import { assert, beforeEach, describe, it } from 'poku';
 import { handleWaitlist } from '../../src/server/handler.js';
 
