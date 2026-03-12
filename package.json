@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "license": "AGPL-3.0-only",
   "scripts": {
-    "start": "concurrently \"npm run website -- pt-BR\" \"npm:start:server\"",
-    "start:en": "concurrently \"npm run website -- en-US\" \"npm:start:server\"",
-    "start:es": "concurrently \"npm run website -- es-419\" \"npm:start:server\"",
+    "start": "concurrently \"npm:website -- pt-BR\" \"npm:server\"",
+    "start:en": "concurrently \"npm:website -- en-US\" \"npm:server\"",
+    "start:es": "concurrently \"npm:website -- es-419\" \"npm:server\"",
     "website": "docusaurus start --host 0.0.0.0 --locale",
     "server": "wrangler dev",
     "host": "tsx tools/host.ts",
