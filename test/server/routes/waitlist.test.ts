@@ -9,11 +9,11 @@ const cors = {
   Vary: 'Origin',
 };
 
-interface MockDatabase {
+type MockDatabase = {
   database: Database;
   lastInsertedEmail: string | null;
   lastInsertedUtmSource: string | null | undefined;
-}
+};
 
 const makeMockDatabase = (opts: { throwOnRun?: Error } = {}): MockDatabase => {
   const mock: MockDatabase = {

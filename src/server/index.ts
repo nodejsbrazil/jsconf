@@ -1,4 +1,5 @@
 import type { Env } from './types.js';
+import { checkRateLimit } from './configs/rate-limit.js';
 import { response } from './helpers/response.js';
 import { routes } from './routes.js';
 
@@ -15,6 +16,13 @@ export default {
     const { method } = request;
     if (method === 'OPTIONS')
       return new Response(null, { status: 204, headers: cors });
+
+    const rateLimit = checkRateLimit(request);
+    if (!rateLimit.allowed)
+      return response({ error: 'rate_limit_exceeded' }, 429, {
+        ...cors,
+        'Retry-After': String(rateLimit.retryAfterSeconds),
+      });
 
     const body = await (async () => {
       try {
