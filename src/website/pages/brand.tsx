@@ -1,9 +1,9 @@
 import '@site/src/website/scss/pages/brand.scss';
 import { useRef, useState } from 'react';
-import Translate, { translate } from '@docusaurus/Translate';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { Check, CircleCheck, CircleX, Copy, Download } from 'lucide-react';
 import Logo from '@site/src/website/assets/img/logo.svg';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import { Page } from '@site/src/website/components/shared/Page';
 import { copyToClipboard } from '@site/src/website/helpers/copy-to-clipboard';
 import { Parallax } from '../components/shared/Parallax';
@@ -11,22 +11,22 @@ import { Parallax } from '../components/shared/Parallax';
 export default function BrandPage() {
   const colors = [
     {
-      name: <Translate id='brand.color.green'>Verde</Translate>,
+      name: <Text id='brand.color.green' />,
       hex: '#37c400',
       className: 'green',
     },
     {
-      name: <Translate id='brand.color.yellow'>Amarelo</Translate>,
+      name: <Text id='brand.color.yellow' />,
       hex: '#ffd000',
       className: 'yellow',
     },
     {
-      name: <Translate id='brand.color.blue'>Azul</Translate>,
+      name: <Text id='brand.color.blue' />,
       hex: '#1a5fce',
       className: 'blue',
     },
     {
-      name: <Translate id='brand.color.white'>Branco</Translate>,
+      name: <Text id='brand.color.white' />,
       hex: '#ffffff',
       className: 'white',
     },
@@ -57,29 +57,22 @@ export default function BrandPage() {
 
   return (
     <Page
-      title={translate({ id: 'brand.pageTitle', message: 'Identidade Visual' })}
-      description={translate({
-        id: 'brand.pageDescription',
-        message:
-          'Baixe os arquivos oficiais e consulte os guias de estilo para representar corretamente a JSConf Brasil 2026',
-      })}
+      title={text({ id: 'brand.pageTitle' })}
+      description={text({ id: 'brand.pageDescription' })}
     >
       <div className='page-content brand-page'>
         <header className='header'>
           <h1 className='title'>
-            <Translate id='brand.hero.title'>Identidade Visual</Translate>
+            <Text id='brand.hero.title' />
           </h1>
           <p className='intro'>
-            <Translate id='brand.hero.intro'>
-              Baixe os arquivos oficiais e consulte os guias de estilo para
-              representar corretamente a JSConf Brasil 2026.
-            </Translate>
+            <Text id='brand.hero.intro' />
           </p>
         </header>
 
         <section className='logo'>
           <h2 className='section-title'>
-            <Translate id='brand.logo.title'>Logotipo</Translate>
+            <Text id='brand.logo.title' />
           </h2>
           <div className='grid'>
             <div className='container dark'>
@@ -100,7 +93,7 @@ export default function BrandPage() {
               onClick={() => download('svg')}
             >
               <Download className='icon' />
-              <Translate id='brand.download.svg'>Baixar SVG</Translate>
+              <Text id='brand.download.svg' />
             </button>
             <button
               type='button'
@@ -108,14 +101,14 @@ export default function BrandPage() {
               onClick={() => download('png')}
             >
               <Download className='icon' />
-              <Translate id='brand.download.png'>Baixar PNG</Translate>
+              <Text id='brand.download.png' />
             </button>
           </div>
         </section>
 
         <section className='colors'>
           <h2 className='section-title'>
-            <Translate id='brand.colors.title'>Cores</Translate>
+            <Text id='brand.colors.title' />
           </h2>
           <div className='grid'>
             {colors.map((color) => (
@@ -144,62 +137,46 @@ export default function BrandPage() {
 
         <section className='guidelines'>
           <h2 className='section-title'>
-            <Translate id='brand.guidelines.title'>Guias de Uso</Translate>
+            <Text id='brand.guidelines.title' />
           </h2>
           <div className='grid'>
             <div className='card do'>
               <h3 className='title'>
                 <CircleCheck className='icon' />
-                <Translate id='brand.correct.title'>Correto</Translate>
+                <Text id='brand.correct.title' />
               </h3>
               <ul>
                 <li>
-                  <Translate id='brand.correct.item1'>
-                    Mantenha espaço livre ao redor do logo
-                  </Translate>
+                  <Text id='brand.correct.item1' />
                 </li>
                 <li>
-                  <Translate id='brand.correct.item2'>
-                    Use sobre fundos que garantam contraste
-                  </Translate>
+                  <Text id='brand.correct.item2' />
                 </li>
                 <li>
-                  <Translate id='brand.correct.item3'>
-                    Mantenha as proporções originais
-                  </Translate>
+                  <Text id='brand.correct.item3' />
                 </li>
                 <li>
-                  <Translate id='brand.correct.item4'>
-                    Use as cores oficiais da paleta
-                  </Translate>
+                  <Text id='brand.correct.item4' />
                 </li>
               </ul>
             </div>
             <div className='card dont'>
               <h3 className='title'>
                 <CircleX className='icon' />
-                <Translate id='brand.avoid.title'>Evite</Translate>
+                <Text id='brand.avoid.title' />
               </h3>
               <ul>
                 <li>
-                  <Translate id='brand.avoid.item1'>
-                    Alterar as cores do logo
-                  </Translate>
+                  <Text id='brand.avoid.item1' />
                 </li>
                 <li>
-                  <Translate id='brand.avoid.item2'>
-                    Distorcer ou rotacionar o logo
-                  </Translate>
+                  <Text id='brand.avoid.item2' />
                 </li>
                 <li>
-                  <Translate id='brand.avoid.item3'>
-                    Adicionar efeitos como sombras ou brilhos
-                  </Translate>
+                  <Text id='brand.avoid.item3' />
                 </li>
                 <li>
-                  <Translate id='brand.avoid.item4'>
-                    Usar o logo em tamanhos muito pequenos
-                  </Translate>
+                  <Text id='brand.avoid.item4' />
                 </li>
               </ul>
             </div>

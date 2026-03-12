@@ -1,8 +1,8 @@
 import type { SubmitEventHandler } from 'react';
 import { useState } from 'react';
-import Translate, { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Mail } from 'lucide-react';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -52,9 +52,7 @@ export const Waitlist = () => {
     return (
       <section className='waitlist'>
         <p className='waitlist-feedback success'>
-          <Translate id='home.waitlist.success'>
-            Você está na lista! Avisaremos quando abrir novidades.
-          </Translate>
+          <Text id='home.waitlist.success' />
         </p>
       </section>
     );
@@ -63,9 +61,7 @@ export const Waitlist = () => {
   return (
     <section className='waitlist'>
       <label className='waitlist-label' htmlFor='waitlist-email'>
-        <Translate id='home.waitlist.label'>
-          Receba novidades em primeira mão
-        </Translate>
+        <Text id='home.waitlist.label' />
       </label>
       <form className='waitlist-form' onSubmit={handleSubmit} noValidate>
         {/* Honeypot: visually hidden, only bots fill this */}
@@ -85,10 +81,7 @@ export const Waitlist = () => {
             id='waitlist-email'
             type='email'
             className='waitlist-input'
-            placeholder={translate({
-              id: 'home.waitlist.placeholder',
-              message: 'seu@email.com',
-            })}
+            placeholder={text({ id: 'home.waitlist.placeholder' })}
             required
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
@@ -102,17 +95,15 @@ export const Waitlist = () => {
           disabled={state === 'loading'}
         >
           {state === 'loading' ? (
-            <Translate id='home.waitlist.submitting'>Enviando...</Translate>
+            <Text id='home.waitlist.submitting' />
           ) : (
-            <Translate id='home.waitlist.submit'>Entrar na lista</Translate>
+            <Text id='home.waitlist.submit' />
           )}
         </button>
       </form>
       {state === 'error' && (
         <p className='waitlist-feedback error'>
-          <Translate id='home.waitlist.error'>
-            Algo deu errado. Tente novamente mais tarde.
-          </Translate>
+          <Text id='home.waitlist.error' />
         </p>
       )}
     </section>

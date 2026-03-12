@@ -1,6 +1,6 @@
 import { useRef } from 'react';
-import { translate } from '@docusaurus/Translate';
 import { CalendarDays, MapPin } from 'lucide-react';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useScroll } from '../../hooks/useScroll';
 import { Image } from '../shared/Image';
 
@@ -15,48 +15,32 @@ export const Location = () => {
     <main id='location'>
       <div className='content' ref={ref}>
         <h1 className='title'>
-          <MapPin className='icon' />{' '}
-          {translate({ id: 'location.title', message: 'Localização' })}
+          <MapPin className='icon' /> <Text id='location.title' />
         </h1>
         <small className='subtitle'>
-          {translate({
-            id: 'location.subtitle',
-            message: 'Saiba onde será a JSConf Brasil 2026.',
-          })}
+          <Text id='location.subtitle' />
         </small>
         <section className='venue'>
           <div className='venue-photo'>
             <Image
               className='image'
               src='/img/venue.webp'
-              alt={translate({
-                id: 'location.venue.imgAlt',
-                message: 'USCS - Universidade Municipal de São Caetano do Sul',
-              })}
+              alt={text({ id: 'location.venue.imgAlt' })}
             />
           </div>
           <div className='venue-info'>
             <h2 className='venue-name'>USCS</h2>
             <p className='venue-address'>
-              {translate({
-                id: 'location.venue.address',
-                message: 'Universidade Municipal de São Caetano do Sul',
-              })}
+              <Text id='location.venue.address' />
             </p>
             <div className='venue-details'>
               <span className='detail'>
                 <MapPin className='detail-icon' />
-                {translate({
-                  id: 'location.venue.city',
-                  message: 'São Caetano do Sul, SP',
-                })}
+                <Text id='location.venue.city' />
               </span>
               <span className='detail'>
                 <CalendarDays className='detail-icon' />
-                {translate({
-                  id: 'location.venue.date',
-                  message: '28 de novembro de 2026',
-                })}
+                <Text id='location.venue.date' />
               </span>
             </div>
           </div>

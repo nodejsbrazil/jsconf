@@ -1,5 +1,5 @@
 import Link from '@docusaurus/Link';
-import Translate from '@docusaurus/Translate';
+import { Text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import Logo from '../../assets/img/logo.svg';
 import { SafeLink } from '../shared/SafeLink';
@@ -16,57 +16,49 @@ export const Footer = () => {
             <span className='highlight'>Brasil</span>
           </h2>
           <p className='description'>
-            <Translate id='footer.description'>
-              Feito pela e para a comunidade. A JSConf Brasil é um evento sem
-              fins lucrativos dedicado a impulsionar o desenvolvimento web e
-              fortalecer a comunidade JavaScript no nosso país.
-            </Translate>
+            <Text id='footer.description' />
           </p>
         </aside>
         <aside className='links'>
           <h3 className='title'>
-            <Translate id='footer.event'>Evento</Translate>
+            <Text id='footer.event' />
           </h3>
           <ul>
             <li>
               <Link to={localePath('/')}>
-                <Translate id='navbar.section.home'>Início</Translate>
+                <Text id='navbar.section.home' />
               </Link>
             </li>
             <li>
               <Link to={localePath('/#speakers')}>
-                <Translate id='navbar.section.speakers'>Palestrantes</Translate>
+                <Text id='navbar.section.speakers' />
               </Link>
             </li>
             <li>
               <Link to={localePath('/#location')}>
-                <Translate id='navbar.section.location'>Localização</Translate>
+                <Text id='navbar.section.location' />
               </Link>
             </li>
             <li>
               <Link to={localePath('/sponsors')}>
-                <Translate id='navbar.section.sponsors'>
-                  Patrocinadores
-                </Translate>
+                <Text id='navbar.section.sponsors' />
               </Link>
             </li>
             <li>
               <Link to={localePath('/brand')}>
-                <Translate id='brand.pageTitle'>Identidade Visual</Translate>
+                <Text id='brand.pageTitle' />
               </Link>
             </li>
             <li>
               <Link to={localePath('/coc')}>
-                <Translate id='coc.pageTitle'>Código de Conduta</Translate>
+                <Text id='coc.pageTitle' />
               </Link>
             </li>
           </ul>
         </aside>
       </div>
       <div className='footnote'>
-        <Translate id='footer.copyright'>
-          © 2026 JSConf Brasil. Realização
-        </Translate>{' '}
+        <Text id='footer.copyright' />{' '}
         <SafeLink to='https://nodebr.org'>NodeBR</SafeLink>.
       </div>
     </footer>

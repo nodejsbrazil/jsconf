@@ -1,6 +1,6 @@
 import { useRef } from 'react';
-import { translate } from '@docusaurus/Translate';
 import { Clock, MicVocal } from 'lucide-react';
+import { Text } from '@site/src/website/components/shared/i18n';
 import { useScroll } from '../../hooks/useScroll';
 
 export const Speakers = () => {
@@ -14,30 +14,18 @@ export const Speakers = () => {
     <main id='speakers'>
       <div className='content' ref={ref}>
         <h1 className='title'>
-          <MicVocal className='icon' />{' '}
-          {translate({ id: 'speakers.title', message: 'Palestrantes' })}
+          <MicVocal className='icon' /> <Text id='speakers.title' />
         </h1>
         <small className='subtitle'>
-          {translate({
-            id: 'speakers.subtitle',
-            message:
-              'Especialistas internacionais e talentos locais compartilhando o futuro da web.',
-          })}
+          <Text id='speakers.subtitle' />
         </small>
         <section className='coming-soon'>
           <Clock className='coming-soon-icon' />
           <h2 className='coming-soon-title'>
-            {translate({
-              id: 'speakers.comingSoon.title',
-              message: 'Em Breve',
-            })}
+            <Text id='speakers.comingSoon.title' />
           </h2>
           <p className='coming-soon-text'>
-            {translate({
-              id: 'speakers.comingSoon.text',
-              message:
-                'Os palestrantes serão anunciados em breve. Fique ligado!',
-            })}
+            <Text id='speakers.comingSoon.text' />
           </p>
         </section>
       </div>

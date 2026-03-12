@@ -1,10 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { cwd } from 'node:process';
 import { assert, describe, it } from 'poku';
 
-const ROOT = join(fileURLToPath(import.meta.url), '..', '..', '..');
-
+const ROOT = cwd();
 const LOCALES = ['pt-BR', 'en-US', 'es-419'] as const;
 
 type LocaleKey = (typeof LOCALES)[number];
@@ -26,10 +25,7 @@ const allKeys = [
   ...new Set(LOCALES.flatMap((locale) => Object.keys(translations[locale]))),
 ].sort();
 
-/* This test is skipped for now as we are still scaffolding the webpage structure.
- * Once the structure is in place and we have a better idea of the translation keys we need,
- * we can enable this test to ensure all locales have the same keys. */
-describe.skip('i18n translations — key parity', () => {
+describe('i18n translations — key parity', () => {
   for (const locale of LOCALES) {
     describe(locale, () => {
       for (const key of allKeys) {

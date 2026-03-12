@@ -1,6 +1,6 @@
 import '@site/src/website/scss/pages/markdown.scss';
-import { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { text } from '@site/src/website/components/shared/i18n';
 import CoC_enUS from '../assets/md/CoC.en-US.md';
 import CoC_es419 from '../assets/md/CoC.es-419.md';
 import CoC_ptBR from '../assets/md/CoC.md';
@@ -27,11 +27,8 @@ export default () => {
 
   return (
     <Page
-      title={translate({ id: 'coc.pageTitle', message: 'Código de Conduta' })}
-      description={translate({
-        id: 'coc.pageDescription',
-        message: 'Código de Conduta da JSConf Brasil',
-      })}
+      title={text({ id: 'coc.pageTitle' })}
+      description={text({ id: 'coc.pageDescription' })}
     >
       <article className='page-content markdown'>
         <CoC />

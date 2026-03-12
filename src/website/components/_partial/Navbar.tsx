@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import { useCallback, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
-import Translate, { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ChevronDown, ExternalLink, Globe, Menu, X } from 'lucide-react';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import { SafeLink } from '@site/src/website/components/shared/SafeLink';
 import { link } from '@site/src/website/configs/definitions';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
@@ -22,31 +22,27 @@ type Section = {
 const SECTIONS: Section[] = [
   {
     id: 'home',
-    label: <Translate id='navbar.section.home'>Início</Translate>,
+    label: <Text id='navbar.section.home' />,
     showInDesktop: false,
   },
   {
     id: 'benefits',
-    label: (
-      <Translate id='navbar.section.benefits'>
-        O que você vai encontrar?
-      </Translate>
-    ),
+    label: <Text id='navbar.section.benefits' />,
     priority: 1,
   },
   {
     id: 'speakers',
-    label: <Translate id='navbar.section.speakers'>Palestrantes</Translate>,
+    label: <Text id='navbar.section.speakers' />,
     priority: 2,
   },
   {
     id: 'location',
-    label: <Translate id='navbar.section.location'>Localização</Translate>,
+    label: <Text id='navbar.section.location' />,
     priority: 1,
   },
   {
     id: 'team',
-    label: <Translate id='navbar.section.team'>Nosso Time</Translate>,
+    label: <Text id='navbar.section.team' />,
     priority: 2,
   },
 ];
@@ -157,14 +153,8 @@ export const Navbar = () => {
         <Link className='top' to={localePath('/')}>
           <Logo
             className='logo'
-            aria-label={translate({
-              id: 'navbar.aria.logo',
-              message: 'Voltar para o topo',
-            })}
-            title={translate({
-              id: 'navbar.aria.logo',
-              message: 'Voltar para o topo',
-            })}
+            aria-label={text({ id: 'navbar.aria.logo' })}
+            title={text({ id: 'navbar.aria.logo' })}
           />
           <div className='group'>
             <h2 className='title'>
@@ -190,7 +180,7 @@ export const Navbar = () => {
             )
           )}
           <Link to={localePath('/sponsors')} data-priority={1}>
-            <Translate id='navbar.section.sponsors'>Patrocinadores</Translate>
+            <Text id='navbar.section.sponsors' />
           </Link>
         </nav>
         <div className='actions'>
@@ -210,10 +200,7 @@ export const Navbar = () => {
                     );
                   }
                 }}
-                aria-label={translate({
-                  id: 'navbar.locale.label',
-                  message: 'Idioma',
-                })}
+                aria-label={text({ id: 'navbar.locale.label' })}
               >
                 <Globe className='icon' />
                 <ChevronDown className='chevron' />
@@ -233,17 +220,13 @@ export const Navbar = () => {
             </div>
           )}
           <SafeLink className='tickets' to={link.tickets}>
-            <Translate id='navbar.tickets'>INGRESSOS</Translate>{' '}
-            <ExternalLink />
+            <Text id='navbar.tickets' /> <ExternalLink />
           </SafeLink>
           <button
             type='button'
             className='hamburger'
             onClick={openMenu}
-            aria-label={translate({
-              id: 'navbar.aria.openMenu',
-              message: 'Abrir menu',
-            })}
+            aria-label={text({ id: 'navbar.aria.openMenu' })}
           >
             <Menu className='icon' />
           </button>
@@ -264,10 +247,7 @@ export const Navbar = () => {
             type='button'
             className='close'
             onClick={closeMenu}
-            aria-label={translate({
-              id: 'navbar.aria.closeMenu',
-              message: 'Fechar menu',
-            })}
+            aria-label={text({ id: 'navbar.aria.closeMenu' })}
           >
             <X className='icon' />
           </button>
@@ -283,7 +263,7 @@ export const Navbar = () => {
             </Link>
           ))}
           <Link to={localePath('/sponsors')} onClick={closeMenu}>
-            <Translate id='navbar.section.sponsors'>Patrocinadores</Translate>
+            <Text id='navbar.section.sponsors' />
           </Link>
           {otherLocales.length > 0 && (
             <div ref={localeMobileRef} className='locale-mobile'>
@@ -301,13 +281,10 @@ export const Navbar = () => {
                     );
                   }
                 }}
-                aria-label={translate({
-                  id: 'navbar.locale.label',
-                  message: 'Idioma',
-                })}
+                aria-label={text({ id: 'navbar.locale.label' })}
               >
                 <Globe className='icon' />
-                <Translate id='navbar.locale.label'>Idioma</Translate>
+                <Text id='navbar.locale.label' />
                 <ChevronDown className='chevron' />
               </button>
               <div
@@ -326,7 +303,7 @@ export const Navbar = () => {
           )}
         </nav>
         <SafeLink className='tickets' to={link.tickets}>
-          <Translate id='navbar.tickets'>INGRESSOS</Translate> <ExternalLink />
+          <Text id='navbar.tickets' /> <ExternalLink />
         </SafeLink>
       </div>
     </header>
