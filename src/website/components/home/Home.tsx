@@ -2,6 +2,7 @@ import Translate from '@docusaurus/Translate';
 import { CalendarDays, Tickets } from 'lucide-react';
 import { link } from '@site/src/website/configs/definitions';
 import { BR } from '../shared/BR';
+import { Image } from '../shared/Image';
 import { SafeLink } from '../shared/SafeLink';
 
 // import { Waitlist } from './Waitlist';
@@ -77,7 +78,7 @@ export const Home = () => (
         <span className='label'>
           <Translate id='home.credits.label'>Realização</Translate>
         </span>
-        <img
+        <Image
           className='logo'
           src='/img/logotype.png'
           alt='Logotipo: NodeBR'
