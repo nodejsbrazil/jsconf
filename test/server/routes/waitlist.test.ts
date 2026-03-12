@@ -55,7 +55,7 @@ describe('routes.waitlist', async () => {
       const mock = makeMockDatabase();
       const res = await post({}, mock);
       assert.equal(res.status, 422);
-      assert.deepEqual(await res.json(), { error: 'invalid_input' });
+      assert.deepEqual(await res.json(), { error: 'Invalid input.' });
     });
 
     await it('returns 422 for an invalid email format', async () => {

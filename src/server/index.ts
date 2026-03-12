@@ -20,7 +20,7 @@ export default {
 
     const rateLimit = checkRateLimit(request);
     if (!rateLimit.allowed)
-      return response({ error: 'rate_limit_exceeded' }, 429, {
+      return response({ error: 'Rate limit exceeded.' }, 429, {
         ...cors,
         'Retry-After': String(rateLimit.retryAfterSeconds),
       });
@@ -32,7 +32,7 @@ export default {
         return;
       }
     })();
-    if (!body) return response({ error: 'invalid_json' }, 400, cors);
+    if (!body) return response({ error: 'Invalid JSON.' }, 400, cors);
 
     const { pathname } = new URL(request.url);
     const ip = await hash(getRateLimitKey(request));
@@ -42,7 +42,7 @@ export default {
       case 'POST /api/waitlist':
         return routes.waitlist({ body, cors, database: env.DB, ip });
       default:
-        return response({ error: 'not_found' }, 404, cors);
+        return response({ error: 'Not found.' }, 404, cors);
     }
   },
 } satisfies ExportedHandler<Env>;

@@ -18,7 +18,7 @@ export const waitlist = async ({
   const { schema, canInsert, insert } = repository(database);
 
   const parsed = schema.safeParse(body);
-  if (!parsed.success) return response({ error: 'invalid_input' }, 422, cors);
+  if (!parsed.success) return response({ error: 'Invalid input.' }, 422, cors);
 
   const { email, website, utmSource } = parsed.data;
 
@@ -26,10 +26,10 @@ export const waitlist = async ({
   if (website.length > 0) return response({ success: true }, 201, cors);
 
   if (!(await canInsert(ip)))
-    return response({ error: 'daily_limit_exceeded' }, 429, cors);
+    return response({ error: 'Daily limit exceeded.' }, 429, cors);
 
   const inserted = await insert(email, utmSource, ip);
-  if (!inserted) return response({ error: 'internal_error' }, 500, cors);
+  if (!inserted) return response({ error: 'Internal error.' }, 500, cors);
 
   return response({ success: true }, 201, cors);
 };
