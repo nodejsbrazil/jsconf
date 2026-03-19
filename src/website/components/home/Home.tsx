@@ -32,7 +32,7 @@ export const Home = () => {
         </p>
         <menu>
           <section>
-            <Link className='btn-split cta' to={localePath('#tickets')}>
+            <Link className='btn-split cta' to={localePath('/#tickets')}>
               <span className='btn-icon'>
                 <Tickets />
               </span>
