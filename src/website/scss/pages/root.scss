@@ -4,6 +4,7 @@
 @use 'speakers' as *;
 @use 'benefits' as *;
 @use 'location' as *;
+@use 'ticket-selection' as *;
 
 // 404
 .hero__title {
@@ -46,6 +47,7 @@
       @include benefits;
       @include speakers;
       @include location;
+      @include ticket-selection;
     }
   }
 }

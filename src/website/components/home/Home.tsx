@@ -1,11 +1,7 @@
-import { CalendarDays, Tickets } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 import { Text } from '@site/src/website/components/shared/i18n';
-import { link } from '@site/src/website/configs/definitions';
 import { BR } from '../shared/BR';
 import { Image } from '../shared/Image';
-import { SafeLink } from '../shared/SafeLink';
-
-// import { Waitlist } from './Waitlist';
 
 export const Home = () => (
   <main id='home'>
@@ -29,21 +25,6 @@ export const Home = () => (
       <p className='description'>
         <Text id='home.description' />
       </p>
-      <menu>
-        <section>
-          <SafeLink to={link.tickets} className='btn-split cta'>
-            <span className='btn-icon'>
-              <Tickets />
-            </span>
-            <span className='btn-content'>
-              <span className='text'>
-                <Text id='home.cta.tickets' />
-              </span>
-            </span>
-          </SafeLink>
-        </section>
-        {/* <Waitlist /> */}
-      </menu>
       <footer className='credits'>
         <span className='label'>
           <Text id='home.credits.label' />

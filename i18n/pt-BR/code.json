@@ -319,5 +319,11 @@
   },
   "home.waitlist.error": {
     "message": "Algo deu errado. Tente novamente mais tarde."
+  },
+  "tickets.title": {
+    "message": "Ingressos"
+  },
+  "tickets.subtitle": {
+    "message": "Garanta agora seu lugar na maior conferência de JavaScript do Brasil."
   }
 }
