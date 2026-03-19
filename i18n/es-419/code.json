@@ -311,6 +311,12 @@
   "home.waitlist.success": {
     "message": "¡Estás en la lista! Te avisaremos cuando haya novedades."
   },
+  "tickets.title": {
+    "message": "Entradas"
+  },
+  "tickets.subtitle": {
+    "message": "Asegura tu lugar en la mayor conferencia de JavaScript de Brasil."
+  },
   "home.waitlist.error": {
     "message": "Algo salió mal. Por favor, inténtalo más tarde."
   },

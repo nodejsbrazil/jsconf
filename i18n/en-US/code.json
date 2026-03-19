@@ -311,6 +311,12 @@
   "home.waitlist.success": {
     "message": "You're on the list! We'll let you know when news drops."
   },
+  "tickets.title": {
+    "message": "Tickets"
+  },
+  "tickets.subtitle": {
+    "message": "Secure your spot at the biggest JavaScript conference in Brazil."
+  },
   "home.waitlist.error": {
     "message": "Something went wrong. Please try again later."
   },

@@ -3,10 +3,8 @@ import { useCallback, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { ChevronDown, ExternalLink, Globe, Menu, X } from 'lucide-react';
+import { ChevronDown, Globe, Menu, X } from 'lucide-react';
 import { Text, text } from '@site/src/website/components/shared/i18n';
-import { SafeLink } from '@site/src/website/components/shared/SafeLink';
-import { link } from '@site/src/website/configs/definitions';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import { useScrollSpy } from '@site/src/website/hooks/useScrollSpy';
 import Logo from '../../assets/img/logo.svg';
@@ -219,9 +217,6 @@ export const Navbar = () => {
               </div>
             </div>
           )}
-          <SafeLink className='tickets' to={link.tickets}>
-            <Text id='navbar.tickets' /> <ExternalLink />
-          </SafeLink>
           <button
             type='button'
             className='hamburger'
@@ -302,9 +297,6 @@ export const Navbar = () => {
             </div>
           )}
         </nav>
-        <SafeLink className='tickets' to={link.tickets}>
-          <Text id='navbar.tickets' /> <ExternalLink />
-        </SafeLink>
       </div>
     </header>
   );
