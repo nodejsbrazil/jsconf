@@ -8,7 +8,6 @@ import {
   Linkedin,
   Youtube,
 } from 'lucide-react';
-import { Image } from '@site/src/website/components/shared/Image';
 import { SafeLink } from '@site/src/website/components/shared/SafeLink';
 import { useScroll } from '@site/src/website/hooks/useScroll';
 
@@ -44,17 +43,29 @@ export const Person: FC<MemberProps> = ({
   });
 
   return (
-    <section ref={ref} className='person'>
-      <header className='photo'>
-        <Image className='image' src={img} alt={`Foto (${name})`} />
+    <section ref={ref} className='team-detail-card'>
+      <div className='team-detail-photo-wrap'>
+        <img className='team-detail-photo' src={img} alt={name} />
+      </div>
+
+      <div className='team-detail-body'>
+        <h3 className='team-detail-name'>{name}</h3>
+        {position && <p className='team-detail-position'>{position}</p>}
+        {company && (
+          <p className='team-detail-company'>
+            <Building size={13} /> {company}
+          </p>
+        )}
+        {bio && <p className='team-detail-bio'>{bio}</p>}
+
         {social && (
-          <footer className='social'>
+          <footer className='team-detail-social'>
             {social.linkedin && (
               <SafeLink
                 to={`https://linkedin.com/in/${social.linkedin.trim()}/`}
                 title='LinkedIn'
               >
-                <Linkedin />
+                <Linkedin size={16} />
               </SafeLink>
             )}
             {social.instagram && (
@@ -62,16 +73,15 @@ export const Person: FC<MemberProps> = ({
                 to={`https://instagram.com/${social.instagram.trim()}/`}
                 title='Instagram'
               >
-                <Instagram />
+                <Instagram size={16} />
               </SafeLink>
             )}
             {social.youtube && (
               <SafeLink
-                className='youtube'
-                to={`https://youtube.com/${social.youtube}`}
+                to={`https://youtube.com/${social.youtube.trim()}/`}
                 title='YouTube'
               >
-                <Youtube />
+                <Youtube size={16} />
               </SafeLink>
             )}
             {social.github && (
@@ -79,33 +89,17 @@ export const Person: FC<MemberProps> = ({
                 to={`https://github.com/${social.github.trim()}/`}
                 title='GitHub'
               >
-                <Github />
+                <Github size={16} />
               </SafeLink>
             )}
             {social.website && (
               <SafeLink to={social.website.trim()} title='Website'>
-                <Link />
+                <Link size={16} />
               </SafeLink>
             )}
           </footer>
         )}
-      </header>
-      <main className='info'>
-        <header className='details'>
-          <h3 className='name'>{name.trim()}</h3>
-          {typeof position === 'string' && (
-            <h4 className='position'>{position.trim()}</h4>
-          )}
-          {typeof company === 'string' && (
-            <h5 className='company'>
-              <Building /> {company.trim()}
-            </h5>
-          )}
-        </header>
-        <main className='content'>
-          {typeof bio === 'string' && <p className='bio'>{bio.trim()}</p>}
-        </main>
-      </main>
+      </div>
     </section>
   );
 };

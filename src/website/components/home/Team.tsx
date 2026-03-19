@@ -68,7 +68,7 @@ export const Team = () => {
             img='/img/team/lojhan.webp'
             bio={text({ id: 'team.lojhan.bio' })}
             position={text({ id: 'team.lojhan.position' })}
-            company='Mercado Livre'
+            company='lojhan.com'
             social={{
               instagram: 'lojhan.dev',
               linkedin: 'lojhan',
