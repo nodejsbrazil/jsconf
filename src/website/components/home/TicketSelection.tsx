@@ -64,7 +64,7 @@ const TicketCard = () => {
   }, []);
 
   return (
-    <div className='ticket-card'>
+    <SafeLink to={link.tickets} className='ticket-card'>
       {tiers.length > 0 && (
         <ul className='tier-list'>
           {tiers.map((tier) => {
@@ -74,7 +74,7 @@ const TicketCard = () => {
             );
             return (
               <li key={tier.id} className='tier-item'>
-                <SafeLink to={link.tickets} className='tier-link'>
+                <div className='tier-row'>
                   <div className='tier-info'>
                     <strong className='tier-name'>{tier.name}</strong>
                     {tier.description && (
@@ -82,14 +82,14 @@ const TicketCard = () => {
                     )}
                   </div>
                   {price && <span className='tier-price'>{price}</span>}
-                </SafeLink>
+                </div>
               </li>
             );
           })}
         </ul>
       )}
-      <SquareArrowOutUpRight />
-    </div>
+      <SquareArrowOutUpRight className='cta-icon' />
+    </SafeLink>
   );
 };
 
