@@ -9,7 +9,7 @@ const config: Config = {
   title: 'JSConf Brasil',
   favicon: 'favicon.ico',
   baseUrl: '/',
-  url: 'https://jsconf.nodebr.org/',
+  url: 'https://jsconf.com.br/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'ignore',

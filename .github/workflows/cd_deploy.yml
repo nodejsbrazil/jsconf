@@ -57,5 +57,5 @@ jobs:
         with:
           github_token: ${{ secrets.PAT }}
           publish_dir: ./build
-          cname: jsconf.nodebr.org
+          cname: jsconf.com.br
           allow_empty_commit: true
