@@ -305,20 +305,23 @@
   "coc.pageDescription": {
     "message": "Código de Conduta da JSConf Brasil"
   },
-  "home.waitlist.label": {
-    "message": "Receba novidades em primeira mão"
+  "home.waitlist.heading": {
+    "message": "Fique por dentro de todas as novidades"
+  },
+  "home.waitlist.subheading": {
+    "message": "Assine nossa Newsletter e saiba tudo primeiro: CFP, palestrantes, votações e mais!"
   },
   "home.waitlist.placeholder": {
-    "message": "seu@email.com"
+    "message": "Seu melhor email"
   },
   "home.waitlist.submit": {
-    "message": "Entrar na lista"
-  },
-  "home.waitlist.submitting": {
-    "message": "Enviando..."
+    "message": "Eu Quero!"
   },
   "home.waitlist.success": {
-    "message": "Você está na lista! Avisaremos quando abrir novidades."
+    "message": "Pronto! Sua Newsletter está ativa. Fique de olho na sua caixa de entrada!"
+  },
+  "home.waitlist.invalid": {
+    "message": "Por favor, insira um email válido."
   },
   "home.waitlist.error": {
     "message": "Algo deu errado. Tente novamente mais tarde."

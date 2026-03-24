@@ -6,15 +6,15 @@
       0%,
       100% {
         box-shadow:
-          0 0 2.5rem rgba(141, 248, 34, 0.06),
-          0 0.5rem 2rem rgba(0, 0, 0, 0.3);
+          0 0 2.5rem rgba(141, 248, 34, 0.025),
+          0 0.5rem 2rem rgba(0, 0, 0, 0.25);
       }
 
       50% {
         box-shadow:
-          0 0 5rem rgba(141, 248, 34, 0.16),
-          0 0 10rem rgba(141, 248, 34, 0.06),
-          0 0.5rem 2rem rgba(0, 0, 0, 0.3);
+          0 0 5rem rgba(141, 248, 34, 0.025),
+          0 0 10rem rgba(141, 248, 34, 0.075),
+          0 0.5rem 2rem rgba(0, 0, 0, 0.25);
       }
     }
 
@@ -50,7 +50,6 @@
       }
 
       .title .icon {
-        animation: icon-float 3s ease-in-out infinite;
         color: var(--ifm-color-primary);
         filter: drop-shadow(0 0 0.8rem rgba(141, 248, 34, 0.4));
       }
@@ -60,7 +59,7 @@
         gap: 3rem;
         width: 100%;
         max-width: 64rem;
-        background: #021509b3;
+        background-color: #021509b3;
         border: 0.15rem solid #022514;
         color: inherit;
         text-decoration: none;
@@ -94,11 +93,16 @@
           border-radius: inherit;
         }
 
+        .cta-icon {
+          color: var(--ifm-color-primary);
+          animation: icon-float 10s var(--ease-out-quad) infinite;
+        }
+
         &:hover {
           border-color: rgba(141, 248, 34, 0.35);
           transform: translateY(-4px) scale(1.008);
           box-shadow:
-            0 0 5rem rgba(141, 248, 34, 0.22),
+            0 0 5rem rgba(141, 248, 34, 0.1),
             0 1.5rem 4rem rgba(0, 0, 0, 0.5);
           animation: none;
           color: inherit;
@@ -109,7 +113,7 @@
           }
 
           .ticket-cta {
-            background: rgba(141, 248, 34, 0.14);
+            background-color: rgba(141, 248, 34, 0.14);
             border-color: rgba(141, 248, 34, 0.3);
 
             .cta-icon {
@@ -155,7 +159,7 @@
           align-self: stretch;
           padding: 1.2rem 2rem;
           border-radius: 0.75rem;
-          background: rgba(141, 248, 34, 0.08);
+          background-color: rgba(141, 248, 34, 0.08);
           border: 0.1rem solid rgba(141, 248, 34, 0.15);
           font-family: var(--ifm-font-family-title);
           font-size: 1.5rem;
@@ -164,7 +168,7 @@
           letter-spacing: 0.04em;
           text-transform: uppercase;
           transition:
-            background 0.25s ease,
+            background-color 0.25s ease,
             border-color 0.25s ease;
 
           .cta-icon {
@@ -184,6 +188,7 @@
           font-family: var(--ifm-font-family-title);
           font-size: 2rem;
           font-weight: 700;
+          text-transform: capitalize;
           color: #fff;
           margin: 0;
         }

@@ -161,7 +161,7 @@
             }
 
             .team-detail-social {
-              @include flex(row, center, center);
+              @include flex(row, center, flex-start);
               gap: 1rem;
               margin-top: auto;
               padding-top: 1.5rem;
@@ -211,20 +211,12 @@
               transform: scale(1.05);
             }
 
-            .team-detail-social {
-              gap: 1.7rem;
-            }
-
             @media (max-width: 780px) {
               transform: none;
               border-color: #022514;
 
               .team-detail-photo {
                 transform: none;
-              }
-
-              .team-detail-social {
-                gap: 1rem;
               }
             }
           }

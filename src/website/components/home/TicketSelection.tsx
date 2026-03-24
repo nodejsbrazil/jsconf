@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { SquareArrowOutUpRight, Tickets } from 'lucide-react';
+import { SquareArrowOutUpRight, Ticket } from 'lucide-react';
 import { Text } from '@site/src/website/components/shared/i18n';
 import { link } from '@site/src/website/configs/definitions';
 import { useScroll } from '../../hooks/useScroll';
@@ -78,7 +78,10 @@ const TicketCard = () => {
                   <div className='tier-info'>
                     <strong className='tier-name'>{tier.name}</strong>
                     {tier.description && (
-                      <p className='tier-description'>{tier.description}</p>
+                      <p className='tier-description'>
+                        {tier.description.charAt(0).toUpperCase() +
+                          tier.description.slice(1)}
+                      </p>
                     )}
                   </div>
                   {price && <span className='tier-price'>{price}</span>}
@@ -104,7 +107,7 @@ export const TicketSelection = () => {
     <main id='tickets'>
       <div className='content' ref={ref}>
         <h1 className='title'>
-          <Tickets className='icon' /> <Text id='tickets.title' />
+          <Ticket className='icon' /> <Text id='tickets.title' />
         </h1>
         <small className='subtitle'>
           <Text id='tickets.subtitle' />

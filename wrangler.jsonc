@@ -3,6 +3,8 @@
   "name": "jsconf-br",
   "main": "src/server/index.ts",
   "compatibility_date": "2026-03-10",
+  "routes": [{ "pattern": "api.jsconf.com.br", "custom_domain": true }],
+  "workers_dev": false,
   "d1_databases": [
     {
       "binding": "DB",

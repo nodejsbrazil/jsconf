@@ -299,20 +299,23 @@
   "brand.avoid.item4": {
     "message": "Usar el logotipo en tamaños muy pequeños"
   },
-  "home.waitlist.label": {
-    "message": "Recibe novedades antes que nadie"
+  "home.waitlist.heading": {
+    "message": "Entérate de todas las novedades"
+  },
+  "home.waitlist.subheading": {
+    "message": "Suscríbete a nuestra Newsletter y entérate de todo primero: CFP, ponentes, votaciones y más!"
   },
   "home.waitlist.placeholder": {
-    "message": "tu@email.com"
+    "message": "Tu mejor email"
   },
   "home.waitlist.submit": {
-    "message": "Unirse a la lista"
-  },
-  "home.waitlist.submitting": {
-    "message": "Enviando..."
+    "message": "¡Lo Quiero!"
   },
   "home.waitlist.success": {
-    "message": "¡Estás en la lista! Te avisaremos cuando haya novedades."
+    "message": "¡Listo! Tu Newsletter está activa. ¡Revisa tu bandeja de entrada!"
+  },
+  "home.waitlist.invalid": {
+    "message": "Por favor, ingresa un email válido."
   },
   "tickets.title": {
     "message": "Entradas"

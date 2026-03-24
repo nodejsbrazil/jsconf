@@ -299,20 +299,23 @@
   "brand.avoid.item4": {
     "message": "Using the logo at very small sizes"
   },
-  "home.waitlist.label": {
-    "message": "Be the first to know"
+  "home.waitlist.heading": {
+    "message": "Stay up to date with all the news"
+  },
+  "home.waitlist.subheading": {
+    "message": "Subscribe to our Newsletter and be the first to know: CFP, speakers, voting and more!"
   },
   "home.waitlist.placeholder": {
-    "message": "your@email.com"
+    "message": "Your best email"
   },
   "home.waitlist.submit": {
-    "message": "Join the list"
-  },
-  "home.waitlist.submitting": {
-    "message": "Sending..."
+    "message": "I Want In!"
   },
   "home.waitlist.success": {
-    "message": "You're on the list! We'll let you know when news drops."
+    "message": "Done! Your Newsletter is active. Keep an eye on your inbox!"
+  },
+  "home.waitlist.invalid": {
+    "message": "Please enter a valid email."
   },
   "tickets.title": {
     "message": "Tickets"

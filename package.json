@@ -10,7 +10,9 @@
     "server": "wrangler dev",
     "host": "tsx tools/host.ts",
     "db:init": "wrangler d1 execute jsconf-br --file='resources/schema.sql'",
-    "db:init:remote": "npm run db:init -- --remote",
+    "db:init:remote": "wrangler d1 execute jsconf-br --file='resources/schema.sql' --remote",
+    "predb:init:remote": "npm run worker:prepare",
+    "postdb:init:remote": "npm run worker:restore",
     "build": "docusaurus build",
     "clear": "docusaurus clear",
     "reset": "(npm run clear || true) && rm -rf node_modules package-lock.json && npm i && npm run update",
@@ -20,7 +22,15 @@
     "lint:fix": "prettier --write .",
     "update": "pu && npm i && npm update && (npm audit fix || true) && npm run lint:fix",
     "purge": "tsx --env-file-if-exists=.env tools/purge-cache.mts",
-    "test": "poku -r=compact"
+    "test": "poku -r=compact",
+    "deploy": "wrangler deploy",
+    "predeploy": "npm run worker:prepare",
+    "postdeploy": "npm run worker:restore",
+    "secret": "wrangler secret put",
+    "presecret": "npm run worker:prepare",
+    "postsecret": "npm run worker:restore",
+    "worker:prepare": "tsx --env-file-if-exists=.env tools/prepare-worker.mts",
+    "worker:restore": "tsx --env-file-if-exists=.env tools/restore-worker.mts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260312.1",

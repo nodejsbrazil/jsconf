@@ -62,3 +62,32 @@
     opacity: 1;
   }
 }
+
+@keyframes morph {
+  0%,
+  100% {
+    border-radius: 50% 53% 52% 51% / 51% 53% 50% 52%;
+  }
+  20% {
+    border-radius: 52% 50% 51% 53% / 53% 50% 52% 51%;
+  }
+  40% {
+    border-radius: 51% 52% 53% 50% / 50% 52% 51% 53%;
+  }
+  60% {
+    border-radius: 53% 51% 50% 52% / 52% 51% 53% 50%;
+  }
+  80% {
+    border-radius: 50% 53% 52% 51% / 53% 50% 51% 52%;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+  50% {
+    rotate: 10deg;
+  }
+}

@@ -4,6 +4,7 @@ import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ChevronDown, Globe, Menu, X } from 'lucide-react';
+import { Toaster } from 'sonner';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import { useScrollSpy } from '@site/src/website/hooks/useScrollSpy';
@@ -28,11 +29,11 @@ const SECTIONS: Section[] = [
     label: <Text id='navbar.section.benefits' />,
     priority: 1,
   },
-  {
-    id: 'speakers',
-    label: <Text id='navbar.section.speakers' />,
-    priority: 2,
-  },
+  // {
+  //   id: 'speakers',
+  //   label: <Text id='navbar.section.speakers' />,
+  //   priority: 2,
+  // },
   {
     id: 'location',
     label: <Text id='navbar.section.location' />,
@@ -147,6 +148,7 @@ export const Navbar = () => {
 
   return (
     <header ref={navbarNode} className='main-navbar'>
+      <Toaster richColors closeButton theme='light' position='top-right' />
       <div className='content'>
         <Link className='top' to={localePath('/')}>
           <Logo

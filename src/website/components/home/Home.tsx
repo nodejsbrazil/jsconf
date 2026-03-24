@@ -48,7 +48,6 @@ export const Home = () => {
           <span className='label'>
             <Text id='home.credits.label' />
           </span>
-          <menu>{/* <Waitlist /> */}</menu>
           <Image
             className='logo'
             src='/img/logotype.png'
