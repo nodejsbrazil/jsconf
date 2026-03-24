@@ -16,7 +16,7 @@ npm run start:en # Inglês
 npm run start:es # Espanhol
 ```
 
-> [! TIP]
+> [!TIP]
 >
 > Use o componente `<Image />` ao invés de `<img />` para visualizar as imagens corretamente em todos os idiomas durante o desenvolvimento.
 >
