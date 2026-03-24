@@ -13,7 +13,7 @@
     "db:init:remote": "wrangler d1 execute jsconf-br --file='resources/schema.sql' --remote",
     "predb:init:remote": "npm run worker:prepare",
     "postdb:init:remote": "npm run worker:restore",
-    "build": "docusaurus build && npm run build:server",
+    "build": "npm run build:server && docusaurus build",
     "build:server": "rollup -c && cp -f wrangler.jsonc server/wrangler.jsonc",
     "prebuild:server": "npm run worker:prepare",
     "postbuild:server": "npm run worker:restore",
