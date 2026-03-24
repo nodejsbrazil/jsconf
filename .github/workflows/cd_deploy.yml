@@ -52,6 +52,7 @@ jobs:
       - name: Building
         run: npm run build
         env:
+          WORKER_DOMAIN: ${{ secrets.WORKER_DOMAIN }}
           WORKER_D1: ${{ secrets.WORKER_D1 }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
@@ -61,7 +62,7 @@ jobs:
           github_token: ${{ secrets.PAT }}
           publish_dir: ./server
           publish_branch: 'server'
-          allow_empty_commit: false
+          allow_empty_commit: true
           enable_jekyll: true
 
       - name: Deploy — Website

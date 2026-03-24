@@ -1,7 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "bundler",
@@ -30,10 +29,7 @@
     "paths": {
       "@site/*": ["./*"]
     },
-    "typeRoots": [
-      "node_modules/@types",
-      "node_modules/@cloudflare/workers-types"
-    ]
+    "types": ["@cloudflare/workers-types"]
   },
   "exclude": ["static", ".docusaurus", "build", ".wrangler", "dist"],
   "mdx": {

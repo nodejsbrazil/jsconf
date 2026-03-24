@@ -55,7 +55,7 @@
     "concurrently": "^9.2.1",
     "docusaurus-plugin-sass": "^0.2.6",
     "lru.min": "^1.1.4",
-    "lucide-react": "^1.0.1",
+    "lucide-react": "^0.577.0",
     "packages-update": "^2.0.0",
     "poku": "^4.1.0",
     "prettier": "^3.8.1",
