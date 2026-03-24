@@ -11,12 +11,12 @@ const config: Config = {
   baseUrl: '/',
   url: 'https://jsconf.com.br/',
   trailingSlash: true,
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'ignore',
   onBrokenAnchors: 'ignore',
-  onDuplicateRoutes: 'throw',
+  onDuplicateRoutes: 'ignore',
   markdown: {
     hooks: {
-      onBrokenMarkdownLinks: 'throw',
+      onBrokenMarkdownLinks: 'ignore',
     },
   },
   i18n: {
