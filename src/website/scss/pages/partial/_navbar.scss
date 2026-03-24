@@ -134,7 +134,7 @@
       &.tickets {
         @include flex(row, center, center);
         gap: 0.5rem;
-        padding: 1.25rem 1.5rem;
+        padding: 1rem 1.5rem;
         border-radius: 0.5rem;
         background-color: var(--ifm-color-primary-darkest);
         font-family: var(--ifm-font-family-title);
@@ -437,7 +437,7 @@
         @include flex(column, flex-start, flex-start);
         gap: 0;
         width: 100%;
-        padding-top: 0.5rem;
+        padding-top: 2.5rem;
         border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
         margin-top: 0.5rem;
 
@@ -445,7 +445,7 @@
           @include flex(row, center, flex-start);
           gap: 0.75rem;
           padding: 0;
-          background: transparent;
+          background-color: transparent;
           border: none;
           cursor: pointer;
           font-family: var(--ifm-font-family-title);

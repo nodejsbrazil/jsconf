@@ -3,12 +3,14 @@ import { useCallback, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { ChevronDown, Globe, Menu, X } from 'lucide-react';
+import { ChevronDown, ExternalLink, Globe, Menu, X } from 'lucide-react';
 import { Toaster } from 'sonner';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import { useScrollSpy } from '@site/src/website/hooks/useScrollSpy';
 import Logo from '../../assets/img/logo.svg';
+import { link } from '../../configs/definitions';
+import { SafeLink } from '../shared/SafeLink';
 
 type Section = {
   id: string;
@@ -226,6 +228,9 @@ export const Navbar = () => {
           >
             <Menu className='icon' />
           </button>
+          <SafeLink className='tickets' to={link.tickets}>
+            <Text id='navbar.tickets' /> <ExternalLink />
+          </SafeLink>
         </div>
       </div>
       <div ref={menuNode} className='mobile-menu'>
@@ -261,6 +266,9 @@ export const Navbar = () => {
           <Link to={localePath('/sponsors')} onClick={closeMenu}>
             <Text id='navbar.section.sponsors' />
           </Link>
+          <SafeLink className='tickets' to={link.tickets}>
+            <Text id='navbar.tickets' /> <ExternalLink />
+          </SafeLink>
           {otherLocales.length > 0 && (
             <div ref={localeMobileRef} className='locale-mobile'>
               <button
