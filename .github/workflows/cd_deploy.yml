@@ -62,7 +62,7 @@ jobs:
           github_token: ${{ secrets.PAT }}
           publish_dir: ./server
           publish_branch: 'server'
-          allow_empty_commit: true
+          allow_empty_commit: false
           enable_jekyll: true
 
       - name: Deploy — Website
@@ -70,5 +70,6 @@ jobs:
         with:
           github_token: ${{ secrets.PAT }}
           publish_dir: ./build
+          publish_branch: 'website'
           cname: jsconf.com.br
           allow_empty_commit: true
