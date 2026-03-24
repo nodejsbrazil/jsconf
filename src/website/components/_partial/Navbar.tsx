@@ -3,7 +3,8 @@ import { useCallback, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { ChevronDown, ExternalLink, Globe, Menu, X } from 'lucide-react';
+import { ChevronDown, ExternalLink, Menu, X } from 'lucide-react';
+import { IoLanguage } from 'react-icons/io5';
 import { Toaster } from 'sonner';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
@@ -203,7 +204,7 @@ export const Navbar = () => {
                 }}
                 aria-label={text({ id: 'navbar.locale.label' })}
               >
-                <Globe className='icon' />
+                <IoLanguage className='icon' />
                 <ChevronDown className='chevron' />
               </button>
               <div
@@ -287,7 +288,7 @@ export const Navbar = () => {
                 }}
                 aria-label={text({ id: 'navbar.locale.label' })}
               >
-                <Globe className='icon' />
+                <IoLanguage className='icon' />
                 <Text id='navbar.locale.label' />
                 <ChevronDown className='chevron' />
               </button>

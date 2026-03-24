@@ -1,13 +1,12 @@
 import type { FC } from 'react';
 import { useRef } from 'react';
+import { Building, Link } from 'lucide-react';
 import {
-  Building,
-  Github,
-  Instagram,
-  Link,
-  Linkedin,
-  Youtube,
-} from 'lucide-react';
+  FaGithub,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from 'react-icons/fa6';
 import { SafeLink } from '@site/src/website/components/shared/SafeLink';
 import { useScroll } from '@site/src/website/hooks/useScroll';
 
@@ -65,7 +64,7 @@ export const Person: FC<MemberProps> = ({
                 to={`https://linkedin.com/in/${social.linkedin.trim()}/`}
                 title='LinkedIn'
               >
-                <Linkedin size={16} />
+                <FaLinkedinIn size={16} />
               </SafeLink>
             )}
             {social.instagram && (
@@ -73,7 +72,7 @@ export const Person: FC<MemberProps> = ({
                 to={`https://instagram.com/${social.instagram.trim()}/`}
                 title='Instagram'
               >
-                <Instagram size={16} />
+                <FaInstagram size={16} />
               </SafeLink>
             )}
             {social.youtube && (
@@ -81,7 +80,7 @@ export const Person: FC<MemberProps> = ({
                 to={`https://youtube.com/${social.youtube.trim()}/`}
                 title='YouTube'
               >
-                <Youtube size={16} />
+                <FaYoutube size={16} />
               </SafeLink>
             )}
             {social.github && (
@@ -89,7 +88,7 @@ export const Person: FC<MemberProps> = ({
                 to={`https://github.com/${social.github.trim()}/`}
                 title='GitHub'
               >
-                <Github size={16} />
+                <FaGithub size={16} />
               </SafeLink>
             )}
             {social.website && (

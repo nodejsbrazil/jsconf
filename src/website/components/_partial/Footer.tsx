@@ -1,5 +1,6 @@
 import Link from '@docusaurus/Link';
-import { Instagram, Linkedin, Rss, Twitter } from 'lucide-react';
+import { Rss } from 'lucide-react';
+import { FaInstagram, FaLinkedinIn, FaXTwitter } from 'react-icons/fa6';
 import { Text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import Logo from '../../assets/img/logo.svg';
@@ -26,7 +27,7 @@ export const Footer = () => {
                 aria-label='LinkedIn'
                 data-tooltip='LinkedIn'
               >
-                <Linkedin size={24} />
+                <FaLinkedinIn size={24} />
               </SafeLink>
             </li>
             <li>
@@ -35,7 +36,7 @@ export const Footer = () => {
                 aria-label='Twitter'
                 data-tooltip='Twitter'
               >
-                <Twitter size={24} />
+                <FaXTwitter size={24} />
               </SafeLink>
             </li>
             <li>
@@ -44,7 +45,7 @@ export const Footer = () => {
                 aria-label='Instagram'
                 data-tooltip='Instagram'
               >
-                <Instagram size={24} />
+                <FaInstagram size={24} />
               </SafeLink>
             </li>
             <li>
