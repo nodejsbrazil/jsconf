@@ -50,7 +50,7 @@ export const Team = () => {
             }}
           />
           <Person
-            name='Weslley'
+            name='Weslley Araújo'
             img='/img/team/wells.webp'
             bio={text({ id: 'team.weslley.bio' })}
             position={text({ id: 'team.weslley.position' })}
@@ -79,6 +79,7 @@ export const Team = () => {
           <Person
             name='Micaele Magalhães'
             img='/img/team/mi.webp'
+            bio={text({ id: 'team.micaele.bio' })}
             social={{
               instagram: 'micaele_magalhaes',
             }}
