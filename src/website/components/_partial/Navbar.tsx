@@ -42,7 +42,6 @@ const SECTIONS: Section[] = [
   {
     id: 'team',
     label: <Text id='navbar.section.team' />,
-    priority: 2,
   },
 ];
 
