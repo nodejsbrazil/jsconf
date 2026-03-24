@@ -135,11 +135,12 @@
         @include flex(row, center, center);
         gap: 0.5rem;
         padding: 1rem 1.5rem;
-        border-radius: 0.5rem;
+        border-radius: 0.75rem;
         background-color: var(--ifm-color-primary-darkest);
-        font-family: var(--ifm-font-family-title);
-        font-size: 1.3rem;
-        font-weight: 700;
+        font-family: var(--ifm-font-family-base);
+        font-size: 1.2rem;
+        font-weight: 600;
+        letter-spacing: 0.05rem;
         color: var(--title-color);
         text-shadow: 0.1rem 0.1rem 0.1rem #000000b7;
 
@@ -151,17 +152,11 @@
           width: 1.6rem;
           height: 1.6rem;
           filter: drop-shadow(0.1rem 0.1rem 0.1rem #000000b7);
-          transform: translateY(-0.15rem);
-          transition: transform 0.15s;
         }
 
         &:hover {
           background-color: #0c7019;
-          transform: scale(1.015);
-
-          svg {
-            transform: translate(0.175rem, -0.15rem);
-          }
+          transform: scale(1.025);
         }
       }
     }
@@ -234,7 +229,7 @@
           @include flex(row, center, center);
           gap: 0.4rem;
           padding: 0;
-          background: transparent;
+          background-color: transparent;
           border: none;
           cursor: pointer;
           font-family: var(--ifm-font-family-title);
@@ -286,7 +281,7 @@
             width: 100%;
             padding: 0.75rem 1.25rem;
             font-family: var(--ifm-font-family-title);
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: #fff;
             text-transform: uppercase;
@@ -322,7 +317,7 @@
 
       .hamburger {
         display: none;
-        background: transparent;
+        background-color: transparent;
         border: none;
         cursor: pointer;
         padding: 0;
@@ -393,7 +388,7 @@
 
       .close {
         padding: 0;
-        background: transparent;
+        background-color: transparent;
         border: none;
         cursor: pointer;
         transition: transform 0.15s var(--ease-back-out);
@@ -522,7 +517,7 @@
       @include flex(row, center, center);
       gap: 0.5rem;
       padding: 1.25rem 2rem;
-      border-radius: 0.5rem;
+      border-radius: 1rem;
       background-color: var(--ifm-color-primary-darkest);
       font-family: var(--ifm-font-family-title);
       font-size: 1.4rem;

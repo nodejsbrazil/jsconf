@@ -36,6 +36,7 @@
         z-index: -1;
         transform-origin: center center;
         transform: scale(1.5);
+        pointer-events: none;
 
         @media (max-height: 990px) {
           left: 9rem;

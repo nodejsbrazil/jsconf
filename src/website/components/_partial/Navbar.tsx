@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { ChevronDown, ExternalLink, Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, Ticket, X } from 'lucide-react';
 import { IoLanguage } from 'react-icons/io5';
 import { Toaster } from 'sonner';
 import { Text, text } from '@site/src/website/components/shared/i18n';
@@ -25,7 +25,7 @@ const SECTIONS: Section[] = [
   {
     id: 'home',
     label: <Text id='navbar.section.home' />,
-    showInDesktop: false,
+    // showInDesktop: false,
   },
   {
     id: 'benefits',
@@ -40,7 +40,7 @@ const SECTIONS: Section[] = [
   {
     id: 'location',
     label: <Text id='navbar.section.location' />,
-    priority: 1,
+    priority: 2,
   },
   {
     id: 'team',
@@ -230,7 +230,7 @@ export const Navbar = () => {
             <Menu className='icon' />
           </button>
           <SafeLink className='tickets' to={link.tickets}>
-            <Text id='navbar.tickets' /> <ExternalLink />
+            <Ticket /> <Text id='navbar.tickets' />
           </SafeLink>
         </div>
       </div>
@@ -268,7 +268,7 @@ export const Navbar = () => {
             <Text id='navbar.section.sponsors' />
           </Link>
           <SafeLink className='tickets' to={link.tickets}>
-            <Text id='navbar.tickets' /> <ExternalLink />
+            <Ticket /> <Text id='navbar.tickets' />
           </SafeLink>
           {otherLocales.length > 0 && (
             <div ref={localeMobileRef} className='locale-mobile'>
