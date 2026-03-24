@@ -1,4 +1,5 @@
 import Link from '@docusaurus/Link';
+import { Instagram, Linkedin, Rss, Twitter } from 'lucide-react';
 import { Text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import Logo from '../../assets/img/logo.svg';
@@ -18,6 +19,44 @@ export const Footer = () => {
           <p className='description'>
             <Text id='footer.description' />
           </p>
+          <ul className='social'>
+            <li>
+              <SafeLink
+                to='https://www.linkedin.com/company/jsconf-brazil'
+                aria-label='LinkedIn'
+                data-tooltip='LinkedIn'
+              >
+                <Linkedin size={24} />
+              </SafeLink>
+            </li>
+            <li>
+              <SafeLink
+                to='https://x.com/jsconf_br'
+                aria-label='Twitter'
+                data-tooltip='Twitter'
+              >
+                <Twitter size={24} />
+              </SafeLink>
+            </li>
+            <li>
+              <SafeLink
+                to='https://www.instagram.com/jsconfbr/'
+                aria-label='Instagram'
+                data-tooltip='Instagram'
+              >
+                <Instagram size={24} />
+              </SafeLink>
+            </li>
+            <li>
+              <SafeLink
+                to='https://nodebr.substack.com/about'
+                aria-label='Substack (NodeBR)'
+                data-tooltip='Substack (NodeBR)'
+              >
+                <Rss size={24} />
+              </SafeLink>
+            </li>
+          </ul>
         </aside>
         <aside className='links'>
           <h3 className='title'>
