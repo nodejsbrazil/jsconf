@@ -4,14 +4,11 @@ import { JSONC } from 'jsonc.min';
 
 const { WORKER_D1, CLOUDFLARE_ACCOUNT_ID } = env;
 
-if (!WORKER_D1) {
-  console.error('Missing WORKER_D1 in .env');
-  exit(1);
-}
-
-if (!CLOUDFLARE_ACCOUNT_ID) {
-  console.error('Missing CLOUDFLARE_ACCOUNT_ID in .env');
-  exit(1);
+if (!WORKER_D1 || !CLOUDFLARE_ACCOUNT_ID) {
+  console.info(
+    'Skipping worker preparation: WORKER_D1 or CLOUDFLARE_ACCOUNT_ID not set'
+  );
+  exit(0);
 }
 
 type D1Database = {
