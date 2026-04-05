@@ -59,27 +59,27 @@ const makeWebhookRequest = (payload: string, signature?: string): Request =>
   });
 
 describe('stripe webhook', async () => {
-  await describe('handleEvent', async () => {
+  describe('handleEvent', () => {
     const makeEvent = (type: string) =>
       ({ type, data: { object: { id: 'obj_123' } } }) as never;
 
-    await it('returns true for checkout.session.completed', () => {
+    it('returns true for checkout.session.completed', () => {
       assert.equal(handleEvent(makeEvent('checkout.session.completed')), true);
     });
 
-    await it('returns true for payment_intent.succeeded', () => {
+    it('returns true for payment_intent.succeeded', () => {
       assert.equal(handleEvent(makeEvent('payment_intent.succeeded')), true);
     });
 
-    await it('returns true for charge.succeeded', () => {
+    it('returns true for charge.succeeded', () => {
       assert.equal(handleEvent(makeEvent('charge.succeeded')), true);
     });
 
-    await it('returns true for charge.refunded', () => {
+    it('returns true for charge.refunded', () => {
       assert.equal(handleEvent(makeEvent('charge.refunded')), true);
     });
 
-    await it('returns false for unknown event types', () => {
+    it('returns false for unknown event types', () => {
       assert.equal(handleEvent(makeEvent('unknown.event')), false);
     });
   });
