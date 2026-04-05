@@ -45,6 +45,10 @@ export const stripeWebhook = async ({
 
     return response({ received: true }, 200, cors);
   } catch {
-    return response({ error: 'Webhook signature verification failed.' }, 400, cors);
+    return response(
+      { error: 'Webhook signature verification failed.' },
+      400,
+      cors
+    );
   }
 };
