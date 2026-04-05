@@ -58,69 +58,87 @@ const makeWebhookRequest = (payload: string, signature?: string): Request =>
     body: payload,
   });
 
-describe('handleEvent', async () => {
-  const makeEvent = (type: string) =>
-    ({ type, data: { object: { id: 'obj_123' } } }) as never;
+describe('stripe webhook', async () => {
+  await describe('handleEvent', async () => {
+    const makeEvent = (type: string) =>
+      ({ type, data: { object: { id: 'obj_123' } } }) as never;
 
-  await it('returns true for checkout.session.completed', () => {
-    assert.equal(handleEvent(makeEvent('checkout.session.completed')), true);
-  });
+    await it('returns true for checkout.session.completed', () => {
+      assert.equal(handleEvent(makeEvent('checkout.session.completed')), true);
+    });
 
-  await it('returns true for payment_intent.succeeded', () => {
-    assert.equal(handleEvent(makeEvent('payment_intent.succeeded')), true);
-  });
+    await it('returns true for payment_intent.succeeded', () => {
+      assert.equal(handleEvent(makeEvent('payment_intent.succeeded')), true);
+    });
 
-  await it('returns true for charge.succeeded', () => {
-    assert.equal(handleEvent(makeEvent('charge.succeeded')), true);
-  });
+    await it('returns true for charge.succeeded', () => {
+      assert.equal(handleEvent(makeEvent('charge.succeeded')), true);
+    });
 
-  await it('returns true for charge.refunded', () => {
-    assert.equal(handleEvent(makeEvent('charge.refunded')), true);
-  });
+    await it('returns true for charge.refunded', () => {
+      assert.equal(handleEvent(makeEvent('charge.refunded')), true);
+    });
 
-  await it('returns false for unknown event types', () => {
-    assert.equal(handleEvent(makeEvent('unknown.event')), false);
-  });
-});
-
-describe('routes.stripeWebhook', async () => {
-  await it('returns 400 when stripe-signature header is missing', async () => {
-    const payload = makeEventPayload('payment_intent.succeeded');
-    const request = makeWebhookRequest(payload);
-    const res = await routes.stripeWebhook({ request, cors, env: mockEnv });
-
-    assert.equal(res.status, 400);
-    assert.deepEqual(await res.json(), { error: 'Missing signature.' });
-  });
-
-  await it('returns 400 for invalid signature', async () => {
-    const payload = makeEventPayload('payment_intent.succeeded');
-    const request = makeWebhookRequest(payload, 't=123,v1=invalid');
-    const res = await routes.stripeWebhook({ request, cors, env: mockEnv });
-
-    assert.equal(res.status, 400);
-    assert.deepEqual(await res.json(), {
-      error: 'Webhook signature verification failed.',
+    await it('returns false for unknown event types', () => {
+      assert.equal(handleEvent(makeEvent('unknown.event')), false);
     });
   });
 
-  await it('returns 400 for tampered payload', async () => {
-    const payload = makeEventPayload('payment_intent.succeeded');
-    const signature = signPayload(payload, WEBHOOK_SECRET);
-    const tampered = makeEventPayload('charge.succeeded');
-    const request = makeWebhookRequest(tampered, signature);
-    const res = await routes.stripeWebhook({ request, cors, env: mockEnv });
+  await describe('routes.stripeWebhook', async () => {
+    await it('returns 400 when stripe-signature header is missing', async () => {
+      const payload = makeEventPayload('payment_intent.succeeded');
+      const request = makeWebhookRequest(payload);
+      const res = await routes.stripeWebhook({
+        request,
+        cors,
+        env: mockEnv,
+      });
 
-    assert.equal(res.status, 400);
-  });
+      assert.equal(res.status, 400);
+      assert.deepEqual(await res.json(), { error: 'Missing signature.' });
+    });
 
-  await it('returns 200 for a valid signed event', async () => {
-    const payload = makeEventPayload('payment_intent.succeeded');
-    const signature = signPayload(payload, WEBHOOK_SECRET);
-    const request = makeWebhookRequest(payload, signature);
-    const res = await routes.stripeWebhook({ request, cors, env: mockEnv });
+    await it('returns 400 for invalid signature', async () => {
+      const payload = makeEventPayload('payment_intent.succeeded');
+      const request = makeWebhookRequest(payload, 't=123,v1=invalid');
+      const res = await routes.stripeWebhook({
+        request,
+        cors,
+        env: mockEnv,
+      });
 
-    assert.equal(res.status, 200);
-    assert.deepEqual(await res.json(), { received: true });
+      assert.equal(res.status, 400);
+      assert.deepEqual(await res.json(), {
+        error: 'Webhook signature verification failed.',
+      });
+    });
+
+    await it('returns 400 for tampered payload', async () => {
+      const payload = makeEventPayload('payment_intent.succeeded');
+      const signature = signPayload(payload, WEBHOOK_SECRET);
+      const tampered = makeEventPayload('charge.succeeded');
+      const request = makeWebhookRequest(tampered, signature);
+      const res = await routes.stripeWebhook({
+        request,
+        cors,
+        env: mockEnv,
+      });
+
+      assert.equal(res.status, 400);
+    });
+
+    await it('returns 200 for a valid signed event', async () => {
+      const payload = makeEventPayload('payment_intent.succeeded');
+      const signature = signPayload(payload, WEBHOOK_SECRET);
+      const request = makeWebhookRequest(payload, signature);
+      const res = await routes.stripeWebhook({
+        request,
+        cors,
+        env: mockEnv,
+      });
+
+      assert.equal(res.status, 200);
+      assert.deepEqual(await res.json(), { received: true });
+    });
   });
 });
