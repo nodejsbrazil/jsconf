@@ -104,6 +104,33 @@
   "benefits.prizes.description": {
     "message": "Kits exclusivos, camisetas, stickers y sorteos de premios ofrecidos por los patrocinadores y la organización del evento"
   },
+  "gallery.title": {
+    "message": "Nuestra Comunidad"
+  },
+  "gallery.community.title": {
+    "message": "Comunidad NodeBR"
+  },
+  "gallery.community.description": {
+    "message": "Organizamos meetups y eventos conectando desarrolladores Node.js en todo Brasil."
+  },
+  "gallery.networking.title": {
+    "message": "Networking"
+  },
+  "gallery.networking.description": {
+    "message": "Más que charlas: un espacio para conectar, intercambiar ideas y crear oportunidades."
+  },
+  "gallery.events.title": {
+    "message": "+10 Eventos"
+  },
+  "gallery.events.description": {
+    "message": "Ya realizamos más de 10 eventos presenciales en São Paulo, siempre con casa llena."
+  },
+  "gallery.firstEdition.title": {
+    "message": "Primera Edición"
+  },
+  "gallery.firstEdition.description": {
+    "message": "2026 marca la primera JSConf Brasil, trayendo la mayor conferencia JS del mundo a nuestro país."
+  },
   "speakers.title": {
     "message": "Ponentes"
   },
