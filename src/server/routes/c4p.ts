@@ -37,6 +37,10 @@ export const c4p = async ({
   const parsed = schema.safeParse(body);
   if (!parsed.success) return response({ error: 'Invalid input.' }, 422, cors);
 
+  // Bot Honeypot
+  if (parsed.data.confirm_email.length > 0)
+    return response({ success: true }, 201, cors);
+
   const result = await submit(parsed.data, ip);
 
   if (!result.success) {

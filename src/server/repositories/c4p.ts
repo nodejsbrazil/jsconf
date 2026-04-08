@@ -43,6 +43,7 @@ export const c4p = (database: Database, encryptionKey: string) => {
     talkDescription: z.string().trim().min(1),
     audienceLevel: intEnum(3),
     talkReason: z.string().trim().min(1),
+    confirm_email: z.string().default(''),
   });
 
   type SubmitResult =

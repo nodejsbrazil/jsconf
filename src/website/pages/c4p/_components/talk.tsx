@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FaHeading } from 'react-icons/fa6';
@@ -13,6 +13,7 @@ export const Talk = () => {
   const { formData, errors, updateField, goToStep, validate, validateField } =
     useC4P();
   const submitting = useRef(false);
+  const [honeypot, setHoneypot] = useState('');
 
   return (
     <form
@@ -31,7 +32,7 @@ export const Talk = () => {
           const response = await fetch(`${workerDomain}/api/c4p`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({ ...formData, confirm_email: honeypot }),
           });
 
           if (!response.ok) {
@@ -55,6 +56,17 @@ export const Talk = () => {
       }}
       className='flex flex-col gap-[0.8rem]'
     >
+      {/* Bot Honeypot */}
+      <input
+        type='text'
+        name='confirm_email'
+        className='c4p-confirm'
+        value={honeypot}
+        onChange={(event) => setHoneypot(event.currentTarget.value)}
+        tabIndex={-1}
+        autoComplete='off'
+        aria-hidden='true'
+      />
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>Tipo de conteúdo</h3>

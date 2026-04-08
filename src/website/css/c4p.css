@@ -14,3 +14,8 @@
 #root:has(.c4p-page) .bg {
   display: none;
 }
+
+.c4p-confirm {
+  position: absolute;
+  left: -9999rem;
+}
