@@ -1,10 +1,6 @@
 -- Run with: npm run db:init (local) or npm run db:init:remote (production)
-DROP TABLE IF EXISTS waitlist;
-DROP TABLE IF EXISTS speaker_diversity;
-DROP TABLE IF EXISTS talks;
-DROP TABLE IF EXISTS speakers;
 
-CREATE TABLE waitlist (
+CREATE TABLE IF NOT EXISTS waitlist (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   email VARCHAR(254) NOT NULL UNIQUE COLLATE NOCASE CHECK(length(email) <= 254),
   ip VARCHAR(64),
@@ -12,9 +8,9 @@ CREATE TABLE waitlist (
   created_at VARCHAR(20) NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE INDEX idx_waitlist_ip_hash ON waitlist(ip);
+CREATE INDEX IF NOT EXISTS idx_waitlist_ip_hash ON waitlist(ip);
 
-CREATE TABLE speakers (
+CREATE TABLE IF NOT EXISTS speakers (
   id             INTEGER PRIMARY KEY AUTOINCREMENT,
   name           VARCHAR(200)  NOT NULL CHECK(length(name) >= 1),
   email          TEXT          NOT NULL,
@@ -35,9 +31,9 @@ CREATE TABLE speakers (
   updated_at     VARCHAR(20)   NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE INDEX idx_speakers_email_hash ON speakers(email_hash);
+CREATE INDEX IF NOT EXISTS idx_speakers_email_hash ON speakers(email_hash);
 
-CREATE TABLE talks (
+CREATE TABLE IF NOT EXISTS talks (
   id             INTEGER PRIMARY KEY AUTOINCREMENT,
   speaker_id     INTEGER       NOT NULL REFERENCES speakers(id),
   duration       INTEGER       NOT NULL CHECK(duration BETWEEN 0 AND 1),
@@ -49,10 +45,10 @@ CREATE TABLE talks (
   created_at     VARCHAR(20)   NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE INDEX idx_talks_speaker_id ON talks(speaker_id);
-CREATE INDEX idx_talks_status ON talks(status);
+CREATE INDEX IF NOT EXISTS idx_talks_speaker_id ON talks(speaker_id);
+CREATE INDEX IF NOT EXISTS idx_talks_status ON talks(status);
 
-CREATE TABLE speaker_diversity (
+CREATE TABLE IF NOT EXISTS speaker_diversity (
   id             INTEGER PRIMARY KEY AUTOINCREMENT,
   speaker_id     INTEGER       NOT NULL UNIQUE REFERENCES speakers(id),
   gender         INTEGER       NOT NULL DEFAULT 3 CHECK(gender BETWEEN 0 AND 3),
@@ -61,4 +57,4 @@ CREATE TABLE speaker_diversity (
   consented_at   VARCHAR(20)   NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE INDEX idx_speaker_diversity_speaker_id ON speaker_diversity(speaker_id);
+CREATE INDEX IF NOT EXISTS idx_speaker_diversity_speaker_id ON speaker_diversity(speaker_id);
