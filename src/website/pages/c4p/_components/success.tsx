@@ -7,9 +7,9 @@ export const Success = () => {
 
   return (
     <>
-      <section className='flex flex-col items-center justify-center gap-[1.4rem] border-b border-white/[0.06] pb-[2.8rem] mb-[1rem] pt-[2rem] text-center last:border-b-0 last:mb-0'>
+      <section className={styles.section}>
         <CircleCheck
-          className='mb-[1rem] w-[5rem] h-[5rem] text-primary'
+          className='w-[5rem] h-[5rem] text-primary'
           aria-hidden
         />
         <h1 className={styles.formTitle}>Proposta enviada!</h1>
@@ -20,41 +20,43 @@ export const Success = () => {
         </p>
       </section>
 
-      <section className='flex flex-col items-center justify-center gap-[1.4rem] border-b border-white/[0.06] pb-[2.8rem] mb-[1rem] pt-[2rem] text-center last:border-b-0 last:mb-0'>
+      <section className={styles.section}>
         <h2 className={styles.sectionHeading}>
           Como os conteúdos serão avaliados?
         </h2>
-        <p className={styles.paragraph}>
-          A avaliação das propostas acontecerá em duas etapas.
-        </p>
-        <p className={styles.paragraph}>
-          Primeiro, um grupo de co-curadoria analisará anonimamente o título, a
-          descrição e o nível de conhecimento indicado para cada palestra.
-        </p>
-        <p className={styles.paragraph}>
-          Em seguida, a equipe da JSConf Brasil fará uma análise complementar
-          para verificar o encaixe do conteúdo na programação, considerando
-          orçamento, estratégia e diversidade temática.
-        </p>
-        <p className={styles.paragraph}>
-          Não existe um número fixo de pessoas selecionadas; a escolha dependerá
-          da qualidade e adequação das propostas enviadas.
-        </p>
-        <p className={styles.paragraph}>
-          Após o fim das inscrições, todo o processo de avaliação será concluído
-          em até duas semanas.
-        </p>
-        <p className={styles.paragraph}>
-          As pessoas selecionadas receberão um e-mail para confirmar sua
-          participação e, caso não haja resposta, entraremos em contato com as
-          próximas da lista. Assim que todas as confirmações forem finalizadas,
-          informaremos também as pessoas que não forem aprovadas.
-        </p>
+        <div className='flex flex-col gap-[1.2rem] rounded-[1rem] border border-primary/[0.06] bg-primary/[0.02] !px-[2rem] !py-[1.6rem]'>
+          <p className={styles.paragraph}>
+            A avaliação das propostas acontecerá em duas etapas.
+          </p>
+          <p className={styles.paragraph}>
+            Primeiro, um grupo de co-curadoria analisará anonimamente o título,
+            a descrição e o nível de conhecimento indicado para cada palestra.
+          </p>
+          <p className={styles.paragraph}>
+            Em seguida, a equipe da JSConf Brasil fará uma análise complementar
+            para verificar o encaixe do conteúdo na programação, considerando
+            orçamento, estratégia e diversidade temática.
+          </p>
+          <p className={styles.paragraph}>
+            Não existe um número fixo de pessoas selecionadas; a escolha
+            dependerá da qualidade e adequação das propostas enviadas.
+          </p>
+          <p className={styles.paragraph}>
+            Após o fim das inscrições, todo o processo de avaliação será
+            concluído em até duas semanas.
+          </p>
+          <p className={styles.paragraph}>
+            As pessoas selecionadas receberão um e-mail para confirmar sua
+            participação e, caso não haja resposta, entraremos em contato com as
+            próximas da lista. Assim que todas as confirmações forem
+            finalizadas, informaremos também as pessoas que não forem aprovadas.
+          </p>
+        </div>
       </section>
 
       <button
         type='button'
-        className={styles.submitButtonCentered}
+        className={styles.submitButton}
         onClick={() => {
           updateField('duration', '');
           updateField('talkTitle', '');
