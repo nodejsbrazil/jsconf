@@ -1,9 +1,9 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "jsconf-br",
-  "main": "index.js",
+  "main": "src/server/index.ts",
   "compatibility_date": "2026-03-10",
-  "no_bundle": true,
+  "no_bundle": false,
   "send_metrics": false,
   "compatibility_flags": ["nodejs_compat"],
   "routes": [

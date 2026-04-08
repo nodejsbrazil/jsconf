@@ -18,6 +18,11 @@ export default {
     if (method === 'OPTIONS')
       return new Response(null, { status: 204, headers: cors });
 
+    const { pathname } = new URL(request.url);
+
+    if (`${method} ${pathname}` === 'POST /api/stripe/webhook')
+      return routes.stripeWebhook({ request, cors, env });
+
     const rateLimit = checkRateLimit(request);
     if (!rateLimit.allowed)
       return response({ error: 'Rate limit exceeded.' }, 429, {
@@ -25,7 +30,6 @@ export default {
         'Retry-After': String(rateLimit.retryAfterSeconds),
       });
 
-    const { pathname } = new URL(request.url);
     const ip = await hash(getRateLimitKey(request));
 
     // Routes

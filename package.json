@@ -30,12 +30,12 @@
     "worker:prepare": "tsx --env-file-if-exists=.env tools/prepare-worker.mts"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260317.1",
-    "@docusaurus/core": "^3.9.2",
-    "@docusaurus/module-type-aliases": "3.9.2",
-    "@docusaurus/preset-classic": "3.9.2",
-    "@docusaurus/tsconfig": "3.9.2",
-    "@docusaurus/types": "3.9.2",
+    "@cloudflare/workers-types": "^4.20260408.1",
+    "@docusaurus/core": "^3.10.0",
+    "@docusaurus/module-type-aliases": "3.10.0",
+    "@docusaurus/preset-classic": "3.10.0",
+    "@docusaurus/tsconfig": "3.10.0",
+    "@docusaurus/types": "3.10.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@mdx-js/react": "^3.1.1",
     "@rollup/plugin-commonjs": "^29.0.2",
@@ -43,30 +43,30 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.0",
     "@rollup/plugin-typescript": "^12.3.0",
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "concurrently": "^9.2.1",
     "docusaurus-plugin-sass": "^0.2.6",
     "jsonc.min": "^1.1.2",
     "lru.min": "^1.1.4",
-    "lucide-react": "^1.0.1",
+    "lucide-react": "^1.7.0",
     "packages-update": "^2.0.0",
-    "poku": "^4.1.0",
+    "poku": "^4.2.1",
     "prettier": "^3.8.1",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-icons": "^5.6.0",
     "react-intersection-observer": "^10.0.3",
-    "react-parallax-tilt": "^1.7.320",
+    "react-parallax-tilt": "^1.7.322",
     "react-typed": "^2.0.12",
-    "rollup": "^4.60.0",
-    "sass": "^1.98.0",
+    "rollup": "^4.60.1",
+    "sass": "^1.99.0",
     "sonner": "^2.0.7",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
-    "wrangler": "^4.76.0",
+    "wrangler": "^4.81.0",
     "zod": "^4.3.6"
   },
   "browserslist": {
@@ -84,5 +84,8 @@
   "engines": {
     "node": ">=20.0"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "stripe": "^22.0.0"
+  }
 }

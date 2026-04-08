@@ -10,4 +10,6 @@ export type Database = {
 export type Env = {
   DB: Database;
   ALLOWED_ORIGIN?: string;
+  STRIPE_SECRET_KEY: string;
+  STRIPE_WEBHOOK_SECRET: string;
 };
