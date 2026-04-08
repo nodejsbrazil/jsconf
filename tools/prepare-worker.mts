@@ -17,6 +17,8 @@ type D1Database = {
 
 type WranglerConfig = {
   $schema?: string;
+  main?: string;
+  no_bundle?: boolean;
   d1_databases: D1Database[];
 };
 
@@ -32,6 +34,8 @@ if (!database) {
 }
 
 database.database_id = WORKER_D1;
+config.main = 'index.js';
+config.no_bundle = true;
 delete config.$schema;
 
 mkdirSync('server', { recursive: true });
