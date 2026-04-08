@@ -33,7 +33,7 @@ export const experienceOptions = [
   'Acima de 10 anos',
 ];
 
-export const durationOptions = ['20 minutos', '40 minutos'];
+export const durationOptions = ['7 minutos', '20 minutos'];
 
 export const travelOptions = [
   'Gostaria que a organização pagasse minha viagem e hospedagem',
