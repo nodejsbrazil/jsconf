@@ -55,11 +55,12 @@
           }
 
           &.text-card {
-            @include flex(column, flex-start, center);
+            @include flex(column, center, center);
             gap: 1.5rem;
             background-color: #021509b3;
             border: 0.1rem solid #022514;
             padding: 3rem 2.5rem;
+            text-align: center;
             transition: transform 0.5s var(--ease-back-out-soft);
 
             .icon {

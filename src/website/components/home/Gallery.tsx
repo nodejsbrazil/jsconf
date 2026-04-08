@@ -5,6 +5,7 @@ import { Text } from '@site/src/website/components/shared/i18n';
 import { useScroll } from '../../hooks/useScroll';
 import { Image } from '../shared/Image';
 
+
 type TextCardProps = {
   icon: ReactNode;
   title: ReactNode;
@@ -68,8 +69,8 @@ export const Gallery = () => {
             description={<Text id='gallery.community.description' />}
           />
           <PhotoCard
-            src='/img/community/group-photo.png'
-            alt='NodeBR meetup'
+            src='/img/community/group-photo.webp'
+            alt='Foto em grupo do evento presencial'
             className='span-2'
           />
           <TextCard
@@ -79,8 +80,8 @@ export const Gallery = () => {
           />
           {/* Row 2: photo | text | text | photo */}
           <PhotoCard
-            src='/img/community/casual-talk.png'
-            alt='NodeBR casual talk'
+            src='/img/community/casual-talk.webp'
+            alt='Plateia assistindo a palestra'
           />
           <TextCard
             icon={<PartyPopper />}
@@ -93,21 +94,21 @@ export const Gallery = () => {
             description={<Text id='gallery.firstEdition.description' />}
           />
           <PhotoCard
-            src='/img/community/networking.png'
-            alt='NodeBR networking'
+            src='/img/community/networking.webp'
+            alt='Grupo fazendo networking no evento'
           />
           {/* Row 3: photo | photo (span 2) | photo */}
           <PhotoCard
-            src='/img/community/selfie-group.png'
+            src='/img/community/nodebr-selfie.webp'
             alt='NodeBR selfie group'
           />
           <PhotoCard
-            src='/img/community/nodebr-selfie.png'
+            src='/img/community/selfie-group.webp'
             alt='NodeBR selfie'
             className='span-2'
           />
           <PhotoCard
-            src='/img/community/meetup-full.png'
+            src='/img/community/meetup-full.webp'
             alt='NodeBR meetup full'
           />
         </div>
