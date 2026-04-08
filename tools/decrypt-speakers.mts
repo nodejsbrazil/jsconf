@@ -3,22 +3,26 @@ import { execSync } from 'node:child_process';
 const { ENCRYPTION_KEY } = process.env;
 if (!ENCRYPTION_KEY) throw new Error('ENCRYPTION_KEY not set');
 
-const fromBase64 = (encoded: string): ArrayBuffer =>
-  Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0)).buffer;
+const fromHex = (hex: string): ArrayBuffer => {
+  const bytes = new Uint8Array(hex.length / 2);
+  for (let index = 0; index < hex.length; index += 2)
+    bytes[index / 2] = parseInt(hex.slice(index, index + 2), 16);
+  return bytes.buffer;
+};
 
 const decrypt = async (stored: string, rawKey: string): Promise<string> => {
   const parts = stored.split(':');
   const key = await crypto.subtle.importKey(
     'raw',
-    fromBase64(rawKey),
+    fromHex(rawKey),
     { name: 'AES-GCM' },
     false,
     ['decrypt']
   );
   const decrypted = await crypto.subtle.decrypt(
-    { name: 'AES-GCM', iv: fromBase64(parts[0]!) },
+    { name: 'AES-GCM', iv: fromHex(parts[0]!) },
     key,
-    fromBase64(parts[1]!)
+    fromHex(parts[1]!)
   );
   return new TextDecoder().decode(decrypted);
 };

@@ -12,7 +12,7 @@ if (existsSync(file)) {
   }
 }
 
-const value = randomBytes(32).toString('base64');
+const value = randomBytes(32).toString('hex');
 const existing = existsSync(file) ? readFileSync(file, 'utf-8') : '';
 const separator = existing && !existing.endsWith('\n') ? '\n' : '';
 

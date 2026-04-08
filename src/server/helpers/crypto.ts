@@ -1,11 +1,17 @@
-const toBase64 = (buffer: ArrayBuffer): string =>
-  btoa(String.fromCharCode(...new Uint8Array(buffer)));
+const toHex = (buffer: ArrayBuffer): string =>
+  Array.from(new Uint8Array(buffer))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
 
-const fromBase64 = (encoded: string): ArrayBuffer =>
-  Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0)).buffer;
+const fromHex = (hex: string): ArrayBuffer => {
+  const bytes = new Uint8Array(hex.length / 2);
+  for (let index = 0; index < hex.length; index += 2)
+    bytes[index / 2] = parseInt(hex.slice(index, index + 2), 16);
+  return bytes.buffer;
+};
 
 const importKey = (raw: string): Promise<CryptoKey> =>
-  crypto.subtle.importKey('raw', fromBase64(raw), { name: 'AES-GCM' }, false, [
+  crypto.subtle.importKey('raw', fromHex(raw), { name: 'AES-GCM' }, false, [
     'encrypt',
     'decrypt',
   ]);
@@ -23,7 +29,7 @@ export const encrypt = async (
     encoded
   );
 
-  return `${toBase64(iv.buffer)}:${toBase64(ciphertext)}`;
+  return `${toHex(iv.buffer)}:${toHex(ciphertext)}`;
 };
 
 export const decrypt = async (
@@ -33,9 +39,9 @@ export const decrypt = async (
   const parts = stored.split(':');
   const key = await importKey(rawKey);
   const decrypted = await crypto.subtle.decrypt(
-    { name: 'AES-GCM', iv: fromBase64(parts[0]!) },
+    { name: 'AES-GCM', iv: fromHex(parts[0]!) },
     key,
-    fromBase64(parts[1]!)
+    fromHex(parts[1]!)
   );
 
   return new TextDecoder().decode(decrypted);
