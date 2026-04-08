@@ -35,7 +35,7 @@ Use `<Text />` para conteúdo JSX e `text()` para atributos HTML ( `aria-label` 
 ```
 
 ```tsx
-<img alt={text({ id: 'location.venue.imgAlt' })} />
+<Image alt={text({ id: 'location.venue.imgAlt' })} />
 ```
 
 `<Text />` e `text()` são abstrações do [ `<Translate />` ](https://docusaurus.io/docs/docusaurus-core#translate) do **Docusaurus**:
