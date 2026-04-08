@@ -43,7 +43,7 @@ export const Introduction = () => {
 
       <section className={styles.section}>
         <p className={styles.paragraph}>
-          Esses são alguns dos tópicos que sugerimos (o que tem estrelinha são
+          Esses são alguns dos tópicos que sugerimos (os que têm estrelinha são
           os preferidos):
         </p>
         <ul className='!my-[0.4rem] grid list-none grid-cols-2 gap-x-[2rem] gap-y-[0.4rem] rounded-[1rem] border border-primary/[0.06] bg-primary/[0.02] !px-[2rem] !py-[1.6rem] max-md:grid-cols-1'>
