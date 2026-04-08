@@ -23,10 +23,18 @@
         grid-template-columns: repeat(4, 1fr);
         gap: 3rem;
 
+        .card:nth-child(5) {
+          grid-column: 2;
+        }
+
         @media (max-width: 1080px) {
           grid-template-columns: repeat(2, 1fr);
           gap: 1.25rem;
           max-width: 72rem;
+
+          .card:nth-child(5) {
+            grid-column: auto;
+          }
         }
 
         @media (max-width: 429px) {
