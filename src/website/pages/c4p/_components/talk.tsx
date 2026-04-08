@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { FaHeading } from 'react-icons/fa6';
 import { audienceLevels, durationOptions, toBadge, useC4P } from './context';
+import * as styles from './styles';
 
 export const Talk = () => {
   const { formData, updateField, goToStep } = useC4P();
@@ -12,35 +13,39 @@ export const Talk = () => {
         console.log(formData);
         goToStep(4);
       }}
+      className='flex flex-col gap-[0.8rem]'
     >
-      <section className='section'>
-        <h1 className='form-title'>Sobre sua participação</h1>
+      <section className={styles.section}>
+        <h1 className={styles.formTitle}>Sobre sua participação</h1>
       </section>
 
-      <section className='section'>
-        <div className='field'>
-          <h3 className='field-label'>Tipo de conteúdo</h3>
-          <p className='field-description'>
+      <section className={styles.section}>
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>Tipo de conteúdo</h3>
+          <p className={styles.fieldDescription}>
             O formato dos conteúdos será em palestras de 20 ou 40 minutos.
             Escolha o tempo de duração que você considera mais adequado para a
             sua proposta.
           </p>
         </div>
 
-        <div className='field'>
-          <h3 className='field-label'>
-            Tempo de duração <span className='required'>*</span>
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>
+            Tempo de duração <span className={styles.required}>*</span>
           </h3>
-          <div className='radio-group'>
+          <div className={styles.radioGroup}>
             {durationOptions.map((option, index) => (
               <label
                 key={option}
-                className={`radio-option ${formData.duration === option ? 'selected' : ''}`}
+                className={styles.radioOption(formData.duration === option)}
               >
-                <span className='badge'>{toBadge(index)}</span>
+                <span className={styles.badge(formData.duration === option)}>
+                  {toBadge(index)}
+                </span>
                 <input
                   type='radio'
                   name='duration'
+                  className={styles.radioHidden}
                   value={option}
                   checked={formData.duration === option}
                   onChange={() => updateField('duration', option)}
@@ -52,17 +57,21 @@ export const Talk = () => {
         </div>
       </section>
 
-      <section className='section'>
-        <div className='field'>
-          <h3 className='field-label'>
-            Título <span className='required'>*</span>
+      <section className={styles.section}>
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>
+            Título <span className={styles.required}>*</span>
           </h3>
-          <div className='input-with-icon'>
-            <FaHeading className='input-icon' aria-hidden />
+          <div className={`${styles.inputWithIcon} group`}>
+            <FaHeading
+              className={`${styles.inputIcon} group-focus-within:text-primary`}
+              aria-hidden
+            />
             <input
               type='text'
               aria-label='Título'
               aria-required='true'
+              className={styles.inputWithIconInput}
               value={formData.talkTitle}
               onChange={(event) =>
                 updateField('talkTitle', event.currentTarget.value)
@@ -72,18 +81,19 @@ export const Talk = () => {
         </div>
       </section>
 
-      <section className='section'>
-        <div className='field'>
-          <h3 className='field-label'>
-            Descrição <span className='required'>*</span>
+      <section className={styles.section}>
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>
+            Descrição <span className={styles.required}>*</span>
           </h3>
-          <p className='field-description'>
+          <p className={styles.fieldDescription}>
             Forneça um resumo do seu conteúdo. Essa informação será usada em
             nosso site para divulgação da sua palestra.
           </p>
           <textarea
             aria-label='Descrição'
             aria-required='true'
+            className={styles.textarea}
             value={formData.talkDescription}
             onChange={(event) =>
               updateField('talkDescription', event.currentTarget.value)
@@ -92,21 +102,29 @@ export const Talk = () => {
         </div>
       </section>
 
-      <section className='section'>
-        <div className='field'>
-          <h3 className='field-label'>
-            Para quem é este conteúdo? <span className='required'>*</span>
+      <section className={styles.section}>
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>
+            Para quem é este conteúdo?{' '}
+            <span className={styles.required}>*</span>
           </h3>
-          <div className='radio-group'>
+          <div className={styles.radioGroup}>
             {audienceLevels.map((option, index) => (
               <label
                 key={option}
-                className={`radio-option ${formData.audienceLevel === option ? 'selected' : ''}`}
+                className={styles.radioOption(
+                  formData.audienceLevel === option
+                )}
               >
-                <span className='badge'>{toBadge(index)}</span>
+                <span
+                  className={styles.badge(formData.audienceLevel === option)}
+                >
+                  {toBadge(index)}
+                </span>
                 <input
                   type='radio'
                   name='audienceLevel'
+                  className={styles.radioHidden}
                   value={option}
                   checked={formData.audienceLevel === option}
                   onChange={() => updateField('audienceLevel', option)}
@@ -118,15 +136,16 @@ export const Talk = () => {
         </div>
       </section>
 
-      <section className='section'>
-        <div className='field'>
-          <h3 className='field-label'>
+      <section className={styles.section}>
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>
             Por que deveríamos considerar este conteúdo na JSConf Brasil?{' '}
-            <span className='required'>*</span>
+            <span className={styles.required}>*</span>
           </h3>
           <textarea
             aria-label='Por que deveríamos considerar este conteúdo na JSConf Brasil?'
             aria-required='true'
+            className={styles.textarea}
             value={formData.talkReason}
             onChange={(event) =>
               updateField('talkReason', event.currentTarget.value)
@@ -135,9 +154,9 @@ export const Talk = () => {
         </div>
       </section>
 
-      <button type='submit' className='submit-button'>
+      <button type='submit' className={styles.submitButton}>
         <span>Finalizar</span>
-        <ArrowRight className='icon' aria-hidden />
+        <ArrowRight className={styles.submitIcon} aria-hidden />
       </button>
     </form>
   );
