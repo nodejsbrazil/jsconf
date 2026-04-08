@@ -17,7 +17,6 @@ export const topics = [
   { name: 'Código para Acessibilidade', preferred: false },
   { name: 'Cloud e Escalabilidade', preferred: false },
   { name: 'Open source', preferred: false },
-
   { name: 'Metodologias Ágeis', preferred: false },
   { name: 'Roadmap de Carreira', preferred: false },
   { name: 'Design System', preferred: false },
