@@ -35,7 +35,7 @@ export default {
     // Routes
     switch (`${method} ${pathname}`) {
       case 'POST /api/c4p':
-        return routes.c4p({ request, cors, database: env.DB, ip });
+        return routes.c4p({ request, cors, database: env.DB, encryptionKey: env.ENCRYPTION_KEY, ip });
       case 'POST /api/waitlist':
         return routes.waitlist({ request, cors, database: env.DB, ip });
       default:

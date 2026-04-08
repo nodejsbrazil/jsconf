@@ -20,8 +20,9 @@ DROP TABLE IF EXISTS speakers;
 CREATE TABLE speakers (
   id             INTEGER PRIMARY KEY AUTOINCREMENT,
   name           VARCHAR(200)  NOT NULL CHECK(length(name) >= 1),
-  email          VARCHAR(254)  NOT NULL UNIQUE COLLATE NOCASE CHECK(length(email) <= 254),
-  phone          VARCHAR(20)   NOT NULL CHECK(length(phone) >= 8),
+  email          TEXT          NOT NULL,
+  email_hash     VARCHAR(64)   NOT NULL UNIQUE,
+  phone          TEXT          NOT NULL,
   city           VARCHAR(100)  NOT NULL CHECK(length(city) >= 1),
   state          VARCHAR(2)    NOT NULL CHECK(length(state) = 2),
   travel_pref    INTEGER       NOT NULL CHECK(travel_pref BETWEEN 0 AND 1),
@@ -37,7 +38,7 @@ CREATE TABLE speakers (
   updated_at     VARCHAR(20)   NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE INDEX idx_speakers_email ON speakers(email);
+CREATE INDEX idx_speakers_email_hash ON speakers(email_hash);
 
 CREATE TABLE talks (
   id             INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -23,6 +23,7 @@ const mockEnv: Env = {
       }),
     }),
   },
+  ENCRYPTION_KEY: '',
   STRIPE_SECRET_KEY: API_KEY,
   STRIPE_WEBHOOK_SECRET: WEBHOOK_SECRET,
 };

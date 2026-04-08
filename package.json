@@ -9,6 +9,7 @@
     "website": "docusaurus start --host 0.0.0.0 --locale",
     "server": "wrangler dev",
     "host": "tsx tools/host.ts",
+    "setup:keys": "tsx tools/setup-keys.mts",
     "db:init": "wrangler d1 execute jsconf-br --file='resources/schema.sql'",
     "db:init:remote": "wrangler d1 execute jsconf-br --file='resources/schema.sql' --remote",
     "predb:init:remote": "npm run worker:prepare",

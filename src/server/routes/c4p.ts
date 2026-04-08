@@ -11,6 +11,7 @@ type Options = {
   request: Request;
   cors: Record<string, string>;
   database: Database;
+  encryptionKey: string;
   ip: string;
 };
 
@@ -18,6 +19,7 @@ export const c4p = async ({
   request,
   cors,
   database,
+  encryptionKey,
   ip,
 }: Options): Promise<Response> => {
   if (!isJsonContentType(request))
@@ -30,7 +32,7 @@ export const c4p = async ({
   const body = parseBody(text);
   if (!body) return response({ error: 'Invalid JSON.' }, 400, cors);
 
-  const { schema, submit } = repository(database);
+  const { schema, submit } = repository(database, encryptionKey);
 
   const parsed = schema.safeParse(body);
   if (!parsed.success) return response({ error: 'Invalid input.' }, 422, cors);
