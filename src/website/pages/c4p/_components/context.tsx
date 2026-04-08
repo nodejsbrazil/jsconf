@@ -67,13 +67,20 @@ export const disabilityOptions = [
 
 export const audienceLevels = ['Todos os níveis', 'Júnior', 'Pleno', 'Sênior'];
 
+export const brazilianStates = [
+  'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+  'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+  'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
+];
+
 export const toBadge = (index: number) => String.fromCharCode(65 + index);
 
 export type FormData = {
   name: string;
   email: string;
   phone: string;
-  cityState: string;
+  city: string;
+  state: string;
   travelPreference: string;
   linkedin: string;
   instagram: string;
@@ -96,7 +103,8 @@ export const initialFormData: FormData = {
   name: '',
   email: '',
   phone: '',
-  cityState: '',
+  city: '',
+  state: '',
   travelPreference: '',
   linkedin: '',
   instagram: '',

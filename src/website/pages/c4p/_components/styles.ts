@@ -31,6 +31,9 @@ export const textInput =
 
 export const textarea = `${textInput} min-h-[10rem] resize-y`;
 
+export const selectInput =
+  'appearance-none rounded-[0.6rem] border border-primary/20 bg-transparent px-[1.4rem] py-[1.1rem] font-[var(--ifm-font-family-base)] text-[1.5rem] text-white outline-none transition-[border-color,box-shadow] duration-200 focus:border-primary focus:shadow-[0_0_0_0.25rem_rgba(141,248,34,0.1)]';
+
 export const inputWithIcon = 'relative';
 
 export const inputIcon =

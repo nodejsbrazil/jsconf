@@ -11,6 +11,7 @@ import {
   FaYoutube,
 } from 'react-icons/fa6';
 import {
+  brazilianStates,
   disabilityOptions,
   experienceOptions,
   genderOptions,
@@ -105,7 +106,7 @@ export const About = () => {
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Cidade/UF <span className={styles.required}>*</span>
+            Cidade <span className={styles.required}>*</span>
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaLocationDot
@@ -114,15 +115,39 @@ export const About = () => {
             />
             <input
               type='text'
-              aria-label='Cidade/UF'
+              aria-label='Cidade'
               aria-required='true'
               className={styles.inputWithIconInput}
-              value={formData.cityState}
+              value={formData.city}
               onChange={(event) =>
-                updateField('cityState', event.currentTarget.value)
+                updateField('city', event.currentTarget.value)
               }
             />
           </div>
+        </div>
+
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>
+            UF <span className={styles.required}>*</span>
+          </h3>
+          <select
+            aria-label='UF'
+            aria-required='true'
+            className={`${styles.selectInput} w-[10rem]`}
+            value={formData.state}
+            onChange={(event) =>
+              updateField('state', event.currentTarget.value)
+            }
+          >
+            <option value='' disabled hidden>
+              UF
+            </option>
+            {brazilianStates.map((uf) => (
+              <option key={uf} value={uf}>
+                {uf}
+              </option>
+            ))}
+          </select>
         </div>
       </section>
 
