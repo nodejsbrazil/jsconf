@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import {
   FaEnvelope,
   FaGithub,
@@ -427,10 +427,20 @@ export const About = () => {
         </div>
       </section>
 
-      <button type='submit' className={styles.submitButton}>
-        <span>Continuar</span>
-        <ArrowRight className={styles.submitIcon} aria-hidden />
-      </button>
+      <div className='flex items-center justify-between mt-[1rem]'>
+        <button
+          type='button'
+          className={styles.backButton}
+          onClick={() => goToStep(1)}
+        >
+          <ArrowLeft className='w-[1.6rem] h-[1.6rem]' aria-hidden />
+          <span>Voltar</span>
+        </button>
+        <button type='submit' className={styles.submitButton}>
+          <span>Continuar</span>
+          <ArrowRight className={styles.submitIcon} aria-hidden />
+        </button>
+      </div>
     </form>
   );
 };

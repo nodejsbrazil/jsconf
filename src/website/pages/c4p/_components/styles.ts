@@ -67,4 +67,7 @@ export const submitButton =
 
 export const submitButtonCentered = `${submitButton} self-center`;
 
+export const backButton =
+  'flex cursor-pointer items-center justify-center gap-[0.8rem] rounded-[0.75rem] border border-white/30 bg-transparent px-[2.4rem] py-[1.2rem] font-[var(--ifm-font-family-base)] text-[1.6rem] font-bold text-white/50 transition-[border-color,color,transform] duration-200 hover:border-white/50 hover:text-white/80 hover:-translate-y-[0.2rem]';
+
 export const submitIcon = 'w-[1.5rem] h-[1.5rem]';

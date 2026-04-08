@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FaHeading } from 'react-icons/fa6';
 import { audienceLevels, durationOptions, toBadge, useC4P } from './context';
 import * as styles from './styles';
@@ -154,10 +154,20 @@ export const Talk = () => {
         </div>
       </section>
 
-      <button type='submit' className={styles.submitButton}>
-        <span>Finalizar</span>
-        <ArrowRight className={styles.submitIcon} aria-hidden />
-      </button>
+      <div className='flex items-center justify-between mt-[1rem]'>
+        <button
+          type='button'
+          className={styles.backButton}
+          onClick={() => goToStep(2)}
+        >
+          <ArrowLeft className='w-[1.6rem] h-[1.6rem]' aria-hidden />
+          <span>Voltar</span>
+        </button>
+        <button type='submit' className={styles.submitButton}>
+          <span>Finalizar</span>
+          <ArrowRight className={styles.submitIcon} aria-hidden />
+        </button>
+      </div>
     </form>
   );
 };
