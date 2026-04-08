@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { toast } from 'sonner';
 import { topics, useC4P } from './context';
 import * as styles from './styles';
 
@@ -71,7 +72,13 @@ export const Introduction = () => {
       <button
         type='button'
         className={styles.submitButton}
-        onClick={() => goToStep(2)}
+        onClick={() => {
+          toast.success('Seus dados ficam salvos no navegador.', {
+            description:
+              'Você pode continuar de onde parou a qualquer momento.',
+          });
+          goToStep(2);
+        }}
       >
         <span>Continuar</span>
         <ArrowRight className={styles.submitIcon} aria-hidden />

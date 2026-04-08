@@ -1,3 +1,4 @@
+import Link from '@docusaurus/Link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import {
   disabilityOptions,
@@ -36,7 +37,11 @@ export const Diversity = () => {
             acessibilidade do evento (intérpretes de Libras, acessibilidade
             física, etc.) e (c) gerar estatísticas agregadas sobre diversidade
             no C4P. Você pode revogar esse consentimento a qualquer momento
-            escrevendo para um dos voluntários do nosso time.
+            escrevendo para um dos{' '}
+            <Link to='/#team' className='text-primary underline'>
+              nossos voluntários
+            </Link>
+            .
           </p>
         </div>
       </section>
