@@ -169,7 +169,7 @@ export const initialFormData: FormData = {
   talkReason: '',
 };
 
-const STORAGE_KEY = 'c4p-form';
+const STORAGE_KEY = 'c4p-form-v2';
 
 const loadFromStorage = (): { step: number; data: FormData } => {
   try {

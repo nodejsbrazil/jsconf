@@ -1,20 +1,56 @@
+import { useRef } from 'react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FaHeading } from 'react-icons/fa6';
+import { toast } from 'sonner';
 import { audienceLevels, durationOptions, toBadge, useC4P } from './context';
 import { FieldStatus } from './field-status';
 import * as styles from './styles';
 
 export const Talk = () => {
+  const { siteConfig } = useDocusaurusContext();
+  const workerDomain = siteConfig.customFields?.['workerDomain'];
   const { formData, errors, updateField, goToStep, validate, validateField } =
     useC4P();
+  const submitting = useRef(false);
 
   return (
     <form
-      onSubmit={(event) => {
+      onSubmit={async (event) => {
         event.preventDefault();
-        if (validate()) {
-          console.log(formData);
+        if (!validate() || submitting.current) return;
+
+        if (typeof workerDomain !== 'string') {
+          toast.error('Configuração indisponível. Tente novamente mais tarde.');
+          return;
+        }
+
+        submitting.current = true;
+
+        try {
+          const response = await fetch(`${workerDomain}/api/c4p`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+          });
+
+          if (!response.ok) {
+            const data = (await response.json().catch(() => null)) as {
+              error?: string;
+            } | null;
+            const message =
+              data?.error === 'Talk limit exceeded.'
+                ? 'Você já atingiu o limite de 3 palestras.'
+                : 'Erro ao enviar proposta. Tente novamente.';
+            toast.error(message);
+            return;
+          }
+
           goToStep(5);
+        } catch {
+          toast.error('Erro ao enviar proposta. Tente novamente.');
+        } finally {
+          submitting.current = false;
         }
       }}
       className='flex flex-col gap-[0.8rem]'
