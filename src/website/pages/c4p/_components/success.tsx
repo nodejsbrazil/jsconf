@@ -63,7 +63,7 @@ export const Success = () => {
           updateField('talkDescription', '');
           updateField('audienceLevel', '');
           updateField('talkReason', '');
-          goToStep(3);
+          goToStep(4);
         }}
       >
         <span>Enviar outra palestra</span>

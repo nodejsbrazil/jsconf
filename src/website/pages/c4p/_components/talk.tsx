@@ -11,7 +11,7 @@ export const Talk = () => {
       onSubmit={(event) => {
         event.preventDefault();
         console.log(formData);
-        goToStep(4);
+        goToStep(5);
       }}
       className='flex flex-col gap-[0.8rem]'
     >
@@ -158,7 +158,7 @@ export const Talk = () => {
         <button
           type='button'
           className={styles.backButton}
-          onClick={() => goToStep(2)}
+          onClick={() => goToStep(3)}
         >
           <ArrowLeft className='w-[1.6rem] h-[1.6rem]' aria-hidden />
           <span>Voltar</span>

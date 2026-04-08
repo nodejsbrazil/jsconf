@@ -12,10 +12,7 @@ import {
 } from 'react-icons/fa6';
 import {
   brazilianStates,
-  disabilityOptions,
   experienceOptions,
-  genderOptions,
-  raceOptions,
   toBadge,
   travelOptions,
   useC4P,
@@ -340,100 +337,6 @@ export const About = () => {
             value={formData.bio}
             onChange={(event) => updateField('bio', event.currentTarget.value)}
           />
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <p className={styles.paragraph}>
-          A JSConf Brasil busca sempre pela diversidade, inclusão e
-          acessibilidade. Caso se sinta confortável em responder, gostaríamos de
-          saber:
-        </p>
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.field}>
-          <h3 className={styles.fieldLabel}>Identidade de Gênero</h3>
-          <div className={styles.radioGroup}>
-            {genderOptions.map((option, index) => (
-              <label
-                key={option}
-                className={styles.radioOption(formData.gender === option)}
-              >
-                <span className={styles.badge(formData.gender === option)}>
-                  {toBadge(index)}
-                </span>
-                <input
-                  type='radio'
-                  name='gender'
-                  className={styles.radioHidden}
-                  value={option}
-                  checked={formData.gender === option}
-                  onChange={() => updateField('gender', option)}
-                />
-                <span>{option}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.field}>
-          <h3 className={styles.fieldLabel}>
-            Qual cor/raça você se identifica?
-          </h3>
-          <div className={styles.radioGroup}>
-            {raceOptions.map((option, index) => (
-              <label
-                key={option}
-                className={styles.radioOption(formData.race === option)}
-              >
-                <span className={styles.badge(formData.race === option)}>
-                  {toBadge(index)}
-                </span>
-                <input
-                  type='radio'
-                  name='race'
-                  className={styles.radioHidden}
-                  value={option}
-                  checked={formData.race === option}
-                  onChange={() => updateField('race', option)}
-                />
-                <span>{option}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.field}>
-          <h3 className={styles.fieldLabel}>
-            Situação de deficiência: qual das opções abaixo descreve você, se
-            tiver alguma?
-          </h3>
-          <div className={styles.radioGroup}>
-            {disabilityOptions.map((option, index) => (
-              <label
-                key={option}
-                className={styles.radioOption(formData.disability === option)}
-              >
-                <span className={styles.badge(formData.disability === option)}>
-                  {toBadge(index)}
-                </span>
-                <input
-                  type='radio'
-                  name='disability'
-                  className={styles.radioHidden}
-                  value={option}
-                  checked={formData.disability === option}
-                  onChange={() => updateField('disability', option)}
-                />
-                <span>{option}</span>
-              </label>
-            ))}
-          </div>
         </div>
       </section>
 
