@@ -8,13 +8,13 @@ export const Introduction = () => {
   return (
     <>
       <section className={styles.section}>
-        <h1 className={styles.formTitle}>Call4papers - JSConf Brasil 2026</h1>
+        <h1 className={styles.formTitle}>Call4Papers - JSConf Brasil 2026</h1>
         <h2 className={styles.sectionHeading}>
           Quer palestrar na JSConf Brasil deste ano?
         </h2>
         <p className={styles.paragraph}>
           Essa é a sua chance de dividir o palco com alguns dos profissionais
-          mais incríveis da área de tecnologia! Preencha o nosso Call4papers,
+          mais incríveis da área de tecnologia! Preencha o nosso Call4Papers,
           nossa equipe fará a análise e seleção das propostas enviadas.
         </p>
         <p className={styles.paragraph}>

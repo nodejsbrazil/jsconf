@@ -44,7 +44,7 @@ const Form = () => {
 };
 
 export default () => (
-  <Page title='Call4papers - JSConf Brasil 2026'>
+  <Page title='Call4Papers - JSConf Brasil 2026'>
     <C4PProvider>
       <Form />
     </C4PProvider>

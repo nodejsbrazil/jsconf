@@ -14,7 +14,7 @@ export const Success = () => {
         />
         <h1 className={styles.formTitle}>Proposta enviada!</h1>
         <p className={styles.paragraph}>
-          Obrigado por se inscrever no Call4papers da{' '}
+          Obrigado por se inscrever no Call4Papers da{' '}
           <strong className={styles.strong}>JSConf Brasil 2026</strong>. Sua
           proposta foi recebida com sucesso.
         </p>
