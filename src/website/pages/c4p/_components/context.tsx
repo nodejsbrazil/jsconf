@@ -1,5 +1,7 @@
 import type { FC, ReactNode } from 'react';
 import { createContext, useContext, useRef, useState } from 'react';
+import { toast } from 'sonner';
+import { type StepErrors, validateStep } from './schema';
 
 export const topics = [
   { name: 'Dev Tooling', preferred: true },
@@ -166,11 +168,15 @@ const saveToStorage = (step: number, data: FormData) => {
 type C4PContextValue = {
   currentStep: number;
   formData: FormData;
+  errors: StepErrors;
+  touched: Set<string>;
   updateField: <Key extends keyof FormData>(
     field: Key,
     value: FormData[Key]
   ) => void;
   goToStep: (step: number) => void;
+  validate: () => boolean;
+  validateField: (field: string) => void;
 };
 
 const C4PContext = createContext<C4PContextValue | null>(null);
@@ -188,28 +194,65 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const stepRef = useRef(currentStep);
   const dataRef = useRef(formData);
+  const [errors, setErrors] = useState<StepErrors>(() =>
+    validateStep(saved.step, saved.data)
+  );
+  const [touched, setTouched] = useState<Set<string>>(new Set());
 
   const updateField = <Key extends keyof FormData>(
     field: Key,
     value: FormData[Key]
-  ) =>
-    setFormData((previous) => {
-      const next = { ...previous, [field]: value };
-      dataRef.current = next;
-      saveToStorage(stepRef.current, next);
-      return next;
-    });
+  ) => {
+    const next = { ...dataRef.current, [field]: value };
+    dataRef.current = next;
+    saveToStorage(stepRef.current, next);
+    setFormData(next);
+  };
 
   const goToStep = (step: number) => {
+    setErrors({});
     stepRef.current = step;
     setCurrentStep(step);
     saveToStorage(step, dataRef.current);
     document.getElementById('__docusaurus')?.scrollTo(0, 0);
   };
 
+  const validate = () => {
+    const result = validateStep(stepRef.current, dataRef.current);
+    setErrors(result);
+    const keys = Object.keys(result);
+    if (keys.length > 0) {
+      toast.error('Preencha os campos obrigatórios');
+      return false;
+    }
+    return true;
+  };
+
+  const validateField = (field: string) => {
+    setTouched((previous) => new Set(previous).add(field));
+    const result = validateStep(stepRef.current, dataRef.current);
+    const error = result[field];
+    if (error) toast.error(error);
+    setErrors((previous) => {
+      const next = { ...previous };
+      if (error) next[field] = error;
+      else delete next[field];
+      return next;
+    });
+  };
+
   return (
     <C4PContext.Provider
-      value={{ currentStep, formData, updateField, goToStep }}
+      value={{
+        currentStep,
+        formData,
+        errors,
+        touched,
+        updateField,
+        goToStep,
+        validate,
+        validateField,
+      }}
     >
       {children}
     </C4PContext.Provider>

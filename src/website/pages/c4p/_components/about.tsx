@@ -17,122 +17,130 @@ import {
   travelOptions,
   useC4P,
 } from './context';
+import { FieldStatus } from './field-status';
 import * as styles from './styles';
 
 export const About = () => {
-  const { formData, updateField, goToStep } = useC4P();
+  const { formData, errors, updateField, goToStep, validate, validateField } =
+    useC4P();
 
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        goToStep(3);
+        if (validate()) goToStep(3);
       }}
       className='flex flex-col gap-[0.8rem]'
     >
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Seu nome <span className={styles.required}>*</span>
+            Seu nome <FieldStatus field='name' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaUser
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
+              className={styles.inputIcon(!!errors['name'])}
               aria-hidden
             />
             <input
               type='text'
               aria-label='Seu nome'
               aria-required='true'
-              className={styles.inputWithIconInput(!!formData.name)}
+              className={`${styles.inputWithIconInput(!!formData.name)} ${errors['name'] ? styles.inputError : ''}`}
               value={formData.name}
               onChange={(event) =>
                 updateField('name', event.currentTarget.value)
               }
+              onBlur={() => validateField('name')}
             />
           </div>
         </div>
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            E-mail <span className={styles.required}>*</span>
+            E-mail <FieldStatus field='email' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaEnvelope
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
+              className={styles.inputIcon(!!errors['email'])}
               aria-hidden
             />
             <input
               type='text'
               aria-label='E-mail'
               aria-required='true'
-              className={styles.inputWithIconInput(!!formData.email)}
+              className={`${styles.inputWithIconInput(!!formData.email)} ${errors['email'] ? styles.inputError : ''}`}
               value={formData.email}
               onChange={(event) =>
                 updateField('email', event.currentTarget.value)
               }
+              onBlur={() => validateField('email')}
             />
           </div>
         </div>
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Celular <span className={styles.required}>*</span>
+            Celular <FieldStatus field='phone' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaPhone
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
+              className={styles.inputIcon(!!errors['phone'])}
               aria-hidden
             />
             <input
               type='text'
               aria-label='Celular'
               aria-required='true'
-              className={styles.inputWithIconInput(!!formData.phone)}
+              className={`${styles.inputWithIconInput(!!formData.phone)} ${errors['phone'] ? styles.inputError : ''}`}
               value={formData.phone}
               onChange={(event) =>
                 updateField('phone', event.currentTarget.value)
               }
+              onBlur={() => validateField('phone')}
             />
           </div>
         </div>
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Cidade <span className={styles.required}>*</span>
+            Cidade <FieldStatus field='city' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaLocationDot
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
+              className={styles.inputIcon(!!errors['city'])}
               aria-hidden
             />
             <input
               type='text'
               aria-label='Cidade'
               aria-required='true'
-              className={styles.inputWithIconInput(!!formData.city)}
+              className={`${styles.inputWithIconInput(!!formData.city)} ${errors['city'] ? styles.inputError : ''}`}
               value={formData.city}
               onChange={(event) =>
                 updateField('city', event.currentTarget.value)
               }
+              onBlur={() => validateField('city')}
             />
           </div>
         </div>
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            UF <span className={styles.required}>*</span>
+            UF <FieldStatus field='state' />
           </h3>
           <select
             aria-label='UF'
             aria-required='true'
-            className={`${styles.selectInput} w-[10rem]`}
+            className={`${styles.selectInput(!!formData.state)} w-[10rem] ${errors['state'] ? styles.inputError : ''}`}
             value={formData.state}
-            onChange={(event) =>
-              updateField('state', event.currentTarget.value)
-            }
+            onChange={(event) => {
+              updateField('state', event.currentTarget.value);
+              validateField('state');
+            }}
+            onBlur={() => validateField('state')}
           >
-            <option value=''></option>
+            <option value='' />
             {brazilianStates.map((uf) => (
               <option key={uf} value={uf}>
                 {uf}
@@ -145,8 +153,7 @@ export const About = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Sobre a viagem e hospedagem{' '}
-            <span className={styles.required}>*</span>
+            Sobre a viagem e hospedagem <FieldStatus field='travelPreference' />
           </h3>
           <p className={styles.fieldDescription}>
             A cidade onde você mora pode influenciar na seleção, pois o
@@ -188,10 +195,7 @@ export const About = () => {
         <div className={styles.field}>
           <label className={styles.subLabel}>LinkedIn</label>
           <div className={`${styles.inputWithIcon} group`}>
-            <FaLinkedinIn
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
-              aria-hidden
-            />
+            <FaLinkedinIn className={styles.inputIcon()} aria-hidden />
             <input
               type='text'
               aria-label='LinkedIn'
@@ -207,10 +211,7 @@ export const About = () => {
         <div className={styles.field}>
           <label className={styles.subLabel}>Instagram</label>
           <div className={`${styles.inputWithIcon} group`}>
-            <FaInstagram
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
-              aria-hidden
-            />
+            <FaInstagram className={styles.inputIcon()} aria-hidden />
             <input
               type='text'
               aria-label='Instagram'
@@ -226,10 +227,7 @@ export const About = () => {
         <div className={styles.field}>
           <label className={styles.subLabel}>YouTube</label>
           <div className={`${styles.inputWithIcon} group`}>
-            <FaYoutube
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
-              aria-hidden
-            />
+            <FaYoutube className={styles.inputIcon()} aria-hidden />
             <input
               type='text'
               aria-label='YouTube'
@@ -245,10 +243,7 @@ export const About = () => {
         <div className={styles.field}>
           <label className={styles.subLabel}>GitHub</label>
           <div className={`${styles.inputWithIcon} group`}>
-            <FaGithub
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
-              aria-hidden
-            />
+            <FaGithub className={styles.inputIcon()} aria-hidden />
             <input
               type='text'
               aria-label='GitHub'
@@ -264,10 +259,7 @@ export const About = () => {
         <div className={styles.field}>
           <label className={styles.subLabel}>Site Pessoal</label>
           <div className={`${styles.inputWithIcon} group`}>
-            <FaLink
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
-              aria-hidden
-            />
+            <FaLink className={styles.inputIcon()} aria-hidden />
             <input
               type='text'
               aria-label='Site Pessoal'
@@ -284,7 +276,7 @@ export const About = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Tempo de experiência <span className={styles.required}>*</span>
+            Tempo de experiência <FieldStatus field='experienceLevel' />
           </h3>
           <div className={styles.radioGroup}>
             {experienceOptions.map((option, index) => (
@@ -317,7 +309,7 @@ export const About = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Mini biografia <span className={styles.required}>*</span>
+            Mini biografia <FieldStatus field='bio' />
           </h3>
           <p className={styles.fieldDescription}>
             Em um único parágrafo, com até 280 caracteres, inclua informações
@@ -329,20 +321,21 @@ export const About = () => {
             aria-label='Mini biografia'
             aria-required='true'
             maxLength={280}
-            className={styles.textarea(!!formData.bio)}
+            className={`${styles.textarea(!!formData.bio)} ${errors['bio'] ? styles.inputError : ''}`}
             value={formData.bio}
             onChange={(event) => updateField('bio', event.currentTarget.value)}
+            onBlur={() => validateField('bio')}
           />
         </div>
       </section>
 
-      <div className='flex items-center justify-between mt-[1rem]'>
+      <div className='mt-[1rem] flex items-center justify-between'>
         <button
           type='button'
           className={styles.backButton}
           onClick={() => goToStep(1)}
         >
-          <ArrowLeft className='w-[1.6rem] h-[1.6rem]' aria-hidden />
+          <ArrowLeft className='h-[1.6rem] w-[1.6rem]' aria-hidden />
           <span>Voltar</span>
         </button>
         <button type='submit' className={styles.submitButton}>

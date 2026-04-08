@@ -24,6 +24,11 @@ export const fieldLabel =
 
 export const required = 'text-required ml-[0.2rem]';
 
+export const fieldStatusIcon =
+  'ml-[0.4rem] inline-block w-[1.4rem] h-[1.4rem] align-middle';
+export const fieldStatusValid = `${fieldStatusIcon} text-primary`;
+export const fieldStatusInvalid = `${fieldStatusIcon} text-[#dc143c]`;
+
 export const subLabel = '!text-[1.4rem] !font-medium text-white/50';
 
 export const fieldDescription =
@@ -42,13 +47,22 @@ export const textInput = (filled = false) =>
 export const textarea = (filled = false) =>
   `${textInput(filled)} min-h-[10rem] resize-y`;
 
-export const selectInput =
-  'cursor-pointer appearance-none rounded-[0.6rem] border border-primary/20 bg-transparent px-[1.4rem] py-[1.1rem] font-[var(--ifm-font-family-base)] !text-[1.5rem] text-white outline-none transition-[border-color,box-shadow] duration-200 focus:border-primary focus:shadow-[0_0_0_0.25rem_rgba(141,248,34,0.1)]';
+const selectInputBase =
+  'cursor-pointer appearance-none rounded-[0.6rem] border px-[1.4rem] py-[1.1rem] font-[var(--ifm-font-family-base)] !text-[1.5rem] text-white outline-none transition-[border-color,box-shadow,background-color] duration-200 focus:border-primary focus:shadow-[0_0_0_0.25rem_rgba(141,248,34,0.1)]';
+
+export const selectInput = (filled = false) =>
+  `${selectInputBase} ${
+    filled
+      ? 'border-primary/50 bg-[#7491571a]'
+      : 'border-primary/20 bg-transparent'
+  }`;
 
 export const inputWithIcon = 'relative';
 
-export const inputIcon =
-  'absolute top-1/2 left-[1.3rem] -translate-y-1/2 w-[1.5rem] h-[1.5rem] text-primary/30 pointer-events-none transition-colors duration-200';
+export const inputIcon = (hasError = false) =>
+  `absolute top-1/2 left-[1.3rem] -translate-y-1/2 w-[1.5rem] h-[1.5rem] pointer-events-none transition-colors duration-200 group-focus-within:text-primary ${
+    hasError ? 'text-required' : 'text-primary/30'
+  }`;
 
 export const inputWithIconInput = (filled = false) =>
   `${textInput(filled)} pl-[3.8rem]`;
@@ -83,3 +97,5 @@ export const backButton =
   'flex cursor-pointer items-center justify-center gap-[0.8rem] rounded-[0.75rem] border border-white/30 bg-transparent px-[2.4rem] py-[1.2rem] font-[var(--ifm-font-family-base)] !text-[1.6rem] !font-bold text-white/50 transition-[border-color,color,transform] duration-200 hover:border-white/50 hover:text-white/80 hover:-translate-y-[0.2rem]';
 
 export const submitIcon = 'w-[1.5rem] h-[1.5rem]';
+
+export const inputError = '!border-required';

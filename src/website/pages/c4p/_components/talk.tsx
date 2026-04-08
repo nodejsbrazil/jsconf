@@ -1,17 +1,21 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { FieldStatus } from './field-status';
 import { FaHeading } from 'react-icons/fa6';
 import { audienceLevels, durationOptions, toBadge, useC4P } from './context';
 import * as styles from './styles';
 
 export const Talk = () => {
-  const { formData, updateField, goToStep } = useC4P();
+  const { formData, errors, updateField, goToStep, validate, validateField } =
+    useC4P();
 
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        console.log(formData);
-        goToStep(5);
+        if (validate()) {
+          console.log(formData);
+          goToStep(5);
+        }
       }}
       className='flex flex-col gap-[0.8rem]'
     >
@@ -27,7 +31,7 @@ export const Talk = () => {
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Tempo de duração <span className={styles.required}>*</span>
+            Tempo de duração <FieldStatus field='duration' />
           </h3>
           <div className={styles.radioGroup}>
             {durationOptions.map((option, index) => (
@@ -56,22 +60,23 @@ export const Talk = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Título <span className={styles.required}>*</span>
+            Título <FieldStatus field='talkTitle' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaHeading
-              className={`${styles.inputIcon} group-focus-within:text-primary`}
+              className={styles.inputIcon(!!errors['talkTitle'])}
               aria-hidden
             />
             <input
               type='text'
               aria-label='Título'
               aria-required='true'
-              className={styles.inputWithIconInput(!!formData.talkTitle)}
+              className={`${styles.inputWithIconInput(!!formData.talkTitle)} ${errors['talkTitle'] ? styles.inputError : ''}`}
               value={formData.talkTitle}
               onChange={(event) =>
                 updateField('talkTitle', event.currentTarget.value)
               }
+              onBlur={() => validateField('talkTitle')}
             />
           </div>
         </div>
@@ -80,7 +85,7 @@ export const Talk = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Descrição <span className={styles.required}>*</span>
+            Descrição <FieldStatus field='talkDescription' />
           </h3>
           <p className={styles.fieldDescription}>
             Forneça um resumo do seu conteúdo. Essa informação será usada em
@@ -89,11 +94,12 @@ export const Talk = () => {
           <textarea
             aria-label='Descrição'
             aria-required='true'
-            className={styles.textarea(!!formData.talkDescription)}
+            className={`${styles.textarea(!!formData.talkDescription)} ${errors['talkDescription'] ? styles.inputError : ''}`}
             value={formData.talkDescription}
             onChange={(event) =>
               updateField('talkDescription', event.currentTarget.value)
             }
+            onBlur={() => validateField('talkDescription')}
           />
         </div>
       </section>
@@ -102,7 +108,7 @@ export const Talk = () => {
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
             Para quem é este conteúdo?{' '}
-            <span className={styles.required}>*</span>
+            <FieldStatus field='audienceLevel' />
           </h3>
           <div className={styles.radioGroup}>
             {audienceLevels.map((option, index) => (
@@ -136,27 +142,28 @@ export const Talk = () => {
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
             Por que deveríamos considerar este conteúdo na JSConf Brasil?{' '}
-            <span className={styles.required}>*</span>
+            <FieldStatus field='talkReason' />
           </h3>
           <textarea
             aria-label='Por que deveríamos considerar este conteúdo na JSConf Brasil?'
             aria-required='true'
-            className={styles.textarea(!!formData.talkReason)}
+            className={`${styles.textarea(!!formData.talkReason)} ${errors['talkReason'] ? styles.inputError : ''}`}
             value={formData.talkReason}
             onChange={(event) =>
               updateField('talkReason', event.currentTarget.value)
             }
+            onBlur={() => validateField('talkReason')}
           />
         </div>
       </section>
 
-      <div className='flex items-center justify-between mt-[1rem]'>
+      <div className='mt-[1rem] flex items-center justify-between'>
         <button
           type='button'
           className={styles.backButton}
           onClick={() => goToStep(3)}
         >
-          <ArrowLeft className='w-[1.6rem] h-[1.6rem]' aria-hidden />
+          <ArrowLeft className='h-[1.6rem] w-[1.6rem]' aria-hidden />
           <span>Voltar</span>
         </button>
         <button type='submit' className={styles.submitButton}>
