@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from 'react';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useRef, useState } from 'react';
 
 export const topics = [
   { name: 'Dev Tooling', preferred: true },
@@ -186,19 +186,24 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(saved.step);
   const [formData, setFormData] = useState<FormData>(saved.data);
 
+  const stepRef = useRef(currentStep);
+  const dataRef = useRef(formData);
+
   const updateField = <Key extends keyof FormData>(
     field: Key,
     value: FormData[Key]
   ) =>
     setFormData((previous) => {
       const next = { ...previous, [field]: value };
-      saveToStorage(currentStep, next);
+      dataRef.current = next;
+      saveToStorage(stepRef.current, next);
       return next;
     });
 
   const goToStep = (step: number) => {
+    stepRef.current = step;
     setCurrentStep(step);
-    saveToStorage(step, formData);
+    saveToStorage(step, dataRef.current);
     document.getElementById('__docusaurus')?.scrollTo(0, 0);
   };
 
