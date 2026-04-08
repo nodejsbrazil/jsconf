@@ -16,10 +16,10 @@ export const Diversity = () => {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        const fallback = 'Prefiro não dizer';
-        if (!formData.gender) updateField('gender', fallback);
-        if (!formData.race) updateField('race', fallback);
-        if (!formData.disability) updateField('disability', fallback);
+        if (!formData.gender) updateField('gender', genderOptions.at(-1)!.value);
+        if (!formData.race) updateField('race', raceOptions.at(-1)!.value);
+        if (!formData.disability)
+          updateField('disability', disabilityOptions.at(-1)!.value);
         goToStep(4);
       }}
       className='flex flex-col gap-[0.8rem]'
@@ -52,21 +52,25 @@ export const Diversity = () => {
           <div className={styles.radioGroup}>
             {genderOptions.map((option, index) => (
               <label
-                key={option}
-                className={styles.radioOption(formData.gender === option)}
+                key={option.value}
+                className={styles.radioOption(
+                  formData.gender === option.value
+                )}
               >
-                <span className={styles.badge(formData.gender === option)}>
+                <span
+                  className={styles.badge(formData.gender === option.value)}
+                >
                   {toBadge(index)}
                 </span>
                 <input
                   type='radio'
                   name='gender'
                   className={styles.radioHidden}
-                  value={option}
-                  checked={formData.gender === option}
-                  onChange={() => updateField('gender', option)}
+                  value={option.value}
+                  checked={formData.gender === option.value}
+                  onChange={() => updateField('gender', option.value)}
                 />
-                <span>{option}</span>
+                <span>{option.label}</span>
               </label>
             ))}
           </div>
@@ -81,21 +85,23 @@ export const Diversity = () => {
           <div className={styles.radioGroup}>
             {raceOptions.map((option, index) => (
               <label
-                key={option}
-                className={styles.radioOption(formData.race === option)}
+                key={option.value}
+                className={styles.radioOption(formData.race === option.value)}
               >
-                <span className={styles.badge(formData.race === option)}>
+                <span
+                  className={styles.badge(formData.race === option.value)}
+                >
                   {toBadge(index)}
                 </span>
                 <input
                   type='radio'
                   name='race'
                   className={styles.radioHidden}
-                  value={option}
-                  checked={formData.race === option}
-                  onChange={() => updateField('race', option)}
+                  value={option.value}
+                  checked={formData.race === option.value}
+                  onChange={() => updateField('race', option.value)}
                 />
-                <span>{option}</span>
+                <span>{option.label}</span>
               </label>
             ))}
           </div>
@@ -111,21 +117,27 @@ export const Diversity = () => {
           <div className={styles.radioGroup}>
             {disabilityOptions.map((option, index) => (
               <label
-                key={option}
-                className={styles.radioOption(formData.disability === option)}
+                key={option.value}
+                className={styles.radioOption(
+                  formData.disability === option.value
+                )}
               >
-                <span className={styles.badge(formData.disability === option)}>
+                <span
+                  className={styles.badge(
+                    formData.disability === option.value
+                  )}
+                >
                   {toBadge(index)}
                 </span>
                 <input
                   type='radio'
                   name='disability'
                   className={styles.radioHidden}
-                  value={option}
-                  checked={formData.disability === option}
-                  onChange={() => updateField('disability', option)}
+                  value={option.value}
+                  checked={formData.disability === option.value}
+                  onChange={() => updateField('disability', option.value)}
                 />
-                <span>{option}</span>
+                <span>{option.label}</span>
               </label>
             ))}
           </div>

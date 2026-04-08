@@ -164,13 +164,15 @@ export const About = () => {
           <div className={styles.radioGroup}>
             {travelOptions.map((option, index) => (
               <label
-                key={option}
+                key={option.value}
                 className={styles.radioOption(
-                  formData.travelPreference === option
+                  formData.travelPreference === option.value
                 )}
               >
                 <span
-                  className={styles.badge(formData.travelPreference === option)}
+                  className={styles.badge(
+                    formData.travelPreference === option.value
+                  )}
                 >
                   {toBadge(index)}
                 </span>
@@ -178,14 +180,14 @@ export const About = () => {
                   type='radio'
                   name='travelPreference'
                   className={styles.radioHidden}
-                  value={option}
-                  checked={formData.travelPreference === option}
+                  value={option.value}
+                  checked={formData.travelPreference === option.value}
                   onChange={() => {
-                    updateField('travelPreference', option);
+                    updateField('travelPreference', option.value);
                     validateField('travelPreference');
                   }}
                 />
-                <span>{option}</span>
+                <span>{option.label}</span>
               </label>
             ))}
           </div>
@@ -284,13 +286,15 @@ export const About = () => {
           <div className={styles.radioGroup}>
             {experienceOptions.map((option, index) => (
               <label
-                key={option}
+                key={option.value}
                 className={styles.radioOption(
-                  formData.experienceLevel === option
+                  formData.experienceLevel === option.value
                 )}
               >
                 <span
-                  className={styles.badge(formData.experienceLevel === option)}
+                  className={styles.badge(
+                    formData.experienceLevel === option.value
+                  )}
                 >
                   {toBadge(index)}
                 </span>
@@ -298,14 +302,14 @@ export const About = () => {
                   type='radio'
                   name='experienceLevel'
                   className={styles.radioHidden}
-                  value={option}
-                  checked={formData.experienceLevel === option}
+                  value={option.value}
+                  checked={formData.experienceLevel === option.value}
                   onChange={() => {
-                    updateField('experienceLevel', option);
+                    updateField('experienceLevel', option.value);
                     validateField('experienceLevel');
                   }}
                 />
-                <span>{option}</span>
+                <span>{option.label}</span>
               </label>
             ))}
           </div>

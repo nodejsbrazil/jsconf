@@ -36,24 +36,28 @@ export const Talk = () => {
           <div className={styles.radioGroup}>
             {durationOptions.map((option, index) => (
               <label
-                key={option}
-                className={styles.radioOption(formData.duration === option)}
+                key={option.value}
+                className={styles.radioOption(
+                  formData.duration === option.value
+                )}
               >
-                <span className={styles.badge(formData.duration === option)}>
+                <span
+                  className={styles.badge(formData.duration === option.value)}
+                >
                   {toBadge(index)}
                 </span>
                 <input
                   type='radio'
                   name='duration'
                   className={styles.radioHidden}
-                  value={option}
-                  checked={formData.duration === option}
+                  value={option.value}
+                  checked={formData.duration === option.value}
                   onChange={() => {
-                    updateField('duration', option);
+                    updateField('duration', option.value);
                     validateField('duration');
                   }}
                 />
-                <span>{option}</span>
+                <span>{option.label}</span>
               </label>
             ))}
           </div>
@@ -115,13 +119,15 @@ export const Talk = () => {
           <div className={styles.radioGroup}>
             {audienceLevels.map((option, index) => (
               <label
-                key={option}
+                key={option.value}
                 className={styles.radioOption(
-                  formData.audienceLevel === option
+                  formData.audienceLevel === option.value
                 )}
               >
                 <span
-                  className={styles.badge(formData.audienceLevel === option)}
+                  className={styles.badge(
+                    formData.audienceLevel === option.value
+                  )}
                 >
                   {toBadge(index)}
                 </span>
@@ -129,14 +135,14 @@ export const Talk = () => {
                   type='radio'
                   name='audienceLevel'
                   className={styles.radioHidden}
-                  value={option}
-                  checked={formData.audienceLevel === option}
+                  value={option.value}
+                  checked={formData.audienceLevel === option.value}
                   onChange={() => {
-                    updateField('audienceLevel', option);
+                    updateField('audienceLevel', option.value);
                     validateField('audienceLevel');
                   }}
                 />
-                <span>{option}</span>
+                <span>{option.label}</span>
               </label>
             ))}
           </div>

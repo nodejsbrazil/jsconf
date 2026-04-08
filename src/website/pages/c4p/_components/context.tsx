@@ -30,46 +30,64 @@ export const topics = [
 ];
 
 export const experienceOptions = [
-  '0 - 1 ano',
-  '2 - 4 anos',
-  '5 - 9 anos',
-  'Acima de 10 anos',
-];
+  { value: '0', label: '0 - 1 ano' },
+  { value: '1', label: '2 - 4 anos' },
+  { value: '2', label: '5 - 9 anos' },
+  { value: '3', label: 'Acima de 10 anos' },
+] as const;
 
-export const durationOptions = ['7 minutos', '20 minutos'];
+export const durationOptions = [
+  { value: '0', label: '7 minutos' },
+  { value: '1', label: '20 minutos' },
+] as const;
 
 export const travelOptions = [
-  'Gostaria que a organização pagasse minha viagem e hospedagem',
-  'Posso arcar com os custos',
-];
+  {
+    value: '0',
+    label: 'Gostaria que a organização pagasse minha viagem e hospedagem',
+  },
+  { value: '1', label: 'Posso arcar com os custos' },
+] as const;
 
 export const genderOptions = [
-  'Homem',
-  'Mulher',
-  'Não-binário',
-  'Prefiro não dizer',
-];
+  { value: '0', label: 'Homem' },
+  { value: '1', label: 'Mulher' },
+  { value: '2', label: 'Não-binário' },
+  { value: '3', label: 'Prefiro não dizer' },
+] as const;
 
 export const raceOptions = [
-  'Branca',
-  'Parda',
-  'Preta',
-  'Indígena',
-  'Não sei',
-  'Outro',
-  'Prefiro não dizer',
-];
+  { value: '0', label: 'Branca' },
+  { value: '1', label: 'Parda' },
+  { value: '2', label: 'Preta' },
+  { value: '3', label: 'Indígena' },
+  { value: '4', label: 'Não sei' },
+  { value: '5', label: 'Outro' },
+  { value: '6', label: 'Prefiro não dizer' },
+] as const;
 
 export const disabilityOptions = [
-  'Sou cego(a) / tenho baixa visão',
-  'Sou surdo(a) / tenho deficiência auditiva',
-  'Eu não consigo / tenho dificuldade de andar ou ficar em pé sem assistência',
-  'Eu não consigo / tenho dificuldade de digitar',
-  'Não se aplica',
-  'Prefiro não dizer',
-];
+  { value: '0', label: 'Sou cego(a) / tenho baixa visão' },
+  { value: '1', label: 'Sou surdo(a) / tenho deficiência auditiva' },
+  {
+    value: '2',
+    label:
+      'Eu não consigo / tenho dificuldade de andar ou ficar em pé sem assistência',
+  },
+  {
+    value: '3',
+    label: 'Eu não consigo / tenho dificuldade de digitar',
+  },
+  { value: '4', label: 'Não se aplica' },
+  { value: '5', label: 'Prefiro não dizer' },
+] as const;
 
-export const audienceLevels = ['Todos os níveis', 'Júnior', 'Pleno', 'Sênior'];
+export const audienceLevels = [
+  { value: '0', label: 'Todos os níveis' },
+  { value: '1', label: 'Júnior' },
+  { value: '2', label: 'Pleno' },
+  { value: '3', label: 'Sênior' },
+] as const;
 
 export const brazilianStates = [
   'AC',
