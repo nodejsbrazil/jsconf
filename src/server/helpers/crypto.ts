@@ -5,13 +5,10 @@ const fromBase64 = (encoded: string): ArrayBuffer =>
   Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0)).buffer;
 
 const importKey = (raw: string): Promise<CryptoKey> =>
-  crypto.subtle.importKey(
-    'raw',
-    fromBase64(raw),
-    { name: 'AES-GCM' },
-    false,
-    ['encrypt', 'decrypt']
-  );
+  crypto.subtle.importKey('raw', fromBase64(raw), { name: 'AES-GCM' }, false, [
+    'encrypt',
+    'decrypt',
+  ]);
 
 export const encrypt = async (
   plaintext: string,

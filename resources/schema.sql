@@ -1,5 +1,8 @@
 -- Run with: npm run db:init (local) or npm run db:init:remote (production)
 DROP TABLE IF EXISTS waitlist;
+DROP TABLE IF EXISTS speaker_diversity;
+DROP TABLE IF EXISTS talks;
+DROP TABLE IF EXISTS speakers;
 
 CREATE TABLE waitlist (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -10,12 +13,6 @@ CREATE TABLE waitlist (
 );
 
 CREATE INDEX idx_waitlist_ip_hash ON waitlist(ip);
-
--- C4P: speakers, talks, speaker_diversity
-
-DROP TABLE IF EXISTS speaker_diversity;
-DROP TABLE IF EXISTS talks;
-DROP TABLE IF EXISTS speakers;
 
 CREATE TABLE speakers (
   id             INTEGER PRIMARY KEY AUTOINCREMENT,
