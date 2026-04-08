@@ -11,7 +11,7 @@ const Form = () => {
   const { currentStep, goToStep } = useC4P();
 
   return (
-    <div className='page-content flex w-full max-w-[128rem] flex-col items-center'>
+    <div className='c4p-page page-content flex w-full max-w-[128rem] flex-col items-center'>
       <div className='flex w-full flex-col gap-[0.8rem] px-[2rem] pb-[4rem] pt-[2rem] max-md:px-[1.6rem] max-md:pb-[3rem]'>
         {currentStep > 1 && currentStep <= 3 && (
           <button
