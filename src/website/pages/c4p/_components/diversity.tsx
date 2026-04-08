@@ -20,7 +20,6 @@ export const Diversity = () => {
       className='flex flex-col gap-[0.8rem]'
     >
       <section className={styles.section}>
-        <h2 className={styles.sectionHeading}>Diversidade e inclusão</h2>
         <p className={styles.paragraph}>
           A JSConf Brasil busca sempre pela diversidade, inclusão e
           acessibilidade. Caso se sinta confortável em responder, gostaríamos de

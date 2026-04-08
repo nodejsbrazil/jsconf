@@ -8,9 +8,9 @@
 }
 
 #root:has(.c4p-page) {
-  background-color: #1d1f1e;
+  background-color: #ffffff0b;
 }
 
-#root:has(.c4p-page) .bg {
+/* #root:has(.c4p-page) .bg {
   display: none;
-}
+} */

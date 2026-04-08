@@ -1,4 +1,4 @@
-import { ArrowRight, CircleCheck } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useC4P } from './context';
 import * as styles from './styles';
 
@@ -8,11 +8,6 @@ export const Success = () => {
   return (
     <>
       <section className={styles.section}>
-        <CircleCheck
-          className='w-[5rem] h-[5rem] text-primary'
-          aria-hidden
-        />
-        <h1 className={styles.formTitle}>Proposta enviada!</h1>
         <p className={styles.paragraph}>
           Obrigado por se inscrever no Call4Papers da{' '}
           <strong className={styles.strong}>JSConf Brasil 2026</strong>. Sua

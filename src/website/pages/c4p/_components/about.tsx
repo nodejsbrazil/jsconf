@@ -31,10 +31,6 @@ export const About = () => {
       className='flex flex-col gap-[0.8rem]'
     >
       <section className={styles.section}>
-        <h2 className={styles.sectionHeading}>Sobre você</h2>
-      </section>
-
-      <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
             Seu nome <span className={styles.required}>*</span>

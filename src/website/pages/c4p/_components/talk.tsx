@@ -16,10 +16,6 @@ export const Talk = () => {
       className='flex flex-col gap-[0.8rem]'
     >
       <section className={styles.section}>
-        <h1 className={styles.formTitle}>Sobre sua participação</h1>
-      </section>
-
-      <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>Tipo de conteúdo</h3>
           <p className={styles.fieldDescription}>

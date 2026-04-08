@@ -4,8 +4,17 @@ import { About } from './_components/about';
 import { C4PProvider, useC4P } from './_components/context';
 import { Diversity } from './_components/diversity';
 import { Introduction } from './_components/introduction';
+import * as styles from './_components/styles';
 import { Success } from './_components/success';
 import { Talk } from './_components/talk';
+
+const stepTitles: Record<number, string> = {
+  1: 'Call4Papers',
+  2: 'Sobre você',
+  3: 'Diversidade e inclusão',
+  4: 'Sobre sua participação',
+  5: 'Proposta enviada!',
+};
 
 const Form = () => {
   const { currentStep } = useC4P();
@@ -13,6 +22,8 @@ const Form = () => {
   return (
     <div className='c4p-page page-content flex w-full max-w-[128rem] flex-col items-center'>
       <div className='flex w-full flex-col gap-[0.8rem] px-[2rem] pb-[4rem] pt-[2rem] max-md:px-[1.6rem] max-md:pb-[3rem]'>
+        <h1 className={styles.stepTitle}>{stepTitles[currentStep]}</h1>
+
         {currentStep <= 4 && (
           <progress
             max={4}
