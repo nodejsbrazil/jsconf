@@ -5,7 +5,6 @@ import { Text } from '@site/src/website/components/shared/i18n';
 import { useScroll } from '../../hooks/useScroll';
 import { Image } from '../shared/Image';
 
-
 type TextCardProps = {
   icon: ReactNode;
   title: ReactNode;
