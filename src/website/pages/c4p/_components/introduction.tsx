@@ -30,7 +30,7 @@ export const Introduction = () => {
         </h2>
         <p className={styles.paragraph}>
           Aceitaremos inscrições até{' '}
-          <span className='text-primary !font-bold'>**/**</span>.
+          <span className='text-primary !font-bold'>31/08</span>.
         </p>
         <p className={styles.paragraph}>
           Você pode enviar até{' '}
