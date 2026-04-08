@@ -26,10 +26,18 @@ export const subLabel = 'text-[1.4rem] font-medium text-white/50';
 
 export const fieldDescription = 'text-[1.45rem] text-white/60 leading-[1.6]';
 
-export const textInput =
-  'w-full rounded-[0.6rem] border border-primary/20 bg-transparent px-[1.4rem] py-[1.1rem] font-[var(--ifm-font-family-base)] text-[1.6rem] text-white outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-white/30 focus:border-primary focus:shadow-[0_0_0_0.25rem_rgba(141,248,34,0.1)]';
+const textInputBase =
+  'w-full rounded-[0.6rem] border px-[1.4rem] py-[1.1rem] font-[var(--ifm-font-family-base)] text-[1.6rem] text-white outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-white/30 focus:border-primary focus:shadow-[0_0_0_0.25rem_rgba(141,248,34,0.1)]';
 
-export const textarea = `${textInput} min-h-[10rem] resize-y`;
+export const textInput = (filled = false) =>
+  `${textInputBase} ${
+    filled
+      ? 'border-primary/50 bg-[#7491571a]'
+      : 'border-primary/20 bg-transparent'
+  }`;
+
+export const textarea = (filled = false) =>
+  `${textInput(filled)} min-h-[10rem] resize-y`;
 
 export const selectInput =
   'cursor-pointer appearance-none rounded-[0.6rem] border border-primary/20 bg-transparent px-[1.4rem] py-[1.1rem] font-[var(--ifm-font-family-base)] text-[1.6rem] text-white outline-none transition-[border-color,box-shadow] duration-200 focus:border-primary focus:shadow-[0_0_0_0.25rem_rgba(141,248,34,0.1)]';
@@ -39,15 +47,16 @@ export const inputWithIcon = 'relative';
 export const inputIcon =
   'absolute top-1/2 left-[1.3rem] -translate-y-1/2 w-[1.5rem] h-[1.5rem] text-primary/30 pointer-events-none transition-colors duration-200';
 
-export const inputWithIconInput = `${textInput} pl-[3.8rem]`;
+export const inputWithIconInput = (filled = false) =>
+  `${textInput(filled)} pl-[3.8rem]`;
 
 export const radioGroup = 'flex flex-col gap-[0.5rem]';
 
 export const radioOption = (selected: boolean) =>
-  `relative flex cursor-pointer items-center gap-[1rem] rounded-[0.6rem] border bg-transparent px-[1.3rem] py-[1rem] text-[1.5rem] font-medium transition-[border-color,background-color,color] duration-150 ${
+  `relative flex cursor-pointer items-center gap-[1rem] rounded-[0.6rem] border px-[1.3rem] py-[1rem] text-[1.5rem] font-medium transition-[border-color,background-color,color] duration-150 ${
     selected
-      ? 'border-primary/50 bg-primary/5 text-white'
-      : 'border-primary/15 text-white/80 hover:border-primary/30'
+      ? 'border-primary/50 bg-[#7491571a] text-white'
+      : 'border-primary/15 bg-transparent text-white/80 hover:border-primary/30'
   }`;
 
 export const radioHidden = 'absolute opacity-0 pointer-events-none';

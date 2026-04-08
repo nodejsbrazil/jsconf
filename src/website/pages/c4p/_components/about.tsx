@@ -51,7 +51,7 @@ export const About = () => {
               type='text'
               aria-label='Seu nome'
               aria-required='true'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.name)}
               value={formData.name}
               onChange={(event) =>
                 updateField('name', event.currentTarget.value)
@@ -73,7 +73,7 @@ export const About = () => {
               type='text'
               aria-label='E-mail'
               aria-required='true'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.email)}
               value={formData.email}
               onChange={(event) =>
                 updateField('email', event.currentTarget.value)
@@ -95,7 +95,7 @@ export const About = () => {
               type='text'
               aria-label='Celular'
               aria-required='true'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.phone)}
               value={formData.phone}
               onChange={(event) =>
                 updateField('phone', event.currentTarget.value)
@@ -117,7 +117,7 @@ export const About = () => {
               type='text'
               aria-label='Cidade'
               aria-required='true'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.city)}
               value={formData.city}
               onChange={(event) =>
                 updateField('city', event.currentTarget.value)
@@ -202,7 +202,7 @@ export const About = () => {
             <input
               type='text'
               aria-label='LinkedIn'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.linkedin)}
               value={formData.linkedin}
               onChange={(event) =>
                 updateField('linkedin', event.currentTarget.value)
@@ -221,7 +221,7 @@ export const About = () => {
             <input
               type='text'
               aria-label='Instagram'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.instagram)}
               value={formData.instagram}
               onChange={(event) =>
                 updateField('instagram', event.currentTarget.value)
@@ -240,7 +240,7 @@ export const About = () => {
             <input
               type='text'
               aria-label='YouTube'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.youtube)}
               value={formData.youtube}
               onChange={(event) =>
                 updateField('youtube', event.currentTarget.value)
@@ -259,7 +259,7 @@ export const About = () => {
             <input
               type='text'
               aria-label='GitHub'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.github)}
               value={formData.github}
               onChange={(event) =>
                 updateField('github', event.currentTarget.value)
@@ -278,7 +278,7 @@ export const About = () => {
             <input
               type='text'
               aria-label='Site Pessoal'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.website)}
               value={formData.website}
               onChange={(event) =>
                 updateField('website', event.currentTarget.value)
@@ -336,7 +336,7 @@ export const About = () => {
             aria-label='Mini biografia'
             aria-required='true'
             maxLength={280}
-            className={styles.textarea}
+            className={styles.textarea(!!formData.bio)}
             value={formData.bio}
             onChange={(event) => updateField('bio', event.currentTarget.value)}
           />

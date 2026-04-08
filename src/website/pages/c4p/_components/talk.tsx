@@ -71,7 +71,7 @@ export const Talk = () => {
               type='text'
               aria-label='Título'
               aria-required='true'
-              className={styles.inputWithIconInput}
+              className={styles.inputWithIconInput(!!formData.talkTitle)}
               value={formData.talkTitle}
               onChange={(event) =>
                 updateField('talkTitle', event.currentTarget.value)
@@ -93,7 +93,7 @@ export const Talk = () => {
           <textarea
             aria-label='Descrição'
             aria-required='true'
-            className={styles.textarea}
+            className={styles.textarea(!!formData.talkDescription)}
             value={formData.talkDescription}
             onChange={(event) =>
               updateField('talkDescription', event.currentTarget.value)
@@ -145,7 +145,7 @@ export const Talk = () => {
           <textarea
             aria-label='Por que deveríamos considerar este conteúdo na JSConf Brasil?'
             aria-required='true'
-            className={styles.textarea}
+            className={styles.textarea(!!formData.talkReason)}
             value={formData.talkReason}
             onChange={(event) =>
               updateField('talkReason', event.currentTarget.value)
