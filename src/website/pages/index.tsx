@@ -1,4 +1,5 @@
 import { Benefits } from '../components/home/Benefits';
+import { Gallery } from '../components/home/Gallery';
 import { Home } from '../components/home/Home';
 import { Location } from '../components/home/Location';
 // import { Speakers } from '../components/home/Speakers';
@@ -11,6 +12,7 @@ export default () => (
   <Page description='A maior conferência de JavaScript do Mundo está de volta!'>
     <Home />
     <Benefits />
+    <Gallery />
     {/* <Speakers /> */}
     <TicketSelection />
     <Waitlist />

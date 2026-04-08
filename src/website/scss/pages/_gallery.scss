@@ -1,0 +1,141 @@
+@use '../global/mixins' as *;
+
+@mixin gallery {
+  &#gallery {
+    padding-bottom: 12.5rem;
+
+    & > .content {
+      gap: 5rem;
+      opacity: 0;
+      animation: fadeUp 0.75s var(--ease-bounce-strong) forwards;
+
+      @media (max-width: 630px) {
+        gap: 3.5rem;
+      }
+
+      .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(20rem, auto);
+        gap: 2rem;
+        width: 100%;
+
+        @media (max-width: 1080px) {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.25rem;
+        }
+
+        @media (max-width: 540px) {
+          grid-template-columns: 1fr;
+        }
+
+        .bento-item {
+          position: relative;
+          border-radius: 2rem;
+          overflow: hidden;
+          top: 4rem;
+          opacity: 0;
+
+          &.show {
+            animation: fadeUp 1.5s var(--ease-back-out-soft) forwards;
+          }
+
+          @for $i from 1 through 10 {
+            &:nth-child(#{$i}) {
+              animation-delay: #{($i - 1) * 0.1}s;
+            }
+          }
+
+          &.span-2 {
+            grid-column: span 2;
+
+            @media (max-width: 540px) {
+              grid-column: span 1;
+            }
+          }
+
+          &.text-card {
+            @include flex(column, center, center);
+            gap: 1.5rem;
+            background-color: #021509b3;
+            border: 0.1rem solid #022514;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            transition: transform 0.5s var(--ease-back-out-soft);
+
+            .icon {
+              @include flex(column, center, center);
+              transition: transform 0.35s var(--ease-bounce-strong);
+
+              svg {
+                width: 3rem;
+                height: 3rem;
+                stroke: var(--ifm-color-primary-darker);
+                transition:
+                  transform 0.4s var(--ease-bounce-strong),
+                  stroke 0.3s ease;
+              }
+            }
+
+            .text-card-title {
+              font-family: var(--ifm-font-family-title);
+              font-size: 1.8rem;
+              font-weight: 800;
+              letter-spacing: normal;
+              color: #fff;
+              margin: 0;
+            }
+
+            .text-card-description {
+              font-size: 1.3rem;
+              font-weight: 500;
+              line-height: 1.6;
+              opacity: 0.75;
+              margin: 0;
+            }
+
+            &:hover {
+              transform: translateY(-0.5rem);
+
+              .icon {
+                transform: scale(1.2);
+
+                svg {
+                  stroke: var(--ifm-color-primary);
+                }
+              }
+
+              @media (max-width: 780px) {
+                transform: none;
+
+                .icon {
+                  transform: none;
+                }
+              }
+            }
+          }
+
+          &.photo-card {
+            min-height: 22rem;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+              transition: transform 0.6s var(--ease-back-out-soft);
+            }
+
+            &:hover img {
+              transform: scale(1.05);
+
+              @media (max-width: 780px) {
+                transform: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
