@@ -69,7 +69,7 @@ export const badge = (selected: boolean) =>
   }`;
 
 export const checkboxGroupLabel =
-  'text-[1.5rem] font-bold text-white/80 mt-[1rem] mb-[-0.4rem]';
+  'text-[1.5rem] font-bold text-white/80 mb-[-0.4rem]';
 
 export const submitButton =
   'flex cursor-pointer items-center justify-center gap-[0.8rem] self-end rounded-[0.75rem] border-none bg-gradient-to-r from-primary-dark to-primary-light px-[2.4rem] py-[1.2rem] font-[var(--ifm-font-family-base)] text-[1.6rem] font-bold text-white shadow-[0.1rem_0.1rem_0.2rem_#071f0dca] transition-transform duration-200 hover:-translate-y-[0.2rem] mt-[1rem]';

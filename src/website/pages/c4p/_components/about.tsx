@@ -344,14 +344,16 @@ export const About = () => {
       </section>
 
       <section className={styles.section}>
-        <div className={styles.field}>
-          <h3 className={styles.fieldLabel}>
-            A JSConf Brasil busca sempre pela diversidade, inclusão e
-            acessibilidade. Caso se sinta confortável em responder, gostaríamos
-            de saber: <span className={styles.required}>*</span>
-          </h3>
+        <p className={styles.paragraph}>
+          A JSConf Brasil busca sempre pela diversidade, inclusão e
+          acessibilidade. Caso se sinta confortável em responder, gostaríamos de
+          saber:
+        </p>
+      </section>
 
-          <p className={styles.checkboxGroupLabel}>Identidade de Gênero</p>
+      <section className={styles.section}>
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>Identidade de Gênero</h3>
           <div className={styles.radioGroup}>
             {genderOptions.map((option, index) => (
               <label
@@ -373,10 +375,14 @@ export const About = () => {
               </label>
             ))}
           </div>
+        </div>
+      </section>
 
-          <p className={styles.checkboxGroupLabel}>
+      <section className={styles.section}>
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>
             Qual cor/raça você se identifica?
-          </p>
+          </h3>
           <div className={styles.radioGroup}>
             {raceOptions.map((option, index) => (
               <label
@@ -398,11 +404,15 @@ export const About = () => {
               </label>
             ))}
           </div>
+        </div>
+      </section>
 
-          <p className={styles.checkboxGroupLabel}>
+      <section className={styles.section}>
+        <div className={styles.field}>
+          <h3 className={styles.fieldLabel}>
             Situação de deficiência: qual das opções abaixo descreve você, se
             tiver alguma?
-          </p>
+          </h3>
           <div className={styles.radioGroup}>
             {disabilityOptions.map((option, index) => (
               <label
