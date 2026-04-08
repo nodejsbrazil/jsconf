@@ -47,7 +47,7 @@ CREATE TABLE talks (
   description    TEXT          NOT NULL CHECK(length(description) >= 1),
   audience_level INTEGER       NOT NULL CHECK(audience_level BETWEEN 0 AND 3),
   reason         TEXT          NOT NULL CHECK(length(reason) >= 1),
-  status         VARCHAR(20)   NOT NULL DEFAULT 'submitted' CHECK(status IN ('submitted', 'co_curated', 'accepted', 'rejected', 'waitlisted')),
+  status         INTEGER       NOT NULL DEFAULT 0 CHECK(status BETWEEN 0 AND 4),
   created_at     VARCHAR(20)   NOT NULL DEFAULT (datetime('now'))
 );
 

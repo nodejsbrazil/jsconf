@@ -16,7 +16,8 @@ export const Diversity = () => {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        if (!formData.gender) updateField('gender', genderOptions.at(-1)!.value);
+        if (!formData.gender)
+          updateField('gender', genderOptions.at(-1)!.value);
         if (!formData.race) updateField('race', raceOptions.at(-1)!.value);
         if (!formData.disability)
           updateField('disability', disabilityOptions.at(-1)!.value);
@@ -53,9 +54,7 @@ export const Diversity = () => {
             {genderOptions.map((option, index) => (
               <label
                 key={option.value}
-                className={styles.radioOption(
-                  formData.gender === option.value
-                )}
+                className={styles.radioOption(formData.gender === option.value)}
               >
                 <span
                   className={styles.badge(formData.gender === option.value)}
@@ -88,9 +87,7 @@ export const Diversity = () => {
                 key={option.value}
                 className={styles.radioOption(formData.race === option.value)}
               >
-                <span
-                  className={styles.badge(formData.race === option.value)}
-                >
+                <span className={styles.badge(formData.race === option.value)}>
                   {toBadge(index)}
                 </span>
                 <input
@@ -123,9 +120,7 @@ export const Diversity = () => {
                 )}
               >
                 <span
-                  className={styles.badge(
-                    formData.disability === option.value
-                  )}
+                  className={styles.badge(formData.disability === option.value)}
                 >
                   {toBadge(index)}
                 </span>
