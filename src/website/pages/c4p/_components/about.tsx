@@ -180,7 +180,10 @@ export const About = () => {
                   className={styles.radioHidden}
                   value={option}
                   checked={formData.travelPreference === option}
-                  onChange={() => updateField('travelPreference', option)}
+                  onChange={() => {
+                    updateField('travelPreference', option);
+                    validateField('travelPreference');
+                  }}
                 />
                 <span>{option}</span>
               </label>
@@ -297,7 +300,10 @@ export const About = () => {
                   className={styles.radioHidden}
                   value={option}
                   checked={formData.experienceLevel === option}
-                  onChange={() => updateField('experienceLevel', option)}
+                  onChange={() => {
+                    updateField('experienceLevel', option);
+                    validateField('experienceLevel');
+                  }}
                 />
                 <span>{option}</span>
               </label>

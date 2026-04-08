@@ -1,7 +1,8 @@
 import type { FC, ReactNode } from 'react';
+import type { StepErrors } from './schema';
 import { createContext, useContext, useRef, useState } from 'react';
 import { toast } from 'sonner';
-import { type StepErrors, validateStep } from './schema';
+import { validateStep } from './schema';
 
 export const topics = [
   { name: 'Dev Tooling', preferred: true },
@@ -55,8 +56,8 @@ export const raceOptions = [
   'Preta',
   'Indígena',
   'Não sei',
-  'Prefiro não dizer',
   'Outro',
+  'Prefiro não dizer',
 ];
 
 export const disabilityOptions = [
@@ -65,6 +66,7 @@ export const disabilityOptions = [
   'Eu não consigo / tenho dificuldade de andar ou ficar em pé sem assistência',
   'Eu não consigo / tenho dificuldade de digitar',
   'Não se aplica',
+  'Prefiro não dizer',
 ];
 
 export const audienceLevels = ['Todos os níveis', 'Júnior', 'Pleno', 'Sênior'];
@@ -211,6 +213,7 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const goToStep = (step: number) => {
     setErrors({});
+    setTouched(new Set());
     stepRef.current = step;
     setCurrentStep(step);
     saveToStorage(step, dataRef.current);

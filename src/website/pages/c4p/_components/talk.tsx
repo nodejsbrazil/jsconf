@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { FieldStatus } from './field-status';
 import { FaHeading } from 'react-icons/fa6';
 import { audienceLevels, durationOptions, toBadge, useC4P } from './context';
+import { FieldStatus } from './field-status';
 import * as styles from './styles';
 
 export const Talk = () => {
@@ -48,7 +48,10 @@ export const Talk = () => {
                   className={styles.radioHidden}
                   value={option}
                   checked={formData.duration === option}
-                  onChange={() => updateField('duration', option)}
+                  onChange={() => {
+                    updateField('duration', option);
+                    validateField('duration');
+                  }}
                 />
                 <span>{option}</span>
               </label>
@@ -107,8 +110,7 @@ export const Talk = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Para quem é este conteúdo?{' '}
-            <FieldStatus field='audienceLevel' />
+            Para quem é este conteúdo? <FieldStatus field='audienceLevel' />
           </h3>
           <div className={styles.radioGroup}>
             {audienceLevels.map((option, index) => (
@@ -129,7 +131,10 @@ export const Talk = () => {
                   className={styles.radioHidden}
                   value={option}
                   checked={formData.audienceLevel === option}
-                  onChange={() => updateField('audienceLevel', option)}
+                  onChange={() => {
+                    updateField('audienceLevel', option);
+                    validateField('audienceLevel');
+                  }}
                 />
                 <span>{option}</span>
               </label>

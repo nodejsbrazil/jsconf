@@ -27,7 +27,14 @@ export const Introduction = () => {
         <h2 className={styles.sectionHeading}>
           JSConf Brasil - 28 de novembro de 2026
         </h2>
-        <p className={styles.paragraph}>Aceitaremos inscrições até **/**</p>
+        <p className={styles.paragraph}>
+          Aceitaremos inscrições até{' '}
+          <span className='text-primary !font-bold'>**/**</span>.
+        </p>
+        <p className={styles.paragraph}>
+          Você pode enviar até{' '}
+          <span className='text-primary !font-bold'>3</span> palestras.
+        </p>
         <p className={styles.paragraph}>
           O evento acontecerá no dia{' '}
           <strong className={styles.strong}>28 de novembro de 2026</strong>, na{' '}
@@ -49,7 +56,7 @@ export const Introduction = () => {
           {topics.map((topic) => (
             <li
               key={topic.name}
-              className={`relative py-[0.6rem] pl-[1.8rem] text-[1.5rem] before:absolute before:left-0 ${
+              className={`relative py-[1rem] pl-[2.2rem] text-[1.5rem] leading-[1] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 ${
                 topic.preferred
                   ? 'font-bold text-white before:content-["★"] before:text-primary'
                   : 'text-white/60 before:content-["•"] before:text-white/30'

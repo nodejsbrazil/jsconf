@@ -15,6 +15,10 @@ export const Diversity = () => {
     <form
       onSubmit={(event) => {
         event.preventDefault();
+        const fallback = 'Prefiro não dizer';
+        if (!formData.gender) updateField('gender', fallback);
+        if (!formData.race) updateField('race', fallback);
+        if (!formData.disability) updateField('disability', fallback);
         goToStep(4);
       }}
       className='flex flex-col gap-[0.8rem]'

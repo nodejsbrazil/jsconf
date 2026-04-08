@@ -8,11 +8,15 @@ import * as styles from './_components/styles';
 import { Success } from './_components/success';
 import { Talk } from './_components/talk';
 
-const stepTitles: Record<number, string> = {
-  1: 'Call4Papers',
+const stepTitles: Record<number, React.ReactNode> = {
+  1: (
+    <>
+      Call<span className='text-primary'>4</span>Papers
+    </>
+  ),
   2: 'Sobre você',
-  3: 'Diversidade e inclusão',
-  4: 'Sobre sua participação',
+  3: 'Diversidade e inclusão (opcional)',
+  4: 'Sobre a Palestra',
   5: 'Proposta enviada!',
 };
 
