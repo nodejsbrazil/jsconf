@@ -6,8 +6,13 @@
 export const section =
   'flex flex-col gap-[1.4rem] border-b border-white/[0.06] pb-[2.8rem] mb-[1rem] last:border-b-0 last:mb-0';
 
+export const stepTitleWrapper = 'flex items-center gap-[1.5rem]';
+
 export const stepTitle =
   '!font-[var(--ifm-font-family-title)] !text-[4.2rem] max-md:!text-[3.2rem] max-sm:!text-[2.6rem] !font-bold !tracking-[-0.25rem] !text-[var(--title-color)] [text-shadow:0.25rem_0.25rem_0.5rem_var(--title-shadow-color)]';
+
+export const stepIcon =
+  'w-[3.2rem] h-[3.2rem] max-md:w-[2.6rem] max-md:h-[2.6rem] max-sm:w-[2.2rem] max-sm:h-[2.2rem] text-primary shrink-0';
 
 export const sectionHeading =
   '!font-[var(--ifm-font-family-title)] !text-[2rem] max-sm:!text-[1.7rem] !font-extrabold !text-white !leading-[1.3] mt-[0.4rem] !tracking-normal';

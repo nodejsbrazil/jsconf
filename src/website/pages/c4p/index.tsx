@@ -1,4 +1,11 @@
 import '@site/src/website/css/c4p.css';
+import {
+  CircleCheckBig,
+  Handshake,
+  MicVocal,
+  Send,
+  UserPen,
+} from 'lucide-react';
 import { Page } from '@site/src/website/components/shared/Page';
 import { About } from './_components/about';
 import { C4PProvider, useC4P } from './_components/context';
@@ -11,13 +18,38 @@ import { Talk } from './_components/talk';
 const stepTitles: Record<number, React.ReactNode> = {
   1: (
     <>
-      Call<span className='text-primary'>4</span>Papers
+      <Send className={styles.stepIcon} />
+      <span className={styles.stepTitle}>
+        Call<span className='text-primary'>4</span>Papers
+      </span>
     </>
   ),
-  2: 'Sobre você',
-  3: 'Diversidade e inclusão (opcional)',
-  4: 'Sobre a Palestra',
-  5: 'Proposta enviada!',
+  2: (
+    <>
+      <UserPen className={styles.stepIcon} />
+      <span className={styles.stepTitle}>Sobre você</span>
+    </>
+  ),
+  3: (
+    <>
+      <Handshake className={styles.stepIcon} />
+      <span className={styles.stepTitle}>
+        Diversidade e inclusão (opcional)
+      </span>
+    </>
+  ),
+  4: (
+    <>
+      <MicVocal className={styles.stepIcon} />
+      <span className={styles.stepTitle}>Sobre a Palestra</span>
+    </>
+  ),
+  5: (
+    <>
+      <CircleCheckBig className={styles.stepIcon} />
+      <span className={styles.stepTitle}>Proposta enviada!</span>
+    </>
+  ),
 };
 
 const Form = () => {
@@ -26,7 +58,7 @@ const Form = () => {
   return (
     <div className='c4p-page page-content flex w-full max-w-[128rem] flex-col items-center'>
       <div className='flex w-full flex-col gap-[0.8rem] px-[2rem] pb-[4rem] pt-[2rem] max-md:px-[1.6rem] max-md:pb-[3rem]'>
-        <h1 className={styles.stepTitle}>{stepTitles[currentStep]}</h1>
+        <h1 className={styles.stepTitleWrapper}>{stepTitles[currentStep]}</h1>
 
         {currentStep <= 4 && (
           <progress
