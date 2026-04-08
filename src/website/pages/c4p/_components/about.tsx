@@ -139,9 +139,7 @@ export const About = () => {
               updateField('state', event.currentTarget.value)
             }
           >
-            <option value='' disabled hidden>
-              UF
-            </option>
+            <option value=''></option>
             {brazilianStates.map((uf) => (
               <option key={uf} value={uf}>
                 {uf}

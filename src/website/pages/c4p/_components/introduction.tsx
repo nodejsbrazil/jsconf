@@ -50,7 +50,7 @@ export const Introduction = () => {
           {topics.map((topic) => (
             <li
               key={topic.name}
-              className={`relative py-[0.6rem] pl-[1.8rem] text-[1.4rem] before:absolute before:left-0 ${
+              className={`relative py-[0.6rem] pl-[1.8rem] text-[1.5rem] before:absolute before:left-0 ${
                 topic.preferred
                   ? 'font-bold text-white before:content-["★"] before:text-primary'
                   : 'text-white/60 before:content-["•"] before:text-white/30'

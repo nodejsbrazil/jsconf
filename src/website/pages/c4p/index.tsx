@@ -16,7 +16,7 @@ const Form = () => {
         {currentStep > 1 && currentStep <= 3 && (
           <button
             type='button'
-            className='flex cursor-pointer items-center gap-[0.5rem] self-start border-none bg-transparent py-[0.6rem] mb-[0.4rem] font-[var(--ifm-font-family-base)] text-[1.4rem] font-medium text-white/50 transition-colors duration-200 hover:text-white/80'
+            className='flex cursor-pointer items-center gap-[0.5rem] self-start border-none bg-transparent py-[0.6rem] mb-[0.4rem] font-[var(--ifm-font-family-base)] text-[1.5rem] font-medium text-white/50 transition-colors duration-200 hover:text-white/80'
             onClick={() => goToStep(currentStep - 1)}
           >
             <ArrowLeft className='w-[1.6rem] h-[1.6rem]' aria-hidden />
