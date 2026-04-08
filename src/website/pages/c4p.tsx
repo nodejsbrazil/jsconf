@@ -1,6 +1,5 @@
 import '@site/src/website/scss/pages/c4p.scss';
 import { useState } from 'react';
-import { useLocation } from '@docusaurus/router';
 import { ArrowLeft, ArrowRight, CircleCheck } from 'lucide-react';
 import {
   FaEnvelope,
@@ -137,8 +136,6 @@ const saveToStorage = (step: number, data: FormData) => {
 };
 
 export default () => {
-  const { search } = useLocation();
-  const isPreview = new URLSearchParams(search).has('preview');
   const saved = loadFromStorage();
   const [currentStep, setCurrentStep] = useState(saved.step);
   const [formData, setFormData] = useState<FormData>(saved.data);
@@ -158,18 +155,6 @@ export default () => {
     saveToStorage(step, formData);
     document.getElementById('__docusaurus')?.scrollTo(0, 0);
   };
-
-  if (!isPreview) {
-    return (
-      <Page title='Call4papers - JSConf Brasil 2026'>
-        <div className='page-content c4p-page'>
-          <div className='form-container'>
-            <h1 className='form-title'>Em Breve 🚧</h1>
-          </div>
-        </div>
-      </Page>
-    );
-  }
 
   return (
     <Page title='Call4papers - JSConf Brasil 2026'>
@@ -742,7 +727,7 @@ export default () => {
                 </p>
               </section>
 
-              <section className='section'>
+              <section className='section success-header'>
                 <h2 className='section-heading'>
                   Como os conteúdos serão avaliados?
                 </h2>
@@ -774,6 +759,22 @@ export default () => {
                   forem aprovadas.
                 </p>
               </section>
+
+              <button
+                type='button'
+                className='submit-button centered'
+                onClick={() => {
+                  updateField('duration', '');
+                  updateField('talkTitle', '');
+                  updateField('talkDescription', '');
+                  updateField('audienceLevel', '');
+                  updateField('talkReason', '');
+                  goToStep(3);
+                }}
+              >
+                <span>Enviar outra palestra</span>
+                <ArrowRight className='icon' aria-hidden />
+              </button>
             </>
           )}
         </div>
