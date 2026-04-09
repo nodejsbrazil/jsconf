@@ -3,6 +3,7 @@
 @use 'home' as *;
 @use 'speakers' as *;
 @use 'benefits' as *;
+@use 'gallery' as *;
 @use 'location' as *;
 @use 'waitlist' as *;
 @use 'ticket-selection' as *;
@@ -47,6 +48,7 @@
 
       @include home;
       @include benefits;
+      @include gallery;
       @include speakers;
       @include location;
       @include waitlist;
