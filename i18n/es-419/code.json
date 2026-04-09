@@ -63,16 +63,10 @@
     "message": "Charlas y talleres con expertos del sector, últimas novedades y tendencias en desarrollo"
   },
   "benefits.international.title": {
-    "message": "Charlas Internacionales"
+    "message": "Charlas increíbles elegidas por ti"
   },
   "benefits.international.description": {
-    "message": "Invitados de renombre mundial compartiendo conocimiento y experiencias"
-  },
-  "benefits.translators.title": {
-    "message": "Traductores"
-  },
-  "benefits.translators.description": {
-    "message": "Equipo dedicado para garantizar que el contenido sea accesible para todos, independientemente del idioma del ponente"
+    "message": "Comunidad involucrada en la elección de las mejores charlas del evento! Haciéndote parte de la conferencia con nosotros"
   },
   "benefits.networking.title": {
     "message": "Networking"
@@ -85,12 +79,6 @@
   },
   "benefits.career.description": {
     "message": "Empresas asociadas en busca de talento, con oportunidades reales de empleo y conexiones directas con reclutadores"
-  },
-  "benefits.workshops.title": {
-    "message": "Talleres Prácticos"
-  },
-  "benefits.workshops.description": {
-    "message": "Sesiones prácticas donde pones manos a la obra, aprendiendo tecnologías y herramientas de forma interactiva y aplicada"
   },
   "benefits.certificate.title": {
     "message": "Certificado de Participación"
