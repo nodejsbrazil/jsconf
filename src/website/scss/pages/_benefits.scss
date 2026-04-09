@@ -20,21 +20,13 @@
 
       .cards {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 3rem;
-
-        .card:nth-child(5) {
-          grid-column: 2;
-        }
 
         @media (max-width: 1080px) {
           grid-template-columns: repeat(2, 1fr);
           gap: 1.25rem;
           max-width: 72rem;
-
-          .card:nth-child(5) {
-            grid-column: auto;
-          }
         }
 
         @media (max-width: 429px) {
@@ -89,29 +81,29 @@
 
           // Height
           @media (min-height: 901px) {
-            @for $card from 1 through 4 {
+            @for $card from 1 through 3 {
               &:nth-child(#{$card}) {
                 animation-delay: #{0.5 + ($card - 1) * 0.15}s;
               }
             }
 
-            @for $card from 5 through 8 {
+            @for $card from 4 through 6 {
               &:nth-child(#{$card}) {
-                animation-delay: #{($card - 5) * 0.15}s;
+                animation-delay: #{($card - 4) * 0.15}s;
               }
             }
           }
 
           @media (max-height: 900px) {
-            @for $card from 1 through 4 {
+            @for $card from 1 through 3 {
               &:nth-child(#{$card}) {
                 animation-delay: #{($card - 1) * 0.15}s;
               }
             }
 
-            @for $card from 5 through 8 {
+            @for $card from 4 through 6 {
               &:nth-child(#{$card}) {
-                animation-delay: #{($card - 5) * 0.15}s;
+                animation-delay: #{($card - 4) * 0.15}s;
               }
             }
           }
