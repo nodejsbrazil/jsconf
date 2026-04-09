@@ -4,6 +4,7 @@ import { createContext, useContext, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { validateStep } from './schema';
 
+
 export const topics = [
   { name: 'Dev Tooling', preferred: true },
   { name: 'Developer Experience', preferred: true },
@@ -37,8 +38,8 @@ export const experienceOptions = [
 ] as const;
 
 export const durationOptions = [
-  { value: '0', label: '7 minutos' },
-  { value: '1', label: '20 minutos' },
+  { value: '0', label: '15 minutos' },
+  { value: '1', label: '25 minutos' },
 ] as const;
 
 export const travelOptions = [
