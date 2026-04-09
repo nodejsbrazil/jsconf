@@ -4,28 +4,22 @@ import { createContext, useContext, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { validateStep } from './schema';
 
+
 export const topics = [
   { name: 'Dev Tooling', preferred: true },
   { name: 'Developer Experience', preferred: true },
   { name: 'IA no Desenvolvimento', preferred: true },
   { name: 'Arquitetura', preferred: true },
   { name: 'DevOps', preferred: true },
-  { name: 'Liderança', preferred: true },
   { name: 'Observabilidade', preferred: true },
-  { name: 'Design Patterns', preferred: false },
-  { name: 'Qualidade de Código', preferred: false },
-  { name: 'Programação Funcional', preferred: false },
-  { name: 'Cases de Resolução de Problemas usando código', preferred: false },
-  { name: 'Teste de Software', preferred: false },
+  { name: 'Performance', preferred: true },
+  {
+    name: 'Cases Reais de Resolução de Problemas usando código',
+    preferred: true,
+  },
   { name: 'Código para Acessibilidade', preferred: false },
-  { name: 'Cloud e Escalabilidade', preferred: false },
   { name: 'Open Source', preferred: false },
-  { name: 'Metodologias Ágeis', preferred: false },
-  { name: 'Roadmap de Carreira', preferred: false },
   { name: 'Design System', preferred: false },
-  { name: 'Inclusão no Mercado de Tecnologia', preferred: false },
-  { name: 'Soft Skills', preferred: false },
-  { name: 'Recrutamento e Seleção', preferred: false },
   { name: 'Segurança no Desenvolvimento', preferred: false },
 ];
 
