@@ -37,8 +37,8 @@ export const experienceOptions = [
 ] as const;
 
 export const durationOptions = [
-  { value: '0', label: '15 minutos' },
-  { value: '1', label: '25 minutos' },
+  { value: '0', labelId: 'c4p.talk.duration.15min' },
+  { value: '1', labelId: 'c4p.talk.duration.25min' },
 ] as const;
 
 export const travelOptions = [
@@ -83,10 +83,10 @@ export const disabilityOptions = [
 ] as const;
 
 export const audienceLevels = [
-  { value: '0', label: 'Todos os níveis' },
-  { value: '1', label: 'Júnior' },
-  { value: '2', label: 'Pleno' },
-  { value: '3', label: 'Sênior' },
+  { value: '0', labelId: 'c4p.talk.audience.all' },
+  { value: '1', labelId: 'c4p.talk.audience.junior' },
+  { value: '2', labelId: 'c4p.talk.audience.mid' },
+  { value: '3', labelId: 'c4p.talk.audience.senior' },
 ] as const;
 
 export const brazilianStates = [
