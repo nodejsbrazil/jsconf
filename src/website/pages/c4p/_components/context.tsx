@@ -4,7 +4,6 @@ import { createContext, useContext, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { validateStep } from './schema';
 
-
 export const topics = [
   { name: 'Dev Tooling', preferred: true },
   { name: 'Developer Experience', preferred: true },
