@@ -2,8 +2,6 @@ import type { CardProps } from '../shared/Cards';
 import {
   BadgeCheck,
   Earth,
-  GraduationCap,
-  Languages,
   Rocket,
   Sparkles,
   SquareCheckBig,
@@ -24,11 +22,6 @@ const benefits: CardProps[] = [
     description: <Text id='benefits.international.description' />,
   },
   {
-    icon: <Languages />,
-    title: <Text id='benefits.translators.title' />,
-    description: <Text id='benefits.translators.description' />,
-  },
-  {
     icon: <Users />,
     title: <Text id='benefits.networking.title' />,
     description: <Text id='benefits.networking.description' />,
@@ -37,11 +30,6 @@ const benefits: CardProps[] = [
     icon: <Rocket />,
     title: <Text id='benefits.career.title' />,
     description: <Text id='benefits.career.description' />,
-  },
-  {
-    icon: <GraduationCap />,
-    title: <Text id='benefits.workshops.title' />,
-    description: <Text id='benefits.workshops.description' />,
   },
   {
     icon: <BadgeCheck />,

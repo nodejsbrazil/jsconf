@@ -63,16 +63,10 @@
     "message": "Talks and workshops with industry experts, latest news and trends in development"
   },
   "benefits.international.title": {
-    "message": "International Talks"
+    "message": "Amazing Talks Chosen by You"
   },
   "benefits.international.description": {
-    "message": "World-renowned guests sharing knowledge and experiences"
-  },
-  "benefits.translators.title": {
-    "message": "Translators"
-  },
-  "benefits.translators.description": {
-    "message": "Dedicated team to ensure content is accessible to everyone, regardless of the speaker's language"
+    "message": "Community involved in choosing the best talks for the event! Making you part of the conference with us"
   },
   "benefits.networking.title": {
     "message": "Networking"
@@ -85,12 +79,6 @@
   },
   "benefits.career.description": {
     "message": "Partner companies looking for talent, with real job opportunities and direct connections with recruiters"
-  },
-  "benefits.workshops.title": {
-    "message": "Hands-on Workshops"
-  },
-  "benefits.workshops.description": {
-    "message": "Practical sessions where you get hands-on, learning technologies and tools in an interactive and applied way"
   },
   "benefits.certificate.title": {
     "message": "Participation Certificate"
