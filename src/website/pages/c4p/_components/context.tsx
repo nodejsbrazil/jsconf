@@ -4,7 +4,6 @@ import { createContext, useContext, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { validateStep } from './schema';
 
-
 export const topics = [
   { name: 'Dev Tooling', preferred: true },
   { name: 'Developer Experience', preferred: true },
@@ -31,8 +30,8 @@ export const experienceOptions = [
 ] as const;
 
 export const durationOptions = [
-  { value: '0', labelId: 'c4p.talk.duration.15min' },
-  { value: '1', labelId: 'c4p.talk.duration.25min' },
+  { value: '0', label: '15 minutos' },
+  { value: '1', label: '25 minutos' },
 ] as const;
 
 export const travelOptions = [
@@ -77,10 +76,10 @@ export const disabilityOptions = [
 ] as const;
 
 export const audienceLevels = [
-  { value: '0', labelId: 'c4p.talk.audience.all' },
-  { value: '1', labelId: 'c4p.talk.audience.junior' },
-  { value: '2', labelId: 'c4p.talk.audience.mid' },
-  { value: '3', labelId: 'c4p.talk.audience.senior' },
+  { value: '0', label: 'Todos os níveis' },
+  { value: '1', label: 'Júnior' },
+  { value: '2', label: 'Pleno' },
+  { value: '3', label: 'Sênior' },
 ] as const;
 
 export const brazilianStates = [

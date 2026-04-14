@@ -3,7 +3,6 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FaHeading } from 'react-icons/fa6';
 import { toast } from 'sonner';
-import { Text, text } from '@site/src/website/components/shared/i18n';
 import { audienceLevels, durationOptions, toBadge, useC4P } from './context';
 import { FieldStatus } from './field-status';
 import * as styles from './styles';
@@ -23,7 +22,7 @@ export const Talk = () => {
         if (!validate() || submitting.current) return;
 
         if (typeof workerDomain !== 'string') {
-          toast.error(text({ id: 'c4p.talk.error.configUnavailable' }));
+          toast.error('Configuração indisponível. Tente novamente mais tarde.');
           return;
         }
 
@@ -42,15 +41,15 @@ export const Talk = () => {
             } | null;
             const message =
               data?.error === 'Talk limit exceeded.'
-                ? text({ id: 'c4p.talk.error.talkLimitExceeded' })
-                : text({ id: 'c4p.talk.error.submitFailed' });
+                ? 'Você já atingiu o limite de 3 palestras.'
+                : 'Erro ao enviar proposta. Tente novamente.';
             toast.error(message);
             return;
           }
 
           goToStep(5);
         } catch {
-          toast.error(text({ id: 'c4p.talk.error.submitFailed' }));
+          toast.error('Erro ao enviar proposta. Tente novamente.');
         } finally {
           submitting.current = false;
         }
@@ -70,18 +69,17 @@ export const Talk = () => {
       />
       <section className={styles.section}>
         <div className={styles.field}>
-          <h3 className={styles.fieldLabel}>
-            <Text id='c4p.talk.contentType.title' />
-          </h3>
+          <h3 className={styles.fieldLabel}>Tipo de conteúdo</h3>
           <p className={styles.fieldDescription}>
-            <Text id='c4p.talk.contentType.description' />
+            O formato dos conteúdos será em palestras de 15 ou 25 minutos.
+            Escolha o tempo de duração que você considera mais adequado para a
+            sua proposta.
           </p>
         </div>
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            <Text id='c4p.talk.duration.label' />{' '}
-            <FieldStatus field='duration' />
+            Tempo de duração <FieldStatus field='duration' />
           </h3>
           <div className={styles.radioGroup}>
             {durationOptions.map((option, index) => (
@@ -107,7 +105,7 @@ export const Talk = () => {
                     validateField('duration');
                   }}
                 />
-                <span>{text({ id: option.labelId })}</span>
+                <span>{option.label}</span>
               </label>
             ))}
           </div>
@@ -117,7 +115,7 @@ export const Talk = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            <Text id='c4p.talk.title.label' /> <FieldStatus field='talkTitle' />
+            Título <FieldStatus field='talkTitle' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaHeading
@@ -126,7 +124,7 @@ export const Talk = () => {
             />
             <input
               type='text'
-              aria-label={text({ id: 'c4p.talk.title.label' })}
+              aria-label='Título'
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.talkTitle)} ${errors['talkTitle'] ? styles.inputError : ''}`}
               value={formData.talkTitle}
@@ -142,14 +140,14 @@ export const Talk = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            <Text id='c4p.talk.description.label' />{' '}
-            <FieldStatus field='talkDescription' />
+            Descrição <FieldStatus field='talkDescription' />
           </h3>
           <p className={styles.fieldDescription}>
-            <Text id='c4p.talk.description.hint' />
+            Forneça um resumo do seu conteúdo. Essa informação será usada em
+            nosso site para divulgação da sua palestra.
           </p>
           <textarea
-            aria-label={text({ id: 'c4p.talk.description.label' })}
+            aria-label='Descrição'
             aria-required='true'
             className={`${styles.textarea(!!formData.talkDescription)} ${errors['talkDescription'] ? styles.inputError : ''}`}
             value={formData.talkDescription}
@@ -164,8 +162,7 @@ export const Talk = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            <Text id='c4p.talk.audience.label' />{' '}
-            <FieldStatus field='audienceLevel' />
+            Para quem é este conteúdo? <FieldStatus field='audienceLevel' />
           </h3>
           <div className={styles.radioGroup}>
             {audienceLevels.map((option, index) => (
@@ -193,7 +190,7 @@ export const Talk = () => {
                     validateField('audienceLevel');
                   }}
                 />
-                <span>{text({ id: option.labelId })}</span>
+                <span>{option.label}</span>
               </label>
             ))}
           </div>
@@ -203,11 +200,11 @@ export const Talk = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            <Text id='c4p.talk.reason.label' />{' '}
+            Por que deveríamos considerar este conteúdo na JSConf Brasil?{' '}
             <FieldStatus field='talkReason' />
           </h3>
           <textarea
-            aria-label={text({ id: 'c4p.talk.reason.label' })}
+            aria-label='Por que deveríamos considerar este conteúdo na JSConf Brasil?'
             aria-required='true'
             className={`${styles.textarea(!!formData.talkReason)} ${errors['talkReason'] ? styles.inputError : ''}`}
             value={formData.talkReason}
@@ -226,14 +223,10 @@ export const Talk = () => {
           onClick={() => goToStep(3)}
         >
           <ArrowLeft className='h-[1.6rem] w-[1.6rem]' aria-hidden />
-          <span>
-            <Text id='c4p.talk.back' />
-          </span>
+          <span>Voltar</span>
         </button>
         <button type='submit' className={styles.submitButton}>
-          <span>
-            <Text id='c4p.talk.submit' />
-          </span>
+          <span>Finalizar</span>
           <ArrowRight className={styles.submitIcon} aria-hidden />
         </button>
       </div>
