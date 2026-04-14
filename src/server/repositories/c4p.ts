@@ -1,7 +1,5 @@
 import type { Database } from '../types.js';
 import { z } from 'zod';
-import { encrypt } from '../helpers/crypto.js';
-import { hash } from '../helpers/hash.js';
 
 export type C4P = ReturnType<typeof c4p>;
 
@@ -18,7 +16,7 @@ const optionalIntEnum = (max: number, defaultValue: number) =>
     z.coerce.number().int().min(0).max(max)
   );
 
-export const c4p = (database: Database, encryptionKey: string) => {
+export const c4p = (database: Database) => {
   const talkLimit = 3;
 
   const schema = z.object({
@@ -55,18 +53,12 @@ export const c4p = (database: Database, encryptionKey: string) => {
     ip: string
   ): Promise<SubmitResult> => {
     try {
-      const normalizedEmail = data.email.toLowerCase();
-      const emailHash = await hash(normalizedEmail);
-      const encryptedEmail = await encrypt(normalizedEmail, encryptionKey);
-      const encryptedPhone = await encrypt(data.phone, encryptionKey);
-
       await database
         .prepare(
-          `INSERT INTO speakers (name, email, email_hash, phone, city, state, travel_pref, linkedin, instagram, youtube, github, website, experience, bio, ip)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-           ON CONFLICT(email_hash) DO UPDATE SET
+          `INSERT INTO speakers (name, email, phone, city, state, travel_pref, linkedin, instagram, youtube, github, website, experience, bio, ip)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+           ON CONFLICT(email) DO UPDATE SET
              name = excluded.name,
-             email = excluded.email,
              phone = excluded.phone,
              city = excluded.city,
              state = excluded.state,
@@ -83,9 +75,8 @@ export const c4p = (database: Database, encryptionKey: string) => {
         )
         .bind(
           data.name,
-          encryptedEmail,
-          emailHash,
-          encryptedPhone,
+          data.email,
+          data.phone,
           data.city,
           data.state,
           data.travelPreference,
@@ -101,8 +92,8 @@ export const c4p = (database: Database, encryptionKey: string) => {
         .run();
 
       const { results: speakers } = await database
-        .prepare('SELECT id FROM speakers WHERE email_hash = ?')
-        .bind(emailHash)
+        .prepare('SELECT id FROM speakers WHERE email = ?')
+        .bind(data.email)
         .all<{ id: number }>();
 
       const speakerId = speakers[0]?.id;
