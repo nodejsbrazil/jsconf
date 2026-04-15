@@ -3,9 +3,14 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FaHeading } from 'react-icons/fa6';
 import { toast } from 'sonner';
-import { audienceLevels, durationOptions, toBadge, useC4P } from './context';
+import {
+  audienceLevels,
+  durationOptions,
+  toBadge,
+  useC4P,
+} from '../../../contexts/c4p';
+import * as styles from '../styles';
 import { FieldStatus } from './field-status';
-import * as styles from './styles';
 
 export const Talk = () => {
   const { siteConfig } = useDocusaurusContext();

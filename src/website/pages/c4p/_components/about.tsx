@@ -16,9 +16,9 @@ import {
   toBadge,
   travelOptions,
   useC4P,
-} from './context';
+} from '../../../contexts/c4p';
+import * as styles from '../styles';
 import { FieldStatus } from './field-status';
-import * as styles from './styles';
 
 export const About = () => {
   const { formData, errors, updateField, goToStep, validate, validateField } =

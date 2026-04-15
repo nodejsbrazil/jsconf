@@ -1,6 +1,6 @@
 import { Check, X } from 'lucide-react';
-import { useC4P } from './context';
-import * as styles from './styles';
+import { useC4P } from '../../../contexts/c4p';
+import * as styles from '../styles';
 
 export const FieldStatus = ({ field }: { field: string }) => {
   const { formData, errors, touched } = useC4P();

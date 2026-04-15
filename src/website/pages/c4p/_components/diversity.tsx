@@ -6,8 +6,8 @@ import {
   raceOptions,
   toBadge,
   useC4P,
-} from './context';
-import * as styles from './styles';
+} from '../../../contexts/c4p';
+import * as styles from '../styles';
 
 export const Diversity = () => {
   const { formData, updateField, goToStep } = useC4P();

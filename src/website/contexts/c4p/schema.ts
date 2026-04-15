@@ -39,12 +39,16 @@ export const validateStep = (
 ): StepErrors => {
   const schema = stepSchemas[step as keyof typeof stepSchemas];
   if (!schema) return {};
+
   const result = schema.safeParse(data);
   if (result.success) return {};
+
   const errors: StepErrors = {};
+
   for (const issue of result.error.issues) {
     const field = issue.path[0];
     if (field && !errors[String(field)]) errors[String(field)] = issue.message;
   }
+
   return errors;
 };

@@ -7,13 +7,13 @@ import {
   UserPen,
 } from 'lucide-react';
 import { Page } from '@site/src/website/components/shared/Page';
+import { C4PProvider, useC4P } from '../../contexts/c4p';
 import { About } from './_components/about';
-import { C4PProvider, useC4P } from './_components/context';
 import { Diversity } from './_components/diversity';
 import { Introduction } from './_components/introduction';
-import * as styles from './_components/styles';
 import { Success } from './_components/success';
 import { Talk } from './_components/talk';
+import * as styles from './styles';
 
 const stepTitles: Record<number, React.ReactNode> = {
   1: (
