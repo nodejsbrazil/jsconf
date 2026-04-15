@@ -1,3 +1,5 @@
+import type { SubmitEvent } from 'react';
+import type { FormData } from '../../../contexts/c4p';
 import Link from '@docusaurus/Link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import {
@@ -12,19 +14,24 @@ import * as styles from '../styles';
 export const Diversity = () => {
   const { formData, updateField, goToStep } = useC4P();
 
+  const handleSubmit = (event: SubmitEvent) => {
+    event.preventDefault();
+
+    if (!formData.gender) updateField('gender', genderOptions.at(-1)!.value);
+    if (!formData.race) updateField('race', raceOptions.at(-1)!.value);
+    if (!formData.disability)
+      updateField('disability', disabilityOptions.at(-1)!.value);
+
+    goToStep(4);
+  };
+
+  const handleRadioChange = (field: keyof FormData, value: string) => () =>
+    updateField(field, value);
+
+  const handleBack = () => goToStep(2);
+
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (!formData.gender)
-          updateField('gender', genderOptions.at(-1)!.value);
-        if (!formData.race) updateField('race', raceOptions.at(-1)!.value);
-        if (!formData.disability)
-          updateField('disability', disabilityOptions.at(-1)!.value);
-        goToStep(4);
-      }}
-      className='flex flex-col gap-[0.8rem]'
-    >
+    <form onSubmit={handleSubmit} className='flex flex-col gap-[0.8rem]'>
       <section className={styles.section}>
         <p className={styles.paragraph}>
           A JSConf Brasil busca sempre pela diversidade, inclusão e
@@ -67,7 +74,7 @@ export const Diversity = () => {
                   className={styles.radioHidden}
                   value={option.value}
                   checked={formData.gender === option.value}
-                  onChange={() => updateField('gender', option.value)}
+                  onChange={handleRadioChange('gender', option.value)}
                 />
                 <span>{option.label}</span>
               </label>
@@ -96,7 +103,7 @@ export const Diversity = () => {
                   className={styles.radioHidden}
                   value={option.value}
                   checked={formData.race === option.value}
-                  onChange={() => updateField('race', option.value)}
+                  onChange={handleRadioChange('race', option.value)}
                 />
                 <span>{option.label}</span>
               </label>
@@ -130,7 +137,7 @@ export const Diversity = () => {
                   className={styles.radioHidden}
                   value={option.value}
                   checked={formData.disability === option.value}
-                  onChange={() => updateField('disability', option.value)}
+                  onChange={handleRadioChange('disability', option.value)}
                 />
                 <span>{option.label}</span>
               </label>
@@ -143,7 +150,7 @@ export const Diversity = () => {
         <button
           type='button'
           className={styles.backButton}
-          onClick={() => goToStep(2)}
+          onClick={handleBack}
         >
           <ArrowLeft className='h-[1.6rem] w-[1.6rem]' aria-hidden />
           <span>Voltar</span>

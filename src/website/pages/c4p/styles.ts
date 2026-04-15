@@ -1,7 +1,7 @@
-// Note: project uses font-size: 62.5% on :root, so 1rem = 10px.
-// Tailwind default spacing/sizes assume 1rem = 16px.
-// All sizes here use explicit rem values via arbitrary syntax.
-// Font sizes and weights match the Home page (_base.scss, _benefits.scss).
+/**
+ * Project uses font-size: 62.5% on :root, so 1rem = 10px.
+ * Font sizes and weights match the Home page (_base.scss, _benefits.scss).
+ */
 
 export const section =
   'flex flex-col gap-[1.4rem] border-b border-white/[0.06] pb-[2.8rem] mb-[1rem] last:border-b-0 last:mb-0';

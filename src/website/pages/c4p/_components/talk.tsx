@@ -1,3 +1,5 @@
+import type { ChangeEvent, SubmitEvent } from 'react';
+import type { FormData } from '../../../contexts/c4p';
 import { useRef, useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -20,54 +22,70 @@ export const Talk = () => {
   const submitting = useRef(false);
   const [honeypot, setHoneypot] = useState('');
 
+  const handleSubmit = async (event: SubmitEvent) => {
+    event.preventDefault();
+    if (!validate() || submitting.current) return;
+
+    if (typeof workerDomain !== 'string') {
+      toast.error('Configuração indisponível. Tente novamente mais tarde.');
+      return;
+    }
+
+    submitting.current = true;
+
+    try {
+      const response = await fetch(`${workerDomain}/api/c4p`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, confirm_email: honeypot }),
+      });
+
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+        const message =
+          data?.error === 'Talk limit exceeded.'
+            ? 'Você já atingiu o limite de 3 palestras.'
+            : 'Erro ao enviar proposta. Tente novamente.';
+        toast.error(message);
+        return;
+      }
+
+      goToStep(5);
+    } catch {
+      toast.error('Erro ao enviar proposta. Tente novamente.');
+    } finally {
+      submitting.current = false;
+    }
+  };
+
+  const handleHoneypotChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setHoneypot(event.currentTarget.value);
+
+  const handleChange =
+    (field: keyof FormData) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      updateField(field, event.currentTarget.value);
+
+  const handleBlur = (field: keyof FormData) => () => validateField(field);
+
+  const handleRadioChange = (field: keyof FormData, value: string) => () => {
+    updateField(field, value);
+    validateField(field);
+  };
+
+  const handleBack = () => goToStep(3);
+
   return (
-    <form
-      onSubmit={async (event) => {
-        event.preventDefault();
-        if (!validate() || submitting.current) return;
-
-        if (typeof workerDomain !== 'string') {
-          toast.error('Configuração indisponível. Tente novamente mais tarde.');
-          return;
-        }
-
-        submitting.current = true;
-
-        try {
-          const response = await fetch(`${workerDomain}/api/c4p`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...formData, confirm_email: honeypot }),
-          });
-
-          if (!response.ok) {
-            const data = (await response.json().catch(() => null)) as {
-              error?: string;
-            } | null;
-            const message =
-              data?.error === 'Talk limit exceeded.'
-                ? 'Você já atingiu o limite de 3 palestras.'
-                : 'Erro ao enviar proposta. Tente novamente.';
-            toast.error(message);
-            return;
-          }
-
-          goToStep(5);
-        } catch {
-          toast.error('Erro ao enviar proposta. Tente novamente.');
-        } finally {
-          submitting.current = false;
-        }
-      }}
-      className='flex flex-col gap-[0.8rem]'
-    >
+    <form onSubmit={handleSubmit} className='flex flex-col gap-[0.8rem]'>
       {/* Bot Honeypot */}
       <input
         type='text'
         name='confirm_email'
         className='c4p-confirm'
         value={honeypot}
-        onChange={(event) => setHoneypot(event.currentTarget.value)}
+        onChange={handleHoneypotChange}
         tabIndex={-1}
         autoComplete='off'
         aria-hidden='true'
@@ -105,10 +123,7 @@ export const Talk = () => {
                   className={styles.radioHidden}
                   value={option.value}
                   checked={formData.duration === option.value}
-                  onChange={() => {
-                    updateField('duration', option.value);
-                    validateField('duration');
-                  }}
+                  onChange={handleRadioChange('duration', option.value)}
                 />
                 <span>{option.label}</span>
               </label>
@@ -133,10 +148,8 @@ export const Talk = () => {
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.talkTitle)} ${errors['talkTitle'] ? styles.inputError : ''}`}
               value={formData.talkTitle}
-              onChange={(event) =>
-                updateField('talkTitle', event.currentTarget.value)
-              }
-              onBlur={() => validateField('talkTitle')}
+              onChange={handleChange('talkTitle')}
+              onBlur={handleBlur('talkTitle')}
             />
           </div>
         </div>
@@ -156,10 +169,8 @@ export const Talk = () => {
             aria-required='true'
             className={`${styles.textarea(!!formData.talkDescription)} ${errors['talkDescription'] ? styles.inputError : ''}`}
             value={formData.talkDescription}
-            onChange={(event) =>
-              updateField('talkDescription', event.currentTarget.value)
-            }
-            onBlur={() => validateField('talkDescription')}
+            onChange={handleChange('talkDescription')}
+            onBlur={handleBlur('talkDescription')}
           />
         </div>
       </section>
@@ -190,10 +201,7 @@ export const Talk = () => {
                   className={styles.radioHidden}
                   value={option.value}
                   checked={formData.audienceLevel === option.value}
-                  onChange={() => {
-                    updateField('audienceLevel', option.value);
-                    validateField('audienceLevel');
-                  }}
+                  onChange={handleRadioChange('audienceLevel', option.value)}
                 />
                 <span>{option.label}</span>
               </label>
@@ -213,10 +221,8 @@ export const Talk = () => {
             aria-required='true'
             className={`${styles.textarea(!!formData.talkReason)} ${errors['talkReason'] ? styles.inputError : ''}`}
             value={formData.talkReason}
-            onChange={(event) =>
-              updateField('talkReason', event.currentTarget.value)
-            }
-            onBlur={() => validateField('talkReason')}
+            onChange={handleChange('talkReason')}
+            onBlur={handleBlur('talkReason')}
           />
         </div>
       </section>
@@ -225,7 +231,7 @@ export const Talk = () => {
         <button
           type='button'
           className={styles.backButton}
-          onClick={() => goToStep(3)}
+          onClick={handleBack}
         >
           <ArrowLeft className='h-[1.6rem] w-[1.6rem]' aria-hidden />
           <span>Voltar</span>

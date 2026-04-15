@@ -5,6 +5,15 @@ import * as styles from '../styles';
 export const Success = () => {
   const { updateField, goToStep } = useC4P();
 
+  const handleSubmitAnother = () => {
+    updateField('duration', '');
+    updateField('talkTitle', '');
+    updateField('talkDescription', '');
+    updateField('audienceLevel', '');
+    updateField('talkReason', '');
+    goToStep(4);
+  };
+
   return (
     <>
       <section className={styles.section}>
@@ -52,14 +61,7 @@ export const Success = () => {
       <button
         type='button'
         className={styles.submitButton}
-        onClick={() => {
-          updateField('duration', '');
-          updateField('talkTitle', '');
-          updateField('talkDescription', '');
-          updateField('audienceLevel', '');
-          updateField('talkReason', '');
-          goToStep(4);
-        }}
+        onClick={handleSubmitAnother}
       >
         <span>Enviar outra palestra</span>
         <ArrowRight className={styles.submitIcon} aria-hidden />

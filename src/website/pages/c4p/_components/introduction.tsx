@@ -6,6 +6,14 @@ import * as styles from '../styles';
 export const Introduction = () => {
   const { goToStep } = useC4P();
 
+  const handleContinue = () => {
+    toast.success('Seus dados ficam salvos no navegador.', {
+      description: 'Você pode continuar de onde parou a qualquer momento.',
+    });
+
+    goToStep(2);
+  };
+
   return (
     <>
       <section className={styles.section}>
@@ -72,13 +80,7 @@ export const Introduction = () => {
       <button
         type='button'
         className={styles.submitButton}
-        onClick={() => {
-          toast.success('Seus dados ficam salvos no navegador.', {
-            description:
-              'Você pode continuar de onde parou a qualquer momento.',
-          });
-          goToStep(2);
-        }}
+        onClick={handleContinue}
       >
         <span>Continuar</span>
         <ArrowRight className={styles.submitIcon} aria-hidden />

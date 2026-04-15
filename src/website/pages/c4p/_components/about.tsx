@@ -1,3 +1,5 @@
+import type { ChangeEvent, SubmitEvent } from 'react';
+import type { FormData } from '../../../contexts/c4p';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import {
   FaEnvelope,
@@ -24,14 +26,32 @@ export const About = () => {
   const { formData, errors, updateField, goToStep, validate, validateField } =
     useC4P();
 
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (validate()) goToStep(3);
+  };
+
+  const handleChange =
+    (field: keyof FormData) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      updateField(field, event.currentTarget.value);
+
+  const handleBlur = (field: keyof FormData) => () => validateField(field);
+
+  const handleStateChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    updateField('state', event.currentTarget.value);
+    validateField('state');
+  };
+
+  const handleRadioChange = (field: keyof FormData, value: string) => () => {
+    updateField(field, value);
+    validateField(field);
+  };
+
+  const handleBack = () => goToStep(1);
+
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (validate()) goToStep(3);
-      }}
-      className='flex flex-col gap-[0.8rem]'
-    >
+    <form onSubmit={handleSubmit} className='flex flex-col gap-[0.8rem]'>
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
@@ -48,10 +68,8 @@ export const About = () => {
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.name)} ${errors['name'] ? styles.inputError : ''}`}
               value={formData.name}
-              onChange={(event) =>
-                updateField('name', event.currentTarget.value)
-              }
-              onBlur={() => validateField('name')}
+              onChange={handleChange('name')}
+              onBlur={handleBlur('name')}
             />
           </div>
         </div>
@@ -71,10 +89,8 @@ export const About = () => {
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.email)} ${errors['email'] ? styles.inputError : ''}`}
               value={formData.email}
-              onChange={(event) =>
-                updateField('email', event.currentTarget.value)
-              }
-              onBlur={() => validateField('email')}
+              onChange={handleChange('email')}
+              onBlur={handleBlur('email')}
             />
           </div>
         </div>
@@ -94,10 +110,8 @@ export const About = () => {
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.phone)} ${errors['phone'] ? styles.inputError : ''}`}
               value={formData.phone}
-              onChange={(event) =>
-                updateField('phone', event.currentTarget.value)
-              }
-              onBlur={() => validateField('phone')}
+              onChange={handleChange('phone')}
+              onBlur={handleBlur('phone')}
             />
           </div>
         </div>
@@ -117,10 +131,8 @@ export const About = () => {
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.city)} ${errors['city'] ? styles.inputError : ''}`}
               value={formData.city}
-              onChange={(event) =>
-                updateField('city', event.currentTarget.value)
-              }
-              onBlur={() => validateField('city')}
+              onChange={handleChange('city')}
+              onBlur={handleBlur('city')}
             />
           </div>
         </div>
@@ -134,11 +146,8 @@ export const About = () => {
             aria-required='true'
             className={`${styles.selectInput(!!formData.state)} w-[10rem] ${errors['state'] ? styles.inputError : ''}`}
             value={formData.state}
-            onChange={(event) => {
-              updateField('state', event.currentTarget.value);
-              validateField('state');
-            }}
-            onBlur={() => validateField('state')}
+            onChange={handleStateChange}
+            onBlur={handleBlur('state')}
           >
             <option value='' />
             {brazilianStates.map((uf) => (
@@ -182,10 +191,7 @@ export const About = () => {
                   className={styles.radioHidden}
                   value={option.value}
                   checked={formData.travelPreference === option.value}
-                  onChange={() => {
-                    updateField('travelPreference', option.value);
-                    validateField('travelPreference');
-                  }}
+                  onChange={handleRadioChange('travelPreference', option.value)}
                 />
                 <span>{option.label}</span>
               </label>
@@ -206,9 +212,7 @@ export const About = () => {
               aria-label='LinkedIn'
               className={styles.inputWithIconInput(!!formData.linkedin)}
               value={formData.linkedin}
-              onChange={(event) =>
-                updateField('linkedin', event.currentTarget.value)
-              }
+              onChange={handleChange('linkedin')}
             />
           </div>
         </div>
@@ -222,9 +226,7 @@ export const About = () => {
               aria-label='Instagram'
               className={styles.inputWithIconInput(!!formData.instagram)}
               value={formData.instagram}
-              onChange={(event) =>
-                updateField('instagram', event.currentTarget.value)
-              }
+              onChange={handleChange('instagram')}
             />
           </div>
         </div>
@@ -238,9 +240,7 @@ export const About = () => {
               aria-label='YouTube'
               className={styles.inputWithIconInput(!!formData.youtube)}
               value={formData.youtube}
-              onChange={(event) =>
-                updateField('youtube', event.currentTarget.value)
-              }
+              onChange={handleChange('youtube')}
             />
           </div>
         </div>
@@ -254,9 +254,7 @@ export const About = () => {
               aria-label='GitHub'
               className={styles.inputWithIconInput(!!formData.github)}
               value={formData.github}
-              onChange={(event) =>
-                updateField('github', event.currentTarget.value)
-              }
+              onChange={handleChange('github')}
             />
           </div>
         </div>
@@ -270,9 +268,7 @@ export const About = () => {
               aria-label='Site Pessoal'
               className={styles.inputWithIconInput(!!formData.website)}
               value={formData.website}
-              onChange={(event) =>
-                updateField('website', event.currentTarget.value)
-              }
+              onChange={handleChange('website')}
             />
           </div>
         </div>
@@ -304,10 +300,7 @@ export const About = () => {
                   className={styles.radioHidden}
                   value={option.value}
                   checked={formData.experienceLevel === option.value}
-                  onChange={() => {
-                    updateField('experienceLevel', option.value);
-                    validateField('experienceLevel');
-                  }}
+                  onChange={handleRadioChange('experienceLevel', option.value)}
                 />
                 <span>{option.label}</span>
               </label>
@@ -333,8 +326,8 @@ export const About = () => {
             maxLength={280}
             className={`${styles.textarea(!!formData.bio)} ${errors['bio'] ? styles.inputError : ''}`}
             value={formData.bio}
-            onChange={(event) => updateField('bio', event.currentTarget.value)}
-            onBlur={() => validateField('bio')}
+            onChange={handleChange('bio')}
+            onBlur={handleBlur('bio')}
           />
         </div>
       </section>
@@ -343,7 +336,7 @@ export const About = () => {
         <button
           type='button'
           className={styles.backButton}
-          onClick={() => goToStep(1)}
+          onClick={handleBack}
         >
           <ArrowLeft className='h-[1.6rem] w-[1.6rem]' aria-hidden />
           <span>Voltar</span>
