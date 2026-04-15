@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
+import * as styles from '../_styles';
 import { useC4P } from '../../../contexts/c4p';
-import * as styles from '../styles';
 
 export const Success = () => {
   const { updateField, goToStep } = useC4P();

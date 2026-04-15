@@ -12,6 +12,7 @@ import {
   FaUser,
   FaYoutube,
 } from 'react-icons/fa6';
+import * as styles from '../_styles';
 import {
   brazilianStates,
   experienceOptions,
@@ -19,7 +20,6 @@ import {
   travelOptions,
   useC4P,
 } from '../../../contexts/c4p';
-import * as styles from '../styles';
 import { FieldStatus } from './field-status';
 
 export const About = () => {

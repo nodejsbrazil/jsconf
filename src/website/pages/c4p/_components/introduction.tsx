@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
+import * as styles from '../_styles';
 import { topics, useC4P } from '../../../contexts/c4p';
-import * as styles from '../styles';
 
 export const Introduction = () => {
   const { goToStep } = useC4P();

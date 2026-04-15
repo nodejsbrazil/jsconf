@@ -13,7 +13,7 @@ import { Diversity } from './_components/diversity';
 import { Introduction } from './_components/introduction';
 import { Success } from './_components/success';
 import { Talk } from './_components/talk';
-import * as styles from './styles';
+import * as styles from './_styles';
 
 const stepTitles: Record<number, React.ReactNode> = {
   1: (

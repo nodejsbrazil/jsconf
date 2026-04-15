@@ -2,6 +2,7 @@ import type { SubmitEvent } from 'react';
 import type { FormData } from '../../../contexts/c4p';
 import Link from '@docusaurus/Link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import * as styles from '../_styles';
 import {
   disabilityOptions,
   genderOptions,
@@ -9,7 +10,6 @@ import {
   toBadge,
   useC4P,
 } from '../../../contexts/c4p';
-import * as styles from '../styles';
 
 export const Diversity = () => {
   const { formData, updateField, goToStep } = useC4P();
