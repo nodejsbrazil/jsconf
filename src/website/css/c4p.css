@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #8df822;
+  --color-primary-dark: #0a8d1b;
+  --color-primary-light: #17ae2b;
+  --color-required: #35ff03;
+}
+
+#root:has(.c4p-page) {
+  background-color: #0f1816;
+}
+
+#root:has(.c4p-page) .bg {
+  display: none;
+}
+
+.c4p-confirm {
+  position: absolute;
+  left: -9999rem;
+}
