@@ -45,7 +45,6 @@ export const extractUserData = (
 
   const created = typeof session.created === 'number' ? session.created : 0;
   const ticketType = created <= EARLY_BIRD_CUTOFF ? 2 : 1;
-  if (ticketType === 0) return null;
 
   const rawQuantity = session.metadata?.['quantity'];
   const quantity = rawQuantity ? parseInt(rawQuantity, 10) : 1;

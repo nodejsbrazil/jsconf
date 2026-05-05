@@ -2,7 +2,7 @@ import { writeFileSync } from 'node:fs';
 import Stripe from 'stripe';
 import { createStripeClient } from '../src/server/configs/stripe.js';
 
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+const STRIPE_SECRET_KEY = process.env['STRIPE_SECRET_KEY'];
 
 if (!STRIPE_SECRET_KEY) {
   console.error('Error: STRIPE_SECRET_KEY environment variable is not set.');
@@ -47,10 +47,10 @@ async function main() {
   );
 
   const sessionsWithQuantity = paymentIntents.filter(
-    (pi) => pi.metadata?.quantity
+    (pi) => pi.metadata?.['quantity']
   );
   const totalTickets = sessionsWithQuantity.reduce(
-    (sum, pi) => sum + parseInt(pi.metadata.quantity || '1', 10),
+    (sum, pi) => sum + parseInt(pi.metadata['quantity'] || '1', 10),
     0
   );
 

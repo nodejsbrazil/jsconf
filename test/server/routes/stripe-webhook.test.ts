@@ -150,12 +150,10 @@ describe('stripe webhook', async () => {
 
     await it('inserts user with quantity for early bird checkout', async () => {
       let insertSql = '';
-      let bindValues: unknown[] = [];
       const mockDb = {
         prepare: (sql: string) => ({
-          bind: (...values: unknown[]) => {
+          bind: (..._values: unknown[]) => {
             insertSql = sql;
-            bindValues = values;
             return {
               run: async () => {},
               all: async <T>() => ({ results: [] as T[] }),
