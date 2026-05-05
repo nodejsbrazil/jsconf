@@ -346,5 +346,101 @@
   },
   "coc.pageDescription": {
     "message": "JSConf Brasil Code of Conduct"
+  },
+  "voting.modal.step1.title": {
+    "message": "Request access code"
+  },
+  "voting.modal.step1.email.label": {
+    "message": "Email"
+  },
+  "voting.modal.step1.email.placeholder": {
+    "message": "your@email.com"
+  },
+  "voting.modal.step1.submit": {
+    "message": "Send code"
+  },
+  "voting.modal.step1.success": {
+    "message": "Code sent! Check your email."
+  },
+  "voting.modal.step1.error": {
+    "message": "Failed to send code. Try again."
+  },
+  "voting.modal.step2.title": {
+    "message": "Enter your code"
+  },
+  "voting.modal.step2.code.label": {
+    "message": "4-digit code"
+  },
+  "voting.modal.step2.code.placeholder": {
+    "message": "0000"
+  },
+  "voting.modal.step2.submit": {
+    "message": "Sign in"
+  },
+  "voting.modal.step2.error.invalid": {
+    "message": "Invalid code."
+  },
+  "voting.modal.step2.error.notFound": {
+    "message": "Code not found."
+  },
+  "voting.modal.back": {
+    "message": "Back"
+  },
+  "voting.cta.label": {
+    "message": "Vote on talks"
+  },
+  "voting.cta.title": {
+    "message": "Voting is open!"
+  },
+  "voting.cta.description": {
+    "message": "Voting for the talks is now open. Participate!"
+  },
+  "voting.page.title": {
+    "message": "Voting"
+  },
+  "voting.page.noCode": {
+    "message": "Access code not provided."
+  },
+  "voting.page.comingSoon": {
+    "message": "Voting interface under development."
+  },
+  "voting.page.loading": {
+    "message": "Loading votes..."
+  },
+  "voting.page.retry": {
+    "message": "Try again"
+  },
+  "voting.page.votesRemaining": {
+    "message": "{count} votes remaining"
+  },
+  "voting.page.noVotesLeft": {
+    "message": "You have used all your votes."
+  },
+  "voting.page.noTalks": {
+    "message": "No talks available for voting yet."
+  },
+  "voting.page.talk.vote": {
+    "message": "Vote"
+  },
+  "voting.page.talk.retract": {
+    "message": "Retract"
+  },
+  "voting.page.voteSuccess": {
+    "message": "Vote registered!"
+  },
+  "voting.page.retractSuccess": {
+    "message": "Vote removed."
+  },
+  "voting.page.error.invalidCode": {
+    "message": "Invalid or expired code."
+  },
+  "voting.page.error.generic": {
+    "message": "Failed to load votes."
+  },
+  "voting.page.error.voteFailed": {
+    "message": "Failed to register vote."
+  },
+  "voting.page.error.retractFailed": {
+    "message": "Failed to remove vote."
   }
 }

@@ -1,9 +1,6 @@
 import type { Database } from '../types.js';
-import {
-  isJsonContentType,
-  isWithinSize,
-  parseBody,
-} from '../helpers/request.js';
+import type { RouteContext } from './types.js';
+import { parseRequest } from '../helpers/request.js';
 import { response } from '../helpers/response.js';
 import { waitlist as repository } from '../repositories/waitlist.js';
 
@@ -19,23 +16,13 @@ export const waitlist = async ({
   cors,
   database,
   ip,
-}: Options): Promise<Response> => {
-  if (!isJsonContentType(request))
-    return response({ error: 'Unsupported content type.' }, 415, cors);
-
-  const text = await request.text();
-  if (!isWithinSize(text, 1024))
-    return response({ error: 'Payload too large.' }, 413, cors);
-
-  const body = parseBody(text);
-  if (!body) return response({ error: 'Invalid JSON.' }, 400, cors);
-
+}: RouteContext & Options): Promise<Response> => {
   const { schema, canInsert, insert } = repository(database);
 
-  const parsed = schema.safeParse(body);
-  if (!parsed.success) return response({ error: 'Invalid input.' }, 422, cors);
+  const parsed = await parseRequest(request, schema, cors);
+  if (parsed instanceof Response) return parsed;
 
-  const { email, website, utmSource } = parsed.data;
+  const { email, website, utmSource } = parsed;
 
   // Bot Honeypot
   if (website.length > 0) return response({ success: true }, 201, cors);

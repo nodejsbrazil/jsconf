@@ -9,3 +9,4 @@
 .env
 .dev.vars
 .npmrc
+src/server/routes/transactions.json

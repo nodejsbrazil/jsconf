@@ -5,6 +5,7 @@ import { Location } from '../components/home/Location';
 // import { Speakers } from '../components/home/Speakers';
 import { Team } from '../components/home/Team';
 import { TicketSelection } from '../components/home/TicketSelection';
+import { VotingCta } from '../components/home/VotingCta';
 import { Waitlist } from '../components/home/Waitlist';
 import { Page } from '../components/shared/Page';
 
@@ -15,6 +16,7 @@ export default () => (
     <Gallery />
     {/* <Speakers /> */}
     <TicketSelection />
+    <VotingCta />
     <Waitlist />
     <Location />
     <Team />

@@ -1,4 +1,5 @@
-import type { Database } from '../../../src/server/types.js';
+import type { CodeSender } from '../../../src/server/code-sender.js';
+import type { Database, Env } from '../../../src/server/types.js';
 import { assert, beforeEach, describe, it } from 'poku';
 import { routes } from '../../../src/server/routes.js';
 
@@ -49,6 +50,18 @@ const makeRequest = (body: unknown): Request =>
     body: JSON.stringify(body),
   });
 
+const noopSender: CodeSender = {
+  sendCode: async () => {},
+};
+
+const mockEnv: Env = {
+  DB: makeMockDatabase().database,
+  STRIPE_SECRET_KEY: 'test_key',
+  STRIPE_WEBHOOK_SECRET: 'test_secret',
+  ADMIN_KEY: 'test_admin',
+  JWT_SECRET: 'test-secret-32-chars-minimum-here',
+};
+
 const post = async (
   body: unknown,
   mock: MockDatabase,
@@ -59,6 +72,8 @@ const post = async (
     cors,
     database: mock.database,
     ip,
+    env: mockEnv,
+    sender: noopSender,
   });
 
 describe('routes.waitlist', async () => {
@@ -67,7 +82,10 @@ describe('routes.waitlist', async () => {
       const mock = makeMockDatabase();
       const res = await post({}, mock);
       assert.equal(res.status, 422);
-      assert.deepEqual(await res.json(), { error: 'Invalid input.' });
+      assert.equal(
+        ((await res.json()) as { error: string }).error,
+        'Validation failed'
+      );
     });
 
     await it('returns 422 for an invalid email format', async () => {

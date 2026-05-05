@@ -16,7 +16,8 @@ const expectRejected = async (
 
   assert.equal(res.status, status);
 
-  if (error) assert.deepEqual(await res.json(), { error });
+  if (error)
+    assert.equal(((await res.json()) as { error: string }).error, error);
 
   assert.equal(mock.speakersInsert, null);
   assert.equal(mock.diversityInsert, null);
@@ -34,7 +35,7 @@ describe('routes.c4p (invalid input)', async () => {
 
       assert.equal(res.status, 415);
       assert.deepEqual(await res.json(), {
-        error: 'Unsupported content type.',
+        error: 'Content-Type must be application/json',
       });
     });
 
@@ -48,13 +49,16 @@ describe('routes.c4p (invalid input)', async () => {
       assert.equal(res.status, 415);
     });
 
-    await it('returns 413 when the payload exceeds 16384 bytes', async () => {
+    await it('returns 422 when the payload exceeds 16384 bytes', async () => {
       const mock = makeMockDatabase();
       const body = makeValidBody({ bio: 'x'.repeat(17000) });
       const res = await post(makeRequest(body), mock);
 
-      assert.equal(res.status, 413);
-      assert.deepEqual(await res.json(), { error: 'Payload too large.' });
+      assert.equal(res.status, 422);
+      assert.equal(
+        ((await res.json()) as { error: string }).error,
+        'Validation failed'
+      );
     });
 
     await it('returns 400 for malformed JSON', async () => {
@@ -75,7 +79,7 @@ describe('routes.c4p (invalid input)', async () => {
 
   await describe('schema rejections', async () => {
     await it('rejects a completely empty object', async () => {
-      await expectRejected({}, 422, 'Invalid input.');
+      await expectRejected({}, 422, 'Validation failed');
     });
 
     await describe('name', async () => {

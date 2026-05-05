@@ -12,4 +12,7 @@ export type Env = {
   ALLOWED_ORIGIN?: string;
   STRIPE_SECRET_KEY: string;
   STRIPE_WEBHOOK_SECRET: string;
+  ADMIN_KEY: string;
+  JWT_SECRET: string;
+  ENVIRONMENT?: string;
 };

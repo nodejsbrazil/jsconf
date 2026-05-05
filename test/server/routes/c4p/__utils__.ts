@@ -1,4 +1,5 @@
-import type { Database } from '../../../../src/server/types.js';
+import type { CodeSender } from '../../../../src/server/code-sender.js';
+import type { Database, Env } from '../../../../src/server/types.js';
 import { routes } from '../../../../src/server/routes.js';
 
 export const cors = {
@@ -108,6 +109,18 @@ export const makeRequest = (
   });
 };
 
+export const noopSender: CodeSender = {
+  sendCode: async () => {},
+};
+
+const mockEnv: Env = {
+  DB: makeMockDatabase().database,
+  STRIPE_SECRET_KEY: 'test_key',
+  STRIPE_WEBHOOK_SECRET: 'test_secret',
+  ADMIN_KEY: 'test_admin',
+  JWT_SECRET: 'test-secret-32-chars-minimum-here',
+};
+
 export const post = async (
   request: Request,
   mock: MockDatabase,
@@ -118,4 +131,6 @@ export const post = async (
     cors,
     database: mock.database,
     ip,
+    env: mockEnv,
+    sender: noopSender,
   });

@@ -47,3 +47,4 @@ mark {
 @include load-css('global/reset');
 @include load-css('global/animations');
 @include load-css('global/root');
+@include load-css('pages/voting/modal');

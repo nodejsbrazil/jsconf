@@ -346,5 +346,101 @@
   },
   "tickets.subtitle": {
     "message": "Garanta agora seu lugar na maior conferência de JavaScript do Brasil."
+  },
+  "voting.modal.step1.title": {
+    "message": "Solicitar código de acesso"
+  },
+  "voting.modal.step1.email.label": {
+    "message": "Email"
+  },
+  "voting.modal.step1.email.placeholder": {
+    "message": "seu@email.com"
+  },
+  "voting.modal.step1.submit": {
+    "message": "Enviar código"
+  },
+  "voting.modal.step1.success": {
+    "message": "Código enviado! Verifique seu email."
+  },
+  "voting.modal.step1.error": {
+    "message": "Erro ao enviar código. Tente novamente."
+  },
+  "voting.modal.step2.title": {
+    "message": "Digite seu código"
+  },
+  "voting.modal.step2.code.label": {
+    "message": "Código de 4 dígitos"
+  },
+  "voting.modal.step2.code.placeholder": {
+    "message": "0000"
+  },
+  "voting.modal.step2.submit": {
+    "message": "Entrar"
+  },
+  "voting.modal.step2.error.invalid": {
+    "message": "Código inválido."
+  },
+  "voting.modal.step2.error.notFound": {
+    "message": "Código não encontrado."
+  },
+  "voting.modal.back": {
+    "message": "Voltar"
+  },
+  "voting.cta.label": {
+    "message": "Votar nas palestras"
+  },
+  "voting.cta.title": {
+    "message": "Votação aberta!"
+  },
+  "voting.cta.description": {
+    "message": "As votações para escolha das palestras estão abertas. Participe!"
+  },
+  "voting.page.title": {
+    "message": "Votação"
+  },
+  "voting.page.noCode": {
+    "message": "Código de acesso não fornecido."
+  },
+  "voting.page.comingSoon": {
+    "message": "Interface de votação em desenvolvimento."
+  },
+  "voting.page.loading": {
+    "message": "Carregando votações..."
+  },
+  "voting.page.retry": {
+    "message": "Tentar novamente"
+  },
+  "voting.page.votesRemaining": {
+    "message": "{count} votos restantes"
+  },
+  "voting.page.noVotesLeft": {
+    "message": "Você usou todos os seus votos."
+  },
+  "voting.page.noTalks": {
+    "message": "Nenhuma palestra disponível para votação ainda."
+  },
+  "voting.page.talk.vote": {
+    "message": "Votar"
+  },
+  "voting.page.talk.retract": {
+    "message": "Retirar"
+  },
+  "voting.page.voteSuccess": {
+    "message": "Voto registrado!"
+  },
+  "voting.page.retractSuccess": {
+    "message": "Voto removido."
+  },
+  "voting.page.error.invalidCode": {
+    "message": "Código inválido ou expirado."
+  },
+  "voting.page.error.generic": {
+    "message": "Erro ao carregar votações."
+  },
+  "voting.page.error.voteFailed": {
+    "message": "Erro ao registrar voto."
+  },
+  "voting.page.error.retractFailed": {
+    "message": "Erro ao remover voto."
   }
 }

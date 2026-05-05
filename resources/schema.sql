@@ -57,3 +57,33 @@ CREATE TABLE IF NOT EXISTS speaker_diversity (
 );
 
 CREATE INDEX IF NOT EXISTS idx_speaker_diversity_speaker_id ON speaker_diversity(speaker_id);
+
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT NOT NULL COLLATE NOCASE,
+  ticket_type INTEGER NOT NULL CHECK (ticket_type > 0),
+  votes_allowed INTEGER NOT NULL CHECK (votes_allowed >= 0),
+  quantity INTEGER NOT NULL DEFAULT 1,
+  code TEXT NOT NULL UNIQUE,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  refresh_token_hash TEXT,
+  refresh_token_expires_at INTEGER
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_users_code ON users(code);
+
+CREATE TABLE IF NOT EXISTS votes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  talk_id INTEGER NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (talk_id) REFERENCES talks(id),
+  UNIQUE (user_id, talk_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_votes_user_id ON votes(user_id);
+CREATE INDEX IF NOT EXISTS idx_votes_talk_id ON votes(talk_id);
+
+

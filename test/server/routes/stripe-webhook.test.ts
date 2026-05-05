@@ -2,7 +2,10 @@ import type { Env } from '../../../src/server/types.js';
 import { createHmac } from 'node:crypto';
 import { assert, describe, it } from 'poku';
 import { routes } from '../../../src/server/routes.js';
-import { handleEvent } from '../../../src/server/routes/stripe-webhook.js';
+import {
+  extractUserData,
+  handleEvent,
+} from '../../../src/server/routes/stripe-webhook.js';
 
 const WEBHOOK_SECRET = 'whsec_test_secret';
 const API_KEY = 'sk_test_fake';
@@ -25,6 +28,8 @@ const mockEnv: Env = {
   },
   STRIPE_SECRET_KEY: API_KEY,
   STRIPE_WEBHOOK_SECRET: WEBHOOK_SECRET,
+  ADMIN_KEY: 'test',
+  JWT_SECRET: 'test-secret-32-chars-minimum-here',
 };
 
 const makeEventPayload = (type: string, id = 'evt_test_123') =>
@@ -59,28 +64,186 @@ const makeWebhookRequest = (payload: string, signature?: string): Request =>
   });
 
 describe('stripe webhook', async () => {
-  describe('handleEvent', () => {
-    const makeEvent = (type: string) =>
-      ({ type, data: { object: { id: 'obj_123' } } }) as never;
-
-    it('returns true for checkout.session.completed', () => {
-      assert.equal(handleEvent(makeEvent('checkout.session.completed')), true);
+  describe('extractUserData', async () => {
+    await it('returns null when customer_email is missing', async () => {
+      const result = extractUserData({
+        customer_email: undefined,
+        created: Math.floor(Date.now() / 1000),
+        metadata: { quantity: '1' },
+      } as never);
+      assert.equal(result, null);
     });
 
-    it('returns true for payment_intent.succeeded', () => {
-      assert.equal(handleEvent(makeEvent('payment_intent.succeeded')), true);
+    await it('returns null when quantity is 0 or negative', async () => {
+      const result = extractUserData({
+        customer_email: 'test@example.com',
+        created: Math.floor(Date.now() / 1000),
+        metadata: { quantity: '0' },
+      } as never);
+      assert.equal(result, null);
     });
 
-    it('returns true for charge.succeeded', () => {
-      assert.equal(handleEvent(makeEvent('charge.succeeded')), true);
+    await it('returns early bird (type 2, 3 votes/ticket) for purchase on Dec 31 2026', async () => {
+      const cutoff = new Date('2026-12-31T23:59:59Z').getTime() / 1000;
+      const result = extractUserData({
+        customer_email: 'early@example.com',
+        created: cutoff,
+        metadata: { quantity: '2' },
+      } as never);
+      assert.ok(result !== null);
+      assert.deepEqual(result, {
+        email: 'early@example.com',
+        ticketType: 2,
+        quantity: 2,
+        votesAllowed: 6,
+      });
     });
 
-    it('returns true for charge.refunded', () => {
-      assert.equal(handleEvent(makeEvent('charge.refunded')), true);
+    await it('returns regular (type 1, 1 vote/ticket) for purchase after Dec 31 2026', async () => {
+      const after = new Date('2027-01-01T00:00:00Z').getTime() / 1000;
+      const result = extractUserData({
+        customer_email: 'regular@example.com',
+        created: after,
+        metadata: { quantity: '1' },
+      } as never);
+      assert.ok(result !== null);
+      assert.deepEqual(result, {
+        email: 'regular@example.com',
+        ticketType: 1,
+        quantity: 1,
+        votesAllowed: 1,
+      });
     });
 
-    it('returns false for unknown event types', () => {
-      assert.equal(handleEvent(makeEvent('unknown.event')), false);
+    await it('uses default quantity 1 when metadata.quantity is missing', async () => {
+      const result = extractUserData({
+        customer_email: 'test@example.com',
+        created: Math.floor(Date.now() / 1000),
+        metadata: undefined,
+      } as never);
+      assert.ok(result !== null);
+      assert.equal(result!.quantity, 1);
+    });
+
+    await it('returns correct votes for multi-ticket early bird', async () => {
+      const cutoff = new Date('2026-06-15').getTime() / 1000;
+      const result = extractUserData({
+        customer_email: 'bulk@example.com',
+        created: cutoff,
+        metadata: { quantity: '5' },
+      } as never);
+      assert.ok(result !== null);
+      assert.deepEqual(result, {
+        email: 'bulk@example.com',
+        ticketType: 2,
+        quantity: 5,
+        votesAllowed: 15,
+      });
+    });
+  });
+
+  describe('handleEvent', async () => {
+    const makeEvent = (
+      type: string,
+      obj: Record<string, unknown> = { id: 'obj_123' }
+    ) => ({ type, data: { object: obj } }) as never;
+
+    await it('inserts user with quantity for early bird checkout', async () => {
+      let insertSql = '';
+      let bindValues: unknown[] = [];
+      const mockDb = {
+        prepare: (sql: string) => ({
+          bind: (...values: unknown[]) => {
+            insertSql = sql;
+            bindValues = values;
+            return {
+              run: async () => {},
+              all: async <T>() => ({ results: [] as T[] }),
+            };
+          },
+        }),
+      };
+
+      const cutoff = new Date('2026-12-31T23:59:59Z').getTime() / 1000;
+      const result = await handleEvent(
+        makeEvent('checkout.session.completed', {
+          id: 'cs_test',
+          customer_email: 'early@example.com',
+          created: cutoff,
+          metadata: { quantity: '3' },
+        }),
+        mockDb as never
+      );
+      assert.equal(result, true);
+      assert.ok(insertSql.includes('INSERT INTO users'));
+    });
+
+    await it('returns true when data extraction fails (no email)', async () => {
+      const result = await handleEvent(
+        makeEvent('checkout.session.completed', {
+          id: 'cs_test',
+          customer_email: undefined,
+          created: Math.floor(Date.now() / 1000),
+          metadata: { quantity: '1' },
+        }),
+        mockEnv.DB
+      );
+      assert.equal(result, true);
+    });
+
+    await it('returns true for payment_intent.succeeded', async () => {
+      assert.equal(
+        await handleEvent(makeEvent('payment_intent.succeeded'), mockEnv.DB),
+        true
+      );
+    });
+
+    await it('returns true for charge.succeeded', async () => {
+      assert.equal(
+        await handleEvent(makeEvent('charge.succeeded'), mockEnv.DB),
+        true
+      );
+    });
+
+    await it('returns true for charge.refunded and calls revoke', async () => {
+      let revokeCalled = false;
+      const mockDb = {
+        prepare: (sql: string) => ({
+          bind: (..._: unknown[]) => ({
+            run: async () => {
+              if (
+                sql.includes('DELETE FROM votes') ||
+                sql.includes('UPDATE users SET votes_allowed = 0')
+              ) {
+                revokeCalled = true;
+              }
+            },
+            all: async <T>() => {
+              if (sql.includes('SELECT id FROM users')) {
+                return { results: [{ id: 1 }] as T[] };
+              }
+              return { results: [] as T[] };
+            },
+          }),
+        }),
+      };
+
+      const result = await handleEvent(
+        makeEvent('charge.refunded', {
+          id: 'ch_test',
+          billing_details: { email: 'refund@example.com' },
+        }),
+        mockDb as never
+      );
+      assert.equal(result, true);
+      assert.equal(revokeCalled, true);
+    });
+
+    await it('returns false for unknown event types', async () => {
+      assert.equal(
+        await handleEvent(makeEvent('unknown.event'), mockEnv.DB),
+        false
+      );
     });
   });
 
@@ -92,6 +255,7 @@ describe('stripe webhook', async () => {
         request,
         cors,
         env: mockEnv,
+        database: mockEnv.DB,
       });
 
       assert.equal(res.status, 400);
@@ -105,6 +269,7 @@ describe('stripe webhook', async () => {
         request,
         cors,
         env: mockEnv,
+        database: mockEnv.DB,
       });
 
       assert.equal(res.status, 400);
@@ -122,6 +287,7 @@ describe('stripe webhook', async () => {
         request,
         cors,
         env: mockEnv,
+        database: mockEnv.DB,
       });
 
       assert.equal(res.status, 400);
@@ -135,6 +301,7 @@ describe('stripe webhook', async () => {
         request,
         cors,
         env: mockEnv,
+        database: mockEnv.DB,
       });
 
       assert.equal(res.status, 200);

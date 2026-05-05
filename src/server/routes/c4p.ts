@@ -1,9 +1,6 @@
 import type { Database } from '../types.js';
-import {
-  isJsonContentType,
-  isWithinSize,
-  parseBody,
-} from '../helpers/request.js';
+import type { RouteContext } from './types.js';
+import { parseRequest } from '../helpers/request.js';
 import { response } from '../helpers/response.js';
 import { c4p as repository } from '../repositories/c4p.js';
 
@@ -19,27 +16,17 @@ export const c4p = async ({
   cors,
   database,
   ip,
-}: Options): Promise<Response> => {
-  if (!isJsonContentType(request))
-    return response({ error: 'Unsupported content type.' }, 415, cors);
-
-  const text = await request.text();
-  if (!isWithinSize(text, 16384))
-    return response({ error: 'Payload too large.' }, 413, cors);
-
-  const body = parseBody(text);
-  if (!body) return response({ error: 'Invalid JSON.' }, 400, cors);
-
+}: RouteContext & Options): Promise<Response> => {
   const { schema, submit } = repository(database);
 
-  const parsed = schema.safeParse(body);
-  if (!parsed.success) return response({ error: 'Invalid input.' }, 422, cors);
+  const parsed = await parseRequest(request, schema, cors);
+  if (parsed instanceof Response) return parsed;
 
   // Bot Honeypot
-  if (parsed.data.confirm_email.length > 0)
+  if (parsed.confirm_email.length > 0)
     return response({ success: true }, 201, cors);
 
-  const result = await submit(parsed.data, ip);
+  const result = await submit(parsed, ip);
 
   if (!result.success) {
     if (result.reason === 'talk_limit')
