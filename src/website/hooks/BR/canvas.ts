@@ -51,13 +51,13 @@ export const draw = (
     if (result.progress > 0) {
       visibleCount++;
 
+      drawSquare(context, dotState.dot, result.progress, scale);
+
       const isStableVisible = result.visible && result.disappearAt === null;
       if (isStableVisible) {
         visibleIndices.push(dotIndex);
       }
     }
-
-    drawSquare(context, dotState.dot, result.progress, scale);
   }
 
   processRemovals(state, visibleIndices, visibleCount, elapsed);
