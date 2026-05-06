@@ -16,12 +16,9 @@ const drawSquare = (
   const size = dot.radius * 2 * scale;
   const x = dot.centerX * scale - size / 2;
   const y = dot.centerY * scale - size / 2;
-  const borderRadius = size * 0.2;
 
   context.fillStyle = color;
-  context.beginPath();
-  context.roundRect(x, y, size, size, borderRadius);
-  context.fill();
+  context.fillRect(x, y, size, size);
 };
 
 export const draw = (
@@ -71,9 +68,8 @@ export const updateCanvasSize = (
   const rect = canvas.getBoundingClientRect();
   if (rect.width === 0 || rect.height === 0) return;
 
-  const devicePixelRatio = window.devicePixelRatio || 1;
-  canvas.width = rect.width * devicePixelRatio;
-  canvas.height = rect.height * devicePixelRatio;
+  canvas.width = rect.width;
+  canvas.height = rect.height;
 
   const context = canvas.getContext('2d');
   if (context) {
