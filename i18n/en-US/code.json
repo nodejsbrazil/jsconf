@@ -352,5 +352,11 @@
   },
   "coc.pageDescription": {
     "message": "JSConf Brasil Code of Conduct"
+  },
+  "supporters.title": {
+    "message": "Our supporters"
+  },
+  "supporters.subtitle": {
+    "message": "We are grateful for the support of our partners who share our vision of strengthening the JavaScript community in Brazil."
   }
 }

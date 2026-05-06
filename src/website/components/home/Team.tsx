@@ -6,8 +6,13 @@ import { Person } from '../shared/Person';
 
 export const Team = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const supportRef = useRef<HTMLDivElement>(null);
 
   useScroll(ref, (isVisible, target) => {
+    target.className = isVisible ? 'content show' : 'content';
+  });
+
+  useScroll(supportRef, (isVisible, target) => {
     target.className = isVisible ? 'content show' : 'content';
   });
 
@@ -50,6 +55,43 @@ export const Team = () => {
             }}
           />
           <Person
+            name='Lojhan'
+            img='/img/team/lojhan.webp'
+            bio={text({ id: 'team.lojhan.bio' })}
+            position={text({ id: 'team.lojhan.position' })}
+            company='lojhan.com'
+            social={{
+              instagram: 'lojhan.dev',
+              linkedin: 'lojhan',
+              github: 'Lojhan',
+              website: 'https://www.lojhan.com',
+            }}
+          />
+          <Person
+            name='Lucas Santos'
+            img='/img/team/lucas.webp'
+            bio={text({ id: 'team.lucas.bio' })}
+            position={text({ id: 'team.lucas.position' })}
+            company='Hemnet'
+            social={{
+              github: 'khaosdoctor',
+              linkedin: 'lsantosdev',
+              instagram: 'lsantosdev',
+              youtube: 'lsantosdev',
+              website: 'https://blog.lsantos.dev',
+            }}
+          />
+        </section>
+      </div>
+      <div className='content' ref={supportRef}>
+        <h1 className='title'>
+          <Boxes className='icon' /> <Text id='supporters.title' />
+        </h1>
+        <small className='subtitle'>
+          <Text id='supporters.subtitle' />
+        </small>
+        <section className='support'>
+          <Person
             name='Weslley Araújo'
             img='/img/team/wells.webp'
             bio={text({ id: 'team.weslley.bio' })}
@@ -61,19 +103,6 @@ export const Team = () => {
               linkedin: 'wellwelwel',
               github: 'wellwelwel',
               website: 'https://weslley.io/',
-            }}
-          />
-          <Person
-            name='Lojhan'
-            img='/img/team/lojhan.webp'
-            bio={text({ id: 'team.lojhan.bio' })}
-            position={text({ id: 'team.lojhan.position' })}
-            company='lojhan.com'
-            social={{
-              instagram: 'lojhan.dev',
-              linkedin: 'lojhan',
-              github: 'Lojhan',
-              website: 'https://www.lojhan.com',
             }}
           />
           <Person
@@ -93,20 +122,6 @@ export const Team = () => {
             social={{
               linkedin: 'cristian-silva-dev',
               github: 'Cristuker',
-            }}
-          />
-          <Person
-            name='Lucas Santos'
-            img='/img/team/lucas.webp'
-            bio={text({ id: 'team.lucas.bio' })}
-            position={text({ id: 'team.lucas.position' })}
-            company='Hemnet'
-            social={{
-              github: 'khaosdoctor',
-              linkedin: 'lsantosdev',
-              instagram: 'lsantosdev',
-              youtube: 'lsantosdev',
-              website: 'https://blog.lsantos.dev',
             }}
           />
           <Person

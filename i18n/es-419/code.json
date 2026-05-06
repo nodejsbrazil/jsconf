@@ -352,5 +352,11 @@
   },
   "coc.pageDescription": {
     "message": "Código de Conducta de JSConf Brasil"
+  },
+  "supporters.title": {
+    "message": "Nuestros Apoyadores"
+  },
+  "supporters.subtitle": {
+    "message": "Estamos agradecidos por el apoyo de nuestros socios que comparten nuestra visión de fortalecer la comunidad JavaScript en Brasil."
   }
 }

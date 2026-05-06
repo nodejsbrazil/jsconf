@@ -352,5 +352,11 @@
   },
   "tickets.subtitle": {
     "message": "Garanta agora seu lugar na maior conferência de JavaScript do Brasil."
+  },
+  "supporters.title": {
+    "message": "Nossos Apoiadores"
+  },
+  "supporters.subtitle": {
+    "message": "Somos gratos pelo apoio de nossos parceiros que compartilham nossa visão de fortalecer a comunidade JavaScript no Brasil."
   }
 }
