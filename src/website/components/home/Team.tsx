@@ -96,6 +96,20 @@ export const Team = () => {
             }}
           />
           <Person
+            name='Lucas Santos'
+            img='/img/team/lucas.webp'
+            bio={text({ id: 'team.lucas.bio' })}
+            position={text({ id: 'team.lucas.position' })}
+            company='Hemnet'
+            social={{
+              github: 'khaosdoctor',
+              linkedin: 'lsantosdev',
+              instagram: 'lsantosdev',
+              youtube: 'lsantosdev',
+              website: 'https://blog.lsantos.dev',
+            }}
+          />
+          <Person
             name='Monica Craveiro'
             img='/img/team/monica.webp'
             bio={text({ id: 'team.monica.bio' })}
