@@ -185,6 +185,12 @@
   "team.cristian.position": {
     "message": "Software Engineer"
   },
+  "team.lucas.bio": {
+    "message": "With over 15 years of experience, he has worked at companies such as Microsoft and Klarna. He is part of the Node.js contributors team, a book author and an international speaker."
+  },
+  "team.lucas.position": {
+    "message": "Principal Staff Engineer"
+  },
   "team.micaele.bio": {
     "message": "Micaele Magalhães is an illustrator and designer, ADS student, responsible for the visual identity of several Brazilian open source projects, such as the mascot of the Poku test runner and Awesome You (an initiative that highlights open source project maintainers in Brazil)."
   },
