@@ -102,10 +102,10 @@ export const Team = () => {
             position={text({ id: 'team.lucas.position' })}
             company='Hemnet'
             social={{
-              github: 'https://github.lsantos.dev',
-              linkedin: 'https://linkedin.lsantos.dev',
-              instagram: 'https://instagram.lsantos.dev',
-              youtube: 'https://youtube.lsantos.dev',
+              github: 'khaosdoctor',
+              linkedin: 'lsantosdev',
+              instagram: 'lsantosdev',
+              youtube: 'lsantosdev',
               website: 'https://blog.lsantos.dev',
             }}
           />
