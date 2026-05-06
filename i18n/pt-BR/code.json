@@ -194,6 +194,12 @@
   "team.monica.position": {
     "message": "Desenvolvedora Back-end"
   },
+  "team.lucas.bio": {
+    "message": "Com mais de 15 anos de experiencia, trabalhou em empresas como Microsoft, Klarna. Faz parte do time de contribuidores do Node.js, autor de livros e palestrante internacional."
+  },
+  "team.lucas.position": {
+    "message": "Principal Staff Engineer"
+  },
   "sponsors.pageTitle": {
     "message": "Patrocinadores"
   },
