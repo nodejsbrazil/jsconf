@@ -124,19 +124,6 @@ export const Team = () => {
               github: 'Cristuker',
             }}
           />
-          <Person
-            name='Monica Craveiro'
-            img='/img/team/monica.webp'
-            bio={text({ id: 'team.monica.bio' })}
-            position={text({ id: 'team.monica.position' })}
-            company='CRMBonus'
-            social={{
-              linkedin: 'mocraveirodev',
-              instagram: 'mocraveirodev',
-              github: 'mocraveirodev',
-              website: 'https://5tr.in/mocraveirodev/',
-            }}
-          />
         </section>
       </div>
     </main>
