@@ -1,13 +1,12 @@
 @use '../global/mixins' as *;
 
 @mixin speakers {
-
   &#speakers,
   &#support,
   &#team {
     padding-bottom: 12.5rem;
 
-    &>.content {
+    & > .content {
       gap: 5rem;
       opacity: 0;
 
@@ -15,11 +14,11 @@
         animation: fadeUp 0.5s var(--ease-bounce-strong) forwards;
       }
 
-      &>.subtitle {
+      & > .subtitle {
         margin-top: -2.5rem;
       }
 
-      &+.content {
+      & + .content {
         margin-top: 6rem;
       }
 

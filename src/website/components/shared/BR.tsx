@@ -1,10 +1,10 @@
 import { memo, useEffect, useRef } from 'react';
-import rawDots from '@site/src/website/hooks/BR/dots.json';
 import {
   FINAL_COLOR,
   INITIAL_COLOR,
   VIEWBOX_WIDTH,
 } from '@site/src/website/hooks/BR/definitions';
+import rawDots from '@site/src/website/hooks/BR/dots.json';
 
 const OVERLAY_COUNT = 4;
 const OVERLAY_MAX_DOTS = 400;
@@ -23,14 +23,23 @@ const BASE_COLOR = `rgba(${INITIAL_COLOR.red},${INITIAL_COLOR.green},${INITIAL_C
 const HIGH_COLOR = `rgba(${FINAL_COLOR.red},${FINAL_COLOR.green},${FINAL_COLOR.blue},${FINAL_COLOR.alpha})`;
 
 // 100, 200, 300, 400 dots per overlay
-const overlaySubsets: Dot[][] = Array.from({ length: OVERLAY_COUNT }, (_, i) => {
-  const count = Math.round(((i + 1) / OVERLAY_COUNT) * OVERLAY_MAX_DOTS);
-  return [...allDots].sort(() => Math.random() - 0.5).slice(0, count);
-});
+const overlaySubsets: Dot[][] = Array.from(
+  { length: OVERLAY_COUNT },
+  (_, i) => {
+    const count = Math.round(((i + 1) / OVERLAY_COUNT) * OVERLAY_MAX_DOTS);
+    return [...allDots].sort(() => Math.random() - 0.5).slice(0, count);
+  }
+);
 
-const offscreen = typeof document !== 'undefined' ? document.createElement('canvas') : null;
+const offscreen =
+  typeof document !== 'undefined' ? document.createElement('canvas') : null;
 
-function toDataURL(dots: Dot[], color: string, renderWidth: number, renderHeight: number): string {
+function toDataURL(
+  dots: Dot[],
+  color: string,
+  renderWidth: number,
+  renderHeight: number
+): string {
   if (!offscreen) return '';
   offscreen.width = renderWidth;
   offscreen.height = renderHeight;
@@ -45,7 +54,7 @@ function toDataURL(dots: Dot[], color: string, renderWidth: number, renderHeight
       Math.round(d.cx * scale - size / 2),
       Math.round(d.cy * scale - size / 2),
       size,
-      size,
+      size
     );
   }
   return offscreen.toDataURL();
@@ -56,7 +65,9 @@ type BRProps = { className?: string; style?: React.CSSProperties };
 const BRCanvas = ({ className, style }: BRProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const baseRef = useRef<HTMLImageElement>(null);
-  const overlayRefs = useRef<(HTMLImageElement | null)[]>(Array(OVERLAY_COUNT).fill(null));
+  const overlayRefs = useRef<(HTMLImageElement | null)[]>(
+    Array(OVERLAY_COUNT).fill(null)
+  );
 
   useEffect(() => {
     const container = containerRef.current;
@@ -69,13 +80,26 @@ const BRCanvas = ({ className, style }: BRProps) => {
       const containerHeight = container.offsetHeight;
       if (!containerWidth || !containerHeight) return;
 
-      const renderHeight = Math.round(containerHeight * (RENDER_WIDTH / containerWidth));
+      const renderHeight = Math.round(
+        containerHeight * (RENDER_WIDTH / containerWidth)
+      );
 
       if (baseRef.current)
-        baseRef.current.src = toDataURL(allDots, BASE_COLOR, RENDER_WIDTH, renderHeight);
+        baseRef.current.src = toDataURL(
+          allDots,
+          BASE_COLOR,
+          RENDER_WIDTH,
+          renderHeight
+        );
 
       overlayRefs.current.forEach((el, i) => {
-        if (el) el.src = toDataURL(overlaySubsets[i]!, HIGH_COLOR, RENDER_WIDTH, renderHeight);
+        if (el)
+          el.src = toDataURL(
+            overlaySubsets[i]!,
+            HIGH_COLOR,
+            RENDER_WIDTH,
+            renderHeight
+          );
       });
 
       rendered = true;
@@ -110,7 +134,9 @@ const BRCanvas = ({ className, style }: BRProps) => {
         <img
           key={i}
           alt=''
-          ref={(el) => { overlayRefs.current[i] = el; }}
+          ref={(el) => {
+            overlayRefs.current[i] = el;
+          }}
           style={{
             ...layerStyle,
             // translateZ forces independent compositor layer so opacity animation
