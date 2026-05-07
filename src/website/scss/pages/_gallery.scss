@@ -71,9 +71,7 @@
                 width: 3rem;
                 height: 3rem;
                 stroke: var(--ifm-color-primary-darker);
-                transition:
-                  transform 0.4s var(--ease-bounce-strong),
-                  stroke 0.3s ease;
+                transition: transform 0.4s var(--ease-bounce-strong);
               }
             }
 
