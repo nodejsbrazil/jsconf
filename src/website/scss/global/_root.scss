@@ -33,14 +33,6 @@ body {
     @include load-css('../pages/partial/footer');
   }
 
-  canvas.bg {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -5;
-  }
-
   .page-content {
     margin-top: 12.5rem;
     margin-bottom: 5rem;
