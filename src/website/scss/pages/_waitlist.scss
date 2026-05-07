@@ -17,12 +17,9 @@
         width: 8rem;
         height: 8rem;
         overflow: hidden;
-        animation:
-          morph 12.5s var(--ease-bounce-strong) alternate infinite,
-          breathe 25s var(--ease-back-out-soft) alternate infinite;
-        transition:
-          border-radius 0.4s ease,
-          rotate 0.4s ease;
+        will-change: transform;
+        animation: breathe 25s var(--ease-back-out-soft) alternate infinite;
+        transition: transform 0.4s ease;
 
         svg {
           display: block;
