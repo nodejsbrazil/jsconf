@@ -56,14 +56,14 @@ jobs:
           WORKER_D1: ${{ secrets.WORKER_D1 }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Deploy — Worker
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.PAT }}
-          publish_dir: ./server
-          publish_branch: 'server'
-          allow_empty_commit: false
-          enable_jekyll: true
+      # - name: Deploy — Worker
+      #   uses: peaceiris/actions-gh-pages@v4
+      #   with:
+      #     github_token: ${{ secrets.PAT }}
+      #     publish_dir: ./server
+      #     publish_branch: 'server'
+      #     allow_empty_commit: false
+      #     enable_jekyll: true
 
       - name: Deploy — Website
         uses: peaceiris/actions-gh-pages@v4
