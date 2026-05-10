@@ -9,14 +9,11 @@ type Options = {
   rootMargin?: string;
 };
 
-const DEFAULT_THRESHOLD: number | number[] = [0.1, 0.5];
-const DEFAULT_ROOT_MARGIN = '-120px 0px 0px 0px';
-
 export const useScrollSpy = <T extends readonly Section[]>(
   sections: T,
   options?: Options
 ): string | null => {
-  const { threshold = DEFAULT_THRESHOLD, rootMargin = DEFAULT_ROOT_MARGIN } =
+  const { threshold = [0.1, 0.5], rootMargin = '-120px 0px 0px 0px' } =
     options ?? Object.create(null);
 
   const [activeId, setActiveId] = useState<string | null>(null);

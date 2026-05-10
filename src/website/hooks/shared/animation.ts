@@ -1,13 +1,12 @@
+import type { AnimationRefs } from '../Background/types';
+
 export const stopAnimationFrame = (refs: {
   animationFrameId: number;
 }): void => {
   cancelAnimationFrame(refs.animationFrameId);
 };
 
-export const cleanupAnimation = (refs: {
-  animationFrameId: number;
-  resizeObserver: ResizeObserver | null;
-}): void => {
+export const cleanupAnimation = (refs: AnimationRefs): void => {
   stopAnimationFrame(refs);
   refs.resizeObserver?.disconnect();
   refs.resizeObserver = null;
