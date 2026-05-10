@@ -1,82 +1,21 @@
-# JSConf Brasil 2026 🐢✨
+# JSConf Brasil 2026
 
-## Desenvolvimento
+A **JSConf Brasil** é a conferência brasileira dentro da família **JSConf**, dedicada à comunidade **JavaScript** e ao ecossistema em torno da linguagem — do front ao back, ferramentas, performance e as pessoas que constroem produtos com tecnologia web.
 
-```sh
-npm ci
-npm start # Inicia o website e o servidor localmente (pt-BR)
-```
+## Propósito
 
----
+O evento existe para **reunir quem desenvolve com JS**, **dividir conhecimento de alto nível** e **fortalecer redes** entre profissionais, estudantes e comunidades de todo o país. Queremos um espaço acolhedor, com palestras que inspiram e práticas que refletem o estado da arte, sempre com olhar para o contexto brasileiro.
 
-### Idiomas
+## JSConf BR e a NodeBR
 
-```sh
-npm run start:en # Inglês
-npm run start:es # Espanhol
-```
+A **JSConf Brasil** é um **braço da [NodeBR](https://nodebr.org)** — a associação que apoia e articula a comunidade **Node.js** e JavaScript no Brasil. Essa ligação traduz o compromisso com **código aberto**, **educação** e **representação** da comunidade técnica nacional em eventos de referência internacional, alinhados aos valores que a NodeBR defende no país.
 
-> [!TIP]
->
-> Use o componente `<Image />` ao invés de `<img />` para visualizar as imagens corretamente em todos os idiomas durante o desenvolvimento.
->
-> - O componente `<Image />` utiliza `loading="lazy"` e `decoding="async"` por padrão.
+## Site e repositório
+
+O site público está em **[jsconf.com.br](https://jsconf.com.br)**. Este repositório é o código do site e dos serviços que o sustentam (por exemplo, formulários e integrações).
+
+Quer contribuir com código, traduções ou correções? Veja **[DEVELOPMENT.md](./DEVELOPMENT.md)**.
 
 ---
 
-### Traduções (i18n)
-
-Use `<Text />` para conteúdo JSX e `text()` para atributos HTML ( `aria-label` , `alt` , `placeholder` , etc.):
-
-```tsx
-<h1>
-  <Text id='speakers.title' />
-</h1>
-```
-
-```tsx
-<Image alt={text({ id: 'location.venue.imgAlt' })} />
-```
-
-`<Text />` e `text()` são abstrações do [ `<Translate />` ](https://docusaurus.io/docs/docusaurus-core#translate) do **Docusaurus**:
-
-- IDs tipados com autocomplete a partir de `i18n/pt-BR/code.json`
-- Fallback automático do idioma principal (`pt-BR`) — não é necessário passar `children`
-
-Para adicionar um novo texto:
-
-1. Crie a chave em `i18n/pt-BR/code.json`
-2. Use `<Text id='...' />` ou `text({ id: '...' })` no componente
-3. Os tipos são inferidos automaticamente usando `i18n/pt-BR/code.json` como fonte de verdade
-
----
-
-### Formatação / Linting
-
-```sh
-npm run lint:fix
-```
-
----
-
-## Compilação
-
-```sh
-npm run build # Compila o website
-```
-
----
-
-## Testes
-
-```sh
-npm test # Testes unitários
-```
-
-```sh
-npm run typecheck # Verificação de tipos TypeScript
-```
-
-```sh
-npm run lint # Verificação de linting
-```
+Licença: **AGPL-3.0-only** — ver [LICENSE](./LICENSE).

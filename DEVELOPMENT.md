@@ -1,0 +1,86 @@
+# Desenvolvimento do site
+
+Este repositório contém o **código-fonte** do site oficial da **JSConf Brasil** ([jsconf.com.br](https://jsconf.com.br)): páginas em **Docusaurus**, conteúdo multilíngue e um **Worker** (Cloudflare) para formulários e API. Aqui você encontra como rodar o projeto localmente, traduzir textos e validar o build antes de abrir um PR.
+
+---
+
+## Primeiros passos
+
+```sh
+npm ci
+npm start # Inicia o website e o servidor localmente (pt-BR)
+```
+
+---
+
+### Idiomas
+
+```sh
+npm run start:en # Inglês
+npm run start:es # Espanhol
+```
+
+> [!TIP]
+>
+> Use o componente `<Image />` ao invés de `<img />` para visualizar as imagens corretamente em todos os idiomas durante o desenvolvimento.
+>
+> - O componente `<Image />` utiliza `loading="lazy"` e `decoding="async"` por padrão.
+
+---
+
+### Traduções (i18n)
+
+Use `<Text />` para conteúdo JSX e `text()` para atributos HTML (`aria-label`, `alt`, `placeholder`, etc.):
+
+```tsx
+<h1>
+  <Text id='speakers.title' />
+</h1>
+```
+
+```tsx
+<Image alt={text({ id: 'location.venue.imgAlt' })} />
+```
+
+`<Text />` e `text()` são abstrações do [`<Translate />`](https://docusaurus.io/docs/docusaurus-core#translate) do **Docusaurus**:
+
+- IDs tipados com autocomplete a partir de `i18n/pt-BR/code.json`
+- Fallback automático do idioma principal (`pt-BR`) — não é necessário passar `children`
+
+Para adicionar um novo texto:
+
+1. Crie a chave em `i18n/pt-BR/code.json`
+2. Use `<Text id='...' />` ou `text({ id: '...' })` no componente
+3. Os tipos são inferidos automaticamente usando `i18n/pt-BR/code.json` como fonte de verdade
+
+---
+
+### Formatação / Linting
+
+```sh
+npm run lint:fix
+```
+
+---
+
+## Compilação
+
+```sh
+npm run build # Compila o website e o worker
+```
+
+---
+
+## Testes
+
+```sh
+npm test # Testes unitários
+```
+
+```sh
+npm run typecheck # Verificação de tipos TypeScript
+```
+
+```sh
+npm run lint # Verificação de linting
+```
