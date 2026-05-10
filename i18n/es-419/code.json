@@ -167,12 +167,6 @@
   "team.ana.position": {
     "message": "Senior Software Engineer"
   },
-  "team.weslley.bio": {
-    "message": "Weslley Araújo es un desarrollador con más de 11 años de experiencia, mantenedor de MySQL2 y creador de Poku, un test runner de alto rendimiento que desafía al propio lenguaje de programación."
-  },
-  "team.weslley.position": {
-    "message": "Principal Developer"
-  },
   "team.lojhan.bio": {
     "message": "Tech Lead & Full Stack Developer. Ayudando a equipos a construir aplicaciones escalables con tecnologías modernas. Especializado en frontend, backend y diseño de arquitectura."
   },

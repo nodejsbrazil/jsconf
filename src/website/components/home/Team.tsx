@@ -92,20 +92,6 @@ export const Team = () => {
         </small>
         <section className='support'>
           <Person
-            name='Weslley Araújo'
-            img='/img/team/wells.webp'
-            bio={text({ id: 'team.weslley.bio' })}
-            position={text({ id: 'team.weslley.position' })}
-            company='weslley.io'
-            social={{
-              instagram: '@wellwelwel',
-              youtube: '@weslleyio',
-              linkedin: 'wellwelwel',
-              github: 'wellwelwel',
-              website: 'https://weslley.io/',
-            }}
-          />
-          <Person
             name='Micaele Magalhães'
             img='/img/team/mi.webp'
             bio={text({ id: 'team.micaele.bio' })}
