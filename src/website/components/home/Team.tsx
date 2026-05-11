@@ -81,6 +81,14 @@ export const Team = () => {
               website: 'https://blog.lsantos.dev',
             }}
           />
+          <Person
+            name='Micaele Magalhães'
+            img='/img/team/mi.webp'
+            bio={text({ id: 'team.micaele.bio' })}
+            social={{
+              instagram: 'micaele_magalhaes',
+            }}
+          />
         </section>
       </div>
       <div className='content' ref={supportRef}>
@@ -92,25 +100,16 @@ export const Team = () => {
         </small>
         <section className='support'>
           <Person
-            name='Weslley Araújo'
-            img='/img/team/wells.webp'
-            bio={text({ id: 'team.weslley.bio' })}
-            position={text({ id: 'team.weslley.position' })}
-            company='weslley.io'
+            name='Mônica'
+            img='/img/team/monica.webp'
+            bio={text({ id: 'team.monica.bio' })}
+            position={text({ id: 'team.monica.position' })}
+            company='CRMBonus'
             social={{
-              instagram: '@wellwelwel',
-              youtube: '@weslleyio',
-              linkedin: 'wellwelwel',
-              github: 'wellwelwel',
-              website: 'https://weslley.io/',
-            }}
-          />
-          <Person
-            name='Micaele Magalhães'
-            img='/img/team/mi.webp'
-            bio={text({ id: 'team.micaele.bio' })}
-            social={{
-              instagram: 'micaele_magalhaes',
+              linkedin: 'mocraveirodev',
+              instagram: 'mocraveirodev',
+              github: 'mocraveirodev',
+              website: 'https://5tr.in/mocraveirodev/',
             }}
           />
           <Person

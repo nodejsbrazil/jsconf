@@ -3,7 +3,7 @@ import { Gallery } from '../components/home/Gallery';
 import { Home } from '../components/home/Home';
 import { Location } from '../components/home/Location';
 // import { Speakers } from '../components/home/Speakers';
-import { Team } from '../components/home/Team';
+import { Sponsors } from '../components/home/Sponsors';
 import { TicketSelection } from '../components/home/TicketSelection';
 import { Waitlist } from '../components/home/Waitlist';
 import { Page } from '../components/shared/Page';
@@ -17,6 +17,6 @@ export default () => (
     <TicketSelection />
     <Waitlist />
     <Location />
-    <Team />
+    <Sponsors />
   </Page>
 );

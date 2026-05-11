@@ -1,8 +1,10 @@
 import type { FC, ReactNode, RefObject } from 'react';
 import { useRef } from 'react';
-import { Camera, Handshake, PartyPopper, Users } from 'lucide-react';
+import Link from '@docusaurus/Link';
+import { Camera, FileText, Handshake, Mic, PartyPopper, Users } from 'lucide-react';
 import { Text } from '@site/src/website/components/shared/i18n';
 import { useScroll } from '../../hooks/useScroll';
+import { useLocalePath } from '../../hooks/useLocalePath';
 import { Image } from '../shared/Image';
 
 type TextCardProps = {
@@ -54,6 +56,8 @@ const PhotoCard: FC<PhotoCardProps> = ({ src, alt, className = '' }) => {
 };
 
 export const Gallery = () => {
+  const { localePath } = useLocalePath();
+
   return (
     <main id='gallery'>
       <div className='content'>
@@ -110,6 +114,25 @@ export const Gallery = () => {
             src='/img/community/meetup-full.webp'
             alt='NodeBR meetup full'
           />
+        </div>
+        <h1 className='title'>
+          <Mic className='icon' /> <Text id='gallery.c4pGuide.heading' />
+        </h1>
+        <div className='c4p-cta'>
+          <div className='c4p-cta-content'>
+            <FileText className='c4p-cta-icon' />
+            <div>
+              <h3 className='c4p-cta-title'>
+                <Text id='gallery.c4pGuide.title' />
+              </h3>
+              <p className='c4p-cta-description'>
+                <Text id='gallery.c4pGuide.description' />
+              </p>
+            </div>
+            <Link to={localePath('/c4p')} className='c4p-cta-link'>
+              <Text id='gallery.c4pGuide.cta' />
+            </Link>
+          </div>
         </div>
       </div>
     </main>

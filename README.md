@@ -1,6 +1,6 @@
-# JSConf Brasil 2026
+# JSConf Brasil 2026 🐢✨
 
-A **JSConf Brasil** é a conferência brasileira dentro da família **JSConf**, dedicada à comunidade **JavaScript** e ao ecossistema em torno da linguagem — do front ao back, ferramentas, performance e as pessoas que constroem produtos com tecnologia web.
+A **JSConf Brasil** é a conferência brasileira dentro da família [JSConf](https://jsconf.com/) dedicada à comunidade **JavaScript** e ao ecossistema em torno da linguagem — do front ao back, ferramentas, performance e as pessoas que constroem produtos com tecnologia web.
 
 ## Propósito
 
