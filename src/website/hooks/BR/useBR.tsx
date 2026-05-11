@@ -46,7 +46,10 @@ export const useBR = () => {
       visibilityHandlers[visibilityState]?.();
     },
     {
-      root: typeof document !== 'undefined' ? document.getElementById('__docusaurus') : null,
+      root:
+        typeof document !== 'undefined'
+          ? document.getElementById('__docusaurus')
+          : null,
       onReset: () => cleanupAnimation(animationRef.current),
     }
   );
