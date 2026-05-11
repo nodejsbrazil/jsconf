@@ -6,9 +6,7 @@ export const goToAnchor = (id: string): void => {
     const anchor = document.querySelector<HTMLElement>(id);
     if (!anchor) return;
 
-    const top = body
-      ? anchor.offsetTop - body.offsetTop
-      : anchor.getBoundingClientRect().top + window.scrollY;
+    const top = anchor.offsetTop - body.offsetTop;
 
     (body || window).scrollTo({
       top,

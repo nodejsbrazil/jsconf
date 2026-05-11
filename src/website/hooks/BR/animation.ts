@@ -17,20 +17,23 @@ const easeIn = (progress: number): number => progress * progress;
 const lerp = (start: number, end: number, progress: number): number =>
   start + (end - start) * progress;
 
-export const getColor = (progress: number): string => {
-  const easedProgress = easeIn(Math.min(1, Math.max(0, progress)));
-  const red = Math.round(
-    lerp(INITIAL_COLOR.red, FINAL_COLOR.red, easedProgress)
-  );
-  const green = Math.round(
-    lerp(INITIAL_COLOR.green, FINAL_COLOR.green, easedProgress)
-  );
-  const blue = Math.round(
-    lerp(INITIAL_COLOR.blue, FINAL_COLOR.blue, easedProgress)
-  );
-  const alpha = lerp(INITIAL_COLOR.alpha, FINAL_COLOR.alpha, easedProgress);
+const COLOR_TABLE_SIZE = 256;
 
-  return `rgba(${red},${green},${blue},${alpha})`;
+const COLOR_TABLE: readonly string[] = Array.from(
+  { length: COLOR_TABLE_SIZE },
+  (_, i) => {
+    const easedProgress = easeIn(i / (COLOR_TABLE_SIZE - 1));
+    const red = Math.round(lerp(INITIAL_COLOR.red, FINAL_COLOR.red, easedProgress));
+    const green = Math.round(lerp(INITIAL_COLOR.green, FINAL_COLOR.green, easedProgress));
+    const blue = Math.round(lerp(INITIAL_COLOR.blue, FINAL_COLOR.blue, easedProgress));
+    const alpha = lerp(INITIAL_COLOR.alpha, FINAL_COLOR.alpha, easedProgress);
+    return `rgba(${red},${green},${blue},${alpha})`;
+  }
+);
+
+export const getColor = (progress: number): string => {
+  const index = Math.round(Math.min(1, Math.max(0, progress)) * (COLOR_TABLE_SIZE - 1));
+  return COLOR_TABLE[index]!;
 };
 
 const createAnimationLoop = (

@@ -95,7 +95,6 @@
               width: 3rem;
               animation: none;
               opacity: 1;
-              will-change: transform, filter;
               animation: odometer-out 0.4s var(--ease-in-quad) forwards;
               animation-delay: 1s;
             }

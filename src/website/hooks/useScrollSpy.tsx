@@ -19,34 +19,28 @@ export const useScrollSpy = <T extends readonly Section[]>(
   const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
     const visibleSections = new Map<string, number>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = entry.target.id;
+          if (entry.isIntersecting) visibleSections.set(id, entry.intersectionRatio);
+          else visibleSections.delete(id);
+        }
+
+        const current = sections.find((s) => visibleSections.has(s.id));
+        setActiveId(current?.id ?? null);
+      },
+      { threshold, rootMargin }
+    );
 
     for (const { id } of sections) {
       const element = document.getElementById(id);
-      if (!element) continue;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (!entry) return;
-
-          if (entry.isIntersecting)
-            visibleSections.set(id, entry.intersectionRatio);
-          else visibleSections.delete(id);
-
-          const current = sections.find((s) => visibleSections.has(s.id));
-          setActiveId(current?.id ?? null);
-        },
-        { threshold, rootMargin }
-      );
-
-      observer.observe(element);
-      observers.push(observer);
+      if (element) observer.observe(element);
     }
 
-    return () => {
-      for (const obs of observers) obs.disconnect();
-    };
+    return () => observer.disconnect();
   }, [sections, threshold, rootMargin]);
 
   return activeId;

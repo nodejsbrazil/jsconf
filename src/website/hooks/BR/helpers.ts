@@ -8,6 +8,7 @@ import type {
 import {
   ANIMATION_DURATION,
   DELAY_PER_DOT,
+  MAX_DOTS,
   VISIBLE_THRESHOLD,
 } from '@site/src/website/hooks/BR/definitions';
 import dots from '@site/src/website/hooks/BR/dots.json';
@@ -104,6 +105,8 @@ export const calculateDotProgress = (
   return calculateAppearingProgress(elapsed, appearAt);
 };
 
+const MAX_REMOVALS_PER_FRAME = 10;
+
 const scheduleDotsForRemoval = (
   state: AnimationState,
   visibleIndices: number[],
@@ -111,7 +114,8 @@ const scheduleDotsForRemoval = (
 ): void => {
   state.nextRemovalAt ??= elapsed;
 
-  while (state.nextRemovalAt <= elapsed && visibleIndices.length > 0) {
+  let iterations = 0;
+  while (state.nextRemovalAt <= elapsed && visibleIndices.length > 0 && iterations < MAX_REMOVALS_PER_FRAME) {
     const randomIndex = Math.floor(Math.random() * visibleIndices.length);
     const dotIndex = visibleIndices.splice(randomIndex, 1)[0];
     const dot = dotIndex !== undefined ? state.dots[dotIndex] : undefined;
@@ -123,6 +127,7 @@ const scheduleDotsForRemoval = (
 
     state.nextDelay += DELAY_PER_DOT;
     state.nextRemovalAt += DELAY_PER_DOT;
+    iterations++;
   }
 };
 
@@ -150,19 +155,27 @@ export const processRemovals = (
   }
 };
 
+// Uniform sampling: picks every (total/count)th dot so the "BR" shape stays
+// evenly filled rather than leaving gaps in one region.
+const sampleDots = (allDots: RawDotData[], count: number): RawDotData[] => {
+  const step = allDots.length / count;
+  return Array.from({ length: count }, (_, i) => allDots[Math.round(i * step)]!);
+};
+
 export const createInitialState = (): AnimationState => {
+  const sampled = sampleDots(dots as RawDotData[], MAX_DOTS);
   const indices = shuffleArray(
-    Array.from({ length: dots.length }, (_, index) => index)
+    Array.from({ length: sampled.length }, (_, index) => index)
   );
 
   return {
-    dots: (dots as RawDotData[]).map((rawDot, index) => ({
+    dots: sampled.map((rawDot, index) => ({
       dot: mapRawDotToDot(rawDot),
       visible: false,
       appearAt: (indices[index] ?? index) * DELAY_PER_DOT,
       disappearAt: null,
     })),
-    nextDelay: dots.length * DELAY_PER_DOT,
+    nextDelay: sampled.length * DELAY_PER_DOT,
     nextRemovalAt: null,
   };
 };
