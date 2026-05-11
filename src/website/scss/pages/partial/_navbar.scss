@@ -49,6 +49,7 @@
   background-color: rgba(0, 14, 6, 0.75);
   border-bottom: 0.1rem solid #0c701932;
   backdrop-filter: blur(2.5rem);
+  will-change: backdrop-filter;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.75);
 
   @media (max-width: 630px) {
@@ -267,6 +268,7 @@
           border: 0.1rem solid rgba(255, 255, 255, 0.1);
           border-radius: 0.5rem;
           backdrop-filter: blur(2.5rem);
+          will-change: backdrop-filter;
           overflow: hidden;
           box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.5);
           opacity: 0;

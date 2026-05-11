@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 import type { StepErrors } from './schema';
 import type { C4PContextValue, FormData } from './types';
-import { createContext, useContext, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { loadFromStorage, saveToStorage } from './helpers';
 import { validateStep } from './schema';
@@ -37,7 +37,7 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
   const [touched, setTouched] = useState<Set<string>>(new Set());
 
-  const updateField = <Key extends keyof FormData>(
+  const updateField = useCallback(<Key extends keyof FormData>(
     field: Key,
     value: FormData[Key]
   ) => {
@@ -45,18 +45,18 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
     dataRef.current = next;
     saveToStorage(stepRef.current, next);
     setFormData(next);
-  };
+  }, []) as <Key extends keyof FormData>(field: Key, value: FormData[Key]) => void;
 
-  const goToStep = (step: number) => {
+  const goToStep = useCallback((step: number) => {
     setErrors({});
     setTouched(new Set());
     stepRef.current = step;
     setCurrentStep(step);
     saveToStorage(step, dataRef.current);
     document.getElementById('__docusaurus')?.scrollTo(0, 0);
-  };
+  }, []);
 
-  const validate = () => {
+  const validate = useCallback(() => {
     const result = validateStep(stepRef.current, dataRef.current);
     setErrors(result);
     const keys = Object.keys(result);
@@ -65,9 +65,9 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
       return false;
     }
     return true;
-  };
+  }, []);
 
-  const validateField = (field: string) => {
+  const validateField = useCallback((field: string) => {
     setTouched((previous) => new Set(previous).add(field));
     const result = validateStep(stepRef.current, dataRef.current);
     const error = result[field];
@@ -78,21 +78,21 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
       else delete next[field];
       return next;
     });
-  };
+  }, []);
+
+  const value = useMemo(() => ({
+    currentStep,
+    formData,
+    errors,
+    touched,
+    updateField,
+    goToStep,
+    validate,
+    validateField,
+  }), [currentStep, formData, errors, touched, updateField, goToStep, validate, validateField]);
 
   return (
-    <C4PContext.Provider
-      value={{
-        currentStep,
-        formData,
-        errors,
-        touched,
-        updateField,
-        goToStep,
-        validate,
-        validateField,
-      }}
-    >
+    <C4PContext.Provider value={value}>
       {children}
     </C4PContext.Provider>
   );

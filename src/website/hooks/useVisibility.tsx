@@ -11,6 +11,7 @@ type Options<T extends Element> = {
   eject?: boolean;
   threshold?: number;
   deps?: unknown[];
+  root?: Element | null;
   onReset?: (target: T) => void;
 };
 
@@ -23,6 +24,7 @@ export const useVisibility = <T extends Element>(
     threshold = 0.1,
     eject = false,
     deps = [],
+    root = null,
     onReset,
   } = options ?? Object.create(null);
 
@@ -58,7 +60,7 @@ export const useVisibility = <T extends Element>(
           observer.unobserve(target);
         }
       },
-      { threshold }
+      { threshold, root }
     );
 
     const handleVisibilityChange = () => {

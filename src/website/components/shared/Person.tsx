@@ -1,5 +1,5 @@
+import { memo, useRef } from 'react';
 import type { FC } from 'react';
-import { useRef } from 'react';
 import { Building, Link } from 'lucide-react';
 import {
   FaGithub,
@@ -27,7 +27,7 @@ type MemberProps = {
   social?: SocialLinks;
 };
 
-export const Person: FC<MemberProps> = ({
+export const Person: FC<MemberProps> = memo(({
   name,
   img,
   position,
@@ -101,4 +101,4 @@ export const Person: FC<MemberProps> = ({
       </div>
     </section>
   );
-};
+});

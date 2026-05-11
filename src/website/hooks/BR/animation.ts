@@ -47,7 +47,7 @@ const createAnimationLoop = (
 
     animation.startTime ??= timestamp;
 
-    const shouldRenderFrame = timestamp - animation.lastFrameTime >= 33;
+    const shouldRenderFrame = timestamp - animation.lastFrameTime >= 67;
     if (shouldRenderFrame) {
       const elapsed =
         timestamp - animation.startTime + animation.elapsedBeforePause;
@@ -87,10 +87,8 @@ const startAnimationLoop = (
   const animate = createAnimationLoop(canvas, animation, state);
 
   stopAnimationFrame(animation);
-  requestAnimationFrame(() => {
-    handleResize();
-    animation.animationFrameId = requestAnimationFrame(animate);
-  });
+  handleResize();
+  animation.animationFrameId = requestAnimationFrame(animate);
 };
 
 export const handleVisibilityOn = (
