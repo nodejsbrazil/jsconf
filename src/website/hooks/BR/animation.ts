@@ -44,7 +44,7 @@ const createAnimationLoop = (
 
     animation.startTime ??= timestamp;
 
-    const shouldRenderFrame = timestamp - animation.lastFrameTime >= 16;
+    const shouldRenderFrame = timestamp - animation.lastFrameTime >= 33;
     if (shouldRenderFrame) {
       const elapsed =
         timestamp - animation.startTime + animation.elapsedBeforePause;

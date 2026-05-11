@@ -12,9 +12,6 @@
   background-color: #0f1816;
 }
 
-#root:has(.c4p-page) .bg {
-  display: none;
-}
 
 .c4p-confirm {
   position: absolute;
