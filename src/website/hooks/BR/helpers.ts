@@ -115,7 +115,11 @@ const scheduleDotsForRemoval = (
   state.nextRemovalAt ??= elapsed;
 
   let iterations = 0;
-  while (state.nextRemovalAt <= elapsed && visibleIndices.length > 0 && iterations < MAX_REMOVALS_PER_FRAME) {
+  while (
+    state.nextRemovalAt <= elapsed &&
+    visibleIndices.length > 0 &&
+    iterations < MAX_REMOVALS_PER_FRAME
+  ) {
     const randomIndex = Math.floor(Math.random() * visibleIndices.length);
     const dotIndex = visibleIndices.splice(randomIndex, 1)[0];
     const dot = dotIndex !== undefined ? state.dots[dotIndex] : undefined;
@@ -159,7 +163,10 @@ export const processRemovals = (
 // evenly filled rather than leaving gaps in one region.
 const sampleDots = (allDots: RawDotData[], count: number): RawDotData[] => {
   const step = allDots.length / count;
-  return Array.from({ length: count }, (_, i) => allDots[Math.round(i * step)]!);
+  return Array.from(
+    { length: count },
+    (_, i) => allDots[Math.round(i * step)]!
+  );
 };
 
 export const createInitialState = (): AnimationState => {

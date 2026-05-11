@@ -16,10 +16,8 @@ export const useScrollSpy = <T extends readonly Section[]>(
   sections: T,
   options?: Options
 ): string | null => {
-  const {
-    threshold = DEFAULT_THRESHOLD,
-    rootMargin = DEFAULT_ROOT_MARGIN,
-  } = options ?? Object.create(null);
+  const { threshold = DEFAULT_THRESHOLD, rootMargin = DEFAULT_ROOT_MARGIN } =
+    options ?? Object.create(null);
 
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -30,7 +28,8 @@ export const useScrollSpy = <T extends readonly Section[]>(
       (entries) => {
         for (const entry of entries) {
           const id = entry.target.id;
-          if (entry.isIntersecting) visibleSections.set(id, entry.intersectionRatio);
+          if (entry.isIntersecting)
+            visibleSections.set(id, entry.intersectionRatio);
           else visibleSections.delete(id);
         }
 

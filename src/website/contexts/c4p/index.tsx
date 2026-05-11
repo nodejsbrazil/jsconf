@@ -1,7 +1,14 @@
 import type { FC, ReactNode } from 'react';
 import type { StepErrors } from './schema';
 import type { C4PContextValue, FormData } from './types';
-import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { toast } from 'sonner';
 import { loadFromStorage, saveToStorage } from './helpers';
 import { validateStep } from './schema';
@@ -37,15 +44,15 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
   const [touched, setTouched] = useState<Set<string>>(new Set());
 
-  const updateField = useCallback(<Key extends keyof FormData>(
-    field: Key,
-    value: FormData[Key]
-  ) => {
-    const next = { ...dataRef.current, [field]: value };
-    dataRef.current = next;
-    saveToStorage(stepRef.current, next);
-    setFormData(next);
-  }, []) as <Key extends keyof FormData>(field: Key, value: FormData[Key]) => void;
+  const updateField = useCallback(
+    <Key extends keyof FormData>(field: Key, value: FormData[Key]) => {
+      const next = { ...dataRef.current, [field]: value };
+      dataRef.current = next;
+      saveToStorage(stepRef.current, next);
+      setFormData(next);
+    },
+    []
+  ) as <Key extends keyof FormData>(field: Key, value: FormData[Key]) => void;
 
   const goToStep = useCallback((step: number) => {
     setErrors({});
@@ -80,22 +87,30 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
     });
   }, []);
 
-  const value = useMemo(() => ({
-    currentStep,
-    formData,
-    errors,
-    touched,
-    updateField,
-    goToStep,
-    validate,
-    validateField,
-  }), [currentStep, formData, errors, touched, updateField, goToStep, validate, validateField]);
-
-  return (
-    <C4PContext.Provider value={value}>
-      {children}
-    </C4PContext.Provider>
+  const value = useMemo(
+    () => ({
+      currentStep,
+      formData,
+      errors,
+      touched,
+      updateField,
+      goToStep,
+      validate,
+      validateField,
+    }),
+    [
+      currentStep,
+      formData,
+      errors,
+      touched,
+      updateField,
+      goToStep,
+      validate,
+      validateField,
+    ]
   );
+
+  return <C4PContext.Provider value={value}>{children}</C4PContext.Provider>;
 };
 
 export const useC4P = () => {

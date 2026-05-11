@@ -14,9 +14,7 @@ export const Page = ({ title, description, children }: PageProps) => {
       <Head>
         <meta name='theme-color' content='#000c05' />
       </Head>
-      <div id='root'>
-        {children}
-      </div>
+      <div id='root'>{children}</div>
     </Layout>
   );
 };
