@@ -101,6 +101,18 @@
   "gallery.community.description": {
     "message": "Organizamos meetups e eventos conectando desenvolvedores Node.js por todo o Brasil."
   },
+  "gallery.c4pGuide.heading": {
+    "message": "Mande sua palestra!"
+  },
+  "gallery.c4pGuide.title": {
+    "message": "Guia de Call 4 Papers"
+  },
+  "gallery.c4pGuide.description": {
+    "message": "Quer submeter uma palestra? Veja o guia completo com critérios, dicas e prazos."
+  },
+  "gallery.c4pGuide.cta": {
+    "message": "Acessar guia"
+  },
   "gallery.networking.title": {
     "message": "Networking"
   },
@@ -150,7 +162,7 @@
     "message": "USCS - Universidade Municipal de São Caetano do Sul"
   },
   "team.title": {
-    "message": "Nosso Time"
+    "message": "O time por trás da JSConfBR"
   },
   "team.subtitle": {
     "message": "Especialistas internacionais e talentos locais compartilhando o futuro da web."
@@ -166,12 +178,6 @@
   },
   "team.ana.position": {
     "message": "Senior Software Engineer"
-  },
-  "team.weslley.bio": {
-    "message": "Weslley Araújo é um desenvolvedor com mais de 11 anos de experiência, mantenedor do MySQL2 e criador do Poku, um test runner de alta performance que desafia a própria linguagem de programação."
-  },
-  "team.weslley.position": {
-    "message": "Principal Developer"
   },
   "team.lojhan.bio": {
     "message": "Tech Lead & Full Stack Developer. Ajudando equipes a construir aplicações escaláveis com tecnologias modernas. Especializado em frontend, backend e design de arquitetura."

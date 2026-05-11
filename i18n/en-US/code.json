@@ -101,6 +101,18 @@
   "gallery.community.description": {
     "message": "We organize meetups and events connecting Node.js developers across Brazil."
   },
+  "gallery.c4pGuide.heading": {
+    "message": "Submit your talk!"
+  },
+  "gallery.c4pGuide.title": {
+    "message": "Call 4 Papers Guide"
+  },
+  "gallery.c4pGuide.description": {
+    "message": "Want to submit a talk? Read the full guide with criteria, tips, and deadlines."
+  },
+  "gallery.c4pGuide.cta": {
+    "message": "Open guide"
+  },
   "gallery.networking.title": {
     "message": "Networking"
   },
@@ -150,7 +162,7 @@
     "message": "USCS - Municipal University of São Caetano do Sul"
   },
   "team.title": {
-    "message": "Our Team"
+    "message": "The team behind JSConfBR"
   },
   "team.subtitle": {
     "message": "International experts and local talent sharing the future of the web."
@@ -166,12 +178,6 @@
   },
   "team.ana.position": {
     "message": "Senior Software Engineer"
-  },
-  "team.weslley.bio": {
-    "message": "Weslley Araújo is a developer with over 11 years of experience, MySQL2 maintainer and creator of Poku, a high-performance test runner that challenges the programming language itself."
-  },
-  "team.weslley.position": {
-    "message": "Principal Developer"
   },
   "team.lojhan.bio": {
     "message": "Tech Lead & Full Stack Developer. Helping teams build scalable applications with modern technologies. Specialized in frontend, backend and architecture design."

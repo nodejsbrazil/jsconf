@@ -2,6 +2,7 @@ import type { SubmitEvent } from 'react';
 import type { FormData } from '../../../contexts/c4p';
 import Link from '@docusaurus/Link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import * as styles from '../_styles';
 import {
   disabilityOptions,
@@ -12,6 +13,7 @@ import {
 } from '../../../contexts/c4p';
 
 export const Diversity = () => {
+  const { localePath } = useLocalePath();
   const { formData, updateField, goToStep } = useC4P();
 
   const handleSubmit = (event: SubmitEvent) => {
@@ -46,7 +48,7 @@ export const Diversity = () => {
             física, etc.) e (c) gerar estatísticas agregadas sobre diversidade
             no C4P. Você pode revogar esse consentimento a qualquer momento
             escrevendo para um dos{' '}
-            <Link to='/#team' className='text-primary underline'>
+            <Link to={localePath('/team')} className='text-primary underline'>
               nossos voluntários
             </Link>
             .

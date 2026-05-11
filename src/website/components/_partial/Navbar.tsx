@@ -43,8 +43,9 @@ const SECTIONS: Section[] = [
     priority: 2,
   },
   {
-    id: 'team',
-    label: <Text id='navbar.section.team' />,
+    id: 'sponsors',
+    label: <Text id='navbar.section.sponsors' />,
+    priority: 1,
   },
 ];
 
@@ -184,8 +185,8 @@ export const Navbar = () => {
           <Link to={localePath('/c4p')} data-priority={1}>
             C4P
           </Link>
-          <Link to={localePath('/sponsors')} data-priority={1}>
-            <Text id='navbar.section.sponsors' />
+          <Link to={localePath('/team')} data-priority={1}>
+            <Text id='navbar.section.team' />
           </Link>
         </nav>
         <div className='actions'>
@@ -270,8 +271,8 @@ export const Navbar = () => {
           <Link to={localePath('/c4p')} onClick={closeMenu}>
             C4P
           </Link>
-          <Link to={localePath('/sponsors')} onClick={closeMenu}>
-            <Text id='navbar.section.sponsors' />
+          <Link to={localePath('/team')} onClick={closeMenu}>
+            <Text id='navbar.section.team' />
           </Link>
           <SafeLink className='tickets' to={link.tickets}>
             <Ticket /> <Text id='navbar.tickets' />
