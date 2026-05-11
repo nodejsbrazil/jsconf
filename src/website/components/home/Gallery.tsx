@@ -1,10 +1,17 @@
 import type { FC, ReactNode, RefObject } from 'react';
 import { useRef } from 'react';
 import Link from '@docusaurus/Link';
-import { Camera, FileText, Handshake, Mic, PartyPopper, Users } from 'lucide-react';
+import {
+  Camera,
+  FileText,
+  Handshake,
+  Mic,
+  PartyPopper,
+  Users,
+} from 'lucide-react';
 import { Text } from '@site/src/website/components/shared/i18n';
-import { useScroll } from '../../hooks/useScroll';
 import { useLocalePath } from '../../hooks/useLocalePath';
+import { useScroll } from '../../hooks/useScroll';
 import { Image } from '../shared/Image';
 
 type TextCardProps = {
