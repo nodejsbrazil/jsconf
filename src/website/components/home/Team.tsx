@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Boxes } from 'lucide-react';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useScroll } from '../../hooks/useScroll';
@@ -6,19 +6,15 @@ import { Person } from '../shared/Person';
 
 export const Team = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const supportRef = useRef<HTMLDivElement>(null);
+  const [show, setShow] = useState(false);
 
-  useScroll(ref, (isVisible, target) => {
-    target.className = isVisible ? 'content show' : 'content';
-  });
-
-  useScroll(supportRef, (isVisible, target) => {
-    target.className = isVisible ? 'content show' : 'content';
+  useScroll(ref, (isVisible) => {
+    if (isVisible) setShow(true);
   });
 
   return (
     <main id='team'>
-      <div className='content' ref={ref}>
+      <div className={show ? 'content show' : 'content'} ref={ref}>
         <h1 className='title'>
           <Boxes className='icon' /> <Text id='team.title' />
         </h1>
@@ -89,16 +85,6 @@ export const Team = () => {
               instagram: 'micaele_magalhaes',
             }}
           />
-        </section>
-      </div>
-      <div className='content' ref={supportRef}>
-        <h1 className='title'>
-          <Boxes className='icon' /> <Text id='supporters.title' />
-        </h1>
-        <small className='subtitle'>
-          <Text id='supporters.subtitle' />
-        </small>
-        <section className='support'>
           <Person
             name='Mônica'
             img='/img/team/monica.webp'
