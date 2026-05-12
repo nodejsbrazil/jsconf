@@ -103,10 +103,11 @@ export const Team = () => {
             img='/img/team/cristian.webp'
             bio={text({ id: 'team.cristian.bio' })}
             position={text({ id: 'team.cristian.position' })}
-            company='Luizalabs'
             social={{
               linkedin: 'cristian-silva-dev',
               github: 'Cristuker',
+              instagram: 'cris.mgls',
+              website: 'https://cristianm.dev/',
             }}
           />
         </section>
