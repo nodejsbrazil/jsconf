@@ -99,7 +99,7 @@ export const Team = () => {
             }}
           />
           <Person
-            name='Cristian Silva'
+            name='Cristian Magalhães'
             img='/img/team/cristian.webp'
             bio={text({ id: 'team.cristian.bio' })}
             position={text({ id: 'team.cristian.position' })}
