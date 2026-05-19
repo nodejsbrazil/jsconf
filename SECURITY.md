@@ -1,21 +1,14 @@
-# Security Policy
+# Política de Segurança
 
-## Supported Versions
+## Reportando uma Vulnerabilidade
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Se você encontrar uma vulnerabilidade de segurança, por favor reporte-a de forma privada através dos security advisories nativos do **GitHub**:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+- https://github.com/nodejsbrazil/jsconf/security/advisories/new
 
-## Reporting a Vulnerability
+Por favor, inclua:
 
-Use this section to tell people how to report a vulnerability.
+- Uma descrição detalhada da vulnerabilidade.
+- Passos para reproduzi-la e, se possível, um patch ou solução alternativa.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Evite divulgar a vulnerabilidade publicamente até que ela tenha sido resolvida.
