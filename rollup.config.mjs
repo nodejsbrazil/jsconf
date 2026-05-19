@@ -12,7 +12,7 @@ export default defineConfig({
     format: 'esm',
   },
   plugins: [
-    resolve(),
+    resolve({ preferBuiltins: true }),
     commonjs(),
     json({ compact: true }),
     typescript({
