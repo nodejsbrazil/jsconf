@@ -6,6 +6,12 @@ on:
       - 'main'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+  issues: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -66,7 +72,7 @@ jobs:
       - name: Deploy — Website
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.PAT }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
           publish_branch: 'website'
           cname: jsconf.com.br
