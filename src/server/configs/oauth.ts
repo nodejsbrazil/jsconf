@@ -1,0 +1,16 @@
+// guild.host OAuth endpoints (docs: https://guild.host/docs/developers/oauth)
+export const AUTHORIZE_URL = 'https://guild.host/oauth/authorize';
+export const TOKEN_URL = 'https://guild.host/api/oauth/token';
+export const USERINFO_URL = 'https://guild.host/api/oauth/userinfo';
+export const ATTENDEES_BASE = 'https://guild.host/api/next/events';
+
+// Scope that grants the authenticated user's identity via the userinfo endpoint.
+export const IDENTITY_SCOPE = 'profile:read';
+
+// ponytail: event slug hardcoded (same one the ticket widget uses, TicketSelection.tsx).
+// Move to an Env var if it ever changes per environment.
+export const EVENT_SLUG = 'vdc8dh';
+
+export const SESSION_COOKIE = 'vote_session';
+export const STATE_COOKIE = 'vote_oauth_state';
+export const SESSION_TTL_SECONDS = 86400;

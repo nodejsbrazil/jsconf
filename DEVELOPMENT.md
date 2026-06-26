@@ -84,3 +84,29 @@ npm run typecheck # Verificação de tipos TypeScript
 ```sh
 npm run lint # Verificação de linting
 ```
+
+---
+
+## Votação de palestras
+
+Quem comprou ingresso vota nas palestras do C4P. A pessoa entra com a conta do **guild.host**, e quantos votos ela tem depende do **tier** do ingresso.
+
+Como funciona:
+
+1. A pessoa abre `/vote` e entra com o guild.host (`GET /api/vote/login`). O **Worker** guarda a identidade num cookie de sessão assinado.
+2. Na hora do voto, o Worker descobre o tier da pessoa na lista de participantes do guild.host (usando um token de organizador) e cruza com a tabela `ticket_tiers` pra saber quantos votos ela tem.
+3. Os votos vão pra tabela `c4p_votes` (`POST /api/vote`), até o limite do tier e até a data de fechamento (`VOTE_CLOSES_AT` em `src/server/configs/vote.ts`).
+
+Tabelas novas (`resources/schema.sql`): `ticket_tiers` (nome do tier e número de votos), `c4p_votes` (um voto por pessoa e palestra) e `oauth_tokens` (token de organizador, que o Worker renova sozinho).
+
+Secrets do Worker: `GUILD_OAUTH_CLIENT_ID`, `GUILD_OAUTH_CLIENT_SECRET`, `GUILD_OAUTH_REDIRECT_URI`, `GUILD_ORG_REFRESH_TOKEN`, `SESSION_SECRET`. O `ALLOWED_ORIGIN` precisa ser a origem do site (não pode ser `*`, senão o cookie de sessão não vai).
+
+Rodando local: `npm run db:init` cria as tabelas. Fora de produção dá pra simular um usuário pelo header `X-Dev-User` (em produção isso é ignorado, só vale a sessão do OAuth):
+
+```sh
+curl -H 'X-Dev-User: user-1' localhost:8787/api/vote
+```
+
+> [!TIP]
+>
+> O passo a passo pra subir em produção (registrar o app OAuth, popular `ticket_tiers`, pegar o refresh token de organizador) está no `TODO.md`.

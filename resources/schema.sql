@@ -57,3 +57,25 @@ CREATE TABLE IF NOT EXISTS speaker_diversity (
 );
 
 CREATE INDEX IF NOT EXISTS idx_speaker_diversity_speaker_id ON speaker_diversity(speaker_id);
+
+CREATE TABLE IF NOT EXISTS ticket_tiers (
+  name   VARCHAR(200) PRIMARY KEY,  -- guild.host tier name, matched against attendee tier
+  budget INTEGER      NOT NULL CHECK(budget >= 0)
+);
+
+CREATE TABLE IF NOT EXISTS c4p_votes (
+  id         INTEGER     PRIMARY KEY AUTOINCREMENT,
+  user_id    TEXT        NOT NULL,  -- guild.host user id (from OAuth)
+  talk_id    INTEGER     NOT NULL REFERENCES talks(id),
+  created_at VARCHAR(20) NOT NULL DEFAULT (datetime('now')),
+  UNIQUE(user_id, talk_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_c4p_votes_user ON c4p_votes(user_id);
+
+CREATE TABLE IF NOT EXISTS oauth_tokens (
+  name          TEXT    PRIMARY KEY,  -- 'organizer'
+  access_token  TEXT    NOT NULL,
+  refresh_token TEXT    NOT NULL,
+  expires_at    INTEGER NOT NULL      -- unix seconds
+);

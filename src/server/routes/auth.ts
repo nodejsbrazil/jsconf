@@ -1,0 +1,100 @@
+import type { Env } from '../types.js';
+import {
+  SESSION_COOKIE,
+  SESSION_TTL_SECONDS,
+  STATE_COOKIE,
+} from '../configs/oauth.js';
+import {
+  buildAuthorizeUrl,
+  exchangeCode,
+  fetchUserInfo,
+} from '../helpers/oauth.js';
+import { signSession } from '../helpers/session.js';
+
+type Options = { request: Request; env: Env };
+
+const randomState = (): string => {
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+};
+
+const redirectUri = (request: Request, env: Env): string =>
+  env.GUILD_OAUTH_REDIRECT_URI ??
+  `${new URL(request.url).origin}/api/vote/callback`;
+
+const websiteOrigin = (request: Request, env: Env): string =>
+  env.ALLOWED_ORIGIN ?? new URL(request.url).origin;
+
+const readCookie = (request: Request, name: string): string | null => {
+  for (const part of (request.headers.get('Cookie') ?? '').split(';')) {
+    const [k, ...v] = part.trim().split('=');
+    if (k === name) return v.join('=');
+  }
+  return null;
+};
+
+const redirect = (location: string, cookies: string[] = []): Response => {
+  const headers = new Headers({ Location: location });
+  for (const cookie of cookies) headers.append('Set-Cookie', cookie);
+  return new Response(null, { status: 302, headers });
+};
+
+export const authLogin = async ({
+  request,
+  env,
+}: Options): Promise<Response> => {
+  if (!env.GUILD_OAUTH_CLIENT_ID)
+    return new Response('OAuth not configured.', { status: 500 });
+
+  const state = randomState();
+  const url = buildAuthorizeUrl(
+    env.GUILD_OAUTH_CLIENT_ID,
+    redirectUri(request, env),
+    state
+  );
+  // ponytail: state cookie is Lax — it rides the top-level redirect back to /api/vote/callback.
+  return redirect(url, [
+    `${STATE_COOKIE}=${state}; HttpOnly; Secure; SameSite=Lax; Path=/api/vote; Max-Age=600`,
+  ]);
+};
+
+export const authCallback = async ({
+  request,
+  env,
+}: Options): Promise<Response> => {
+  const params = new URL(request.url).searchParams;
+  const site = websiteOrigin(request, env);
+
+  if (params.get('error')) return redirect(`${site}/vote?error=denied`);
+
+  const code = params.get('code');
+  const state = params.get('state');
+  if (!code || !state || state !== readCookie(request, STATE_COOKIE))
+    return redirect(`${site}/vote?error=state`);
+
+  if (
+    !env.GUILD_OAUTH_CLIENT_ID ||
+    !env.GUILD_OAUTH_CLIENT_SECRET ||
+    !env.SESSION_SECRET
+  )
+    return new Response('OAuth not configured.', { status: 500 });
+
+  const tokens = await exchangeCode(
+    code,
+    env.GUILD_OAUTH_CLIENT_ID,
+    env.GUILD_OAUTH_CLIENT_SECRET,
+    redirectUri(request, env)
+  );
+  if (!tokens) return redirect(`${site}/vote?error=token`);
+
+  const userId = await fetchUserInfo(tokens.access_token);
+  if (!userId) return redirect(`${site}/vote?error=identity`);
+
+  const session = await signSession(userId, env.SESSION_SECRET);
+  // ponytail: session cookie is SameSite=None;Secure so it's sent on the website's
+  // cross-origin fetch to the API subdomain. Both must be HTTPS.
+  return redirect(`${site}/vote`, [
+    `${SESSION_COOKIE}=${session}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${SESSION_TTL_SECONDS}`,
+    `${STATE_COOKIE}=; Max-Age=0; Path=/api/vote`,
+  ]);
+};
