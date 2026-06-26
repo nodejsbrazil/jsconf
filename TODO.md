@@ -1,7 +1,15 @@
 # Voting system — remaining work
 
 Code is complete, typechecked, linted, tested (`npm test` → 10 files pass). What's left is
-operational + one live verification.
+operational + blocked on guild.host shipping "Log in with Guild" (see blockers).
+
+> **Update 2026-06-26 (guild.host owner, Taz):**
+> - Group-ticket question **RESOLVED** — each guest claims their own Guild account/email, so
+>   every ticket holder is a separate attendee. Per-individual voting works out of the box.
+> - **"Log in with Guild" 3rd-party sign-in does NOT exist yet.** The OAuth docs are
+>   private-API access only. Taz will build the sign-in flow, est. **Monday 2026-06-29**, shape
+>   TBD. The website login is **stubbed** until then — revisit `helpers/oauth.ts` once it ships.
+> - No Stripe, no syncing. Still need Guild + Stripe **admin access** (requested from the team).
 
 ## Before deploy
 
@@ -22,28 +30,38 @@ operational + one live verification.
 - [ ] **Confirm `EVENT_SLUG`** in `src/server/configs/oauth.ts` (currently `vdc8dh`).
 - [ ] **Adjust `VOTE_CLOSES_AT`** in `src/server/configs/vote.ts` to the real deadline.
 
-## BLOCKER — verify group-ticket behavior before trusting per-individual voting
+## RESOLVED — group-ticket behavior
 
-Policy chosen: each guest votes individually with their own tier budget. This only works if
-guild.host turns each guest into their own attendee. Unverified, and the API schema allows the
-opposite (one attendee owning N ticket items).
+Each guest votes individually with their own tier budget — and this works. Taz (guild owner)
+confirmed: the buyer enters each guest's email, each guest **creates their own Guild account to
+claim** their ticket (and may use a different email). So every ticket holder is a separate
+attendee with their own email/data. No buyer-holds-all problem; no manual fallback needed.
 
-- [ ] Run `GET https://guild.host/api/next/events/vdc8dh/attendees` (organizer token) for a
-      known multi-ticket purchase:
-      - N attendee edges, each a distinct `user` → guests are real attendees, our model works.
-      - 1 attendee edge with `ticketOrder.eventTicketOrderItems.totalCount = N` → buyer holds
-        all; guests have no identity → per-individual voting impossible without a guild setting
-        that forces per-ticket claiming, or a manual admin-create fallback.
-- [ ] Confirm in the guild dashboard that the event requires each guest to claim/assign their
-      ticket to their own account.
+## BLOCKER — "Log in with Guild" doesn't exist yet
 
-## Live verification (needs a real login — can't be done headless)
+The website login flow depends on guild.host adding 3rd-party sign-in. The OAuth at
+`guild.host/docs/developers/oauth` is **private API access only**, not sign-in (per Taz).
+
+- [ ] Wait for Taz to ship "Log in with Guild" (est. Monday 2026-06-29) and document the real
+      flow. Then revisit `src/server/helpers/oauth.ts` (`buildAuthorizeUrl` / `exchangeCode` /
+      `fetchUserInfo`) and `routes/auth.ts` against the actual endpoints/shape.
+- [ ] Until then the login is **stubbed**; everything else (votes, budget, tables, tests) works
+      via the dev `X-Dev-User` header.
+
+## BLOCKER — Guild / Stripe admin access
+
+- [ ] Get **admin access to Guild and Stripe** (Guild API key + manager-flow OAuth to read all
+      attendees). Requested from the JSConf team (Erick Wendel / Ana Beatriz) on 2026-06-26.
+- [ ] Fallback if access never comes: collect attendee emails in the purchase form instead of
+      the attendees API.
+
+## Live verification (once login exists — can't be done headless)
 
 - [ ] **userinfo id join.** `fetchUserInfo` (`src/server/helpers/oauth.ts`) reads the id as
       `sub ?? id ?? slugId ?? rowId`. Do one test login and confirm the returned id matches a
       `user.id`/`rowId`/`slugId` in `GET /events/{slug}/attendees`. If it's a different field,
       it's a one-line fix. If the id never joins, the OAuth-identity → tier mapping breaks and
-      needs rethinking.
+      needs rethinking. (Blocked on the "Log in with Guild" flow above.)
 
 ## Smoke test (local)
 

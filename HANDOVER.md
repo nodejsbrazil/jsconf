@@ -2,6 +2,16 @@
 
 Context for a fresh Claude session picking up this work. Branch: `voting-system`.
 
+> **Status update 2026-06-26 (from the guild.host owner, Taz):**
+> - Group-ticket question **RESOLVED** — each guest claims their own Guild account/email, so
+>   every ticket holder is a separate attendee. Per-individual voting works out of the box.
+> - **"Log in with Guild" 3rd-party sign-in does NOT exist yet.** The guild OAuth docs are
+>   private-API access only. Taz will add the sign-in flow, est. **Monday 2026-06-29**, shape
+>   TBD. Our OAuth code in `helpers/oauth.ts` / `routes/auth.ts` assumes a standard flow and is
+>   **stubbed/on hold** until he ships and documents the real one. Everything else works via the
+>   dev `X-Dev-User` header.
+> - No Stripe, no syncing. Still need Guild + Stripe **admin access** (requested from the team).
+
 ## What this is
 
 JSConf BR landing page. Static Docusaurus site on GitHub Pages (`jsconf.com.br`), a Cloudflare
@@ -26,7 +36,7 @@ individually; vote allowance depends on ticket tier.
 - **Voting runs for months**, so the organizer token (24h access / 30d rotating refresh) is
   auto-refreshed and persisted in D1 — see `oauth_tokens` + `getOrgAccessToken`.
 - **Vote model:** approval voting — pick up to `budget` distinct talks, toggle on/off until
-  `VOTE_CLOSES_AT`. All C4P submissions are votable (no `talks.status` filter).
+  `VOTE_CLOSES_AT`. Votable talks = `talks.status = 2` (`VOTABLE_TALK_STATUS`, adopted from PR #40).
 - **Session:** HMAC-signed cookie (`vote_session`), `SameSite=None; Secure` so it survives the
   cross-subdomain fetch from the website to the API. No DB session store.
 
@@ -86,13 +96,15 @@ Config: `.env.example` updated. `TODO.md` has the deploy checklist.
 
 ## What's NOT done — see TODO.md
 
-1. Operational: register OAuth app, set 5 secrets, set `ALLOWED_ORIGIN`, seed `ticket_tiers`,
+1. **Blocked on guild:** wait for Taz's "Log in with Guild" sign-in (~Mon 2026-06-29), then
+   align `helpers/oauth.ts` + `routes/auth.ts` to the real flow (currently a stub).
+2. **Blocked on access:** Guild + Stripe admin (API key + manager OAuth) to read attendees;
+   requested from the team. Fallback: collect emails in the purchase form.
+3. Operational: register OAuth app, set 5 secrets, set `ALLOWED_ORIGIN`, seed `ticket_tiers`,
    `npm run db:init`, obtain the organizer refresh token, set the real `VOTE_CLOSES_AT`.
-2. **One live verification** (cannot be done without a registered app + real login): the
-   userinfo id field that joins the attendees list. `fetchUserInfo` tries
-   `sub ?? id ?? slugId ?? rowId` — confirm which is correct. If none join, the
-   identity→tier mapping breaks and needs rethinking.
-3. Optional: logout, vote-tally admin read endpoint, refund→revoke.
+4. **Live verification once login exists:** the userinfo id field that joins the attendees list.
+   `fetchUserInfo` tries `sub ?? id ?? slugId ?? rowId` — confirm which is correct.
+5. Optional: logout, vote-tally admin read endpoint, refund→revoke.
 
 ## Why guild.host (not Stripe) for attendees
 
@@ -104,18 +116,24 @@ full attendee list**, and each attendee carries their own `ticketOrder` tier, so
 OAuth + the attendees API, and treat #40's Stripe approach as a workaround for a gone
 limitation.
 
-## Multi-ticket / group purchases — decided + BLOCKER
+## Multi-ticket / group purchases — RESOLVED (2026-06-26)
 
-Policy (user decision): **each guest votes individually** with their own tier budget. Our
-model supports this *if* guild turns each guest into their own attendee record.
+Policy: **each guest votes individually** with their own tier budget — and it works. Taz (guild
+owner) confirmed: the buyer enters each guest's email, and **each guest creates their own Guild
+account to claim** their ticket (and may use a different email than the buyer entered). So every
+ticket holder becomes a separate attendee with their own email/data. No buyer-holds-all problem,
+no manual fallback needed. (Earlier worry: the schema lets one attendee own N ticket items via
+`ticketOrder.eventTicketOrderItems.totalCount`, but the claim flow makes each guest distinct.)
 
-BLOCKER, unverified, schema allows the opposite: `EventAttendee` has one `user` but a
-`ticketOrder.eventTicketOrderItems` connection with `totalCount` + N nodes — i.e. one attendee
-can own N tickets. Must run `GET /events/vdc8dh/attendees` against the real event:
-- N attendee edges, each a distinct `user` → guests are real attendees, model works.
-- 1 edge with `eventTicketOrderItems.totalCount = N` → buyer holds all; guests have no
-  identity → per-individual impossible without a guild claim setting or a manual admin
-  fallback. See `TODO.md`. Do not build further on the per-individual assumption until known.
+## Login depends on guild.host (BLOCKER)
+
+"Log in with Guild" 3rd-party sign-in **does not exist yet** — the OAuth at
+`guild.host/docs/developers/oauth` is private-API access only (per Taz). Taz will add it, est.
+**Monday 2026-06-29**, shape TBD. Our `helpers/oauth.ts` (`buildAuthorizeUrl`/`exchangeCode`/
+`fetchUserInfo`) + `routes/auth.ts` assume a standard authorization-code flow; they are a
+**stub** until the real flow ships — revisit then. Locally, auth is exercised via the
+`X-Dev-User` header. Also still need Guild + Stripe admin access (Guild API key + manager OAuth)
+to read attendees; requested from the team, fallback is collecting emails in the purchase form.
 
 ## Stealing from PR #40 (branch feat/c4p-voting-quantity-tiers)
 
@@ -131,8 +149,9 @@ Rejected (conflicts with our guild model — kept here so the option isn't lost)
   quantity×tier-weight → upsert `users`). Would kill our org-token + OAuth-refresh +
   attendees-fetch + lru machinery AND the userinfo→attendee id-join risk. We don't take it
   because it is **buyer-only** (no group guests) and guild now gives the full per-attendee
-  list. BUT: if the group-ticket verification shows "buyer holds all", this Stripe model
-  becomes the fallback for per-individual being impossible. Tie it to that blocker.
+  list. The group-ticket question is now RESOLVED (each guest claims their own account), so the
+  "buyer holds all" condition that would have made this Stripe model the fallback no longer
+  applies — keep it only as a last resort if Guild access never materializes.
 - **Repurchase accumulation** (`ON CONFLICT(email) DO UPDATE SET votes_allowed =
   votes_allowed + excluded`). N/A in our model: budget is a live tier lookup, not a persisted
   per-purchase sum, so there's nothing to accumulate. Only relevant if we adopt the Stripe

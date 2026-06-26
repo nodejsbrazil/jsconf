@@ -91,6 +91,10 @@ npm run lint # Verificação de linting
 
 Quem comprou ingresso vota nas palestras do C4P. A pessoa entra com a conta do **guild.host**, e quantos votos ela tem depende do **tier** do ingresso.
 
+> [!WARNING]
+>
+> **Em construção (2026-06-26).** O login "Entrar com guild.host" **ainda não existe** no guild: o OAuth da documentação deles é só pra acesso de API privada, não pra login de terceiros. O Taz (dono do guild) vai adicionar esse login, previsão **segunda 2026-06-29**. Até lá o login no site é um **stub** e o resto (votos, tiers, tabelas) roda pelo header `X-Dev-User` em dev. Quem compra vários ingressos pra outras pessoas: cada uma cria a própria conta no guild ao resgatar o ingresso, então cada uma vira um participante separado e vota individualmente. Não usamos Stripe nem sincronizamos nada.
+
 Como funciona:
 
 1. A pessoa abre `/vote` e entra com o guild.host (`GET /api/vote/login`). O **Worker** guarda a identidade num cookie de sessão assinado.
