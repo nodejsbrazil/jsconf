@@ -1,4 +1,5 @@
 import type { Database } from '../types.js';
+import { VOTABLE_TALK_STATUS } from '../configs/vote.js';
 
 export type TalkRow = {
   id: number;
@@ -16,9 +17,10 @@ export const vote = (database: Database) => {
         `SELECT t.id, t.title, t.description, s.name AS speaker_name
          FROM talks t
          JOIN speakers s ON s.id = t.speaker_id
+         WHERE t.status = ?
          ORDER BY t.id`
       )
-      .bind()
+      .bind(VOTABLE_TALK_STATUS)
       .all<TalkRow>();
     return results;
   };

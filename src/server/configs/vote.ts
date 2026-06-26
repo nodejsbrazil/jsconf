@@ -4,3 +4,5 @@ export const VOTE_CLOSES_AT = '2026-09-01T00:00:00Z';
 
 export const isVotingOpen = (now: Date = new Date()): boolean =>
   now < new Date(VOTE_CLOSES_AT);
+
+export const VOTABLE_TALK_STATUS = 2;

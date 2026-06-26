@@ -94,6 +94,70 @@ Config: `.env.example` updated. `TODO.md` has the deploy checklist.
    identity→tier mapping breaks and needs rethinking.
 3. Optional: logout, vote-tally admin read endpoint, refund→revoke.
 
+## Why guild.host (not Stripe) for attendees
+
+Earlier the guild.host attendee list wasn't available, so the only way to know buyers was
+Stripe — which sees the **buyer only**, not the guests on a multi-ticket order. PR #40 was
+built under that limitation (Stripe webhook → buyer email → votes). Guild **now exposes the
+full attendee list**, and each attendee carries their own `ticketOrder` tier, so the
+"who bought what" cross-check is already per-attendee in guild data. That is why we use guild
+OAuth + the attendees API, and treat #40's Stripe approach as a workaround for a gone
+limitation.
+
+## Multi-ticket / group purchases — decided + BLOCKER
+
+Policy (user decision): **each guest votes individually** with their own tier budget. Our
+model supports this *if* guild turns each guest into their own attendee record.
+
+BLOCKER, unverified, schema allows the opposite: `EventAttendee` has one `user` but a
+`ticketOrder.eventTicketOrderItems` connection with `totalCount` + N nodes — i.e. one attendee
+can own N tickets. Must run `GET /events/vdc8dh/attendees` against the real event:
+- N attendee edges, each a distinct `user` → guests are real attendees, model works.
+- 1 edge with `eventTicketOrderItems.totalCount = N` → buyer holds all; guests have no
+  identity → per-individual impossible without a guild claim setting or a manual admin
+  fallback. See `TODO.md`. Do not build further on the per-individual assumption until known.
+
+## Stealing from PR #40 (branch feat/c4p-voting-quantity-tiers)
+
+His model: email + 4-digit code login (JWT 15m + rotating refresh, `jose`), budget from Stripe
+`checkout.session.completed` (quantity × tier weight), `users-batch` admin endpoint.
+
+Taken so far:
+- **`status = 2` = votable.** Concrete meaning for the undocumented `talks.status`. Now
+  filtered in `listTalks` via `VOTABLE_TALK_STATUS` (`configs/vote.ts`).
+
+Rejected (conflicts with our guild model — kept here so the option isn't lost):
+- **Stripe-webhook-derived budget** (`checkout.session.completed` → buyer email +
+  quantity×tier-weight → upsert `users`). Would kill our org-token + OAuth-refresh +
+  attendees-fetch + lru machinery AND the userinfo→attendee id-join risk. We don't take it
+  because it is **buyer-only** (no group guests) and guild now gives the full per-attendee
+  list. BUT: if the group-ticket verification shows "buyer holds all", this Stripe model
+  becomes the fallback for per-individual being impossible. Tie it to that blocker.
+- **Repurchase accumulation** (`ON CONFLICT(email) DO UPDATE SET votes_allowed =
+  votes_allowed + excluded`). N/A in our model: budget is a live tier lookup, not a persisted
+  per-purchase sum, so there's nothing to accumulate. Only relevant if we adopt the Stripe
+  fallback above.
+
+Worth taking later (model-compatible, not yet done):
+- His `getEligibleTalks` computes `has_voted` per talk in one query — cleaner than our
+  two-query `voteGet`.
+- Richer voting payload: he returns `duration` + `audience_level` per talk and splits
+  `talks` / `votedTalkIds`. Ours returns only title/desc/speaker. Better talk cards.
+- Explicit vote status codes: `403` no votes left, `409` already voted, `404` retract-not-found.
+  Ours collapses to `422` + idempotent re-vote. His is clearer for the UI; a semantics choice.
+- `parseRequest(request, schema, cors)` helper + shared `RouteContext` type — DRYs the
+  415/413/400/422 dance our c4p + vote routes repeat.
+- Dev seed script (his `scripts/seed.ts`): seed talks + `ticket_tiers` so local voting is
+  testable without the `X-Dev-User` curl dance. We have none.
+- `schemas.ts` centralizing typed response shapes. Minor.
+- His richer frontend: `src/website/components/voting/*`, `pages/voting/*`, `hooks/voting/*`,
+  full i18n. Ours is one page.
+- `charge.refunded` → revoke votes. Awkward in our model (Stripe gives buyer email, our votes
+  key on guild user_id — no clean map). Note, don't force it.
+
+Do NOT take: 4-digit `Math.random()` code (weak, 10k space, not crypto-random); hardcoded
+early-bird date for tier detection (we read the real tier from guild).
+
 ## Gotchas for the next session
 
 - Deps may not be installed — run `npm ci` first (typecheck/test need it).
