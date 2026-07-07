@@ -116,6 +116,20 @@ describe('repositories.vote.budgetForTier', async () => {
   });
 });
 
+describe('routes.authLogout', async () => {
+  await it('redirects and clears the session cookie', async () => {
+    const res = await routes.authLogout({
+      request: new Request('http://localhost/api/vote/logout'),
+      env: { ALLOWED_ORIGIN: 'http://site' } as Env,
+    });
+    assert.equal(res.status, 302);
+    assert.equal(res.headers.get('Location'), 'http://site/vote');
+    const cookie = res.headers.get('Set-Cookie') ?? '';
+    assert.equal(cookie.includes('vote_session=;'), true);
+    assert.equal(cookie.includes('Max-Age=0'), true);
+  });
+});
+
 describe('routes.voteGet', async () => {
   await it('returns 401 without a session', async () => {
     const res = await routes.voteGet({

@@ -55,6 +55,17 @@ export const authLogin = async ({
   ]);
 };
 
+export const authLogout = async ({
+  request,
+  env,
+}: Options): Promise<Response> => {
+  // Clear the session cookie. Attributes must match the ones it was set with (Path=/,
+  // SameSite=None; Secure) so the browser actually drops it.
+  return redirect(`${websiteOrigin(request, env)}/vote`, [
+    `${SESSION_COOKIE}=; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=0`,
+  ]);
+};
+
 export const authCallback = async ({
   request,
   env,

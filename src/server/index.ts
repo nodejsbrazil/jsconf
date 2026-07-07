@@ -37,6 +37,8 @@ export default {
         return routes.c4p({ request, cors, database: env.DB, ip });
       case 'GET /api/vote/login':
         return routes.authLogin({ request, env });
+      case 'GET /api/vote/logout':
+        return routes.authLogout({ request, env });
       case 'GET /api/vote/callback':
         return routes.authCallback({ request, env, database: env.DB });
       case 'GET /api/vote':

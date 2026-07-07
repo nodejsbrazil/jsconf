@@ -216,7 +216,8 @@ real signed-cookie session from the OAuth flow.
 
 ## Nice-to-have (not blocking)
 
-- [ ] Logout endpoint / button (clear `vote_session` cookie).
+- [x] Logout endpoint (`GET /api/vote/logout`, clears `vote_session`, redirects to `/vote`).
+      Frontend button not added yet — wire one on the `/vote` page when needed.
 - [ ] Admin read endpoint for vote tallies (none exists yet — votes are write-only via the API).
 
 ## Stolen from PR #40 (done)
