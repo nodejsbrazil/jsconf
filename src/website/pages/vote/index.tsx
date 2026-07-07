@@ -75,9 +75,13 @@ const Vote = () => {
       .catch(() => setStatus('error'));
   }, [workerDomain]);
 
+  const closed = session
+    ? new Date(session.closesAt).getTime() < Date.now()
+    : false;
+
   const toggle = useCallback(
     async (talkId: number) => {
-      if (!session) return;
+      if (!session || closed) return;
       const has = votes.has(talkId);
       if (!has && votes.size >= session.budget) {
         toast.error(`Você já usou seus ${session.budget} votos.`);
@@ -102,7 +106,7 @@ const Vote = () => {
         toast.error('Erro ao registrar voto. Tente novamente.');
       }
     },
-    [session, votes, workerDomain]
+    [session, votes, workerDomain, closed]
   );
 
   return (
@@ -126,10 +130,19 @@ const Vote = () => {
         {status === 'ready' && session && (
           <>
             <div className='flex items-center justify-between gap-[1.2rem]'>
-              <p>
-                Votos restantes: {session.budget - votes.size} de{' '}
-                {session.budget}
-              </p>
+              {closed ? (
+                <p>A votação foi encerrada.</p>
+              ) : (
+                <p>
+                  Votos restantes: {session.budget - votes.size} de{' '}
+                  {session.budget}
+                  <br />
+                  <small>
+                    Aberta até{' '}
+                    {new Date(session.closesAt).toLocaleString('pt-BR')}
+                  </small>
+                </p>
+              )}
               <a
                 className='button button--secondary button--sm'
                 href={`${workerDomain}/api/vote/logout`}
@@ -144,6 +157,7 @@ const Vote = () => {
                     <input
                       type='checkbox'
                       checked={votes.has(talk.id)}
+                      disabled={closed}
                       onChange={() => toggle(talk.id)}
                     />
                     <span>
