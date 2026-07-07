@@ -12,11 +12,13 @@ import {
   fetchTicketTier,
   fetchUserInfo,
 } from '../helpers/oauth.js';
-import { signSession } from '../helpers/session.js';
+import { response } from '../helpers/response.js';
+import { getSession, signSession } from '../helpers/session.js';
 import { vote } from '../repositories/vote.js';
 
 type Options = { request: Request; env: Env };
 type CallbackOptions = Options & { database: Database };
+type MeOptions = Options & { cors: Record<string, string> };
 
 const randomState = (): string => {
   const bytes = crypto.getRandomValues(new Uint8Array(16));
@@ -53,6 +55,17 @@ export const authLogin = async ({
   return redirect(url, [
     `${STATE_COOKIE}=${state}; HttpOnly; Secure; SameSite=Lax; Path=/api/vote; Max-Age=600`,
   ]);
+};
+
+// Returns the logged-in voter's guild.host user id, for the account page. 401 when unauthenticated.
+export const authMe = async ({
+  request,
+  env,
+  cors,
+}: MeOptions): Promise<Response> => {
+  const session = await getSession(request, env);
+  if (!session) return response({ error: 'Unauthorized.' }, 401, cors);
+  return response({ userId: session.userId }, 200, cors);
 };
 
 export const authLogout = async ({

@@ -116,6 +116,29 @@ describe('repositories.vote.budgetForTier', async () => {
   });
 });
 
+describe('routes.authMe', async () => {
+  await it('returns 401 without a session', async () => {
+    const res = await routes.authMe({
+      request: new Request('http://localhost/api/vote/me'),
+      cors,
+      env: makeEnv(),
+    });
+    assert.equal(res.status, 401);
+  });
+
+  await it('returns the user id from the session (dev header)', async () => {
+    const res = await routes.authMe({
+      request: new Request('http://localhost/api/vote/me', {
+        headers: { 'X-Dev-User': 'user-1' },
+      }),
+      cors,
+      env: makeEnv(),
+    });
+    assert.equal(res.status, 200);
+    assert.deepEqual(await res.json(), { userId: 'user-1' });
+  });
+});
+
 describe('routes.authLogout', async () => {
   await it('redirects and clears the session cookie', async () => {
     const res = await routes.authLogout({

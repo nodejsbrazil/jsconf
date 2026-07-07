@@ -188,6 +188,9 @@ export const Navbar = () => {
           <Link to={localePath('/team')} data-priority={1}>
             <Text id='navbar.section.team' />
           </Link>
+          <Link to={localePath('/account')} data-priority={1}>
+            <Text id='navbar.section.account' />
+          </Link>
         </nav>
         <div className='actions'>
           {otherLocales.length > 0 && (
@@ -273,6 +276,9 @@ export const Navbar = () => {
           </Link>
           <Link to={localePath('/team')} onClick={closeMenu}>
             <Text id='navbar.section.team' />
+          </Link>
+          <Link to={localePath('/account')} onClick={closeMenu}>
+            <Text id='navbar.section.account' />
           </Link>
           <SafeLink className='tickets' to={link.tickets}>
             <Ticket /> <Text id='navbar.tickets' />
