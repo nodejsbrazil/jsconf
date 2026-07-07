@@ -1,6 +1,6 @@
 import {
   AUTHORIZE_URL,
-  IDENTITY_SCOPE,
+  OAUTH_SCOPE,
   TOKEN_URL,
   USERINFO_URL,
 } from '../configs/oauth.js';
@@ -14,7 +14,7 @@ export const buildAuthorizeUrl = (
     response_type: 'code',
     client_id: clientId,
     redirect_uri: redirectUri,
-    scope: IDENTITY_SCOPE,
+    scope: OAUTH_SCOPE,
     state,
   });
   return `${AUTHORIZE_URL}?${params.toString()}`;

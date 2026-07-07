@@ -4,8 +4,10 @@ export const TOKEN_URL = 'https://guild.host/api/oauth/token';
 export const USERINFO_URL = 'https://guild.host/api/oauth/userinfo';
 export const ATTENDEES_BASE = 'https://guild.host/api/next/events';
 
-// Scope that grants the authenticated user's identity via the userinfo endpoint.
-export const IDENTITY_SCOPE = 'profile:read';
+// Scopes requested at authorize time: identity (userinfo) + ticket/attendee reads.
+// Space-separated per OAuth 2.0; URLSearchParams encodes the space as '+'.
+export const OAUTH_SCOPE =
+  'profile:read event_tickets:read event_attendees:read';
 
 // ponytail: event slug hardcoded (same one the ticket widget uses, TicketSelection.tsx).
 // Move to an Env var if it ever changes per environment.
