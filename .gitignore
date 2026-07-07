@@ -9,3 +9,4 @@
 .env
 .dev.vars
 .npmrc
+/.serena
