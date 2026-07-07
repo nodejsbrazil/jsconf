@@ -101,9 +101,18 @@ const Vote = () => {
 
         {status === 'ready' && session && (
           <>
-            <p>
-              Votos restantes: {session.budget - votes.size} de {session.budget}
-            </p>
+            <div className='flex items-center justify-between gap-[1.2rem]'>
+              <p>
+                Votos restantes: {session.budget - votes.size} de{' '}
+                {session.budget}
+              </p>
+              <a
+                className='button button--secondary button--sm'
+                href={`${workerDomain}/api/vote/logout`}
+              >
+                Sair
+              </a>
+            </div>
             <ul className='flex flex-col gap-[1.2rem]'>
               {session.talks.map((talk) => (
                 <li key={talk.id}>
