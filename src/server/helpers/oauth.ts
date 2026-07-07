@@ -1,5 +1,6 @@
 import {
   AUTHORIZE_URL,
+  EVENTS_BASE,
   OAUTH_SCOPE,
   TOKEN_URL,
   USERINFO_URL,
@@ -42,32 +43,31 @@ export const exchangeCode = async (
   return (await res.json()) as { access_token: string };
 };
 
-export const refreshToken = async (
-  refresh: string,
-  clientId: string,
-  clientSecret: string
-): Promise<{
-  access_token: string;
-  refresh_token?: string;
-  expires_in: number;
-} | null> => {
-  const res = await fetch(TOKEN_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token: refresh,
-      client_id: clientId,
-      client_secret: clientSecret,
-    }),
+// Returns the authenticated user's ticket tier NAME, or null when they hold no ticket for
+// the event (non-attendee). Uses the per-user /ticket endpoint (scope event_tickets:read).
+// ponytail: VERIFY LIVE — the /ticket response shape is undocumented. First guess reuses the
+// tier path the attendees list exposed (ticketOrder.eventTicketOrderItems.nodes[0]
+// .eventTicketingTier.name); confirm on the first live login and adjust.
+export const fetchTicketTier = async (
+  accessToken: string,
+  slug: string
+): Promise<string | null> => {
+  const res = await fetch(`${EVENTS_BASE}/${slug}/ticket`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
   }).catch(() => null);
 
   if (!res || !res.ok) return null;
-  return (await res.json()) as {
-    access_token: string;
-    refresh_token?: string;
-    expires_in: number;
+  const data = (await res.json()) as {
+    ticketOrder?: {
+      eventTicketOrderItems?: {
+        nodes?: { eventTicketingTier?: { name?: string } | null }[];
+      };
+    } | null;
   };
+  const tier =
+    data.ticketOrder?.eventTicketOrderItems?.nodes?.[0]?.eventTicketingTier
+      ?.name;
+  return tier ?? null;
 };
 
 // Returns the authenticated user's stable id.

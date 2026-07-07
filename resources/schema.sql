@@ -72,10 +72,3 @@ CREATE TABLE IF NOT EXISTS c4p_votes (
 );
 
 CREATE INDEX IF NOT EXISTS idx_c4p_votes_user ON c4p_votes(user_id);
-
-CREATE TABLE IF NOT EXISTS oauth_tokens (
-  name          TEXT    PRIMARY KEY,  -- 'organizer'
-  access_token  TEXT    NOT NULL,
-  refresh_token TEXT    NOT NULL,
-  expires_at    INTEGER NOT NULL      -- unix seconds
-);

@@ -3,8 +3,7 @@ import { z } from 'zod';
 import { isVotingOpen, VOTE_CLOSES_AT } from '../configs/vote.js';
 import { parseRequest } from '../helpers/request.js';
 import { response } from '../helpers/response.js';
-import { getUserId } from '../helpers/session.js';
-import { resolveBudget } from '../repositories/attendees.js';
+import { getSession } from '../helpers/session.js';
 import { vote as repository } from '../repositories/vote.js';
 
 type Options = {
@@ -25,12 +24,9 @@ export const voteGet = async ({
   database,
   env,
 }: Options): Promise<Response> => {
-  const userId = await getUserId(request, env);
-  if (!userId) return response({ error: 'Unauthorized.' }, 401, cors);
-
-  const budget = await resolveBudget(env, database, userId);
-  if (budget === null)
-    return response({ error: 'Not an attendee.' }, 403, cors);
+  const session = await getSession(request, env);
+  if (!session) return response({ error: 'Unauthorized.' }, 401, cors);
+  const { userId, budget } = session;
 
   const repo = repository(database);
   const [talks, myVotes] = await Promise.all([
@@ -51,18 +47,15 @@ export const voteSubmit = async ({
   database,
   env,
 }: Options): Promise<Response> => {
-  const userId = await getUserId(request, env);
-  if (!userId) return response({ error: 'Unauthorized.' }, 401, cors);
+  const session = await getSession(request, env);
+  if (!session) return response({ error: 'Unauthorized.' }, 401, cors);
+  const { userId, budget } = session;
 
   if (!isVotingOpen()) return response({ error: 'Voting closed.' }, 403, cors);
 
   const parsed = await parseRequest(request, submitSchema, 1024);
   if ('error' in parsed)
     return response({ error: parsed.error }, parsed.status, cors);
-
-  const budget = await resolveBudget(env, database, userId);
-  if (budget === null)
-    return response({ error: 'Not an attendee.' }, 403, cors);
 
   const repo = repository(database);
 

@@ -62,5 +62,14 @@ export const vote = (database: Database) => {
       .run();
   };
 
-  return { listTalks, listUserVotes, castVote, removeVote };
+  // Vote budget for a guild.host tier name. Unknown tier → 0 (can view, cannot vote).
+  const budgetForTier = async (tier: string): Promise<number> => {
+    const { results } = await database
+      .prepare('SELECT budget FROM ticket_tiers WHERE name = ?')
+      .bind(tier)
+      .all<{ budget: number }>();
+    return results[0]?.budget ?? 0;
+  };
+
+  return { listTalks, listUserVotes, castVote, removeVote, budgetForTier };
 };

@@ -102,12 +102,16 @@ Config: `.env.example` updated. `TODO.md` has the deploy checklist.
 ## State of play (updated 2026-07-07)
 
 - `npm run typecheck`, `npm run lint`, `npm test` (9 files) all pass.
-- **Committed** on `voting-system` (unsigned — 1Password SSH signer wouldn't run in the agent
-  session; prior wip history is unsigned too, re-sign via `git rebase --exec 'git commit
---amend --no-edit -S'` if wanted): `refactor(voting): guild-only, jose sessions, parseRequest
-  - richer talk cards`and`feat(voting): wire guild OAuth app scopes + dev.vars template`.
-- **NEXT: the `/ticket` refactor — see the "⏭️ RESUME HERE" section at the top of `TODO.md`.**
-  Approved, not started. It deletes the org-token machinery and bakes budget into the session.
+- **`/ticket` refactor DONE (code) 2026-07-07** — budget now comes from the voter's OWN token via
+  `GET /events/{slug}/ticket`, baked into the session JWT. Deleted `repositories/oauth-token.ts`,
+  `repositories/attendees.ts`, the `oauth_tokens` table, `GUILD_ORG_REFRESH_TOKEN`, the
+  `event_attendees:read` scope. `session.ts` carries `{ userId, budget }` (`getSession`);
+  `auth.ts` callback resolves tier→budget via `vote().budgetForTier`. typecheck/lint/test pass.
+- **NEXT: run the live-login verification runbook** (TODO.md) once — confirm the four undocumented
+  shapes (userinfo id field, `/ticket` body, no-ticket response, token response), then adjust
+  `fetchTicketTier` / `fetchUserInfo` if the guesses are wrong. Then operational deploy.
+- Prior commits on `voting-system` are unsigned (1Password SSH signer wouldn't run in the agent
+  session; re-sign via `git rebase --exec 'git commit --amend --no-edit -S'` if wanted).
 - Real OAuth creds are in `.dev.vars` (gitignored). Rotate the client secret before go-live
   (pasted in plaintext chat).
 

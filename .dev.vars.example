@@ -8,10 +8,6 @@ GUILD_OAUTH_CLIENT_SECRET=
 # Local: http://localhost:8787/api/vote/callback  Prod: https://api.jsconf.com.br/api/vote/callback
 GUILD_OAUTH_REDIRECT_URI=http://localhost:8787/api/vote/callback
 
-# Organizer refresh token (event_attendees:read). Seeds oauth_tokens on first use;
-# the worker rotates it after that. Obtain via a one-time organizer OAuth consent.
-GUILD_ORG_REFRESH_TOKEN=
-
 # HMAC/JWT session signing key. Any long random string, e.g. `openssl rand -hex 32`.
 SESSION_SECRET=
 

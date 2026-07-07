@@ -1,5 +1,6 @@
-import type { Env } from '../types.js';
+import type { Database, Env } from '../types.js';
 import {
+  EVENT_SLUG,
   SESSION_COOKIE,
   SESSION_TTL_SECONDS,
   STATE_COOKIE,
@@ -8,11 +9,14 @@ import { readCookie } from '../helpers/cookies.js';
 import {
   buildAuthorizeUrl,
   exchangeCode,
+  fetchTicketTier,
   fetchUserInfo,
 } from '../helpers/oauth.js';
 import { signSession } from '../helpers/session.js';
+import { vote } from '../repositories/vote.js';
 
 type Options = { request: Request; env: Env };
+type CallbackOptions = Options & { database: Database };
 
 const randomState = (): string => {
   const bytes = crypto.getRandomValues(new Uint8Array(16));
@@ -54,7 +58,8 @@ export const authLogin = async ({
 export const authCallback = async ({
   request,
   env,
-}: Options): Promise<Response> => {
+  database,
+}: CallbackOptions): Promise<Response> => {
   const params = new URL(request.url).searchParams;
   const site = websiteOrigin(request, env);
 
@@ -83,7 +88,12 @@ export const authCallback = async ({
   const userId = await fetchUserInfo(tokens.access_token);
   if (!userId) return redirect(`${site}/vote?error=identity`);
 
-  const session = await signSession(userId, env.SESSION_SECRET);
+  // The voter's own token reads their ticket; no ticket → not an attendee, no session.
+  const tier = await fetchTicketTier(tokens.access_token, EVENT_SLUG);
+  if (!tier) return redirect(`${site}/vote?error=notattendee`);
+  const budget = await vote(database).budgetForTier(tier);
+
+  const session = await signSession(userId, budget, env.SESSION_SECRET);
   // ponytail: session cookie is SameSite=None;Secure so it's sent on the website's
   // cross-origin fetch to the API subdomain. Both must be HTTPS.
   return redirect(`${site}/vote`, [

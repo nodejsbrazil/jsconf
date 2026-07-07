@@ -38,7 +38,7 @@ export default {
       case 'GET /api/vote/login':
         return routes.authLogin({ request, env });
       case 'GET /api/vote/callback':
-        return routes.authCallback({ request, env });
+        return routes.authCallback({ request, env, database: env.DB });
       case 'GET /api/vote':
         return routes.voteGet({ request, cors, database: env.DB, env });
       case 'POST /api/vote':

@@ -3,7 +3,12 @@
 Code is complete, typechecked, linted, tested (`npm test` → 9 files pass). What's left is
 operational + the `/ticket` refactor below.
 
-## ⏭️ RESUME HERE — switch budget to the per-user `/ticket` endpoint (APPROVED, not started)
+## ✅ DONE (code) — switched budget to the per-user `/ticket` endpoint (2026-07-07)
+
+Refactor below is **code-complete**: `npm run typecheck` / `lint` / `test` (9 files) pass. All
+checklist boxes done. Still needs the **live-login verification runbook** (undocumented shapes)
+and the operational deploy steps. NEXT ACTUAL STEP: run the live-login runbook once, confirm the
+four shapes, adjust `fetchTicketTier` / `fetchUserInfo` if needed.
 
 Decision made with the user 2026-07-07, checking `guild.host/docs/developers/oauth`. This
 **reverses** the locked org-token decision: the docs DO expose a per-user endpoint
@@ -22,24 +27,25 @@ guild call, no stored attendee token.
 
 Checklist:
 
-- [ ] `helpers/oauth.ts`: add `fetchTicketTier(accessToken, slug)` hitting
-      `${EVENTS_BASE}/{slug}/ticket`. **Response shape is UNDOCUMENTED** — reuse the tier path
-      `attendees.ts` parsed (`ticketOrder.eventTicketOrderItems.nodes[0].eventTicketingTier.name`)
-      as the first guess; confirm on the first live login. Delete the now-unused `refreshToken`.
-- [ ] `helpers/session.ts`: session carries budget. `signSession(userId, budget, secret, ttl)`;
-      `verifySession` → `{ userId, budget } | null`; replace `getUserId` with `getSession` →
-      `{ userId, budget }`. Dev `X-Dev-User` path returns a default budget (const, e.g. 3) so
-      local testing works without a login.
-- [ ] `routes/auth.ts`: `authCallback` needs `database` (add to its Options + wiring in
-      `index.ts`/`routes.ts`). Resolve tier→budget; no ticket → `?error=notattendee`, no session.
-- [ ] `routes/vote.ts`: read `{ userId, budget }` from `getSession`; drop `resolveBudget` +
-      the `budget === null` 403 (non-attendees never get a session).
-- [ ] DELETE `repositories/oauth-token.ts`, `repositories/attendees.ts`, the `oauth_tokens`
-      table (`resources/schema.sql`), and `GUILD_ORG_REFRESH_TOKEN` (types.ts, .env.example,
-      .dev.vars.example). Drop `lru.min` if nothing else uses it (rate-limit does — check).
-- [ ] `configs/oauth.ts`: rename `ATTENDEES_BASE` → `EVENTS_BASE` (or add a ticket URL helper).
-- [ ] Rewrite `test/server/routes/vote.test.ts`: remove oauth-token + attendees mocks; session
-      tests carry budget; voteGet/voteSubmit budget comes from the session (dev path).
+- [x] `helpers/oauth.ts`: added `fetchTicketTier(accessToken, slug)` hitting
+      `${EVENTS_BASE}/{slug}/ticket`. **Response shape UNDOCUMENTED** — first guess reuses the tier
+      path (`ticketOrder.eventTicketOrderItems.nodes[0].eventTicketingTier.name`); confirm on first
+      live login. Deleted `refreshToken`.
+- [x] `helpers/session.ts`: session carries budget. `signSession(userId, budget, secret, ttl)`;
+      `verifySession` → `Session | null`; `getUserId` → `getSession` → `Session`. Dev `X-Dev-User`
+      path returns `DEV_BUDGET = 3` so local testing works without a login.
+- [x] `routes/auth.ts`: `authCallback` takes `database` (wired in `index.ts`). Resolves tier→budget
+      via `vote(database).budgetForTier`; no ticket → `?error=notattendee`, no session.
+- [x] `routes/vote.ts`: reads `{ userId, budget }` from `getSession`; dropped `resolveBudget` + the
+      `budget === null` 403 (non-attendees never get a session).
+- [x] DELETED `repositories/oauth-token.ts`, `repositories/attendees.ts`, the `oauth_tokens` table,
+      and `GUILD_ORG_REFRESH_TOKEN` (types.ts, .env.example, .dev.vars.example). Kept `lru.min` —
+      the rate limiter still uses it.
+- [x] `configs/oauth.ts`: renamed `ATTENDEES_BASE` → `EVENTS_BASE`. Also dropped the now-unused
+      `event_attendees:read` scope (only `profile:read event_tickets:read` requested now).
+- [x] Rewrote `test/server/routes/vote.test.ts`: removed oauth-token + attendees mocks; session
+      tests carry budget; added `budgetForTier` tests; voteGet/voteSubmit budget from the session
+      (dev path). Dropped the non-attendee 403 test (no longer reachable).
 
 ### Endpoints CONFIRMED from the docs (2026-07-07)
 
@@ -73,7 +79,7 @@ the temp probe calls it directly with the fresh access token.
    `npm run db:init` then
    `wrangler d1 execute jsconf-br --command "INSERT OR IGNORE INTO ticket_tiers (name, budget) VALUES ('Standard', 3), ('VIP', 5)"`
 3. **Add temp logging** in `routes/auth.ts` `authCallback`, right after the `if (!tokens)` guard
-   (import `USERINFO_URL`, `EVENT_SLUG`, `EVENTS_BASE`/`ATTENDEES_BASE`):
+   (import `USERINFO_URL`, `EVENT_SLUG`, `EVENTS_BASE`):
    ```ts
    // TEMP DEBUG — remove after verifying (do NOT log the raw token value)
    console.log('TOKEN keys', Object.keys(tokens));
@@ -82,7 +88,7 @@ the temp probe calls it directly with the fresh access token.
      headers: { Authorization: `Bearer ${at}` },
    });
    console.log('USERINFO', ui.status, await ui.text());
-   const tk = await fetch(`${ATTENDEES_BASE}/${EVENT_SLUG}/ticket`, {
+   const tk = await fetch(`${EVENTS_BASE}/${EVENT_SLUG}/ticket`, {
      headers: { Authorization: `Bearer ${at}` },
    });
    console.log('TICKET', tk.status, await tk.text());
@@ -130,17 +136,12 @@ Run: `npm start` (website :3000 + `wrangler dev` :8787). Login at
 ## Before deploy
 
 - [ ] **Register an OAuth app on guild.host** (client id + secret). Redirect URI =
-      `https://api.jsconf.com.br/api/vote/callback`.
-- [ ] **Obtain the organizer refresh token** via a one-time OAuth consent with the
-      `event_attendees:read` scope (the organizer account must be able to manage the event).
-      This seeds `oauth_tokens`; the worker rotates it from then on.
+      `https://api.jsconf.com.br/api/vote/callback`. Scopes: `profile:read event_tickets:read`.
 - [ ] **Set worker secrets:** `GUILD_OAUTH_CLIENT_ID`, `GUILD_OAUTH_CLIENT_SECRET`,
-      `GUILD_OAUTH_REDIRECT_URI`, `GUILD_ORG_REFRESH_TOKEN`, `SESSION_SECRET`
-      (`wrangler secret put <NAME>`).
+      `GUILD_OAUTH_REDIRECT_URI`, `SESSION_SECRET` (`wrangler secret put <NAME>`).
 - [ ] **Set `ALLOWED_ORIGIN`** to the website origin (e.g. `https://jsconf.com.br`).
       Must NOT be `*` — credentialed cookies require an explicit origin.
-- [ ] **Run `npm run db:init`** to create the new tables (`ticket_tiers`, `c4p_votes`,
-      `oauth_tokens`).
+- [ ] **Run `npm run db:init`** to create the tables (`ticket_tiers`, `c4p_votes`).
 - [ ] **Seed `ticket_tiers`** with tier→votes rows. Names must match guild.host tier names
       exactly, e.g. `INSERT INTO ticket_tiers (name, budget) VALUES ('Standard', 2), ('VIP', 5);`
 - [ ] **Confirm `EVENT_SLUG`** in `src/server/configs/oauth.ts` (currently `vdc8dh`).

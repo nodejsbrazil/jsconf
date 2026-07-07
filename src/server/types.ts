@@ -15,6 +15,5 @@ export type Env = {
   GUILD_OAUTH_CLIENT_ID?: string;
   GUILD_OAUTH_CLIENT_SECRET?: string;
   GUILD_OAUTH_REDIRECT_URI?: string;
-  GUILD_ORG_REFRESH_TOKEN?: string;
   SESSION_SECRET?: string;
 };
