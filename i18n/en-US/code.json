@@ -367,5 +367,65 @@
   },
   "supporters.subtitle": {
     "message": "We are grateful for the support of our partners who share our vision of strengthening the JavaScript community in Brazil."
+  },
+  "common.loading": {
+    "message": "Loading…"
+  },
+  "auth.login": {
+    "message": "Log in with guild.host"
+  },
+  "auth.logout": {
+    "message": "Log out"
+  },
+  "vote.title": {
+    "message": "Voting - JSConf Brasil 2026"
+  },
+  "vote.heading": {
+    "message": "Vote for talks"
+  },
+  "vote.loadError": {
+    "message": "Could not load voting. Try again later."
+  },
+  "vote.remaining": {
+    "message": "Votes left: {remaining} of {budget}"
+  },
+  "vote.openUntil": {
+    "message": "Open until {date}"
+  },
+  "vote.closed": {
+    "message": "Voting has closed."
+  },
+  "vote.limitReached": {
+    "message": "You have already used all {budget} of your votes."
+  },
+  "vote.submitError": {
+    "message": "Error saving your vote. Try again."
+  },
+  "login.error.denied": {
+    "message": "Login cancelled."
+  },
+  "login.error.state": {
+    "message": "Login session expired. Try again."
+  },
+  "login.error.token": {
+    "message": "Failed to authenticate with guild.host. Try again."
+  },
+  "login.error.identity": {
+    "message": "Could not identify your guild.host account."
+  },
+  "login.error.notattendee": {
+    "message": "You do not have a ticket for the event."
+  },
+  "login.error.generic": {
+    "message": "Login error. Try again."
+  },
+  "account.title": {
+    "message": "Account - JSConf Brasil 2026"
+  },
+  "account.heading": {
+    "message": "Account"
+  },
+  "account.loadError": {
+    "message": "Could not load. Try again later."
   }
 }

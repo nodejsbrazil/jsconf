@@ -367,5 +367,65 @@
   },
   "supporters.subtitle": {
     "message": "Estamos agradecidos por el apoyo de nuestros socios que comparten nuestra visión de fortalecer la comunidad JavaScript en Brasil."
+  },
+  "common.loading": {
+    "message": "Cargando…"
+  },
+  "auth.login": {
+    "message": "Entrar con guild.host"
+  },
+  "auth.logout": {
+    "message": "Salir"
+  },
+  "vote.title": {
+    "message": "Votación - JSConf Brasil 2026"
+  },
+  "vote.heading": {
+    "message": "Vota por las charlas"
+  },
+  "vote.loadError": {
+    "message": "No se pudo cargar la votación. Inténtalo más tarde."
+  },
+  "vote.remaining": {
+    "message": "Votos restantes: {remaining} de {budget}"
+  },
+  "vote.openUntil": {
+    "message": "Abierta hasta {date}"
+  },
+  "vote.closed": {
+    "message": "La votación ha cerrado."
+  },
+  "vote.limitReached": {
+    "message": "Ya usaste tus {budget} votos."
+  },
+  "vote.submitError": {
+    "message": "Error al registrar el voto. Inténtalo de nuevo."
+  },
+  "login.error.denied": {
+    "message": "Inicio de sesión cancelado."
+  },
+  "login.error.state": {
+    "message": "La sesión de inicio expiró. Inténtalo de nuevo."
+  },
+  "login.error.token": {
+    "message": "Error al autenticar con guild.host. Inténtalo de nuevo."
+  },
+  "login.error.identity": {
+    "message": "No se pudo identificar tu cuenta de guild.host."
+  },
+  "login.error.notattendee": {
+    "message": "No tienes una entrada para el evento."
+  },
+  "login.error.generic": {
+    "message": "Error al entrar. Inténtalo de nuevo."
+  },
+  "account.title": {
+    "message": "Cuenta - JSConf Brasil 2026"
+  },
+  "account.heading": {
+    "message": "Cuenta"
+  },
+  "account.loadError": {
+    "message": "No se pudo cargar. Inténtalo más tarde."
   }
 }

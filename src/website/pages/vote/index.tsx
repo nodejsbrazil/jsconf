@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { toast } from 'sonner';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import { Page } from '@site/src/website/components/shared/Page';
 import {
   audienceLevels,
@@ -24,17 +25,18 @@ type Session = {
   closesAt: string;
 };
 
-// Login failure messages surfaced from the OAuth callback's ?error= redirect.
-const LOGIN_ERRORS: Record<string, string> = {
-  denied: 'Login cancelado.',
-  state: 'Sessão de login expirada. Tente novamente.',
-  token: 'Falha ao autenticar com guild.host. Tente novamente.',
-  identity: 'Não foi possível identificar sua conta guild.host.',
-  notattendee: 'Você não possui um ingresso para o evento.',
-};
+// Callback ?error= code -> translation id for the message surfaced on the vote page.
+const LOGIN_ERROR_IDS = {
+  denied: 'login.error.denied',
+  state: 'login.error.state',
+  token: 'login.error.token',
+  identity: 'login.error.identity',
+  notattendee: 'login.error.notattendee',
+} as const;
 
 const Vote = () => {
-  const { siteConfig } = useDocusaurusContext();
+  const { siteConfig, i18n } = useDocusaurusContext();
+  const locale = i18n.currentLocale;
   const workerDomain = siteConfig.customFields?.['workerDomain'] as
     | string
     | undefined;
@@ -50,7 +52,10 @@ const Vote = () => {
     const params = new URLSearchParams(window.location.search);
     const error = params.get('error');
     if (!error) return;
-    toast.error(LOGIN_ERRORS[error] ?? 'Erro ao entrar. Tente novamente.');
+    const id =
+      LOGIN_ERROR_IDS[error as keyof typeof LOGIN_ERROR_IDS] ??
+      'login.error.generic';
+    toast.error(text({ id }));
     params.delete('error');
     const query = params.toString();
     window.history.replaceState(
@@ -84,7 +89,9 @@ const Vote = () => {
       if (!session || closed) return;
       const has = votes.has(talkId);
       if (!has && votes.size >= session.budget) {
-        toast.error(`Você já usou seus ${session.budget} votos.`);
+        toast.error(
+          text({ id: 'vote.limitReached' }, { budget: session.budget })
+        );
         return;
       }
 
@@ -103,27 +110,35 @@ const Vote = () => {
 
       if (!res || !res.ok) {
         setVotes(votes);
-        toast.error('Erro ao registrar voto. Tente novamente.');
+        toast.error(text({ id: 'vote.submitError' }));
       }
     },
     [session, votes, workerDomain, closed]
   );
 
   return (
-    <Page title='Votação - JSConf Brasil 2026'>
+    <Page title={text({ id: 'vote.title' })}>
       <div className='page-content flex w-full max-w-[80rem] flex-col gap-[1.6rem] px-[2rem] py-[4rem]'>
-        <h1>Vote nas palestras</h1>
+        <h1>
+          <Text id='vote.heading' />
+        </h1>
 
-        {status === 'loading' && <p>Carregando…</p>}
+        {status === 'loading' && (
+          <p>
+            <Text id='common.loading' />
+          </p>
+        )}
         {status === 'error' && (
-          <p>Não foi possível carregar a votação. Tente mais tarde.</p>
+          <p>
+            <Text id='vote.loadError' />
+          </p>
         )}
         {status === 'unauth' && (
           <a
             className='button button--primary'
             href={`${workerDomain}/api/vote/login`}
           >
-            Entrar com guild.host
+            <Text id='auth.login' />
           </a>
         )}
 
@@ -131,15 +146,26 @@ const Vote = () => {
           <>
             <div className='flex items-center justify-between gap-[1.2rem]'>
               {closed ? (
-                <p>A votação foi encerrada.</p>
+                <p>
+                  <Text id='vote.closed' />
+                </p>
               ) : (
                 <p>
-                  Votos restantes: {session.budget - votes.size} de{' '}
-                  {session.budget}
+                  <Text
+                    id='vote.remaining'
+                    values={{
+                      remaining: session.budget - votes.size,
+                      budget: session.budget,
+                    }}
+                  />
                   <br />
                   <small>
-                    Aberta até{' '}
-                    {new Date(session.closesAt).toLocaleString('pt-BR')}
+                    <Text
+                      id='vote.openUntil'
+                      values={{
+                        date: new Date(session.closesAt).toLocaleString(locale),
+                      }}
+                    />
                   </small>
                 </p>
               )}
@@ -147,7 +173,7 @@ const Vote = () => {
                 className='button button--secondary button--sm'
                 href={`${workerDomain}/api/vote/logout`}
               >
-                Sair
+                <Text id='auth.logout' />
               </a>
             </div>
             <ul className='flex flex-col gap-[1.2rem]'>

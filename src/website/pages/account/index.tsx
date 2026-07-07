@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import { Page } from '@site/src/website/components/shared/Page';
 
 const Account = () => {
@@ -27,26 +28,36 @@ const Account = () => {
   }, [workerDomain]);
 
   return (
-    <Page title='Conta - JSConf Brasil 2026'>
+    <Page title={text({ id: 'account.title' })}>
       <div className='page-content flex w-full max-w-[80rem] flex-col gap-[1.6rem] px-[2rem] py-[4rem]'>
-        <h1>Conta</h1>
+        <h1>
+          <Text id='account.heading' />
+        </h1>
 
-        {status === 'loading' && <p>Carregando…</p>}
+        {status === 'loading' && (
+          <p>
+            <Text id='common.loading' />
+          </p>
+        )}
         {status === 'error' && (
-          <p>Não foi possível carregar. Tente mais tarde.</p>
+          <p>
+            <Text id='account.loadError' />
+          </p>
         )}
         {status === 'out' && (
           <a
             className='button button--primary'
             href={`${workerDomain}/api/vote/login`}
           >
-            Entrar com guild.host
+            <Text id='auth.login' />
           </a>
         )}
         {status === 'in' && userId && (
           <div className='flex items-center justify-between gap-[1.2rem]'>
             <strong>{userId}</strong>
-            <a href={`${workerDomain}/api/vote/logout`}>Sair</a>
+            <a href={`${workerDomain}/api/vote/logout`}>
+              <Text id='auth.logout' />
+            </a>
           </div>
         )}
       </div>
