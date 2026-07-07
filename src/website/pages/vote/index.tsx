@@ -2,12 +2,18 @@ import { useCallback, useEffect, useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { toast } from 'sonner';
 import { Page } from '@site/src/website/components/shared/Page';
+import {
+  audienceLevels,
+  durationOptions,
+} from '@site/src/website/contexts/c4p/definitions';
 
 type Talk = {
   id: number;
   title: string;
   description: string;
   speaker_name: string;
+  duration: number;
+  audience_level: number;
 };
 
 type Session = {
@@ -109,6 +115,11 @@ const Vote = () => {
                     />
                     <span>
                       <strong>{talk.title}</strong> — {talk.speaker_name}
+                      <br />
+                      <small>
+                        {durationOptions[talk.duration]?.label} ·{' '}
+                        {audienceLevels[talk.audience_level]?.label}
+                      </small>
                       <br />
                       {talk.description}
                     </span>

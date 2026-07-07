@@ -4,6 +4,7 @@ import {
   SESSION_TTL_SECONDS,
   STATE_COOKIE,
 } from '../configs/oauth.js';
+import { readCookie } from '../helpers/cookies.js';
 import {
   buildAuthorizeUrl,
   exchangeCode,
@@ -24,14 +25,6 @@ const redirectUri = (request: Request, env: Env): string =>
 
 const websiteOrigin = (request: Request, env: Env): string =>
   env.ALLOWED_ORIGIN ?? new URL(request.url).origin;
-
-const readCookie = (request: Request, name: string): string | null => {
-  for (const part of (request.headers.get('Cookie') ?? '').split(';')) {
-    const [k, ...v] = part.trim().split('=');
-    if (k === name) return v.join('=');
-  }
-  return null;
-};
 
 const redirect = (location: string, cookies: string[] = []): Response => {
   const headers = new Headers({ Location: location });

@@ -1,9 +1,10 @@
 # Voting system — remaining work
 
-Code is complete, typechecked, linted, tested (`npm test` → 10 files pass). What's left is
+Code is complete, typechecked, linted, tested (`npm test` → 9 files pass). What's left is
 operational + blocked on guild.host shipping "Log in with Guild" (see blockers).
 
 > **Update 2026-06-26 (guild.host owner, Taz):**
+>
 > - Group-ticket question **RESOLVED** — each guest claims their own Guild account/email, so
 >   every ticket holder is a separate attendee. Per-individual voting works out of the box.
 > - **"Log in with Guild" 3rd-party sign-in does NOT exist yet.** The OAuth docs are
@@ -48,10 +49,13 @@ The website login flow depends on guild.host adding 3rd-party sign-in. The OAuth
 - [ ] Until then the login is **stubbed**; everything else (votes, budget, tables, tests) works
       via the dev `X-Dev-User` header.
 
-## BLOCKER — Guild / Stripe admin access
+## BLOCKER — Guild admin access
 
-- [ ] Get **admin access to Guild and Stripe** (Guild API key + manager-flow OAuth to read all
-      attendees). Requested from the JSConf team (Erick Wendel / Ana Beatriz) on 2026-06-26.
+Stripe is out — voting is guild-only. The Stripe webhook path (buyer-derived budget) was
+removed; the only attendee/tier source is the guild.host attendees API.
+
+- [ ] Get **admin access to Guild** (Guild API key + manager-flow OAuth to read all attendees).
+      Requested from the JSConf team (Erick Wendel / Ana Beatriz) on 2026-06-26.
 - [ ] Fallback if access never comes: collect attendee emails in the purchase form instead of
       the attendees API.
 
@@ -71,36 +75,40 @@ npm run db:init
 wrangler dev
 curl -H 'X-Dev-User: user-1' localhost:8787/api/vote   # GET session (dev only)
 ```
+
 Note: `X-Dev-User` works only when `ENVIRONMENT !== 'production'`; production requires the
 real signed-cookie session from the OAuth flow.
 
 ## Simplify
 
-- [ ] **Lean on auth libraries — but no external auth service.** Hard constraint: NO hosted
-      identity service or external dashboard (no Auth0, Clerk, WorkOS, hosted Supabase-auth).
-      Self-hosted libraries that run inside our worker with tokens/sessions stored in OUR D1
-      are fine. We keep our data; we just stop writing the crypto.
+- [x] **Session crypto → `jose`.** `helpers/session.ts` now signs/verifies an HS256 JWT via
+      `jose` (`SignJWT` / `jwtVerify`) instead of the hand-rolled HMAC + base64url. Alg is pinned
+      (`algorithms: ['HS256']`), exp is enforced by the lib. Cookie parsing deduped into
+      `helpers/cookies.ts` (`readCookie`), shared by `session.ts` + `routes/auth.ts`.
 
-      Right now we hand-roll the whole surface: OAuth authorize/exchange/refresh + state/CSRF
-      (`helpers/oauth.ts`, `routes/auth.ts`), HMAC session sign/verify + base64url
-      (`helpers/session.ts`), and cookie parse/serialize (duplicated `readCookie` in both
-      files). All of it is a security boundary. Replace with a lib, owning as little as possible:
-
-      - **Own least (preferred if it fits):** a self-hosted auth lib handling OAuth + session +
-        cookies, persisting to our D1. `@auth/core` (Auth.js, D1 adapter) or `better-auth` (D1
-        via Drizzle/Kysely). Both are libraries, not services — no external dashboard. Catch:
-        guild.host is a **non-standard** provider (custom `userinfo`, unverified id-join field);
-        confirm the lib's generic-OAuth provider can model it before committing, or it fights us.
-      - **Own a bit more (safe fallback):** `arctic` generic `OAuth2Client` (authorize / code
-        exchange / refresh + state/PKCE) + `jose` for the session JWT + the `cookie` package for
-        parse/serialize. Lighter, no adapter, fits the custom provider more flexibly. Still all
-        in-process, tokens in our D1.
-
-      Try `@auth/core` first; drop to arctic+jose if guild's non-standard shape doesn't map.
-      Either way tokens stay in our D1 and `resolveBudget` / the votes flow are unchanged.
+- [ ] **OAuth flow → lib (DEFERRED to the real guild flow).** `helpers/oauth.ts`
+      (`buildAuthorizeUrl` / `exchangeCode` / `refreshToken` / `fetchUserInfo`) is still
+      hand-rolled and still stubbed against an unknown flow. Do NOT migrate it yet — the real
+      "Log in with Guild" endpoints/shape are unconfirmed, so a swap now = double rework. When
+      the real flow lands, replace this file in one pass with `arctic` (generic `OAuth2Client`:
+      authorize / code exchange / refresh + state/PKCE). Hard constraint holds: self-hosted lib
+      only, tokens stay in our D1, NO hosted identity service. `@auth/core` / `better-auth` were
+      considered and rejected for a raw Worker + non-standard provider (framework-oriented,
+      custom `userinfo`). Tokens in D1 and `resolveBudget` / votes flow stay unchanged.
 
 ## Nice-to-have (not blocking)
 
 - [ ] Logout endpoint / button (clear `vote_session` cookie).
 - [ ] Admin read endpoint for vote tallies (none exists yet — votes are write-only via the API).
-- [ ] `charge.refunded` → revoke votes (Stripe webhook stub already receives the event).
+
+## Stolen from PR #40 (done)
+
+- [x] **`parseRequest(request, schema, maxSize)`** in `helpers/request.ts` — DRYs the
+      415/413/400/422 content-type/size/JSON/schema gauntlet the `c4p` + `vote` routes repeated.
+- [x] **Richer talk cards** — `listTalks` + the `/api/vote` payload now include `duration` and
+      `audience_level`; the `/vote` page renders them via the existing `durationOptions` /
+      `audienceLevels` label arrays.
+
+Not taken (deliberate): single-query `has_voted` (churns the response shape + test mock for a
+micro-opt), explicit 403/409/404 vote status codes (semantics change, no sign-off), dev seed
+script (net-new wrangler plumbing, not a quick win).

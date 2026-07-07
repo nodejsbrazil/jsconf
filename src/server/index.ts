@@ -22,9 +22,6 @@ export default {
 
     const { pathname } = new URL(request.url);
 
-    if (`${method} ${pathname}` === 'POST /api/stripe/webhook')
-      return routes.stripeWebhook({ request, cors, env });
-
     const rateLimit = checkRateLimit(request);
     if (!rateLimit.allowed)
       return response({ error: 'Rate limit exceeded.' }, 429, {

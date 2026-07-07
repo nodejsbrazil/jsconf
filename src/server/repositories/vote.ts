@@ -6,6 +6,8 @@ export type TalkRow = {
   title: string;
   description: string;
   speaker_name: string;
+  duration: number;
+  audience_level: number;
 };
 
 type CastResult = { success: true } | { success: false; reason: 'budget' };
@@ -14,7 +16,8 @@ export const vote = (database: Database) => {
   const listTalks = async (): Promise<TalkRow[]> => {
     const { results } = await database
       .prepare(
-        `SELECT t.id, t.title, t.description, s.name AS speaker_name
+        `SELECT t.id, t.title, t.description, t.duration, t.audience_level,
+                s.name AS speaker_name
          FROM talks t
          JOIN speakers s ON s.id = t.speaker_id
          WHERE t.status = ?

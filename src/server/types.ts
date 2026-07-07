@@ -11,8 +11,6 @@ export type Env = {
   DB: Database;
   ALLOWED_ORIGIN?: string;
   ENVIRONMENT?: string;
-  STRIPE_SECRET_KEY: string;
-  STRIPE_WEBHOOK_SECRET: string;
   // Voting / guild.host OAuth
   GUILD_OAUTH_CLIENT_ID?: string;
   GUILD_OAUTH_CLIENT_SECRET?: string;

@@ -3,6 +3,7 @@
 Context for a fresh Claude session picking up this work. Branch: `voting-system`.
 
 > **Status update 2026-06-26 (from the guild.host owner, Taz):**
+>
 > - Group-ticket question **RESOLVED** — each guest claims their own Guild account/email, so
 >   every ticket holder is a separate attendee. Per-individual voting works out of the box.
 > - **"Log in with Guild" 3rd-party sign-in does NOT exist yet.** The guild OAuth docs are
@@ -32,13 +33,16 @@ individually; vote allowance depends on ticket tier.
   the attendee list with an organizer token, caches `userId→tier` in memory (`lru.min`, 5-min
   TTL), and joins a `ticket_tiers(name, budget)` table for the vote count. There is no per-user
   attendee endpoint in the guild API, so the full list is fetched + cached.
-- **Stripe unused for voting.** It knows only the buyer, and votes are per individual attendee.
+- **Stripe removed — voting is guild-only.** Stripe knows only the buyer, and votes are per
+  individual attendee. The Stripe webhook route + client + `STRIPE_*` secrets were deleted; the
+  sole attendee/tier source is the guild.host attendees API.
 - **Voting runs for months**, so the organizer token (24h access / 30d rotating refresh) is
   auto-refreshed and persisted in D1 — see `oauth_tokens` + `getOrgAccessToken`.
 - **Vote model:** approval voting — pick up to `budget` distinct talks, toggle on/off until
   `VOTE_CLOSES_AT`. Votable talks = `talks.status = 2` (`VOTABLE_TALK_STATUS`, adopted from PR #40).
-- **Session:** HMAC-signed cookie (`vote_session`), `SameSite=None; Secure` so it survives the
-  cross-subdomain fetch from the website to the API. No DB session store.
+- **Session:** signed JWT cookie (`vote_session`) via `jose` (HS256, alg-pinned), `SameSite=None;
+Secure` so it survives the cross-subdomain fetch from the website to the API. No DB session
+  store. (Was hand-rolled HMAC; swapped to `jose` in the auth-simplify pass.)
 
 ## Architecture / flow
 
@@ -61,12 +65,17 @@ Org token:  oauth_tokens row, auto-refreshed + rotated (repositories/oauth-token
 ## Files (all new/changed on this branch)
 
 Server:
+
 - `src/server/configs/oauth.ts` — guild endpoint URLs, scope, EVENT_SLUG, cookie names/TTL.
 - `src/server/configs/vote.ts` — `VOTE_CLOSES_AT`, `isVotingOpen()`.
-- `src/server/helpers/session.ts` — HMAC `signSession`/`verifySession`, async `getUserId`
-  (cookie in prod; `X-Dev-User` header fallback only when `ENVIRONMENT !== 'production'`).
+- `src/server/helpers/session.ts` — `jose` HS256 `signSession`/`verifySession`, async
+  `getUserId` (cookie in prod; `X-Dev-User` header fallback only when
+  `ENVIRONMENT !== 'production'`).
+- `src/server/helpers/cookies.ts` — shared `readCookie` (deduped from session.ts + auth.ts).
+- `src/server/helpers/request.ts` — `parseRequest` (415/413/400/422 gauntlet, shared by c4p +
+  vote) alongside the primitive `isJsonContentType`/`isWithinSize`/`parseBody`.
 - `src/server/helpers/oauth.ts` — `buildAuthorizeUrl`, `exchangeCode`, `refreshToken`,
-  `fetchUserInfo`.
+  `fetchUserInfo`. Still hand-rolled + stubbed; slated for `arctic` once the real guild flow lands.
 - `src/server/repositories/oauth-token.ts` — `getOrgAccessToken`: valid-token passthrough,
   else refresh + persist rotated token; seeds from `GUILD_ORG_REFRESH_TOKEN`.
 - `src/server/repositories/attendees.ts` — `resolveBudget(env, db, userId)`: paginated
@@ -79,10 +88,12 @@ Server:
 - `resources/schema.sql` — `ticket_tiers`, `c4p_votes`, `oauth_tokens`.
 
 Site:
+
 - `src/website/pages/vote/index.tsx` — voting UI (login state, checkbox approval list,
   optimistic toggle, remaining-votes counter).
 
 Tests:
+
 - `test/server/routes/vote.test.ts` — session crypto, token refresh/rotation, route auth
   (401/403), budget limit, idempotent re-vote, unvote, 415/422, prod no-bypass.
 
@@ -90,7 +101,7 @@ Config: `.env.example` updated. `TODO.md` has the deploy checklist.
 
 ## State of play
 
-- `npm run typecheck`, `npm run lint`, `npm test` (10 files) all pass.
+- `npm run typecheck`, `npm run lint`, `npm test` (9 files) all pass.
 - Nothing is committed — review the diff and commit when ready (conventional commits, no
   Claude attribution per user preference; always branch, never push to main).
 
@@ -98,13 +109,13 @@ Config: `.env.example` updated. `TODO.md` has the deploy checklist.
 
 1. **Blocked on guild:** wait for Taz's "Log in with Guild" sign-in (~Mon 2026-06-29), then
    align `helpers/oauth.ts` + `routes/auth.ts` to the real flow (currently a stub).
-2. **Blocked on access:** Guild + Stripe admin (API key + manager OAuth) to read attendees;
-   requested from the team. Fallback: collect emails in the purchase form.
+2. **Blocked on access:** Guild admin (API key + manager OAuth) to read attendees; requested
+   from the team. Fallback: collect emails in the purchase form.
 3. Operational: register OAuth app, set 5 secrets, set `ALLOWED_ORIGIN`, seed `ticket_tiers`,
    `npm run db:init`, obtain the organizer refresh token, set the real `VOTE_CLOSES_AT`.
 4. **Live verification once login exists:** the userinfo id field that joins the attendees list.
    `fetchUserInfo` tries `sub ?? id ?? slugId ?? rowId` — confirm which is correct.
-5. Optional: logout, vote-tally admin read endpoint, refund→revoke.
+5. Optional: logout, vote-tally admin read endpoint.
 
 ## Why guild.host (not Stripe) for attendees
 
@@ -141,10 +152,19 @@ His model: email + 4-digit code login (JWT 15m + rotating refresh, `jose`), budg
 `checkout.session.completed` (quantity × tier weight), `users-batch` admin endpoint.
 
 Taken so far:
+
 - **`status = 2` = votable.** Concrete meaning for the undocumented `talks.status`. Now
   filtered in `listTalks` via `VOTABLE_TALK_STATUS` (`configs/vote.ts`).
+- **`parseRequest` helper** (`helpers/request.ts`) — DRYs the 415/413/400/422 gauntlet the c4p +
+  vote routes repeated. (Dropped his `RouteContext`/`cors` coupling — the helper just returns
+  `{ data }` or `{ error, status }` and the route builds the response.)
+- **Richer talk cards** — `listTalks` + the `/api/vote` payload now carry `duration` +
+  `audience_level`; the `/vote` page labels them via the existing `durationOptions` /
+  `audienceLevels` arrays. (Kept our `talks` + `myVotes` shape; did not adopt his
+  `talks`/`votedTalkIds` split.)
 
 Rejected (conflicts with our guild model — kept here so the option isn't lost):
+
 - **Stripe-webhook-derived budget** (`checkout.session.completed` → buyer email +
   quantity×tier-weight → upsert `users`). Would kill our org-token + OAuth-refresh +
   attendees-fetch + lru machinery AND the userinfo→attendee id-join risk. We don't take it
@@ -153,26 +173,24 @@ Rejected (conflicts with our guild model — kept here so the option isn't lost)
   "buyer holds all" condition that would have made this Stripe model the fallback no longer
   applies — keep it only as a last resort if Guild access never materializes.
 - **Repurchase accumulation** (`ON CONFLICT(email) DO UPDATE SET votes_allowed =
-  votes_allowed + excluded`). N/A in our model: budget is a live tier lookup, not a persisted
+votes_allowed + excluded`). N/A in our model: budget is a live tier lookup, not a persisted
   per-purchase sum, so there's nothing to accumulate. Only relevant if we adopt the Stripe
   fallback above.
 
 Worth taking later (model-compatible, not yet done):
+
 - His `getEligibleTalks` computes `has_voted` per talk in one query — cleaner than our
-  two-query `voteGet`.
-- Richer voting payload: he returns `duration` + `audience_level` per talk and splits
-  `talks` / `votedTalkIds`. Ours returns only title/desc/speaker. Better talk cards.
+  two-query `voteGet`. Skipped for now: it churns the response shape + test mock for a micro-opt.
 - Explicit vote status codes: `403` no votes left, `409` already voted, `404` retract-not-found.
-  Ours collapses to `422` + idempotent re-vote. His is clearer for the UI; a semantics choice.
-- `parseRequest(request, schema, cors)` helper + shared `RouteContext` type — DRYs the
-  415/413/400/422 dance our c4p + vote routes repeat.
+  Ours collapses to `422` + idempotent re-vote. His is clearer for the UI; a semantics choice
+  (skipped — would break current tests, no sign-off).
 - Dev seed script (his `scripts/seed.ts`): seed talks + `ticket_tiers` so local voting is
-  testable without the `X-Dev-User` curl dance. We have none.
+  testable without the `X-Dev-User` curl dance. We have none. (Skipped — net-new wrangler
+  plumbing, not a quick win.)
 - `schemas.ts` centralizing typed response shapes. Minor.
 - His richer frontend: `src/website/components/voting/*`, `pages/voting/*`, `hooks/voting/*`,
   full i18n. Ours is one page.
-- `charge.refunded` → revoke votes. Awkward in our model (Stripe gives buyer email, our votes
-  key on guild user_id — no clean map). Note, don't force it.
+- `charge.refunded` → revoke votes. N/A — Stripe is removed; the webhook stub is deleted.
 
 Do NOT take: 4-digit `Math.random()` code (weak, 10k space, not crypto-random); hardcoded
 early-bird date for tier detection (we read the real tier from guild).
