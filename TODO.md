@@ -1,7 +1,122 @@
 # Voting system — remaining work
 
 Code is complete, typechecked, linted, tested (`npm test` → 9 files pass). What's left is
-operational + blocked on guild.host shipping "Log in with Guild" (see blockers).
+operational + the `/ticket` refactor below.
+
+## ⏭️ RESUME HERE — switch budget to the per-user `/ticket` endpoint (APPROVED, not started)
+
+Decision made with the user 2026-07-07, checking `guild.host/docs/developers/oauth`. This
+**reverses** the locked org-token decision: the docs DO expose a per-user endpoint
+`GET https://guild.host/api/next/events/{slug}/ticket` (scope `event_tickets:read`) returning
+the authenticated user's OWN ticket. Our OAuth app already requests that scope. So we read the
+voter's tier from THEIR token at login instead of fetching the whole attendee list with an
+organizer token.
+
+Why: kills the org-token machinery, removes the userinfo→attendees id-join blocker, and unblocks
+local testing (no organizer consent needed).
+
+**New flow:** callback → `exchangeCode` → access_token → `fetchUserInfo` (user id) +
+`fetchTicketTier` (tier via `/ticket`) → join `ticket_tiers` for budget → bake `{ sub, budget }`
+into the session JWT. `voteGet`/`voteSubmit` read budget from the signed session — no per-request
+guild call, no stored attendee token.
+
+Checklist:
+
+- [ ] `helpers/oauth.ts`: add `fetchTicketTier(accessToken, slug)` hitting
+      `${EVENTS_BASE}/{slug}/ticket`. **Response shape is UNDOCUMENTED** — reuse the tier path
+      `attendees.ts` parsed (`ticketOrder.eventTicketOrderItems.nodes[0].eventTicketingTier.name`)
+      as the first guess; confirm on the first live login. Delete the now-unused `refreshToken`.
+- [ ] `helpers/session.ts`: session carries budget. `signSession(userId, budget, secret, ttl)`;
+      `verifySession` → `{ userId, budget } | null`; replace `getUserId` with `getSession` →
+      `{ userId, budget }`. Dev `X-Dev-User` path returns a default budget (const, e.g. 3) so
+      local testing works without a login.
+- [ ] `routes/auth.ts`: `authCallback` needs `database` (add to its Options + wiring in
+      `index.ts`/`routes.ts`). Resolve tier→budget; no ticket → `?error=notattendee`, no session.
+- [ ] `routes/vote.ts`: read `{ userId, budget }` from `getSession`; drop `resolveBudget` +
+      the `budget === null` 403 (non-attendees never get a session).
+- [ ] DELETE `repositories/oauth-token.ts`, `repositories/attendees.ts`, the `oauth_tokens`
+      table (`resources/schema.sql`), and `GUILD_ORG_REFRESH_TOKEN` (types.ts, .env.example,
+      .dev.vars.example). Drop `lru.min` if nothing else uses it (rate-limit does — check).
+- [ ] `configs/oauth.ts`: rename `ATTENDEES_BASE` → `EVENTS_BASE` (or add a ticket URL helper).
+- [ ] Rewrite `test/server/routes/vote.test.ts`: remove oauth-token + attendees mocks; session
+      tests carry budget; voteGet/voteSubmit budget comes from the session (dev path).
+
+### Endpoints CONFIRMED from the docs (2026-07-07)
+
+- authorize `https://guild.host/oauth/authorize` ✓ (matches code)
+- token `https://guild.host/api/oauth/token` ✓
+- userinfo `https://guild.host/api/oauth/userinfo` ✓ — but **response fields are NOT documented**
+- per-user ticket `https://guild.host/api/next/events/{slug}/ticket` (`event_tickets:read`)
+- attendees `https://guild.host/api/next/events/{slug}/attendees?first=20` (`event_attendees:read`,
+  only when the Guild user can manage the event) — no longer used after the refactor
+- scopes: `profile:read`, `event_tickets:read`, `event_attendees:read` ✓ (all requested)
+- tokens: access 1d, refresh 30d rotating, auth code 10min single-use
+
+### Still needs ONE live login to confirm (undocumented shapes)
+
+1. **userinfo id field** — which of `sub`/`id`/`slugId`/`rowId` is the stable id. Keys `c4p_votes`.
+2. **`/ticket` response shape** — where the tier name sits. Adjust `fetchTicketTier` once seen.
+3. **"no ticket" shape** — what `/ticket` returns for a non-attendee (404? empty body? null
+   field?). Needed to branch `?error=notattendee` correctly.
+4. **token response** — confirm `exchangeCode` gets `access_token` (+ whether `expires_in` /
+   `refresh_token` come back). Log the KEYS only, never the token value.
+
+### Live-login verification runbook (do this ONCE, then apply + delete the temp code)
+
+Goal: capture the four shapes above from a single real login. `/ticket` need not be wired yet —
+the temp probe calls it directly with the fresh access token.
+
+1. **Have a test Guild account that holds a ticket on event `vdc8dh`.** Also note a second
+   account with NO ticket if you can, for step 8.
+2. **Seed a tier row** so the budget join has something to hit. Use the exact guild tier name if
+   you know it; otherwise seed a couple and correct after step 6:
+   `npm run db:init` then
+   `wrangler d1 execute jsconf-br --command "INSERT OR IGNORE INTO ticket_tiers (name, budget) VALUES ('Standard', 3), ('VIP', 5)"`
+3. **Add temp logging** in `routes/auth.ts` `authCallback`, right after the `if (!tokens)` guard
+   (import `USERINFO_URL`, `EVENT_SLUG`, `EVENTS_BASE`/`ATTENDEES_BASE`):
+   ```ts
+   // TEMP DEBUG — remove after verifying (do NOT log the raw token value)
+   console.log('TOKEN keys', Object.keys(tokens));
+   const at = tokens.access_token;
+   const ui = await fetch(USERINFO_URL, {
+     headers: { Authorization: `Bearer ${at}` },
+   });
+   console.log('USERINFO', ui.status, await ui.text());
+   const tk = await fetch(`${ATTENDEES_BASE}/${EVENT_SLUG}/ticket`, {
+     headers: { Authorization: `Bearer ${at}` },
+   });
+   console.log('TICKET', tk.status, await tk.text());
+   ```
+4. **Run** `npm start` (website :3000 + `wrangler dev` :8787). Keep the `wrangler dev` terminal
+   visible — `console.log` prints there.
+5. **Log in** at `http://localhost:8787/api/vote/login`, consent on guild, land back on `/vote`.
+6. **Read the terminal:**
+   - `USERINFO` line → pick the stable id key → set it in `fetchUserInfo`
+     (`src/server/helpers/oauth.ts`), replacing the `sub ?? id ?? slugId ?? rowId` guess.
+   - `TICKET` line → find the tier NAME path → that's what `fetchTicketTier` returns. Confirm the
+     name string equals a `ticket_tiers.name` you seeded (fix the seed in step 2 if it differs).
+   - `TOKEN keys` → confirm `access_token` present; note if `expires_in`/`refresh_token` exist.
+7. **Confirm the join:** the tier name from `/ticket` must match `ticket_tiers.name` exactly
+   (case-sensitive). If guild returns e.g. `"Ingresso Padrão"`, seed that literal string.
+8. **(If you have a no-ticket account) log in with it** → record the `TICKET` status/body for the
+   non-attendee branch (`?error=notattendee`).
+9. **Delete the temp logging.** Then wire `fetchTicketTier` + `fetchUserInfo` with the confirmed
+   shapes and finish the refactor checklist above.
+
+Security: the temp probe logs userinfo + ticket bodies (your own account PII) to the local
+terminal only — fine for local dev, but don't paste raw output anywhere shared, and never log the
+access token value.
+
+### Local creds (already set)
+
+`.dev.vars` (gitignored) holds the real client id/secret, redirect URI, a random SESSION_SECRET,
+`ALLOWED_ORIGIN=http://localhost:3000`, `ENVIRONMENT=development`. **Rotate the client secret on
+guild.host before go-live** — it was pasted in plaintext chat. `.dev.vars.example` is the template.
+
+Run: `npm start` (website :3000 + `wrangler dev` :8787). Login at
+`http://localhost:8787/api/vote/login`.
+
+---
 
 > **Update 2026-06-26 (guild.host owner, Taz):**
 >
@@ -38,7 +153,10 @@ confirmed: the buyer enters each guest's email, each guest **creates their own G
 claim** their ticket (and may use a different email). So every ticket holder is a separate
 attendee with their own email/data. No buyer-holds-all problem; no manual fallback needed.
 
-## BLOCKER — "Log in with Guild" doesn't exist yet
+## ~~BLOCKER — "Log in with Guild" doesn't exist yet~~ — RESOLVED 2026-07-07
+
+Login now exists. OAuth app registered, real client id/secret + endpoints in hand (see RESUME
+HERE). Endpoints confirmed against the docs. Historical note below.
 
 The website login flow depends on guild.host adding 3rd-party sign-in. The OAuth at
 `guild.host/docs/developers/oauth` is **private API access only**, not sign-in (per Taz).
@@ -49,15 +167,14 @@ The website login flow depends on guild.host adding 3rd-party sign-in. The OAuth
 - [ ] Until then the login is **stubbed**; everything else (votes, budget, tables, tests) works
       via the dev `X-Dev-User` header.
 
-## BLOCKER — Guild admin access
+## ~~BLOCKER — Guild admin access~~ — SUPERSEDED by the `/ticket` refactor (2026-07-07)
 
-Stripe is out — voting is guild-only. The Stripe webhook path (buyer-derived budget) was
-removed; the only attendee/tier source is the guild.host attendees API.
+The org-token / manage-event access was only needed to read the full attendee list. The
+per-user `/ticket` endpoint removes that need — each voter's own `event_tickets:read` token
+returns their tier. No organizer admin access required. (Historical note kept below.)
 
-- [ ] Get **admin access to Guild** (Guild API key + manager-flow OAuth to read all attendees).
-      Requested from the JSConf team (Erick Wendel / Ana Beatriz) on 2026-06-26.
-- [ ] Fallback if access never comes: collect attendee emails in the purchase form instead of
-      the attendees API.
+- [ ] ~~Get admin access to Guild (API key + manager-flow OAuth to read all attendees).~~
+- [ ] Fallback if `/ticket` doesn't pan out: collect attendee emails in the purchase form.
 
 ## Live verification (once login exists — can't be done headless)
 

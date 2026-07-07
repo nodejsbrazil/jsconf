@@ -99,11 +99,17 @@ Tests:
 
 Config: `.env.example` updated. `TODO.md` has the deploy checklist.
 
-## State of play
+## State of play (updated 2026-07-07)
 
 - `npm run typecheck`, `npm run lint`, `npm test` (9 files) all pass.
-- Nothing is committed — review the diff and commit when ready (conventional commits, no
-  Claude attribution per user preference; always branch, never push to main).
+- **Committed** on `voting-system` (unsigned — 1Password SSH signer wouldn't run in the agent
+  session; prior wip history is unsigned too, re-sign via `git rebase --exec 'git commit
+--amend --no-edit -S'` if wanted): `refactor(voting): guild-only, jose sessions, parseRequest
+  - richer talk cards`and`feat(voting): wire guild OAuth app scopes + dev.vars template`.
+- **NEXT: the `/ticket` refactor — see the "⏭️ RESUME HERE" section at the top of `TODO.md`.**
+  Approved, not started. It deletes the org-token machinery and bakes budget into the session.
+- Real OAuth creds are in `.dev.vars` (gitignored). Rotate the client secret before go-live
+  (pasted in plaintext chat).
 
 ## What's NOT done — see TODO.md
 
