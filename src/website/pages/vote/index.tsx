@@ -24,6 +24,15 @@ type Session = {
   closesAt: string;
 };
 
+// Login failure messages surfaced from the OAuth callback's ?error= redirect.
+const LOGIN_ERRORS: Record<string, string> = {
+  denied: 'Login cancelado.',
+  state: 'Sessão de login expirada. Tente novamente.',
+  token: 'Falha ao autenticar com guild.host. Tente novamente.',
+  identity: 'Não foi possível identificar sua conta guild.host.',
+  notattendee: 'Você não possui um ingresso para o evento.',
+};
+
 const Vote = () => {
   const { siteConfig } = useDocusaurusContext();
   const workerDomain = siteConfig.customFields?.['workerDomain'] as
@@ -35,6 +44,21 @@ const Vote = () => {
     'loading' | 'ready' | 'unauth' | 'error'
   >('loading');
   const [votes, setVotes] = useState<Set<number>>(new Set());
+
+  // Surface a login failure bounced back from the callback, then strip it from the URL.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get('error');
+    if (!error) return;
+    toast.error(LOGIN_ERRORS[error] ?? 'Erro ao entrar. Tente novamente.');
+    params.delete('error');
+    const query = params.toString();
+    window.history.replaceState(
+      {},
+      '',
+      window.location.pathname + (query ? `?${query}` : '')
+    );
+  }, []);
 
   useEffect(() => {
     if (!workerDomain) return setStatus('error');
