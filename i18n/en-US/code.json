@@ -427,5 +427,356 @@
   },
   "account.loadError": {
     "message": "Could not load. Try again later."
+  },
+  "c4p.pageTitle": {
+    "message": "Call4Papers - JSConf Brasil 2026"
+  },
+  "c4p.action.back": {
+    "message": "Back"
+  },
+  "c4p.action.continue": {
+    "message": "Continue"
+  },
+  "c4p.action.finish": {
+    "message": "Submit"
+  },
+  "c4p.action.submitAnother": {
+    "message": "Submit another talk"
+  },
+  "c4p.status.invalid": {
+    "message": "Invalid"
+  },
+  "c4p.status.valid": {
+    "message": "Valid"
+  },
+  "c4p.step.about": {
+    "message": "About you"
+  },
+  "c4p.step.diversity": {
+    "message": "Diversity and inclusion (optional)"
+  },
+  "c4p.step.talk": {
+    "message": "About the talk"
+  },
+  "c4p.step.done": {
+    "message": "Proposal submitted!"
+  },
+  "c4p.progress": {
+    "message": "Page {current} of 4"
+  },
+  "c4p.error.name": {
+    "message": "Enter your name"
+  },
+  "c4p.error.email": {
+    "message": "Enter a valid email"
+  },
+  "c4p.error.emailTooLong": {
+    "message": "Email is too long"
+  },
+  "c4p.error.phone": {
+    "message": "Enter a valid number"
+  },
+  "c4p.error.city": {
+    "message": "Enter your city"
+  },
+  "c4p.error.state": {
+    "message": "Select a state"
+  },
+  "c4p.error.selectOption": {
+    "message": "Select an option"
+  },
+  "c4p.error.bio": {
+    "message": "Enter your bio"
+  },
+  "c4p.error.bioTooLong": {
+    "message": "Bio is too long"
+  },
+  "c4p.error.duration": {
+    "message": "Select the duration"
+  },
+  "c4p.error.talkTitle": {
+    "message": "Enter the title"
+  },
+  "c4p.error.talkDescription": {
+    "message": "Enter the description"
+  },
+  "c4p.error.audienceLevel": {
+    "message": "Select the level"
+  },
+  "c4p.error.talkReason": {
+    "message": "Enter the reason"
+  },
+  "c4p.error.requiredFields": {
+    "message": "Fill in the required fields"
+  },
+  "c4p.submit.configError": {
+    "message": "Configuration unavailable. Try again later."
+  },
+  "c4p.submit.limit": {
+    "message": "You have reached the limit of 3 talks."
+  },
+  "c4p.submit.error": {
+    "message": "Error submitting your proposal. Try again."
+  },
+  "c4p.intro.toastTitle": {
+    "message": "Your data is saved in your browser."
+  },
+  "c4p.intro.toastDesc": {
+    "message": "You can pick up where you left off anytime."
+  },
+  "c4p.intro.heading1": {
+    "message": "Want to speak at this year's JSConf Brasil?"
+  },
+  "c4p.intro.p1": {
+    "message": "This is your chance to share the stage with some of the most amazing professionals in tech! Fill out our Call4Papers and our team will review and select the submitted proposals."
+  },
+  "c4p.intro.p2": {
+    "message": "{brand} exists to share knowledge, bring the community together, and strengthen a diverse, inclusive, and collaborative event."
+  },
+  "c4p.intro.dateHeading": {
+    "message": "JSConf Brasil - November 28, 2026"
+  },
+  "c4p.intro.deadline": {
+    "message": "We will accept submissions until {date}."
+  },
+  "c4p.intro.deadlineDate": {
+    "message": "July 30"
+  },
+  "c4p.intro.maxTalks": {
+    "message": "You can submit up to {count} talks."
+  },
+  "c4p.intro.eventInfo": {
+    "message": "The event takes place on {date}, at {venue}. There will be talks, panels, interactive activities, an exhibitor fair, and much more."
+  },
+  "c4p.intro.eventDate": {
+    "message": "November 28, 2026"
+  },
+  "c4p.intro.topicsIntro": {
+    "message": "These are some of the topics we suggest (starred ones are preferred):"
+  },
+  "c4p.topic.devTooling": {
+    "message": "Dev Tooling"
+  },
+  "c4p.topic.devEx": {
+    "message": "Developer Experience"
+  },
+  "c4p.topic.aiDev": {
+    "message": "AI in Development"
+  },
+  "c4p.topic.architecture": {
+    "message": "Architecture"
+  },
+  "c4p.topic.devops": {
+    "message": "DevOps"
+  },
+  "c4p.topic.observability": {
+    "message": "Observability"
+  },
+  "c4p.topic.performance": {
+    "message": "Performance"
+  },
+  "c4p.topic.realCases": {
+    "message": "Real-World Problem Solving with Code"
+  },
+  "c4p.topic.a11yCode": {
+    "message": "Code for Accessibility"
+  },
+  "c4p.topic.openSource": {
+    "message": "Open Source"
+  },
+  "c4p.topic.designSystem": {
+    "message": "Design System"
+  },
+  "c4p.topic.security": {
+    "message": "Security in Development"
+  },
+  "c4p.exp.0": {
+    "message": "0 - 1 year"
+  },
+  "c4p.exp.1": {
+    "message": "2 - 4 years"
+  },
+  "c4p.exp.2": {
+    "message": "5 - 9 years"
+  },
+  "c4p.exp.3": {
+    "message": "Over 10 years"
+  },
+  "c4p.duration.0": {
+    "message": "15 minutes"
+  },
+  "c4p.duration.1": {
+    "message": "25 minutes"
+  },
+  "c4p.travel.0": {
+    "message": "I would like the organization to cover my travel and accommodation"
+  },
+  "c4p.travel.1": {
+    "message": "I can cover the costs myself"
+  },
+  "c4p.gender.0": {
+    "message": "Man"
+  },
+  "c4p.gender.1": {
+    "message": "Woman"
+  },
+  "c4p.gender.2": {
+    "message": "Non-binary"
+  },
+  "c4p.gender.3": {
+    "message": "Prefer not to say"
+  },
+  "c4p.race.0": {
+    "message": "White"
+  },
+  "c4p.race.1": {
+    "message": "Mixed"
+  },
+  "c4p.race.2": {
+    "message": "Black"
+  },
+  "c4p.race.3": {
+    "message": "Indigenous"
+  },
+  "c4p.race.4": {
+    "message": "I don't know"
+  },
+  "c4p.race.5": {
+    "message": "Other"
+  },
+  "c4p.race.6": {
+    "message": "Prefer not to say"
+  },
+  "c4p.disability.0": {
+    "message": "I am blind / have low vision"
+  },
+  "c4p.disability.1": {
+    "message": "I am deaf / have a hearing impairment"
+  },
+  "c4p.disability.2": {
+    "message": "I cannot / have difficulty walking or standing without assistance"
+  },
+  "c4p.disability.3": {
+    "message": "I cannot / have difficulty typing"
+  },
+  "c4p.disability.4": {
+    "message": "Not applicable"
+  },
+  "c4p.disability.5": {
+    "message": "Prefer not to say"
+  },
+  "c4p.audience.0": {
+    "message": "All levels"
+  },
+  "c4p.audience.1": {
+    "message": "Junior"
+  },
+  "c4p.audience.2": {
+    "message": "Mid-level"
+  },
+  "c4p.audience.3": {
+    "message": "Senior"
+  },
+  "c4p.about.name": {
+    "message": "Your name"
+  },
+  "c4p.about.email": {
+    "message": "Email"
+  },
+  "c4p.about.phone": {
+    "message": "Mobile"
+  },
+  "c4p.about.city": {
+    "message": "City"
+  },
+  "c4p.about.uf": {
+    "message": "State"
+  },
+  "c4p.about.travelHeading": {
+    "message": "Travel and accommodation"
+  },
+  "c4p.about.travelDesc": {
+    "message": "The city where you live may affect the selection, since travel can create additional costs for the event. Depending on our budget, it may not be possible to cover travel and accommodation for every speaker."
+  },
+  "c4p.about.social": {
+    "message": "Social media"
+  },
+  "c4p.about.website": {
+    "message": "Personal website"
+  },
+  "c4p.about.experience": {
+    "message": "Years of experience"
+  },
+  "c4p.about.bio": {
+    "message": "Mini bio"
+  },
+  "c4p.about.bioDesc": {
+    "message": "In a single paragraph of up to 280 characters, include information about your background, certifications, current and past roles, research, published articles, or any other professional detail you consider relevant."
+  },
+  "c4p.talk.contentType": {
+    "message": "Content type"
+  },
+  "c4p.talk.contentTypeDesc": {
+    "message": "Talks will be 15 or 25 minutes long. Choose the duration you consider most suitable for your proposal."
+  },
+  "c4p.talk.duration": {
+    "message": "Duration"
+  },
+  "c4p.talk.title": {
+    "message": "Title"
+  },
+  "c4p.talk.description": {
+    "message": "Description"
+  },
+  "c4p.talk.descriptionDesc": {
+    "message": "Provide a summary of your content. This information will be used on our website to promote your talk."
+  },
+  "c4p.talk.audience": {
+    "message": "Who is this content for?"
+  },
+  "c4p.talk.reason": {
+    "message": "Why should we consider this content at JSConf Brasil?"
+  },
+  "c4p.success.thanks": {
+    "message": "Thank you for submitting to the Call4Papers of {brand}. Your proposal was received successfully."
+  },
+  "c4p.success.heading": {
+    "message": "How will proposals be reviewed?"
+  },
+  "c4p.success.p1": {
+    "message": "Proposals will be reviewed in two stages."
+  },
+  "c4p.success.p2": {
+    "message": "First, a co-curation group will anonymously review the title, description, and the indicated knowledge level for each talk."
+  },
+  "c4p.success.p3": {
+    "message": "Next, the JSConf Brasil team will do a complementary review to check how the content fits the schedule, considering budget, strategy, and topic diversity."
+  },
+  "c4p.success.p4": {
+    "message": "There is no fixed number of people selected; the choice will depend on the quality and fit of the submitted proposals."
+  },
+  "c4p.success.p5": {
+    "message": "After submissions close, the entire review process will be completed within two weeks."
+  },
+  "c4p.success.p6": {
+    "message": "Selected speakers will receive an email to confirm their participation, and if there is no response, we will reach out to the next people on the list. Once all confirmations are finalized, we will also notify those who were not approved."
+  },
+  "c4p.div.intro": {
+    "message": "JSConf Brasil always strives for diversity, inclusion, and accessibility. If you feel comfortable answering, we would like to know:"
+  },
+  "c4p.div.sensitive": {
+    "message": "This data is sensitive and optional. It will be used solely to (a) build a diverse speaker line-up, (b) plan event accessibility (sign-language interpreters, physical accessibility, etc.), and (c) generate aggregate statistics about diversity in the C4P. You can revoke this consent at any time by writing to one of {link}."
+  },
+  "c4p.div.volunteers": {
+    "message": "our volunteers"
+  },
+  "c4p.div.gender": {
+    "message": "Gender identity"
+  },
+  "c4p.div.race": {
+    "message": "Which color/race do you identify with?"
+  },
+  "c4p.div.disability": {
+    "message": "Disability status: which of the options below describes you, if any?"
   }
 }

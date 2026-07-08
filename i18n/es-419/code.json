@@ -427,5 +427,356 @@
   },
   "account.loadError": {
     "message": "No se pudo cargar. Inténtalo más tarde."
+  },
+  "c4p.pageTitle": {
+    "message": "Call4Papers - JSConf Brasil 2026"
+  },
+  "c4p.action.back": {
+    "message": "Volver"
+  },
+  "c4p.action.continue": {
+    "message": "Continuar"
+  },
+  "c4p.action.finish": {
+    "message": "Finalizar"
+  },
+  "c4p.action.submitAnother": {
+    "message": "Enviar otra charla"
+  },
+  "c4p.status.invalid": {
+    "message": "Inválido"
+  },
+  "c4p.status.valid": {
+    "message": "Válido"
+  },
+  "c4p.step.about": {
+    "message": "Sobre ti"
+  },
+  "c4p.step.diversity": {
+    "message": "Diversidad e inclusión (opcional)"
+  },
+  "c4p.step.talk": {
+    "message": "Sobre la charla"
+  },
+  "c4p.step.done": {
+    "message": "¡Propuesta enviada!"
+  },
+  "c4p.progress": {
+    "message": "Página {current} de 4"
+  },
+  "c4p.error.name": {
+    "message": "Ingresa tu nombre"
+  },
+  "c4p.error.email": {
+    "message": "Ingresa un correo válido"
+  },
+  "c4p.error.emailTooLong": {
+    "message": "El correo es demasiado largo"
+  },
+  "c4p.error.phone": {
+    "message": "Ingresa un número válido"
+  },
+  "c4p.error.city": {
+    "message": "Ingresa tu ciudad"
+  },
+  "c4p.error.state": {
+    "message": "Selecciona un estado"
+  },
+  "c4p.error.selectOption": {
+    "message": "Selecciona una opción"
+  },
+  "c4p.error.bio": {
+    "message": "Ingresa tu biografía"
+  },
+  "c4p.error.bioTooLong": {
+    "message": "La biografía es demasiado larga"
+  },
+  "c4p.error.duration": {
+    "message": "Selecciona la duración"
+  },
+  "c4p.error.talkTitle": {
+    "message": "Ingresa el título"
+  },
+  "c4p.error.talkDescription": {
+    "message": "Ingresa la descripción"
+  },
+  "c4p.error.audienceLevel": {
+    "message": "Selecciona el nivel"
+  },
+  "c4p.error.talkReason": {
+    "message": "Ingresa el motivo"
+  },
+  "c4p.error.requiredFields": {
+    "message": "Completa los campos obligatorios"
+  },
+  "c4p.submit.configError": {
+    "message": "Configuración no disponible. Inténtalo más tarde."
+  },
+  "c4p.submit.limit": {
+    "message": "Ya alcanzaste el límite de 3 charlas."
+  },
+  "c4p.submit.error": {
+    "message": "Error al enviar la propuesta. Inténtalo de nuevo."
+  },
+  "c4p.intro.toastTitle": {
+    "message": "Tus datos se guardan en el navegador."
+  },
+  "c4p.intro.toastDesc": {
+    "message": "Puedes continuar donde lo dejaste en cualquier momento."
+  },
+  "c4p.intro.heading1": {
+    "message": "¿Quieres dar una charla en la JSConf Brasil de este año?"
+  },
+  "c4p.intro.p1": {
+    "message": "¡Esta es tu oportunidad de compartir el escenario con algunos de los profesionales más increíbles del área de tecnología! Completa nuestro Call4Papers y nuestro equipo analizará y seleccionará las propuestas enviadas."
+  },
+  "c4p.intro.p2": {
+    "message": "{brand} existe para compartir conocimiento, acercar a la comunidad y fortalecer un evento diverso, inclusivo y colaborativo."
+  },
+  "c4p.intro.dateHeading": {
+    "message": "JSConf Brasil - 28 de noviembre de 2026"
+  },
+  "c4p.intro.deadline": {
+    "message": "Aceptaremos inscripciones hasta el {date}."
+  },
+  "c4p.intro.deadlineDate": {
+    "message": "30 de julio"
+  },
+  "c4p.intro.maxTalks": {
+    "message": "Puedes enviar hasta {count} charlas."
+  },
+  "c4p.intro.eventInfo": {
+    "message": "El evento se realizará el {date}, en la {venue}. Habrá charlas, paneles, actividades interactivas, feria de expositores y mucho más."
+  },
+  "c4p.intro.eventDate": {
+    "message": "28 de noviembre de 2026"
+  },
+  "c4p.intro.topicsIntro": {
+    "message": "Estos son algunos de los temas que sugerimos (los que tienen estrella son los preferidos):"
+  },
+  "c4p.topic.devTooling": {
+    "message": "Dev Tooling"
+  },
+  "c4p.topic.devEx": {
+    "message": "Developer Experience"
+  },
+  "c4p.topic.aiDev": {
+    "message": "IA en el Desarrollo"
+  },
+  "c4p.topic.architecture": {
+    "message": "Arquitectura"
+  },
+  "c4p.topic.devops": {
+    "message": "DevOps"
+  },
+  "c4p.topic.observability": {
+    "message": "Observabilidad"
+  },
+  "c4p.topic.performance": {
+    "message": "Performance"
+  },
+  "c4p.topic.realCases": {
+    "message": "Casos Reales de Resolución de Problemas con código"
+  },
+  "c4p.topic.a11yCode": {
+    "message": "Código para Accesibilidad"
+  },
+  "c4p.topic.openSource": {
+    "message": "Open Source"
+  },
+  "c4p.topic.designSystem": {
+    "message": "Design System"
+  },
+  "c4p.topic.security": {
+    "message": "Seguridad en el Desarrollo"
+  },
+  "c4p.exp.0": {
+    "message": "0 - 1 año"
+  },
+  "c4p.exp.1": {
+    "message": "2 - 4 años"
+  },
+  "c4p.exp.2": {
+    "message": "5 - 9 años"
+  },
+  "c4p.exp.3": {
+    "message": "Más de 10 años"
+  },
+  "c4p.duration.0": {
+    "message": "15 minutos"
+  },
+  "c4p.duration.1": {
+    "message": "25 minutos"
+  },
+  "c4p.travel.0": {
+    "message": "Me gustaría que la organización pagara mi viaje y hospedaje"
+  },
+  "c4p.travel.1": {
+    "message": "Puedo cubrir los costos"
+  },
+  "c4p.gender.0": {
+    "message": "Hombre"
+  },
+  "c4p.gender.1": {
+    "message": "Mujer"
+  },
+  "c4p.gender.2": {
+    "message": "No binario"
+  },
+  "c4p.gender.3": {
+    "message": "Prefiero no decir"
+  },
+  "c4p.race.0": {
+    "message": "Blanca"
+  },
+  "c4p.race.1": {
+    "message": "Parda"
+  },
+  "c4p.race.2": {
+    "message": "Negra"
+  },
+  "c4p.race.3": {
+    "message": "Indígena"
+  },
+  "c4p.race.4": {
+    "message": "No sé"
+  },
+  "c4p.race.5": {
+    "message": "Otro"
+  },
+  "c4p.race.6": {
+    "message": "Prefiero no decir"
+  },
+  "c4p.disability.0": {
+    "message": "Soy ciego(a) / tengo baja visión"
+  },
+  "c4p.disability.1": {
+    "message": "Soy sordo(a) / tengo discapacidad auditiva"
+  },
+  "c4p.disability.2": {
+    "message": "No puedo / tengo dificultad para caminar o mantenerme de pie sin ayuda"
+  },
+  "c4p.disability.3": {
+    "message": "No puedo / tengo dificultad para escribir"
+  },
+  "c4p.disability.4": {
+    "message": "No aplica"
+  },
+  "c4p.disability.5": {
+    "message": "Prefiero no decir"
+  },
+  "c4p.audience.0": {
+    "message": "Todos los niveles"
+  },
+  "c4p.audience.1": {
+    "message": "Junior"
+  },
+  "c4p.audience.2": {
+    "message": "Semi-senior"
+  },
+  "c4p.audience.3": {
+    "message": "Senior"
+  },
+  "c4p.about.name": {
+    "message": "Tu nombre"
+  },
+  "c4p.about.email": {
+    "message": "Correo electrónico"
+  },
+  "c4p.about.phone": {
+    "message": "Celular"
+  },
+  "c4p.about.city": {
+    "message": "Ciudad"
+  },
+  "c4p.about.uf": {
+    "message": "Estado"
+  },
+  "c4p.about.travelHeading": {
+    "message": "Sobre el viaje y el hospedaje"
+  },
+  "c4p.about.travelDesc": {
+    "message": "La ciudad donde vives puede influir en la selección, ya que el desplazamiento puede generar costos adicionales para el evento. Según nuestro presupuesto, quizás no sea posible cubrir el viaje y el hospedaje de todos los ponentes."
+  },
+  "c4p.about.social": {
+    "message": "Redes sociales"
+  },
+  "c4p.about.website": {
+    "message": "Sitio personal"
+  },
+  "c4p.about.experience": {
+    "message": "Tiempo de experiencia"
+  },
+  "c4p.about.bio": {
+    "message": "Mini biografía"
+  },
+  "c4p.about.bioDesc": {
+    "message": "En un solo párrafo, de hasta 280 caracteres, incluye información sobre tu formación, certificaciones, cargo actual y anteriores, investigaciones, artículos publicados o cualquier otro dato profesional que consideres relevante."
+  },
+  "c4p.talk.contentType": {
+    "message": "Tipo de contenido"
+  },
+  "c4p.talk.contentTypeDesc": {
+    "message": "Las charlas serán de 15 o 25 minutos. Elige la duración que consideres más adecuada para tu propuesta."
+  },
+  "c4p.talk.duration": {
+    "message": "Duración"
+  },
+  "c4p.talk.title": {
+    "message": "Título"
+  },
+  "c4p.talk.description": {
+    "message": "Descripción"
+  },
+  "c4p.talk.descriptionDesc": {
+    "message": "Proporciona un resumen de tu contenido. Esta información se usará en nuestro sitio para promocionar tu charla."
+  },
+  "c4p.talk.audience": {
+    "message": "¿Para quién es este contenido?"
+  },
+  "c4p.talk.reason": {
+    "message": "¿Por qué deberíamos considerar este contenido en la JSConf Brasil?"
+  },
+  "c4p.success.thanks": {
+    "message": "Gracias por inscribirte en el Call4Papers de {brand}. Tu propuesta se recibió con éxito."
+  },
+  "c4p.success.heading": {
+    "message": "¿Cómo se evaluarán las propuestas?"
+  },
+  "c4p.success.p1": {
+    "message": "La evaluación de las propuestas se realizará en dos etapas."
+  },
+  "c4p.success.p2": {
+    "message": "Primero, un grupo de co-curaduría analizará de forma anónima el título, la descripción y el nivel de conocimiento indicado para cada charla."
+  },
+  "c4p.success.p3": {
+    "message": "Luego, el equipo de la JSConf Brasil hará un análisis complementario para verificar el encaje del contenido en la programación, considerando presupuesto, estrategia y diversidad temática."
+  },
+  "c4p.success.p4": {
+    "message": "No existe un número fijo de personas seleccionadas; la elección dependerá de la calidad y adecuación de las propuestas enviadas."
+  },
+  "c4p.success.p5": {
+    "message": "Tras el cierre de las inscripciones, todo el proceso de evaluación se completará en un plazo de dos semanas."
+  },
+  "c4p.success.p6": {
+    "message": "Las personas seleccionadas recibirán un correo para confirmar su participación y, si no hay respuesta, contactaremos a las siguientes de la lista. Una vez finalizadas todas las confirmaciones, también informaremos a quienes no fueron aprobadas."
+  },
+  "c4p.div.intro": {
+    "message": "La JSConf Brasil siempre busca la diversidad, la inclusión y la accesibilidad. Si te sientes cómodo(a) respondiendo, nos gustaría saber:"
+  },
+  "c4p.div.sensitive": {
+    "message": "Estos datos son sensibles y opcionales. Se usarán exclusivamente para (a) formar un line-up diverso de ponentes, (b) planificar la accesibilidad del evento (intérpretes de lengua de señas, accesibilidad física, etc.) y (c) generar estadísticas agregadas sobre diversidad en el C4P. Puedes revocar este consentimiento en cualquier momento escribiendo a uno de {link}."
+  },
+  "c4p.div.volunteers": {
+    "message": "nuestros voluntarios"
+  },
+  "c4p.div.gender": {
+    "message": "Identidad de género"
+  },
+  "c4p.div.race": {
+    "message": "¿Con qué color/raza te identificas?"
+  },
+  "c4p.div.disability": {
+    "message": "Situación de discapacidad: ¿cuál de las opciones describe tu caso, si aplica?"
   }
 }

@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 import { toast } from 'sonner';
+import { text } from '@site/src/website/components/shared/i18n';
 import { loadFromStorage, saveToStorage } from './helpers';
 import { validateStep } from './schema';
 
@@ -68,7 +69,7 @@ export const C4PProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setErrors(result);
     const keys = Object.keys(result);
     if (keys.length > 0) {
-      toast.error('Preencha os campos obrigatórios');
+      toast.error(text({ id: 'c4p.error.requiredFields' }));
       return false;
     }
     return true;

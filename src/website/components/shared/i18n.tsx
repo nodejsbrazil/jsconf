@@ -5,7 +5,7 @@ import OriginalTranslate, {
   translate as originalTranslate,
 } from '@docusaurus/Translate';
 
-type TranslationId = keyof typeof Translation;
+export type TranslationId = keyof typeof Translation;
 type TextProps<Message extends string> = {
   id: TranslationId;
   values?: InterpolateValues<Message, ReactNode>;

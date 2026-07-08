@@ -1,14 +1,19 @@
+import type { TranslationId } from '@site/src/website/components/shared/i18n';
 import { z } from 'zod';
+import { text } from '@site/src/website/components/shared/i18n';
 
+// zod messages are translation KEYS, not final strings — validateStep resolves them with text()
+// at validation time (client-side, current locale). Defining them as literal translations here
+// would lock the message to the module-load locale.
 export const aboutSchema = z.object({
-  name: z.string().min(1, 'Informe seu nome'),
-  email: z.email('Informe um e-mail válido').max(254),
-  phone: z.string().min(8, 'Informe um número válido'),
-  city: z.string().min(1, 'Informe sua cidade'),
-  state: z.string().min(2, 'Selecione um estado'),
-  travelPreference: z.string().min(1, 'Selecione uma opção'),
-  experienceLevel: z.string().min(1, 'Selecione uma opção'),
-  bio: z.string().min(1, 'Informe sua biografia').max(280),
+  name: z.string().min(1, 'c4p.error.name'),
+  email: z.email('c4p.error.email').max(254, 'c4p.error.emailTooLong'),
+  phone: z.string().min(8, 'c4p.error.phone'),
+  city: z.string().min(1, 'c4p.error.city'),
+  state: z.string().min(2, 'c4p.error.state'),
+  travelPreference: z.string().min(1, 'c4p.error.selectOption'),
+  experienceLevel: z.string().min(1, 'c4p.error.selectOption'),
+  bio: z.string().min(1, 'c4p.error.bio').max(280, 'c4p.error.bioTooLong'),
 });
 
 export const diversitySchema = z.object({
@@ -18,11 +23,11 @@ export const diversitySchema = z.object({
 });
 
 export const talkSchema = z.object({
-  duration: z.string().min(1, 'Selecione a duração'),
-  talkTitle: z.string().min(1, 'Informe o título'),
-  talkDescription: z.string().min(1, 'Informe a descrição'),
-  audienceLevel: z.string().min(1, 'Selecione o nível'),
-  talkReason: z.string().min(1, 'Informe o motivo'),
+  duration: z.string().min(1, 'c4p.error.duration'),
+  talkTitle: z.string().min(1, 'c4p.error.talkTitle'),
+  talkDescription: z.string().min(1, 'c4p.error.talkDescription'),
+  audienceLevel: z.string().min(1, 'c4p.error.audienceLevel'),
+  talkReason: z.string().min(1, 'c4p.error.talkReason'),
 });
 
 const stepSchemas = {
@@ -47,7 +52,8 @@ export const validateStep = (
 
   for (const issue of result.error.issues) {
     const field = issue.path[0];
-    if (field && !errors[String(field)]) errors[String(field)] = issue.message;
+    if (field && !errors[String(field)])
+      errors[String(field)] = text({ id: issue.message as TranslationId });
   }
 
   return errors;

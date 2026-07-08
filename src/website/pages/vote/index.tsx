@@ -177,28 +177,32 @@ const Vote = () => {
               </a>
             </div>
             <ul className='flex flex-col gap-[1.2rem]'>
-              {session.talks.map((talk) => (
-                <li key={talk.id}>
-                  <label className='flex cursor-pointer gap-[0.8rem]'>
-                    <input
-                      type='checkbox'
-                      checked={votes.has(talk.id)}
-                      disabled={closed}
-                      onChange={() => toggle(talk.id)}
-                    />
-                    <span>
-                      <strong>{talk.title}</strong> — {talk.speaker_name}
-                      <br />
-                      <small>
-                        {durationOptions[talk.duration]?.label} ·{' '}
-                        {audienceLevels[talk.audience_level]?.label}
-                      </small>
-                      <br />
-                      {talk.description}
-                    </span>
-                  </label>
-                </li>
-              ))}
+              {session.talks.map((talk) => {
+                const duration = durationOptions[talk.duration];
+                const audience = audienceLevels[talk.audience_level];
+                return (
+                  <li key={talk.id}>
+                    <label className='flex cursor-pointer gap-[0.8rem]'>
+                      <input
+                        type='checkbox'
+                        checked={votes.has(talk.id)}
+                        disabled={closed}
+                        onChange={() => toggle(talk.id)}
+                      />
+                      <span>
+                        <strong>{talk.title}</strong> — {talk.speaker_name}
+                        <br />
+                        <small>
+                          {duration && <Text id={duration.labelId} />} ·{' '}
+                          {audience && <Text id={audience.labelId} />}
+                        </small>
+                        <br />
+                        {talk.description}
+                      </span>
+                    </label>
+                  </li>
+                );
+              })}
             </ul>
           </>
         )}
