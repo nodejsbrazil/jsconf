@@ -105,6 +105,15 @@ Tabelas novas (`resources/schema.sql`): `ticket_tiers` (nome do tier e número d
 
 Secrets do Worker: `GUILD_OAUTH_CLIENT_ID`, `GUILD_OAUTH_CLIENT_SECRET`, `GUILD_OAUTH_REDIRECT_URI`, `GUILD_ORG_REFRESH_TOKEN`, `SESSION_SECRET`. O `ALLOWED_ORIGIN` precisa ser a origem do site (não pode ser `*`, senão o cookie de sessão não vai).
 
+### Variáveis de ambiente (dois arquivos)
+
+São dois arquivos, cada um com um dono diferente — não misture:
+
+- **`.dev.vars`** — secrets de _runtime_ do Worker, carregados automaticamente pelo `wrangler dev`. É onde ficam `GUILD_OAUTH_*`, `SESSION_SECRET`, `ALLOWED_ORIGIN` e `ENVIRONMENT` no dev local. Modelo: `.dev.vars.example`. Em produção esses valores vêm do `wrangler secret put`, **não** de nenhum `.env`.
+- **`.env`** — vars de _build/deploy_ lidas pelos scripts (`tools/prepare-worker.mts`) e pelo CD: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`, `WORKER_D1`, `WORKER_DOMAIN`. Modelo: `.env.example`.
+
+Os secrets de OAuth/sessão só entram no `.dev.vars` — não os coloque no `.env`, nada os lê de lá. Os dois arquivos são gitignored.
+
 Rodando local: `npm run db:init` cria as tabelas. Fora de produção dá pra simular um usuário pelo header `X-Dev-User` (em produção isso é ignorado, só vale a sessão do OAuth):
 
 ```sh
