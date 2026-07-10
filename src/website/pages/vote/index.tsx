@@ -1,5 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import {
+  Circle,
+  CircleCheckBig,
+  Info,
+  LogOut,
+  Vote as VoteIcon,
+} from 'lucide-react';
 import { toast } from 'sonner';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { Page } from '@site/src/website/components/shared/Page';
@@ -7,12 +14,12 @@ import {
   audienceLevels,
   durationOptions,
 } from '@site/src/website/contexts/c4p/definitions';
+import '@site/src/website/scss/pages/voting.scss';
 
 type Talk = {
   id: number;
   title: string;
   description: string;
-  speaker_name: string;
   duration: number;
   audience_level: number;
 };
@@ -20,19 +27,24 @@ type Talk = {
 type Session = {
   budget: number;
   used: number;
-  talks: Talk[];
+  talks: (Talk & { speaker_name: string })[];
   myVotes: number[];
   closesAt: string;
 };
 
-// Callback ?error= code -> translation id for the message surfaced on the vote page.
-const LOGIN_ERROR_IDS = {
-  denied: 'login.error.denied',
-  state: 'login.error.state',
-  token: 'login.error.token',
-  identity: 'login.error.identity',
-  notattendee: 'login.error.notattendee',
-} as const;
+const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+
+// Fake, name-shaped (not real) placeholder shown blurred instead of the real speaker — the API
+// never sends a speaker name, so this generates one purely for display. Computed once per fetch
+// (not per render) so it doesn't change while toggling votes.
+const fakeName = (): string =>
+  Array.from({ length: 2 + Math.floor(Math.random() * 4) }, () => {
+    const word = Array.from(
+      { length: 3 + Math.floor(Math.random() * 8) },
+      () => LETTERS[Math.floor(Math.random() * LETTERS.length)]
+    ).join('');
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
 
 const Vote = () => {
   const { siteConfig, i18n } = useDocusaurusContext();
@@ -46,24 +58,10 @@ const Vote = () => {
     'loading' | 'ready' | 'unauth' | 'error'
   >('loading');
   const [votes, setVotes] = useState<Set<number>>(new Set());
-
-  // Surface a login failure bounced back from the callback, then strip it from the URL.
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const error = params.get('error');
-    if (!error) return;
-    const id =
-      LOGIN_ERROR_IDS[error as keyof typeof LOGIN_ERROR_IDS] ??
-      'login.error.generic';
-    toast.error(text({ id }));
-    params.delete('error');
-    const query = params.toString();
-    window.history.replaceState(
-      {},
-      '',
-      window.location.pathname + (query ? `?${query}` : '')
-    );
-  }, []);
+  // Queued talkId -> action, flushed 1s after the last toggle (resets on every new toggle) so a
+  // burst of clicks becomes one wave of requests instead of one per click.
+  const queueRef = useRef<Map<number, 'add' | 'remove'>>(new Map());
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (!workerDomain) return setStatus('error');
@@ -72,8 +70,16 @@ const Vote = () => {
         if (res.status === 401 || res.status === 403)
           return setStatus('unauth');
         if (!res.ok) return setStatus('error');
-        const data = (await res.json()) as Session;
-        setSession(data);
+        const data = (await res.json()) as Omit<Session, 'talks'> & {
+          talks: Talk[];
+        };
+        setSession({
+          ...data,
+          talks: data.talks.map((talk) => ({
+            ...talk,
+            speaker_name: fakeName(),
+          })),
+        });
         setVotes(new Set(data.myVotes));
         setStatus('ready');
       })
@@ -84,8 +90,32 @@ const Vote = () => {
     ? new Date(session.closesAt).getTime() < Date.now()
     : false;
 
+  // Sends every queued talkId's LATEST desired action once the 1s idle window elapses.
+  const flush = useCallback(async () => {
+    const actions = Array.from(queueRef.current.entries());
+    queueRef.current.clear();
+    for (const [talkId, action] of actions) {
+      const res = await fetch(`${workerDomain}/api/vote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ talkId, action }),
+      }).catch(() => null);
+
+      if (!res || !res.ok) {
+        setVotes((current) => {
+          const copy = new Set(current);
+          if (action === 'add') copy.delete(talkId);
+          if (action === 'remove') copy.add(talkId);
+          return copy;
+        });
+        toast.error(text({ id: 'vote.submitError' }));
+      }
+    }
+  }, [workerDomain]);
+
   const toggle = useCallback(
-    async (talkId: number) => {
+    (talkId: number) => {
       if (!session || closed) return;
       const has = votes.has(talkId);
       if (!has && votes.size >= session.budget) {
@@ -95,111 +125,175 @@ const Vote = () => {
         return;
       }
 
-      // ponytail: optimistic toggle; revert on failure. No queue/debounce — one vote per click.
+      // ponytail: optimistic toggle; queued and debounced (1s idle) so a burst of clicks across
+      // any number of cards becomes one wave of requests instead of one per click.
       const next = new Set(votes);
       if (has) next.delete(talkId);
       if (!has) next.add(talkId);
       setVotes(next);
+      queueRef.current.set(talkId, has ? 'remove' : 'add');
 
-      const res = await fetch(`${workerDomain}/api/vote`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ talkId, action: has ? 'remove' : 'add' }),
-      }).catch(() => null);
-
-      if (!res || !res.ok) {
-        setVotes(votes);
-        toast.error(text({ id: 'vote.submitError' }));
-      }
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(flush, 1000);
     },
-    [session, votes, workerDomain, closed]
+    [session, votes, flush, closed]
   );
 
   return (
     <Page title={text({ id: 'vote.title' })}>
-      <div className='page-content flex w-full max-w-[80rem] flex-col gap-[1.6rem] px-[2rem] py-[4rem]'>
-        <h1>
-          <Text id='vote.heading' />
-        </h1>
+      <div className='vote-page page-content'>
+        <header className='page-hero'>
+          <h1 className='title'>
+            <VoteIcon className='icon' aria-hidden />
+            <Text id='vote.heading' />
+          </h1>
+          <p className='subtitle'>
+            <Text id='vote.subheading' />
+          </p>
+        </header>
 
         {status === 'loading' && (
-          <p>
+          <p className='status'>
             <Text id='common.loading' />
           </p>
         )}
         {status === 'error' && (
-          <p>
+          <p className='status error'>
             <Text id='vote.loadError' />
           </p>
         )}
         {status === 'unauth' && (
-          <a
-            className='button button--primary'
-            href={`${workerDomain}/api/vote/login`}
-          >
-            <Text id='auth.login' />
-          </a>
+          <div className='login-hero'>
+            <h2 className='login-title'>
+              <Text id='vote.loginHeading' />
+            </h2>
+            <p className='login-text'>
+              <Text id='vote.loginPrompt' />
+            </p>
+            <a className='login-cta' href={`${workerDomain}/api/vote/login`}>
+              <Text id='auth.login' />
+            </a>
+          </div>
         )}
 
         {status === 'ready' && session && (
           <>
-            <div className='flex items-center justify-between gap-[1.2rem]'>
-              {closed ? (
-                <p>
-                  <Text id='vote.closed' />
-                </p>
-              ) : (
-                <p>
-                  <Text
-                    id='vote.remaining'
-                    values={{
-                      remaining: session.budget - votes.size,
-                      budget: session.budget,
-                    }}
-                  />
-                  <br />
-                  <small>
-                    <Text
-                      id='vote.openUntil'
-                      values={{
-                        date: new Date(session.closesAt).toLocaleString(locale),
-                      }}
-                    />
-                  </small>
-                </p>
-              )}
+            <div className='budget-bar'>
+              <div className='budget-info'>
+                {closed ? (
+                  <span className='closed-badge'>
+                    <Text id='vote.closedHeading' />
+                  </span>
+                ) : (
+                  <>
+                    <span className='count'>{session.budget - votes.size}</span>
+                    <span className='label'>
+                      <Text
+                        id='vote.remaining'
+                        values={{
+                          remaining: session.budget - votes.size,
+                          budget: session.budget,
+                        }}
+                      />
+                    </span>
+                    <span className='deadline'>
+                      <Text
+                        id='vote.openUntil'
+                        values={{
+                          date: new Date(session.closesAt).toLocaleString(
+                            locale
+                          ),
+                        }}
+                      />
+                    </span>
+                  </>
+                )}
+              </div>
               <a
-                className='button button--secondary button--sm'
+                className='button button--secondary button--sm logout-link'
                 href={`${workerDomain}/api/vote/logout`}
               >
+                <LogOut className='icon' aria-hidden />
                 <Text id='auth.logout' />
               </a>
             </div>
-            <ul className='flex flex-col gap-[1.2rem]'>
+
+            <aside className='info-banner'>
+              <Info className='icon' aria-hidden />
+              <div className='info-text'>
+                <strong>
+                  <Text id='vote.hideAuthorsTitle' />
+                </strong>
+                <p>
+                  <Text id='vote.hideAuthorsBody' />
+                </p>
+              </div>
+            </aside>
+
+            {closed && (
+              <p className='closed-note'>
+                <Text id='vote.closed' />
+              </p>
+            )}
+
+            {session.talks.length === 0 && (
+              <p className='status'>
+                <Text id='vote.emptyTalks' />
+              </p>
+            )}
+
+            <ul className='talks-grid'>
               {session.talks.map((talk) => {
                 const duration = durationOptions[talk.duration];
                 const audience = audienceLevels[talk.audience_level];
+                const voted = votes.has(talk.id);
+                const budgetOut = !voted && votes.size >= session.budget;
                 return (
-                  <li key={talk.id}>
-                    <label className='flex cursor-pointer gap-[0.8rem]'>
-                      <input
-                        type='checkbox'
-                        checked={votes.has(talk.id)}
-                        disabled={closed}
-                        onChange={() => toggle(talk.id)}
+                  <li
+                    key={talk.id}
+                    className={[
+                      'talk-card',
+                      voted && 'voted',
+                      budgetOut && 'budget-out',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    <div className='talk-head'>
+                      <h3 className='talk-title'>{talk.title}</h3>
+                      <div className='talk-meta'>
+                        {duration && (
+                          <span>
+                            <Text id={duration.labelId} />
+                          </span>
+                        )}
+                        {audience && (
+                          <span>
+                            <Text id={audience.labelId} />
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <p className='talk-speaker'>
+                      <Text id='vote.by' />{' '}
+                      <span className='speaker-name'>{talk.speaker_name}</span>
+                    </p>
+                    <p className='talk-description'>{talk.description}</p>
+                    <button
+                      type='button'
+                      className={voted ? 'vote-toggle voted' : 'vote-toggle'}
+                      disabled={closed || budgetOut}
+                      onClick={() => toggle(talk.id)}
+                    >
+                      {voted ? (
+                        <CircleCheckBig className='icon' aria-hidden />
+                      ) : (
+                        <Circle className='icon' aria-hidden />
+                      )}
+                      <Text
+                        id={voted ? 'vote.votedAction' : 'vote.voteAction'}
                       />
-                      <span>
-                        <strong>{talk.title}</strong> — {talk.speaker_name}
-                        <br />
-                        <small>
-                          {duration && <Text id={duration.labelId} />} ·{' '}
-                          {audience && <Text id={audience.labelId} />}
-                        </small>
-                        <br />
-                        {talk.description}
-                      </span>
-                    </label>
+                    </button>
                   </li>
                 );
               })}

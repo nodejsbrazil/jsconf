@@ -23,6 +23,12 @@
   "navbar.tickets": {
     "message": "Ingressos"
   },
+  "navbar.login": {
+    "message": "Log in"
+  },
+  "navbar.vote": {
+    "message": "Votar"
+  },
   "navbar.aria.openMenu": {
     "message": "Abrir menu"
   },
@@ -383,6 +389,36 @@
   "vote.heading": {
     "message": "Vote nas palestras"
   },
+  "vote.subheading": {
+    "message": "Escolha as palestras que você quer ver no palco."
+  },
+  "vote.hideAuthorsTitle": {
+    "message": "Por que escondemos os nomes dos autores?"
+  },
+  "vote.hideAuthorsBody": {
+    "message": "Para reduzir vieses, os nomes de quem propôs cada palestra ficam ocultos. Vote pelo conteúdo da palestra, não por quem a escreveu."
+  },
+  "vote.loginHeading": {
+    "message": "Entre para votar"
+  },
+  "vote.closedHeading": {
+    "message": "A votação está encerrada"
+  },
+  "vote.emptyTalks": {
+    "message": "Nenhuma palestra disponível para votação no momento."
+  },
+  "vote.by": {
+    "message": "por"
+  },
+  "vote.voteAction": {
+    "message": "Votar"
+  },
+  "vote.votedAction": {
+    "message": "Votado"
+  },
+  "vote.loginPrompt": {
+    "message": "Entre com sua conta guild.host para votar nas palestras."
+  },
   "vote.loadError": {
     "message": "Não foi possível carregar a votação. Tente mais tarde."
   },
@@ -421,6 +457,15 @@
   },
   "account.title": {
     "message": "Conta - JSConf Brasil 2026"
+  },
+  "account.loginHeading": {
+    "message": "Sua conta"
+  },
+  "account.idLabel": {
+    "message": "ID"
+  },
+  "account.loginPrompt": {
+    "message": "Entre com sua conta guild.host para acessar sua conta."
   },
   "account.heading": {
     "message": "Conta"

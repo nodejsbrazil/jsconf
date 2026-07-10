@@ -6,7 +6,12 @@ import { readCookie } from './cookies.js';
 // ponytail: dev-only budget for the X-Dev-User bypass so local voting works without a login.
 const DEV_BUDGET = 3;
 
-export type Session = { userId: string; budget: number };
+export type Session = {
+  userId: string;
+  budget: number;
+  name?: string;
+  photo?: string;
+};
 
 const key = (secret: string): Uint8Array => new TextEncoder().encode(secret);
 
@@ -14,9 +19,10 @@ export const signSession = async (
   userId: string,
   budget: number,
   secret: string,
-  ttlSeconds: number = SESSION_TTL_SECONDS
+  ttlSeconds: number = SESSION_TTL_SECONDS,
+  identity: { name?: string; photo?: string } = {}
 ): Promise<string> =>
-  new SignJWT({ budget })
+  new SignJWT({ budget, name: identity.name, photo: identity.photo })
     .setProtectedHeader({ alg: 'HS256' })
     .setSubject(userId)
     .setExpirationTime(Math.floor(Date.now() / 1000) + ttlSeconds)
@@ -33,7 +39,10 @@ export const verifySession = async (
     const budget = payload['budget'];
     if (typeof payload.sub !== 'string' || typeof budget !== 'number')
       return null;
-    return { userId: payload.sub, budget };
+    const session: Session = { userId: payload.sub, budget };
+    if (typeof payload['name'] === 'string') session.name = payload['name'];
+    if (typeof payload['photo'] === 'string') session.photo = payload['photo'];
+    return session;
   } catch {
     return null;
   }

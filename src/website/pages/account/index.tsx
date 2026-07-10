@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { LogOut, User } from 'lucide-react';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { Page } from '@site/src/website/components/shared/Page';
+import '@site/src/website/scss/pages/voting.scss';
 
 const Account = () => {
   const { siteConfig } = useDocusaurusContext();
@@ -29,33 +31,55 @@ const Account = () => {
 
   return (
     <Page title={text({ id: 'account.title' })}>
-      <div className='page-content flex w-full max-w-[80rem] flex-col gap-[1.6rem] px-[2rem] py-[4rem]'>
-        <h1>
-          <Text id='account.heading' />
-        </h1>
+      <div className='account-page page-content'>
+        <header className='page-hero'>
+          <h1 className='title'>
+            <User className='icon' aria-hidden />
+            <Text id='account.heading' />
+          </h1>
+        </header>
 
         {status === 'loading' && (
-          <p>
+          <p className='status'>
             <Text id='common.loading' />
           </p>
         )}
         {status === 'error' && (
-          <p>
+          <p className='status error'>
             <Text id='account.loadError' />
           </p>
         )}
         {status === 'out' && (
-          <a
-            className='button button--primary'
-            href={`${workerDomain}/api/vote/login`}
-          >
-            <Text id='auth.login' />
-          </a>
+          <div className='login-hero'>
+            <h2 className='login-title'>
+              <Text id='account.loginHeading' />
+            </h2>
+            <p className='login-text'>
+              <Text id='account.loginPrompt' />
+            </p>
+            <a className='login-cta' href={`${workerDomain}/api/vote/login`}>
+              <Text id='auth.login' />
+            </a>
+          </div>
         )}
         {status === 'in' && userId && (
-          <div className='flex items-center justify-between gap-[1.2rem]'>
-            <strong>{userId}</strong>
-            <a href={`${workerDomain}/api/vote/logout`}>
+          <div className='account-card'>
+            <div className='account-identity'>
+              <div className='avatar'>
+                <User className='icon' aria-hidden />
+              </div>
+              <div>
+                <p className='account-id-label'>
+                  <Text id='account.idLabel' />
+                </p>
+                <p className='account-id-value'>{userId}</p>
+              </div>
+            </div>
+            <a
+              className='button button--secondary button--sm logout-link'
+              href={`${workerDomain}/api/vote/logout`}
+            >
+              <LogOut className='icon' aria-hidden />
               <Text id='auth.logout' />
             </a>
           </div>

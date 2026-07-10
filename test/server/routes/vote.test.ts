@@ -11,8 +11,8 @@ import { routes } from '../../../src/server/routes.js';
 const cors = { 'Access-Control-Allow-Origin': '*' };
 
 const talks = [
-  { id: 1, title: 'A', description: 'da', speaker_name: 'Ada' },
-  { id: 2, title: 'B', description: 'db', speaker_name: 'Bob' },
+  { id: 1, title: 'A', description: 'da' },
+  { id: 2, title: 'B', description: 'db' },
 ];
 
 type Mock = { database: Database; votes: Set<number> };
@@ -103,7 +103,7 @@ describe('repositories.vote.budgetForTier', async () => {
     assert.equal(budget, 3);
   });
 
-  await it('returns 0 for an unknown tier', async () => {
+  await it('defaults to 1 for a tier not in the overrides table', async () => {
     const db: Database = {
       prepare: () => ({
         bind: () => ({
@@ -112,7 +112,7 @@ describe('repositories.vote.budgetForTier', async () => {
         }),
       }),
     };
-    assert.equal(await vote(db).budgetForTier('Nope'), 0);
+    assert.equal(await vote(db).budgetForTier('Nope'), 1);
   });
 });
 

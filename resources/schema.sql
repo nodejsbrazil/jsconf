@@ -72,3 +72,14 @@ CREATE TABLE IF NOT EXISTS c4p_votes (
 );
 
 CREATE INDEX IF NOT EXISTS idx_c4p_votes_user ON c4p_votes(user_id);
+
+-- Single-row store for the manager OAuth token used to read the event attendees list. guild.host
+-- rotates refresh tokens on use, so the rotated refresh_token is written back here on every
+-- refresh; the access_token is cached until it expires to avoid refreshing (and rotating) often.
+CREATE TABLE IF NOT EXISTS manager_oauth (
+  id            INTEGER PRIMARY KEY CHECK(id = 1),
+  refresh_token TEXT    NOT NULL,
+  access_token  TEXT,
+  expires_at    INTEGER NOT NULL DEFAULT 0,
+  updated_at    VARCHAR(20) NOT NULL DEFAULT (datetime('now'))
+);

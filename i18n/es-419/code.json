@@ -23,6 +23,12 @@
   "navbar.tickets": {
     "message": "Entradas"
   },
+  "navbar.login": {
+    "message": "Log in"
+  },
+  "navbar.vote": {
+    "message": "Votar"
+  },
   "navbar.aria.openMenu": {
     "message": "Abrir menú"
   },
@@ -383,6 +389,36 @@
   "vote.heading": {
     "message": "Vota por las charlas"
   },
+  "vote.subheading": {
+    "message": "Elige las charlas que quieres ver en el escenario."
+  },
+  "vote.hideAuthorsTitle": {
+    "message": "¿Por qué ocultamos los nombres de los autores?"
+  },
+  "vote.hideAuthorsBody": {
+    "message": "Para reducir sesgos, ocultamos los nombres de quienes propusieron cada charla. Vota por el contenido de la charla, no por quién la escribió."
+  },
+  "vote.loginHeading": {
+    "message": "Inicia sesión para votar"
+  },
+  "vote.closedHeading": {
+    "message": "La votación está cerrada"
+  },
+  "vote.emptyTalks": {
+    "message": "No hay charlas disponibles para votar en este momento."
+  },
+  "vote.by": {
+    "message": "por"
+  },
+  "vote.voteAction": {
+    "message": "Votar"
+  },
+  "vote.votedAction": {
+    "message": "Votado"
+  },
+  "vote.loginPrompt": {
+    "message": "Inicia sesión con tu cuenta de guild.host para votar por las charlas."
+  },
   "vote.loadError": {
     "message": "No se pudo cargar la votación. Inténtalo más tarde."
   },
@@ -421,6 +457,15 @@
   },
   "account.title": {
     "message": "Cuenta - JSConf Brasil 2026"
+  },
+  "account.loginHeading": {
+    "message": "Tu cuenta"
+  },
+  "account.idLabel": {
+    "message": "ID"
+  },
+  "account.loginPrompt": {
+    "message": "Inicia sesión con tu cuenta de guild.host para acceder a tu cuenta."
   },
   "account.heading": {
     "message": "Cuenta"

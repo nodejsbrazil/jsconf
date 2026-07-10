@@ -5,7 +5,6 @@ export type TalkRow = {
   id: number;
   title: string;
   description: string;
-  speaker_name: string;
   duration: number;
   audience_level: number;
 };
@@ -14,14 +13,14 @@ type CastResult = { success: true } | { success: false; reason: 'budget' };
 
 export const vote = (database: Database) => {
   const listTalks = async (): Promise<TalkRow[]> => {
+    // No speaker join: the API must never expose who proposed a talk, to keep voting unbiased.
+    // The frontend shows a fake blurred placeholder name instead, generated client-side.
     const { results } = await database
       .prepare(
-        `SELECT t.id, t.title, t.description, t.duration, t.audience_level,
-                s.name AS speaker_name
-         FROM talks t
-         JOIN speakers s ON s.id = t.speaker_id
-         WHERE t.status = ?
-         ORDER BY t.id`
+        `SELECT id, title, description, duration, audience_level
+         FROM talks
+         WHERE status = ?
+         ORDER BY id`
       )
       .bind(VOTABLE_TALK_STATUS)
       .all<TalkRow>();
@@ -68,7 +67,9 @@ export const vote = (database: Database) => {
       .prepare('SELECT budget FROM ticket_tiers WHERE name = ?')
       .bind(tier)
       .all<{ budget: number }>();
-    return results[0]?.budget ?? 0;
+    // Any ticket holder gets 1 vote by default; ticket_tiers only stores the overrides (e.g. a
+    // higher budget for earlier tiers). The caller already gated non-attendees out.
+    return results[0]?.budget ?? 1;
   };
 
   return { listTalks, listUserVotes, castVote, removeVote, budgetForTier };
