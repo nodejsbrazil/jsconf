@@ -37,6 +37,9 @@ export const AuthButton = () => {
     return () => document.removeEventListener('click', onClick);
   }, [open]);
 
+  // Misconfigured worker domain: no functional auth endpoints, so render nothing.
+  if (!workerDomain) return null;
+
   // Logged out (and during load): a plain "log in" button that starts the OAuth flow.
   if (!me)
     return (

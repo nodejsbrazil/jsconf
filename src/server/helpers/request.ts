@@ -31,7 +31,7 @@ export const parseRequest = async <T>(
     return { error: 'Payload too large.', status: 413 };
 
   const body = parseBody(text);
-  if (!body) return { error: 'Invalid JSON.', status: 400 };
+  if (body === undefined) return { error: 'Invalid JSON.', status: 400 };
 
   const parsed = schema.safeParse(body);
   if (!parsed.success) return { error: 'Invalid input.', status: 422 };
