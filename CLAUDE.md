@@ -58,8 +58,10 @@ Run `npm ci` first if `node_modules` is missing (typecheck/test need deps).
 ## In-flight work
 
 The `voting-system` branch adds attendee voting on C4P talks (guild.host OAuth identity,
-on-the-fly tier budget, votes in D1). See `HANDOVER.md` for full context and `TODO.md` for the
-remaining (mostly operational) work and a verification blocker.
+manager-token-based ticket-tier lookup, D1-backed vote casting with budget limits) and is
+built and verified end-to-end against a real guild.host login. See `DEVELOPMENT.md` for the
+technical deep-dive (architecture, OAuth flow, DB schema) and `TODO.md` for the remaining
+deploy steps and known caveats.
 
 <!-- headroom:learn:start -->
 
