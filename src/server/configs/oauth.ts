@@ -12,7 +12,7 @@ export const OAUTH_SCOPE = 'profile:read';
 // for events the account manages).
 export const MANAGER_SCOPE = 'profile:read event_attendees:read';
 
-// ponytail: event slug hardcoded (same one the ticket widget uses, TicketSelection.tsx).
+// Event slug hardcoded (same one the ticket widget uses, TicketSelection.tsx).
 // Move to an Env var if it ever changes per environment.
 export const EVENT_SLUG = 'vdc8dh';
 

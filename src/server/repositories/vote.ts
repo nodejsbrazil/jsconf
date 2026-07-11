@@ -61,7 +61,8 @@ export const vote = (database: Database) => {
       .run();
   };
 
-  // Vote budget for a guild.host tier name. Unknown tier → 0 (can view, cannot vote).
+  // Vote budget for a guild.host tier name. Unlisted tier → 1 (every ticket holder gets a vote by
+  // default; ticket_tiers only stores overrides).
   const budgetForTier = async (tier: string): Promise<number> => {
     const { results } = await database
       .prepare('SELECT budget FROM ticket_tiers WHERE name = ?')

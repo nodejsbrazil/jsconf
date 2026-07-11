@@ -3,7 +3,7 @@ import { jwtVerify, SignJWT } from 'jose';
 import { SESSION_COOKIE, SESSION_TTL_SECONDS } from '../configs/oauth.js';
 import { readCookie } from './cookies.js';
 
-// ponytail: dev-only budget for the X-Dev-User bypass so local voting works without a login.
+// Dev-only budget for the X-Dev-User bypass so local voting works without a login.
 const DEV_BUDGET = 3;
 
 export type Session = {
@@ -61,7 +61,7 @@ export const getSession = async (
     const session = await verifySession(cookie, env.SESSION_SECRET);
     if (session) return session;
   }
-  // ponytail: dev-only header bypass. Never honored in production.
+  // Dev-only header bypass. Never honored in production.
   if (env.ENVIRONMENT !== 'production') {
     const devUser = request.headers.get('X-Dev-User');
     if (devUser) return { userId: devUser, budget: DEV_BUDGET };

@@ -125,7 +125,7 @@ const Vote = () => {
         return;
       }
 
-      // ponytail: optimistic toggle; queued and debounced (1s idle) so a burst of clicks across
+      // Optimistic toggle; queued and debounced (1s idle) so a burst of clicks across
       // any number of cards becomes one wave of requests instead of one per click.
       const next = new Set(votes);
       if (has) next.delete(talkId);

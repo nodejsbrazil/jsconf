@@ -62,8 +62,8 @@ type AttendeesPage = {
 };
 
 // Walk the attendees list (created_at desc, 100/page) to find this user's ticket tier. Recursive
-// so it pages without a `let` cursor. ponytail: capped at `pagesLeft` pages so a huge attendee
-// list can't hang a login; a fresh voter sorts near the top, so page 1 usually hits.
+// so it pages without a `let` cursor. Capped at `pagesLeft` pages so a huge attendee list can't
+// hang a login; a fresh voter sorts near the top, so page 1 usually hits.
 const attendeeTier = async (
   accessToken: string,
   slug: string,
@@ -94,17 +94,12 @@ export const fetchTicketTier = async (
   accessToken: string,
   slug: string,
   userId: string
-): Promise<string | null> => {
-  const tier = await attendeeTier(accessToken, slug, userId, '', 30);
-  // ponytail: TEMP — confirm the tier resolves for a live login, then delete.
-  console.log('[tier] resolved', tier);
-  return tier;
-};
+): Promise<string | null> => attendeeTier(accessToken, slug, userId, '', 30);
 
 // Manager access token used to read the attendees list. Cached in D1 (shared across worker
 // instances) until it expires; guild rotates the refresh token on use, so the rotated token is
-// written back here. ponytail: at expiry two cold instances could race the refresh and one login
-// would fail (a retry succeeds) — fine for low-traffic voting.
+// written back here. At expiry two cold instances could race the refresh and one login would fail
+// (a retry succeeds) — fine for low-traffic voting.
 export const managerAccessToken = async (
   clientId: string,
   clientSecret: string,
@@ -137,7 +132,7 @@ export const managerAccessToken = async (
     }),
   }).catch(() => null);
   if (!res || !res.ok) {
-    // TEMP — status + error body (never the token) to diagnose mint failures; remove later.
+    // Logs status + error body only, never the token — useful if guild revokes/rotates unexpectedly.
     console.log(
       '[manager] status',
       res?.status ?? 'fetch-error',

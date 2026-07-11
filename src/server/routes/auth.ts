@@ -51,7 +51,7 @@ export const authLogin = async ({
   const url = new URL(request.url);
   const dev = env.ENVIRONMENT !== 'production';
 
-  // ponytail: dev-only UI login (opt-in via ?dev=1) — signs a session for a fixed user so the
+  // Dev-only UI login (opt-in via ?dev=1) — signs a session for a fixed user so the
   // /vote UI is testable without a live guild.host token exchange. Never honored in production.
   if (dev && url.searchParams.has('dev') && env.SESSION_SECRET) {
     const session = await signSession(
@@ -71,7 +71,7 @@ export const authLogin = async ({
 
   const state = randomState();
 
-  // ponytail: dev-only one-time capture (opt-in via ?manager=1) — requests the attendee-read scope
+  // Dev-only one-time capture (opt-in via ?manager=1) — requests the attendee-read scope
   // and flags the callback to display the refresh token instead of signing a session.
   const manager = dev && url.searchParams.has('manager');
   const cookies = [
@@ -149,7 +149,7 @@ export const authCallback = async ({
   );
   if (!tokens) return redirect(`${site}/?error=token`);
 
-  // ponytail: dev-only manager capture — show the refresh token once so it can be copied into
+  // Dev-only manager capture — show the refresh token once so it can be copied into
   // GUILD_ORG_REFRESH_TOKEN, then remove the ?manager=1 path. Never signs a session.
   if (
     env.ENVIRONMENT !== 'production' &&
@@ -193,7 +193,7 @@ export const authCallback = async ({
     SESSION_TTL_SECONDS,
     { name: identity.name, photo: identity.photo }
   );
-  // ponytail: session cookie is SameSite=None;Secure so it's sent on the website's
+  // Session cookie is SameSite=None;Secure so it's sent on the website's
   // cross-origin fetch to the API subdomain. Both must be HTTPS.
   return redirect(`${site}/vote`, [
     `${SESSION_COOKIE}=${session}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${SESSION_TTL_SECONDS}`,
