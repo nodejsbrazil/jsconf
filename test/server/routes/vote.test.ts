@@ -45,7 +45,9 @@ const makeMock = (seed: number[] = []): Mock => {
   };
 };
 
-const makeEnv = (environment?: string): Env =>
+// Default to 'development' so the X-Dev-User bypass (fail closed, honored only when ENVIRONMENT is
+// exactly 'development') is active for tests that exercise it.
+const makeEnv = (environment: string = 'development'): Env =>
   ({ ENVIRONMENT: environment }) as Env;
 
 const getReq = (userId?: string): Request =>
@@ -170,6 +172,16 @@ describe('routes.voteGet', async () => {
       cors,
       database: makeMock().database,
       env: makeEnv('production'),
+    });
+    assert.equal(res.status, 401);
+  });
+
+  await it('ignores the dev header when ENVIRONMENT is unset (fail closed)', async () => {
+    const res = await routes.voteGet({
+      request: getReq('user-1'),
+      cors,
+      database: makeMock().database,
+      env: {} as Env,
     });
     assert.equal(res.status, 401);
   });

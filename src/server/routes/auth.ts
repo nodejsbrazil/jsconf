@@ -49,7 +49,8 @@ export const authLogin = async ({
   env,
 }: Options): Promise<Response> => {
   const url = new URL(request.url);
-  const dev = env.ENVIRONMENT !== 'production';
+  // Fail closed: dev-only login paths are honored only when ENVIRONMENT is explicitly 'development'.
+  const dev = env.ENVIRONMENT === 'development';
 
   // Dev-only UI login (opt-in via ?dev=1) — signs a session for a fixed user so the
   // /vote UI is testable without a live guild.host token exchange. Never honored in production.
@@ -152,7 +153,7 @@ export const authCallback = async ({
   // Dev-only manager capture — show the refresh token once so it can be copied into
   // GUILD_ORG_REFRESH_TOKEN, then remove the ?manager=1 path. Never signs a session.
   if (
-    env.ENVIRONMENT !== 'production' &&
+    env.ENVIRONMENT === 'development' &&
     readCookie(request, MANAGER_CAPTURE_COOKIE)
   ) {
     const body = tokens.refresh_token

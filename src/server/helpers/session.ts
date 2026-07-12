@@ -49,9 +49,9 @@ export const verifySession = async (
 };
 
 // Resolves the voter's session from the signed cookie. Budget is baked into the JWT at login
-// (from their own ticket tier), so no per-request guild call. In non-production an X-Dev-User
-// header is accepted as a fallback (with a default budget) so the endpoints are testable
-// without the OAuth round-trip.
+// (from their own ticket tier), so no per-request guild call. Only when ENVIRONMENT is explicitly
+// 'development' an X-Dev-User header is accepted as a fallback (with a default budget) so the
+// endpoints are testable without the OAuth round-trip.
 export const getSession = async (
   request: Request,
   env: Env
@@ -61,8 +61,9 @@ export const getSession = async (
     const session = await verifySession(cookie, env.SESSION_SECRET);
     if (session) return session;
   }
-  // Dev-only header bypass. Never honored in production.
-  if (env.ENVIRONMENT !== 'production') {
+  // Dev-only header bypass. Fail closed: honored only when ENVIRONMENT is explicitly 'development',
+  // so an unset/misconfigured ENVIRONMENT in production never activates it.
+  if (env.ENVIRONMENT === 'development') {
     const devUser = request.headers.get('X-Dev-User');
     if (devUser) return { userId: devUser, budget: DEV_BUDGET };
   }

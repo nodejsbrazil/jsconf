@@ -44,13 +44,20 @@ export const vote = (database: Database) => {
     if (current.includes(talkId)) return { success: true };
     if (current.length >= budget) return { success: false, reason: 'budget' };
 
+    // Budget re-check lives inside the INSERT so two concurrent votes can't both pass the read
+    // above and overspend: the row is only written while the user is still under budget.
     await database
       .prepare(
-        'INSERT OR IGNORE INTO c4p_votes (user_id, talk_id) VALUES (?, ?)'
+        `INSERT OR IGNORE INTO c4p_votes (user_id, talk_id)
+         SELECT ?1, ?2
+         WHERE (SELECT COUNT(*) FROM c4p_votes WHERE user_id = ?1) < ?3`
       )
-      .bind(userId, talkId)
+      .bind(userId, talkId, budget)
       .run();
 
+    // A lost budget race leaves the guarded INSERT a no-op; confirm the vote actually landed.
+    const after = await listUserVotes(userId);
+    if (!after.includes(talkId)) return { success: false, reason: 'budget' };
     return { success: true };
   };
 

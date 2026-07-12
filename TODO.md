@@ -21,11 +21,13 @@
    origin).
 5. Confirm the guild.host OAuth app has `https://api.jsconf.com.br/api/vote/callback` registered
    as a redirect URI (in addition to the localhost one used for dev).
-6. Bootstrap `GUILD_ORG_REFRESH_TOKEN` in prod: hit `https://api.jsconf.com.br/api/vote/login?manager=1`
-   once (dev-only path, gated on `env.ENVIRONMENT !== 'production'` — confirm `ENVIRONMENT` is unset
-   or `production` there, or this route 500s intentionally). Copy the printed refresh token into the
-   prod secret. After first use, D1 (`manager_oauth` table) keeps itself current — guild rotates the
-   refresh token on every use, and `managerAccessToken()` writes the new one back automatically.
+6. Bootstrap `GUILD_ORG_REFRESH_TOKEN`: the capture path is gated on `env.ENVIRONMENT === 'development'`
+   (fail closed — it is never reachable in prod), so run it from a development environment: local
+   `wrangler dev` with `ENVIRONMENT=development`, or a throwaway dev deploy. Hit `/api/vote/login?manager=1`,
+   log in with the org account, and copy the printed refresh token into the **prod** secret. The token is
+   org-scoped, so where you capture it doesn't matter. After first use, D1 (`manager_oauth` table) keeps
+   itself current — guild rotates the refresh token on every use, and `managerAccessToken()` writes the new
+   one back automatically.
 7. Delete the dev-only `?manager=1` capture branch in `authLogin`/`authCallback`
    (`src/server/routes/auth.ts`) once the prod token is bootstrapped — already inert in production,
    but worth removing as cleanup.
