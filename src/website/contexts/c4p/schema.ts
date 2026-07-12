@@ -52,8 +52,14 @@ export const validateStep = (
 
   for (const issue of result.error.issues) {
     const field = issue.path[0];
-    if (field && !errors[String(field)])
-      errors[String(field)] = text({ id: issue.message as TranslationId });
+    if (!field || errors[String(field)]) continue;
+    // Our custom messages are i18n keys (c4p.error.*). Zod's built-in messages — which can appear
+    // if loadFromStorage() feeds a malformed/legacy shape — are not, so fall back to a generic key
+    // instead of rendering a raw, untranslated string (and tripping Docusaurus translate warnings).
+    const id = issue.message.startsWith('c4p.error.')
+      ? (issue.message as TranslationId)
+      : ('c4p.error.invalid' as TranslationId);
+    errors[String(field)] = text({ id });
   }
 
   return errors;

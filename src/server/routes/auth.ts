@@ -159,13 +159,21 @@ export const authCallback = async ({
     const body = tokens.refresh_token
       ? `GUILD_ORG_REFRESH_TOKEN=${tokens.refresh_token}\n\nCopy the value into .dev.vars, tell me, then I remove this capture path.`
       : 'guild returned no refresh_token.';
-    return new Response(body, {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Set-Cookie': `${MANAGER_CAPTURE_COOKIE}=; Max-Age=0; Path=/api/vote`,
-      },
+    // no-store: the body carries a refresh token, so it must never be cached. Clear both the capture
+    // and state cookies with the same attributes they were set with so browsers actually drop them.
+    const headers = new Headers({
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'no-store',
     });
+    headers.append(
+      'Set-Cookie',
+      `${MANAGER_CAPTURE_COOKIE}=; HttpOnly; Secure; SameSite=Lax; Path=/api/vote; Max-Age=0`
+    );
+    headers.append(
+      'Set-Cookie',
+      `${STATE_COOKIE}=; HttpOnly; Secure; SameSite=Lax; Path=/api/vote; Max-Age=0`
+    );
+    return new Response(body, { status: 200, headers });
   }
 
   const identity = await fetchUserInfo(tokens.access_token);
@@ -181,7 +189,8 @@ export const authCallback = async ({
     env.GUILD_ORG_REFRESH_TOKEN,
     database
   );
-  if (!managerToken) return redirect(`${site}/?error=identity`);
+  // A manager-token failure is an org-auth/config problem, not the voter's identity — use ?error=token.
+  if (!managerToken) return redirect(`${site}/?error=token`);
 
   const tier = await fetchTicketTier(managerToken, EVENT_SLUG, identity.id);
   if (!tier) return redirect(`${site}/?error=notattendee`);
@@ -198,6 +207,6 @@ export const authCallback = async ({
   // cross-origin fetch to the API subdomain. Both must be HTTPS.
   return redirect(`${site}/vote`, [
     `${SESSION_COOKIE}=${session}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${SESSION_TTL_SECONDS}`,
-    `${STATE_COOKIE}=; Max-Age=0; Path=/api/vote`,
+    `${STATE_COOKIE}=; HttpOnly; Secure; SameSite=Lax; Path=/api/vote; Max-Age=0`,
   ]);
 };

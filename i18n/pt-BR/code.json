@@ -530,6 +530,9 @@
   "c4p.error.selectOption": {
     "message": "Selecione uma opção"
   },
+  "c4p.error.invalid": {
+    "message": "Valor inválido"
+  },
   "c4p.error.bio": {
     "message": "Informe sua biografia"
   },
