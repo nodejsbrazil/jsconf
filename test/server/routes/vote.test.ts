@@ -32,6 +32,11 @@ const makeMock = (seed: number[] = []): Mock => {
           all: async <T>() => {
             if (sql.includes('ticket_tiers'))
               return { results: [{ budget: 3 }] as T[] };
+            // castVote's votable-talk guard: ids 1-4 exist and are votable.
+            if (sql.startsWith('SELECT 1 FROM talks'))
+              return {
+                results: ((values[0] as number) <= 4 ? [{ 1: 1 }] : []) as T[],
+              };
             if (sql.includes('FROM talks')) return { results: talks as T[] };
             if (sql.includes('FROM c4p_votes'))
               return {
@@ -256,6 +261,19 @@ describe('routes.voteSubmit', async () => {
     });
     assert.equal(res.status, 200);
     assert.equal(mock.votes.has(1), false);
+  });
+
+  await it('rejects with 422 a talk that is not votable', async () => {
+    const mock = makeMock();
+    const res = await routes.voteSubmit({
+      request: postReq({ talkId: 99 }, { userId: 'user-1' }),
+      cors,
+      database: mock.database,
+      env: makeEnv(),
+    });
+    assert.equal(res.status, 422);
+    assert.deepEqual(await res.json(), { error: 'Invalid talk.' });
+    assert.equal(mock.votes.has(99), false);
   });
 
   await it('returns 401 without a session', async () => {

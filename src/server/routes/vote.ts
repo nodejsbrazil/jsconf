@@ -65,8 +65,11 @@ export const voteSubmit = async ({
   }
 
   const result = await repo.castVote(userId, parsed.data.talkId, budget);
-  if (!result.success)
+  if (!result.success) {
+    if (result.reason === 'invalid_talk')
+      return response({ error: 'Invalid talk.' }, 422, cors);
     return response({ error: 'Vote limit reached.' }, 422, cors);
+  }
 
   return response({ success: true }, 200, cors);
 };

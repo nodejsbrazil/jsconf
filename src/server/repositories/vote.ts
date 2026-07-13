@@ -9,7 +9,9 @@ export type TalkRow = {
   audience_level: number;
 };
 
-type CastResult = { success: true } | { success: false; reason: 'budget' };
+type CastResult =
+  | { success: true }
+  | { success: false; reason: 'budget' | 'invalid_talk' };
 
 export const vote = (database: Database) => {
   const listTalks = async (): Promise<TalkRow[]> => {
@@ -40,6 +42,14 @@ export const vote = (database: Database) => {
     talkId: number,
     budget: number
   ): Promise<CastResult> => {
+    // Only votable talks accept votes: rejects hidden/pending/rejected talk ids and avoids the
+    // talks(id) FK blowing up on nonexistent ids.
+    const { results: votable } = await database
+      .prepare('SELECT 1 FROM talks WHERE id = ? AND status = ?')
+      .bind(talkId, VOTABLE_TALK_STATUS)
+      .all();
+    if (!votable.length) return { success: false, reason: 'invalid_talk' };
+
     const current = await listUserVotes(userId);
     if (current.includes(talkId)) return { success: true };
     if (current.length >= budget) return { success: false, reason: 'budget' };

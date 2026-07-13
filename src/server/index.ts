@@ -11,6 +11,8 @@ export default {
       'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
+      // Session-derived bodies (votes, identity) must never be stored by browsers or proxies.
+      'Cache-Control': 'no-store',
       Vary: 'Origin',
     };
     // Credentialed requests (vote session cookie) need an explicit origin, never '*'.
