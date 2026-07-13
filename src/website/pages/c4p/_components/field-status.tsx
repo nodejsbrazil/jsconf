@@ -1,4 +1,5 @@
 import { Check, X } from 'lucide-react';
+import { text } from '@site/src/website/components/shared/i18n';
 import * as styles from '../_styles';
 import { useC4P } from '../../../contexts/c4p';
 
@@ -13,8 +14,18 @@ export const FieldStatus = ({ field }: { field: string }) => {
   }
 
   if (errors[field]) {
-    return <X className={styles.fieldStatusInvalid} aria-label='Inválido' />;
+    return (
+      <X
+        className={styles.fieldStatusInvalid}
+        aria-label={text({ id: 'c4p.status.invalid' })}
+      />
+    );
   }
 
-  return <Check className={styles.fieldStatusValid} aria-label='Válido' />;
+  return (
+    <Check
+      className={styles.fieldStatusValid}
+      aria-label={text({ id: 'c4p.status.valid' })}
+    />
+  );
 };

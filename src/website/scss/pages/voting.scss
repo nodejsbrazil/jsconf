@@ -1,0 +1,409 @@
+@use '../global/mixins' as *;
+
+.vote-page,
+.account-page {
+  @include flex(column);
+  gap: 3rem;
+  width: 100%;
+  max-width: 96rem;
+  color: #e0e0e0;
+
+  // Named .page-hero, not .hero: the latter is Infima's own component class
+  // (background-color: var(--ifm-hero-background-color)) and colliding with it painted this
+  // header with the framework's light hero background instead of our transparent one.
+  .page-hero {
+    @include flex(column);
+    gap: 1rem;
+
+    .title {
+      @include flex(row, center, flex-start);
+      gap: 1.2rem;
+      font-family: var(--ifm-font-family-title);
+      font-size: 3.6rem;
+      font-weight: 800;
+      color: var(--title-color);
+
+      .icon {
+        width: 3.2rem;
+        height: 3.2rem;
+        color: var(--ifm-color-primary);
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 630px) {
+        font-size: 2.8rem;
+      }
+    }
+
+    .subtitle {
+      font-size: 1.6rem;
+      line-height: 1.6;
+      color: #b0b0b0;
+      max-width: 64rem;
+    }
+  }
+
+  .status {
+    font-size: 1.6rem;
+    color: #b0b0b0;
+
+    &.error {
+      color: #ff8080;
+    }
+  }
+
+  .login-hero {
+    @include flex(column, flex-start, center);
+    gap: 1.5rem;
+    padding: 4rem 3rem;
+    background-image: linear-gradient(
+      135deg,
+      rgba(141, 248, 34, 0.06),
+      rgba(141, 248, 34, 0.02)
+    );
+    border: 0.15rem solid rgba(141, 248, 34, 0.2);
+    border-radius: 1.5rem;
+    text-align: left;
+
+    .login-title {
+      font-family: var(--ifm-font-family-title);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--title-color);
+      margin: 0;
+    }
+
+    .login-text {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: #b0b0b0;
+      margin: 0;
+      max-width: 48rem;
+    }
+
+    // Matches the navbar's tickets/account buttons instead of Infima's stock .button--primary.
+    .login-cta {
+      @include flex(row, center, center);
+      align-self: flex-start;
+      margin-top: 0.5rem;
+      padding: 1.1rem 2rem;
+      border-radius: 0.75rem;
+      background-color: var(--ifm-color-primary-darkest);
+      font-family: var(--ifm-font-family-base);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--title-color);
+      text-decoration: none;
+      transition: background-color 0.2s var(--ease-out-quad);
+
+      &:hover {
+        background-color: var(--ifm-color-primary-darker);
+      }
+    }
+  }
+
+  .budget-bar {
+    @include flex(row, center, space-between, wrap);
+    gap: 1.5rem;
+    padding: 2rem 2.5rem;
+    background-color: #1f2120;
+    border-radius: 1.2rem;
+    border: 0.15rem solid rgba(141, 248, 34, 0.2);
+
+    .budget-info {
+      @include flex(row, baseline, flex-start, wrap);
+      gap: 0.8rem 1.2rem;
+
+      .count {
+        font-family: var(--ifm-font-family-title);
+        font-size: 3.2rem;
+        font-weight: 800;
+        color: var(--ifm-color-primary);
+        line-height: 1;
+      }
+
+      .label {
+        font-size: 1.5rem;
+        color: #e0e0e0;
+      }
+
+      .deadline {
+        flex-basis: 100%;
+        font-size: 1.3rem;
+        color: #909090;
+      }
+
+      .closed-badge {
+        font-family: var(--ifm-font-family-title);
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ff8080;
+      }
+    }
+
+    .logout-link {
+      @include flex(row, center, center);
+      gap: 0.6rem;
+      flex-shrink: 0;
+      padding: 1rem 1.8rem;
+      font-size: 1.5rem;
+
+      .icon {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+    }
+  }
+
+  .closed-note {
+    font-size: 1.5rem;
+    color: #b0b0b0;
+  }
+
+  .info-banner {
+    @include flex(row, flex-start, flex-start);
+    gap: 0.9rem;
+    padding: 1rem 1.4rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid rgba(255, 208, 0, 0.35);
+    border-left: 0.3rem solid #ffd000;
+    background-color: rgba(255, 208, 0, 0.08);
+
+    .icon {
+      width: 1.8rem;
+      height: 1.8rem;
+      color: #ffd000;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .info-text {
+      @include flex(column);
+      gap: 0.2rem;
+
+      strong {
+        font-size: 1.35rem;
+        color: var(--title-color);
+      }
+
+      p {
+        font-size: 1.25rem;
+        line-height: 1.5;
+        color: #b0b0b0;
+        margin: 0;
+      }
+    }
+  }
+
+  .talks-grid {
+    @include flex(column);
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .talk-card {
+    @include flex(column);
+    gap: 1.2rem;
+    padding: 2.5rem;
+    background-color: #1f2120;
+    border-radius: 1.2rem;
+    border: 0.15rem solid transparent;
+    transition:
+      border-color 0.3s var(--ease-back-out-soft),
+      background-color 0.3s var(--ease-back-out-soft);
+
+    &.voted {
+      background-color: var(--ifm-color-primary-darkest);
+      border-color: var(--ifm-color-primary);
+
+      // Green-on-green (chips, author) loses contrast on this bg — go gray instead.
+      .talk-description {
+        color: var(--title-color);
+      }
+
+      .talk-speaker {
+        color: #04140a;
+      }
+    }
+
+    &:hover {
+      border-color: rgba(141, 248, 34, 0.35);
+    }
+
+    &.budget-out {
+      opacity: 0.45;
+    }
+
+    .talk-head {
+      @include flex(row, flex-start, space-between, wrap);
+      gap: 1rem;
+
+      .talk-title {
+        font-family: var(--ifm-font-family-title);
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 0;
+      }
+
+      .talk-meta {
+        @include flex(row, center, flex-start, wrap);
+        gap: 0.8rem;
+        flex-shrink: 0;
+
+        span {
+          @include flex(row, center, center);
+          gap: 0.4rem;
+          padding: 0.3rem 0.9rem;
+          border-radius: 999rem;
+          background-color: rgba(141, 248, 34, 0.1);
+          color: var(--ifm-color-primary);
+          font-size: 1.2rem;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+
+        .icon {
+          width: 1.3rem;
+          height: 1.3rem;
+        }
+      }
+    }
+
+    // Placed after .talk-head above so it wins the specificity tie with its base rule.
+    &.voted .talk-meta span {
+      background-color: var(--background-color);
+    }
+
+    .talk-speaker {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--ifm-color-primary);
+      margin: 0;
+
+      // The API already sends a fake random name (never the real speaker), so this blur is purely
+      // cosmetic — it makes the placeholder read as a redacted name instead of a visible fake one.
+      .speaker-name {
+        filter: blur(0.5rem);
+        user-select: none;
+      }
+    }
+
+    .talk-description {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: #c0c0c0;
+      margin: 0;
+    }
+
+    .vote-toggle {
+      @include flex(row, center, center);
+      gap: 0.6rem;
+      align-self: flex-start;
+      margin-top: 0.4rem;
+      padding: 1rem 2rem;
+      border-radius: 0.8rem;
+      border: 0.15rem solid var(--ifm-color-primary-darkest);
+      background-color: transparent;
+      color: var(--title-color);
+      font-family: var(--ifm-font-family-base);
+      font-size: 1.4rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition:
+        background-color 0.2s var(--ease-out-quad),
+        border-color 0.2s var(--ease-out-quad);
+
+      .icon {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: var(--ifm-color-primary-darkest);
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      // Sits on a now-dark-green card (see .talk-card.voted), so it needs its own contrast:
+      // gray, not the same green as the card.
+      &.voted {
+        background-color: #e0e0e0;
+        border-color: #e0e0e0;
+        color: #04140a;
+
+        .icon {
+          color: #04140a;
+        }
+
+        &:hover:not(:disabled) {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+  }
+
+  .account-card {
+    @include flex(row, center, space-between, wrap);
+    gap: 1.5rem;
+    padding: 2.5rem;
+    background-color: #1f2120;
+    border-radius: 1.2rem;
+    border: 0.15rem solid rgba(141, 248, 34, 0.2);
+
+    .account-identity {
+      @include flex(row, center, flex-start);
+      gap: 1.5rem;
+
+      .avatar {
+        @include flex(row, center, center);
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        background-color: var(--ifm-color-primary-darkest);
+        flex-shrink: 0;
+
+        .icon {
+          width: 2.4rem;
+          height: 2.4rem;
+          color: var(--title-color);
+        }
+      }
+
+      .account-id-label {
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05rem;
+        color: #909090;
+        margin: 0;
+      }
+
+      .account-id-value {
+        font-family: var(--ifm-font-family-title);
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--title-color);
+        margin: 0;
+        word-break: break-all;
+      }
+    }
+
+    .logout-link {
+      @include flex(row, center, center);
+      gap: 0.6rem;
+      flex-shrink: 0;
+      padding: 1rem 1.8rem;
+      font-size: 1.5rem;
+
+      .icon {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+    }
+  }
+}

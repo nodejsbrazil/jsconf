@@ -12,7 +12,7 @@ A **JSConf Brasil** é um **braço da [NodeBR](https://nodebr.org)** — a assoc
 
 ## Site e repositório
 
-O site público está em **[jsconf.com.br](https://jsconf.com.br)**. Este repositório é o código do site e dos serviços que o sustentam (por exemplo, formulários e integrações).
+O site público está em **[jsconf.com.br](https://jsconf.com.br)**. Este repositório é o código do site e dos serviços que o sustentam (por exemplo, formulários, integrações e a votação de palestras pela comunidade).
 
 Quer contribuir com código, traduções ou correções? Veja **[DEVELOPMENT.md](./DEVELOPMENT.md)**.
 

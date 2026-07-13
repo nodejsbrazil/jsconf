@@ -2,6 +2,7 @@ import type { SubmitEvent } from 'react';
 import { useRef, useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { toast } from 'sonner';
+import { text } from '@site/src/website/components/shared/i18n';
 import { useC4P } from '../../contexts/c4p';
 
 export const useSubmit = () => {
@@ -16,7 +17,7 @@ export const useSubmit = () => {
     if (!validate() || submitting.current) return;
 
     if (typeof workerDomain !== 'string') {
-      toast.error('Configuração indisponível. Tente novamente mais tarde.');
+      toast.error(text({ id: 'c4p.submit.configError' }));
       return;
     }
 
@@ -35,15 +36,15 @@ export const useSubmit = () => {
         } | null;
         const message =
           data?.error === 'Talk limit exceeded.'
-            ? 'Você já atingiu o limite de 3 palestras.'
-            : 'Erro ao enviar proposta. Tente novamente.';
+            ? text({ id: 'c4p.submit.limit' })
+            : text({ id: 'c4p.submit.error' });
         toast.error(message);
         return;
       }
 
       goToStep(5);
     } catch {
-      toast.error('Erro ao enviar proposta. Tente novamente.');
+      toast.error(text({ id: 'c4p.submit.error' }));
     } finally {
       submitting.current = false;
     }

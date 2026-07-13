@@ -5,13 +5,14 @@ import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ChevronDown, Menu, Ticket, X } from 'lucide-react';
 import { IoLanguage } from 'react-icons/io5';
-import { Toaster } from 'sonner';
+import { toast, Toaster } from 'sonner';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import { useScrollSpy } from '@site/src/website/hooks/useScrollSpy';
 import Logo from '../../assets/img/logo.svg';
 import { link } from '../../configs/definitions';
 import { SafeLink } from '../shared/SafeLink';
+import { AuthButton } from './AuthButton';
 
 type Section = {
   id: string;
@@ -66,6 +67,16 @@ function setLocaleMenuOpen(
   }
 }
 
+// Login callback ?error= code -> translation id. A failed login bounces to the site home with
+// one of these codes; the effect below surfaces it as a toast and strips it from the URL.
+const LOGIN_ERROR_IDS = {
+  denied: 'login.error.denied',
+  state: 'login.error.state',
+  token: 'login.error.token',
+  identity: 'login.error.identity',
+  notattendee: 'login.error.notattendee',
+} as const;
+
 export const Navbar = () => {
   const location = useLocation();
   const { i18n } = useDocusaurusContext();
@@ -80,6 +91,24 @@ export const Navbar = () => {
   const { localePath, getLocaleUrl } = useLocalePath();
 
   const otherLocales = locales.filter((l) => l !== currentLocale);
+
+  // Surface a login failure bounced back from the OAuth callback (on any page), then strip it.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get('error');
+    if (!error) return;
+    const id =
+      LOGIN_ERROR_IDS[error as keyof typeof LOGIN_ERROR_IDS] ??
+      'login.error.generic';
+    toast.error(text({ id }));
+    params.delete('error');
+    const query = params.toString();
+    window.history.replaceState(
+      {},
+      '',
+      window.location.pathname + (query ? `?${query}` : '')
+    );
+  }, []);
 
   const handleClickOutside = useCallback((e: MouseEvent) => {
     if (!localeDropdownRef.current) return;
@@ -236,6 +265,7 @@ export const Navbar = () => {
           <SafeLink className='tickets' to={link.tickets}>
             <Ticket /> <Text id='navbar.tickets' />
           </SafeLink>
+          <AuthButton />
         </div>
       </div>
       <div ref={menuNode} className='mobile-menu'>

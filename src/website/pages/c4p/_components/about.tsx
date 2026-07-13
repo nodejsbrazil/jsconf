@@ -12,6 +12,7 @@ import {
   FaUser,
   FaYoutube,
 } from 'react-icons/fa6';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import * as styles from '../_styles';
 import {
   brazilianStates,
@@ -55,7 +56,7 @@ export const About = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Seu nome <FieldStatus field='name' />
+            <Text id='c4p.about.name' /> <FieldStatus field='name' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaUser
@@ -64,7 +65,7 @@ export const About = () => {
             />
             <input
               type='text'
-              aria-label='Seu nome'
+              aria-label={text({ id: 'c4p.about.name' })}
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.name)} ${errors['name'] ? styles.inputError : ''}`}
               value={formData.name}
@@ -76,7 +77,7 @@ export const About = () => {
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            E-mail <FieldStatus field='email' />
+            <Text id='c4p.about.email' /> <FieldStatus field='email' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaEnvelope
@@ -85,7 +86,7 @@ export const About = () => {
             />
             <input
               type='text'
-              aria-label='E-mail'
+              aria-label={text({ id: 'c4p.about.email' })}
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.email)} ${errors['email'] ? styles.inputError : ''}`}
               value={formData.email}
@@ -97,7 +98,7 @@ export const About = () => {
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Celular <FieldStatus field='phone' />
+            <Text id='c4p.about.phone' /> <FieldStatus field='phone' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaPhone
@@ -106,7 +107,7 @@ export const About = () => {
             />
             <input
               type='text'
-              aria-label='Celular'
+              aria-label={text({ id: 'c4p.about.phone' })}
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.phone)} ${errors['phone'] ? styles.inputError : ''}`}
               value={formData.phone}
@@ -118,7 +119,7 @@ export const About = () => {
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Cidade <FieldStatus field='city' />
+            <Text id='c4p.about.city' /> <FieldStatus field='city' />
           </h3>
           <div className={`${styles.inputWithIcon} group`}>
             <FaLocationDot
@@ -127,7 +128,7 @@ export const About = () => {
             />
             <input
               type='text'
-              aria-label='Cidade'
+              aria-label={text({ id: 'c4p.about.city' })}
               aria-required='true'
               className={`${styles.inputWithIconInput(!!formData.city)} ${errors['city'] ? styles.inputError : ''}`}
               value={formData.city}
@@ -139,10 +140,10 @@ export const About = () => {
 
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            UF <FieldStatus field='state' />
+            <Text id='c4p.about.uf' /> <FieldStatus field='state' />
           </h3>
           <select
-            aria-label='UF'
+            aria-label={text({ id: 'c4p.about.uf' })}
             aria-required='true'
             className={`${styles.selectInput(!!formData.state)} w-[10rem] ${errors['state'] ? styles.inputError : ''}`}
             value={formData.state}
@@ -162,13 +163,11 @@ export const About = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Sobre a viagem e hospedagem <FieldStatus field='travelPreference' />
+            <Text id='c4p.about.travelHeading' />{' '}
+            <FieldStatus field='travelPreference' />
           </h3>
           <p className={styles.fieldDescription}>
-            A cidade onde você mora pode influenciar na seleção, pois o
-            deslocamento pode gerar custos adicionais para o evento. Dependendo
-            do nosso orçamento, talvez não seja possível custear passagem e
-            hospedagem para todos os palestrantes.
+            <Text id='c4p.about.travelDesc' />
           </p>
           <div className={styles.radioGroup}>
             {travelOptions.map((option, index) => (
@@ -193,7 +192,9 @@ export const About = () => {
                   checked={formData.travelPreference === option.value}
                   onChange={handleRadioChange('travelPreference', option.value)}
                 />
-                <span>{option.label}</span>
+                <span>
+                  <Text id={option.labelId} />
+                </span>
               </label>
             ))}
           </div>
@@ -201,7 +202,9 @@ export const About = () => {
       </section>
 
       <section className={styles.section}>
-        <h3 className={styles.fieldLabel}>Redes sociais</h3>
+        <h3 className={styles.fieldLabel}>
+          <Text id='c4p.about.social' />
+        </h3>
 
         <div className={styles.field}>
           <label className={styles.subLabel}>LinkedIn</label>
@@ -260,12 +263,14 @@ export const About = () => {
         </div>
 
         <div className={styles.field}>
-          <label className={styles.subLabel}>Site Pessoal</label>
+          <label className={styles.subLabel}>
+            <Text id='c4p.about.website' />
+          </label>
           <div className={`${styles.inputWithIcon} group`}>
             <FaLink className={styles.inputIcon()} aria-hidden />
             <input
               type='text'
-              aria-label='Site Pessoal'
+              aria-label={text({ id: 'c4p.about.website' })}
               className={styles.inputWithIconInput(!!formData.website)}
               value={formData.website}
               onChange={handleChange('website')}
@@ -277,7 +282,8 @@ export const About = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Tempo de experiência <FieldStatus field='experienceLevel' />
+            <Text id='c4p.about.experience' />{' '}
+            <FieldStatus field='experienceLevel' />
           </h3>
           <div className={styles.radioGroup}>
             {experienceOptions.map((option, index) => (
@@ -302,7 +308,9 @@ export const About = () => {
                   checked={formData.experienceLevel === option.value}
                   onChange={handleRadioChange('experienceLevel', option.value)}
                 />
-                <span>{option.label}</span>
+                <span>
+                  <Text id={option.labelId} />
+                </span>
               </label>
             ))}
           </div>
@@ -312,16 +320,13 @@ export const About = () => {
       <section className={styles.section}>
         <div className={styles.field}>
           <h3 className={styles.fieldLabel}>
-            Mini biografia <FieldStatus field='bio' />
+            <Text id='c4p.about.bio' /> <FieldStatus field='bio' />
           </h3>
           <p className={styles.fieldDescription}>
-            Em um único parágrafo, com até 280 caracteres, inclua informações
-            sobre sua formação, certificações, cargo atual e anteriores,
-            pesquisas desenvolvidas, artigos publicados ou qualquer outro dado
-            profissional que considere relevante.
+            <Text id='c4p.about.bioDesc' />
           </p>
           <textarea
-            aria-label='Mini biografia'
+            aria-label={text({ id: 'c4p.about.bio' })}
             aria-required='true'
             maxLength={280}
             className={`${styles.textarea(!!formData.bio)} ${errors['bio'] ? styles.inputError : ''}`}
@@ -339,10 +344,14 @@ export const About = () => {
           onClick={handleBack}
         >
           <ArrowLeft className='h-[1.6rem] w-[1.6rem]' aria-hidden />
-          <span>Voltar</span>
+          <span>
+            <Text id='c4p.action.back' />
+          </span>
         </button>
         <button type='submit' className={styles.submitButton}>
-          <span>Continuar</span>
+          <span>
+            <Text id='c4p.action.continue' />
+          </span>
           <ArrowRight className={styles.submitIcon} aria-hidden />
         </button>
       </div>

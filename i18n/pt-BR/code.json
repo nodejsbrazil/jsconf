@@ -14,11 +14,20 @@
   "navbar.section.team": {
     "message": "Nosso Time"
   },
+  "navbar.section.account": {
+    "message": "Conta"
+  },
   "navbar.section.sponsors": {
     "message": "Seja um Patrocinador"
   },
   "navbar.tickets": {
     "message": "Ingressos"
+  },
+  "navbar.login": {
+    "message": "Entrar"
+  },
+  "navbar.vote": {
+    "message": "Votar"
   },
   "navbar.aria.openMenu": {
     "message": "Abrir menu"
@@ -364,5 +373,458 @@
   },
   "supporters.subtitle": {
     "message": "Somos gratos pelo apoio de nossos parceiros que compartilham nossa visão de fortalecer a comunidade JavaScript no Brasil."
+  },
+  "common.loading": {
+    "message": "Carregando…"
+  },
+  "auth.login": {
+    "message": "Entrar com guild.host"
+  },
+  "auth.logout": {
+    "message": "Sair"
+  },
+  "vote.title": {
+    "message": "Votação - JSConf Brasil 2026"
+  },
+  "vote.heading": {
+    "message": "Vote nas palestras"
+  },
+  "vote.subheading": {
+    "message": "Escolha as palestras que você quer ver no palco."
+  },
+  "vote.hideAuthorsTitle": {
+    "message": "Por que escondemos os nomes dos autores?"
+  },
+  "vote.hideAuthorsBody": {
+    "message": "Para reduzir vieses, os nomes de quem propôs cada palestra ficam ocultos. Vote pelo conteúdo da palestra, não por quem a escreveu."
+  },
+  "vote.loginHeading": {
+    "message": "Entre para votar"
+  },
+  "vote.closedHeading": {
+    "message": "A votação está encerrada"
+  },
+  "vote.emptyTalks": {
+    "message": "Nenhuma palestra disponível para votação no momento."
+  },
+  "vote.by": {
+    "message": "por"
+  },
+  "vote.voteAction": {
+    "message": "Votar"
+  },
+  "vote.votedAction": {
+    "message": "Votado"
+  },
+  "vote.loginPrompt": {
+    "message": "Entre com sua conta guild.host para votar nas palestras."
+  },
+  "vote.loadError": {
+    "message": "Não foi possível carregar a votação. Tente mais tarde."
+  },
+  "vote.remaining": {
+    "message": "Votos restantes: {remaining} de {budget}"
+  },
+  "vote.openUntil": {
+    "message": "Aberta até {date}"
+  },
+  "vote.closed": {
+    "message": "A votação foi encerrada."
+  },
+  "vote.limitReached": {
+    "message": "Você já usou seus {budget} votos."
+  },
+  "vote.submitError": {
+    "message": "Erro ao registrar voto. Tente novamente."
+  },
+  "login.error.denied": {
+    "message": "Login cancelado."
+  },
+  "login.error.state": {
+    "message": "Sessão de login expirada. Tente novamente."
+  },
+  "login.error.token": {
+    "message": "Falha ao autenticar com guild.host. Tente novamente."
+  },
+  "login.error.identity": {
+    "message": "Não foi possível identificar sua conta guild.host."
+  },
+  "login.error.notattendee": {
+    "message": "Você não possui um ingresso para o evento."
+  },
+  "login.error.generic": {
+    "message": "Erro ao entrar. Tente novamente."
+  },
+  "account.title": {
+    "message": "Conta - JSConf Brasil 2026"
+  },
+  "account.loginHeading": {
+    "message": "Sua conta"
+  },
+  "account.idLabel": {
+    "message": "ID"
+  },
+  "account.loginPrompt": {
+    "message": "Entre com sua conta guild.host para acessar sua conta."
+  },
+  "account.heading": {
+    "message": "Conta"
+  },
+  "account.loadError": {
+    "message": "Não foi possível carregar. Tente mais tarde."
+  },
+  "c4p.pageTitle": {
+    "message": "Call4Papers - JSConf Brasil 2026"
+  },
+  "c4p.action.back": {
+    "message": "Voltar"
+  },
+  "c4p.action.continue": {
+    "message": "Continuar"
+  },
+  "c4p.action.finish": {
+    "message": "Finalizar"
+  },
+  "c4p.action.submitAnother": {
+    "message": "Enviar outra palestra"
+  },
+  "c4p.status.invalid": {
+    "message": "Inválido"
+  },
+  "c4p.status.valid": {
+    "message": "Válido"
+  },
+  "c4p.step.about": {
+    "message": "Sobre você"
+  },
+  "c4p.step.diversity": {
+    "message": "Diversidade e inclusão (opcional)"
+  },
+  "c4p.step.talk": {
+    "message": "Sobre a Palestra"
+  },
+  "c4p.step.done": {
+    "message": "Proposta enviada!"
+  },
+  "c4p.progress": {
+    "message": "Página {current} de 4"
+  },
+  "c4p.error.name": {
+    "message": "Informe seu nome"
+  },
+  "c4p.error.email": {
+    "message": "Informe um e-mail válido"
+  },
+  "c4p.error.emailTooLong": {
+    "message": "E-mail muito longo"
+  },
+  "c4p.error.phone": {
+    "message": "Informe um número válido"
+  },
+  "c4p.error.city": {
+    "message": "Informe sua cidade"
+  },
+  "c4p.error.state": {
+    "message": "Selecione um estado"
+  },
+  "c4p.error.selectOption": {
+    "message": "Selecione uma opção"
+  },
+  "c4p.error.invalid": {
+    "message": "Valor inválido"
+  },
+  "c4p.error.bio": {
+    "message": "Informe sua biografia"
+  },
+  "c4p.error.bioTooLong": {
+    "message": "Biografia muito longa"
+  },
+  "c4p.error.duration": {
+    "message": "Selecione a duração"
+  },
+  "c4p.error.talkTitle": {
+    "message": "Informe o título"
+  },
+  "c4p.error.talkDescription": {
+    "message": "Informe a descrição"
+  },
+  "c4p.error.audienceLevel": {
+    "message": "Selecione o nível"
+  },
+  "c4p.error.talkReason": {
+    "message": "Informe o motivo"
+  },
+  "c4p.error.requiredFields": {
+    "message": "Preencha os campos obrigatórios"
+  },
+  "c4p.submit.configError": {
+    "message": "Configuração indisponível. Tente novamente mais tarde."
+  },
+  "c4p.submit.limit": {
+    "message": "Você já atingiu o limite de 3 palestras."
+  },
+  "c4p.submit.error": {
+    "message": "Erro ao enviar proposta. Tente novamente."
+  },
+  "c4p.intro.toastTitle": {
+    "message": "Seus dados ficam salvos no navegador."
+  },
+  "c4p.intro.toastDesc": {
+    "message": "Você pode continuar de onde parou a qualquer momento."
+  },
+  "c4p.intro.heading1": {
+    "message": "Quer palestrar na JSConf Brasil deste ano?"
+  },
+  "c4p.intro.p1": {
+    "message": "Essa é a sua chance de dividir o palco com alguns dos profissionais mais incríveis da área de tecnologia! Preencha o nosso Call4Papers, nossa equipe fará a análise e seleção das propostas enviadas."
+  },
+  "c4p.intro.p2": {
+    "message": "A {brand} existe para compartilhar conhecimento, aproximar a comunidade e fortalecer um evento diverso, inclusivo e colaborativo."
+  },
+  "c4p.intro.dateHeading": {
+    "message": "JSConf Brasil - 28 de novembro de 2026"
+  },
+  "c4p.intro.deadline": {
+    "message": "Aceitaremos inscrições até {date}."
+  },
+  "c4p.intro.deadlineDate": {
+    "message": "30 de julho"
+  },
+  "c4p.intro.maxTalks": {
+    "message": "Você pode enviar até {count} palestras."
+  },
+  "c4p.intro.eventInfo": {
+    "message": "O evento acontecerá no dia {date}, na {venue}. Serão palestras, painéis, atividades interativas, feira de expositores e muito mais."
+  },
+  "c4p.intro.eventDate": {
+    "message": "28 de novembro de 2026"
+  },
+  "c4p.intro.topicsIntro": {
+    "message": "Esses são alguns dos tópicos que sugerimos (os que têm estrelinha são os preferidos):"
+  },
+  "c4p.topic.devTooling": {
+    "message": "Dev Tooling"
+  },
+  "c4p.topic.devEx": {
+    "message": "Developer Experience"
+  },
+  "c4p.topic.aiDev": {
+    "message": "IA no Desenvolvimento"
+  },
+  "c4p.topic.architecture": {
+    "message": "Arquitetura"
+  },
+  "c4p.topic.devops": {
+    "message": "DevOps"
+  },
+  "c4p.topic.observability": {
+    "message": "Observabilidade"
+  },
+  "c4p.topic.performance": {
+    "message": "Performance"
+  },
+  "c4p.topic.realCases": {
+    "message": "Cases Reais de Resolução de Problemas usando código"
+  },
+  "c4p.topic.a11yCode": {
+    "message": "Código para Acessibilidade"
+  },
+  "c4p.topic.openSource": {
+    "message": "Open Source"
+  },
+  "c4p.topic.designSystem": {
+    "message": "Design System"
+  },
+  "c4p.topic.security": {
+    "message": "Segurança no Desenvolvimento"
+  },
+  "c4p.exp.0": {
+    "message": "0 - 1 ano"
+  },
+  "c4p.exp.1": {
+    "message": "2 - 4 anos"
+  },
+  "c4p.exp.2": {
+    "message": "5 - 9 anos"
+  },
+  "c4p.exp.3": {
+    "message": "Acima de 10 anos"
+  },
+  "c4p.duration.0": {
+    "message": "15 minutos"
+  },
+  "c4p.duration.1": {
+    "message": "25 minutos"
+  },
+  "c4p.travel.0": {
+    "message": "Gostaria que a organização pagasse minha viagem e hospedagem"
+  },
+  "c4p.travel.1": {
+    "message": "Posso arcar com os custos"
+  },
+  "c4p.gender.0": {
+    "message": "Homem"
+  },
+  "c4p.gender.1": {
+    "message": "Mulher"
+  },
+  "c4p.gender.2": {
+    "message": "Não-binário"
+  },
+  "c4p.gender.3": {
+    "message": "Prefiro não dizer"
+  },
+  "c4p.race.0": {
+    "message": "Branca"
+  },
+  "c4p.race.1": {
+    "message": "Parda"
+  },
+  "c4p.race.2": {
+    "message": "Preta"
+  },
+  "c4p.race.3": {
+    "message": "Indígena"
+  },
+  "c4p.race.4": {
+    "message": "Não sei"
+  },
+  "c4p.race.5": {
+    "message": "Outro"
+  },
+  "c4p.race.6": {
+    "message": "Prefiro não dizer"
+  },
+  "c4p.disability.0": {
+    "message": "Sou cego(a) / tenho baixa visão"
+  },
+  "c4p.disability.1": {
+    "message": "Sou surdo(a) / tenho deficiência auditiva"
+  },
+  "c4p.disability.2": {
+    "message": "Eu não consigo / tenho dificuldade de andar ou ficar em pé sem assistência"
+  },
+  "c4p.disability.3": {
+    "message": "Eu não consigo / tenho dificuldade de digitar"
+  },
+  "c4p.disability.4": {
+    "message": "Não se aplica"
+  },
+  "c4p.disability.5": {
+    "message": "Prefiro não dizer"
+  },
+  "c4p.audience.0": {
+    "message": "Todos os níveis"
+  },
+  "c4p.audience.1": {
+    "message": "Júnior"
+  },
+  "c4p.audience.2": {
+    "message": "Pleno"
+  },
+  "c4p.audience.3": {
+    "message": "Sênior"
+  },
+  "c4p.about.name": {
+    "message": "Seu nome"
+  },
+  "c4p.about.email": {
+    "message": "E-mail"
+  },
+  "c4p.about.phone": {
+    "message": "Celular"
+  },
+  "c4p.about.city": {
+    "message": "Cidade"
+  },
+  "c4p.about.uf": {
+    "message": "UF"
+  },
+  "c4p.about.travelHeading": {
+    "message": "Sobre a viagem e hospedagem"
+  },
+  "c4p.about.travelDesc": {
+    "message": "A cidade onde você mora pode influenciar na seleção, pois o deslocamento pode gerar custos adicionais para o evento. Dependendo do nosso orçamento, talvez não seja possível custear passagem e hospedagem para todos os palestrantes."
+  },
+  "c4p.about.social": {
+    "message": "Redes sociais"
+  },
+  "c4p.about.website": {
+    "message": "Site Pessoal"
+  },
+  "c4p.about.experience": {
+    "message": "Tempo de experiência"
+  },
+  "c4p.about.bio": {
+    "message": "Mini biografia"
+  },
+  "c4p.about.bioDesc": {
+    "message": "Em um único parágrafo, com até 280 caracteres, inclua informações sobre sua formação, certificações, cargo atual e anteriores, pesquisas desenvolvidas, artigos publicados ou qualquer outro dado profissional que considere relevante."
+  },
+  "c4p.talk.contentType": {
+    "message": "Tipo de conteúdo"
+  },
+  "c4p.talk.contentTypeDesc": {
+    "message": "O formato dos conteúdos será em palestras de 15 ou 25 minutos. Escolha o tempo de duração que você considera mais adequado para a sua proposta."
+  },
+  "c4p.talk.duration": {
+    "message": "Tempo de duração"
+  },
+  "c4p.talk.title": {
+    "message": "Título"
+  },
+  "c4p.talk.description": {
+    "message": "Descrição"
+  },
+  "c4p.talk.descriptionDesc": {
+    "message": "Forneça um resumo do seu conteúdo. Essa informação será usada em nosso site para divulgação da sua palestra."
+  },
+  "c4p.talk.audience": {
+    "message": "Para quem é este conteúdo?"
+  },
+  "c4p.talk.reason": {
+    "message": "Por que deveríamos considerar este conteúdo na JSConf Brasil?"
+  },
+  "c4p.success.thanks": {
+    "message": "Obrigado por se inscrever no Call4Papers da {brand}. Sua proposta foi recebida com sucesso."
+  },
+  "c4p.success.heading": {
+    "message": "Como os conteúdos serão avaliados?"
+  },
+  "c4p.success.p1": {
+    "message": "A avaliação das propostas acontecerá em duas etapas."
+  },
+  "c4p.success.p2": {
+    "message": "Primeiro, um grupo de co-curadoria analisará anonimamente o título, a descrição e o nível de conhecimento indicado para cada palestra."
+  },
+  "c4p.success.p3": {
+    "message": "Em seguida, a equipe da JSConf Brasil fará uma análise complementar para verificar o encaixe do conteúdo na programação, considerando orçamento, estratégia e diversidade temática."
+  },
+  "c4p.success.p4": {
+    "message": "Não existe um número fixo de pessoas selecionadas; a escolha dependerá da qualidade e adequação das propostas enviadas."
+  },
+  "c4p.success.p5": {
+    "message": "Após o fim das inscrições, todo o processo de avaliação será concluído em até duas semanas."
+  },
+  "c4p.success.p6": {
+    "message": "As pessoas selecionadas receberão um e-mail para confirmar sua participação e, caso não haja resposta, entraremos em contato com as próximas da lista. Assim que todas as confirmações forem finalizadas, informaremos também as pessoas que não forem aprovadas."
+  },
+  "c4p.div.intro": {
+    "message": "A JSConf Brasil busca sempre pela diversidade, inclusão e acessibilidade. Caso se sinta confortável em responder, gostaríamos de saber:"
+  },
+  "c4p.div.sensitive": {
+    "message": "Estes dados são sensíveis e opcionais. Serão usados exclusivamente para (a) compor um line-up diverso de palestrantes, (b) planejar a acessibilidade do evento (intérpretes de Libras, acessibilidade física, etc.) e (c) gerar estatísticas agregadas sobre diversidade no C4P. Você pode revogar esse consentimento a qualquer momento escrevendo para um dos {link}."
+  },
+  "c4p.div.volunteers": {
+    "message": "nossos voluntários"
+  },
+  "c4p.div.gender": {
+    "message": "Identidade de Gênero"
+  },
+  "c4p.div.race": {
+    "message": "Qual cor/raça você se identifica?"
+  },
+  "c4p.div.disability": {
+    "message": "Situação de deficiência: qual das opções abaixo descreve você, se tiver alguma?"
   }
 }

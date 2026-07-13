@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { Text } from '@site/src/website/components/shared/i18n';
 import * as styles from '../_styles';
 import { useC4P } from '../../../contexts/c4p';
 
@@ -18,42 +19,39 @@ export const Success = () => {
     <>
       <section className={styles.section}>
         <p className={styles.paragraph}>
-          Obrigado por se inscrever no Call4Papers da{' '}
-          <strong className={styles.strong}>JSConf Brasil 2026</strong>. Sua
-          proposta foi recebida com sucesso.
+          <Text
+            id='c4p.success.thanks'
+            values={{
+              brand: (
+                <strong className={styles.strong}>JSConf Brasil 2026</strong>
+              ),
+            }}
+          />
         </p>
       </section>
 
       <section className={styles.section}>
         <h2 className={styles.sectionHeading}>
-          Como os conteúdos serão avaliados?
+          <Text id='c4p.success.heading' />
         </h2>
         <div className='flex flex-col gap-[1.2rem] rounded-[1rem] border border-primary/[0.06] bg-primary/[0.02] !px-[2rem] !py-[1.6rem]'>
           <p className={styles.paragraph}>
-            A avaliação das propostas acontecerá em duas etapas.
+            <Text id='c4p.success.p1' />
           </p>
           <p className={styles.paragraph}>
-            Primeiro, um grupo de co-curadoria analisará anonimamente o título,
-            a descrição e o nível de conhecimento indicado para cada palestra.
+            <Text id='c4p.success.p2' />
           </p>
           <p className={styles.paragraph}>
-            Em seguida, a equipe da JSConf Brasil fará uma análise complementar
-            para verificar o encaixe do conteúdo na programação, considerando
-            orçamento, estratégia e diversidade temática.
+            <Text id='c4p.success.p3' />
           </p>
           <p className={styles.paragraph}>
-            Não existe um número fixo de pessoas selecionadas; a escolha
-            dependerá da qualidade e adequação das propostas enviadas.
+            <Text id='c4p.success.p4' />
           </p>
           <p className={styles.paragraph}>
-            Após o fim das inscrições, todo o processo de avaliação será
-            concluído em até duas semanas.
+            <Text id='c4p.success.p5' />
           </p>
           <p className={styles.paragraph}>
-            As pessoas selecionadas receberão um e-mail para confirmar sua
-            participação e, caso não haja resposta, entraremos em contato com as
-            próximas da lista. Assim que todas as confirmações forem
-            finalizadas, informaremos também as pessoas que não forem aprovadas.
+            <Text id='c4p.success.p6' />
           </p>
         </div>
       </section>
@@ -63,7 +61,9 @@ export const Success = () => {
         className={styles.submitButton}
         onClick={handleSubmitAnother}
       >
-        <span>Enviar outra palestra</span>
+        <span>
+          <Text id='c4p.action.submitAnother' />
+        </span>
         <ArrowRight className={styles.submitIcon} aria-hidden />
       </button>
     </>

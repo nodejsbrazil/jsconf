@@ -89,7 +89,7 @@
   },
   "private": true,
   "dependencies": {
-    "stripe": "^22.0.0"
+    "jose": "^6.2.3"
   },
   "overrides": {
     "serialize-javascript": "^7.0.5",

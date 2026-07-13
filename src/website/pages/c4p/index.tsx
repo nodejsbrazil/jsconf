@@ -6,6 +6,7 @@ import {
   Send,
   UserPen,
 } from 'lucide-react';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import { Page } from '@site/src/website/components/shared/Page';
 import { C4PProvider, useC4P } from '../../contexts/c4p';
 import { About } from './_components/about';
@@ -27,27 +28,33 @@ const stepTitles: Record<number, React.ReactNode> = {
   2: (
     <>
       <UserPen className={styles.stepIcon} />
-      <span className={styles.stepTitle}>Sobre você</span>
+      <span className={styles.stepTitle}>
+        <Text id='c4p.step.about' />
+      </span>
     </>
   ),
   3: (
     <>
       <Handshake className={styles.stepIcon} />
       <span className={styles.stepTitle}>
-        Diversidade e inclusão (opcional)
+        <Text id='c4p.step.diversity' />
       </span>
     </>
   ),
   4: (
     <>
       <MicVocal className={styles.stepIcon} />
-      <span className={styles.stepTitle}>Sobre a Palestra</span>
+      <span className={styles.stepTitle}>
+        <Text id='c4p.step.talk' />
+      </span>
     </>
   ),
   5: (
     <>
       <CircleCheckBig className={styles.stepIcon} />
-      <span className={styles.stepTitle}>Proposta enviada!</span>
+      <span className={styles.stepTitle}>
+        <Text id='c4p.step.done' />
+      </span>
     </>
   ),
 };
@@ -66,7 +73,7 @@ const Form = () => {
             value={currentStep - 1}
             className='mb-[2rem] h-[0.3rem] w-full appearance-none rounded-[0.2rem] border-none bg-primary/10 [&::-moz-progress-bar]:rounded-[0.2rem] [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:rounded-[0.2rem] [&::-webkit-progress-bar]:bg-primary/10 [&::-webkit-progress-value]:rounded-[0.2rem] [&::-webkit-progress-value]:bg-primary [&::-webkit-progress-value]:transition-[width] [&::-webkit-progress-value]:duration-400'
           >
-            Página {currentStep} de 4
+            <Text id='c4p.progress' values={{ current: currentStep }} />
           </progress>
         )}
 
@@ -81,7 +88,7 @@ const Form = () => {
 };
 
 export default () => (
-  <Page title='Call4Papers - JSConf Brasil 2026'>
+  <Page title={text({ id: 'c4p.pageTitle' })}>
     <C4PProvider>
       <Form />
     </C4PProvider>

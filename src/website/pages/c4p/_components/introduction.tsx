@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import * as styles from '../_styles';
 import { topics, useC4P } from '../../../contexts/c4p';
 
@@ -7,8 +8,8 @@ export const Introduction = () => {
   const { goToStep } = useC4P();
 
   const handleContinue = () => {
-    toast.success('Seus dados ficam salvos no navegador.', {
-      description: 'Você pode continuar de onde parou a qualquer momento.',
+    toast.success(text({ id: 'c4p.intro.toastTitle' }), {
+      description: text({ id: 'c4p.intro.toastDesc' }),
     });
 
     goToStep(2);
@@ -18,60 +19,80 @@ export const Introduction = () => {
     <>
       <section className={styles.section}>
         <h2 className={styles.sectionHeading}>
-          Quer palestrar na JSConf Brasil deste ano?
+          <Text id='c4p.intro.heading1' />
         </h2>
         <p className={styles.paragraph}>
-          Essa é a sua chance de dividir o palco com alguns dos profissionais
-          mais incríveis da área de tecnologia! Preencha o nosso Call4Papers,
-          nossa equipe fará a análise e seleção das propostas enviadas.
+          <Text id='c4p.intro.p1' />
         </p>
         <p className={styles.paragraph}>
-          A <strong className={styles.strong}>JSConf Brasil</strong> existe para
-          compartilhar conhecimento, aproximar a comunidade e fortalecer um
-          evento diverso, inclusivo e colaborativo.
+          <Text
+            id='c4p.intro.p2'
+            values={{
+              brand: <strong className={styles.strong}>JSConf Brasil</strong>,
+            }}
+          />
         </p>
       </section>
 
       <section className={styles.section}>
         <h2 className={styles.sectionHeading}>
-          JSConf Brasil - 28 de novembro de 2026
+          <Text id='c4p.intro.dateHeading' />
         </h2>
         <p className={styles.paragraph}>
-          Aceitaremos inscrições até{' '}
-          <span className='text-primary !font-bold'>30 de julho</span>.
+          <Text
+            id='c4p.intro.deadline'
+            values={{
+              date: (
+                <span className='text-primary !font-bold'>
+                  <Text id='c4p.intro.deadlineDate' />
+                </span>
+              ),
+            }}
+          />
         </p>
         <p className={styles.paragraph}>
-          Você pode enviar até{' '}
-          <span className='text-primary !font-bold'>3</span> palestras.
+          <Text
+            id='c4p.intro.maxTalks'
+            values={{
+              count: <span className='text-primary !font-bold'>3</span>,
+            }}
+          />
         </p>
         <p className={styles.paragraph}>
-          O evento acontecerá no dia{' '}
-          <strong className={styles.strong}>28 de novembro de 2026</strong>, na{' '}
-          <strong className={styles.strong}>
-            Universidade Municipal de São Caetano do Sul, São Caetano do Sul -
-            SP
-          </strong>
-          . Serão palestras, painéis, atividades interativas, feira de
-          expositores e muito mais.
+          <Text
+            id='c4p.intro.eventInfo'
+            values={{
+              date: (
+                <strong className={styles.strong}>
+                  <Text id='c4p.intro.eventDate' />
+                </strong>
+              ),
+              venue: (
+                <strong className={styles.strong}>
+                  Universidade Municipal de São Caetano do Sul, São Caetano do
+                  Sul - SP
+                </strong>
+              ),
+            }}
+          />
         </p>
       </section>
 
       <section className={styles.section}>
         <p className={styles.paragraph}>
-          Esses são alguns dos tópicos que sugerimos (os que têm estrelinha são
-          os preferidos):
+          <Text id='c4p.intro.topicsIntro' />
         </p>
         <ul className='!my-[0.4rem] grid list-none grid-cols-2 gap-x-[2rem] gap-y-[0.4rem] rounded-[1rem] border border-primary/[0.06] bg-primary/[0.02] !px-[2rem] !py-[1.6rem] max-md:grid-cols-1'>
           {topics.map((topic) => (
             <li
-              key={topic.name}
+              key={topic.labelId}
               className={`relative py-[1rem] pl-[2.2rem] text-[1.5rem] leading-[1] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 ${
                 topic.preferred
                   ? 'font-bold text-white before:content-["★"] before:text-primary'
                   : 'text-white/60 before:content-["•"] before:text-white/30'
               }`}
             >
-              {topic.name}
+              <Text id={topic.labelId} />
             </li>
           ))}
         </ul>
@@ -82,7 +103,9 @@ export const Introduction = () => {
         className={styles.submitButton}
         onClick={handleContinue}
       >
-        <span>Continuar</span>
+        <span>
+          <Text id='c4p.action.continue' />
+        </span>
         <ArrowRight className={styles.submitIcon} aria-hidden />
       </button>
     </>
