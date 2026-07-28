@@ -1,0 +1,288 @@
+@use '../global/mixins' as *;
+
+// A beam crossing the bay when it lights up — the rail reading that channel.
+@keyframes partner-sweep {
+  0% {
+    transform: translateX(-140%) skewX(-12deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(280%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+// Overshoots past the resting hover position, then settles back into it.
+@keyframes partner-power-on {
+  0% {
+    transform: scale(var(--logo-scale, 1));
+  }
+  55% {
+    transform: translateY(-0.9rem) scale(calc(var(--logo-scale, 1) * 1.1));
+  }
+  100% {
+    transform: translateY(-0.5rem) scale(calc(var(--logo-scale, 1) * 1.06));
+  }
+}
+
+@mixin partners {
+  &#partners {
+    // Sits directly under the hero, so it stays low-profile on purpose.
+    // The hero ends on its own credit block ("Realização"), so this needs real
+    // air above it or the two credit lines read as one stack.
+    padding-top: 7rem;
+    padding-bottom: 9rem;
+
+    $ink: #f5f6fa;
+    $mute: #6f7b72;
+    $signal: var(--ifm-color-primary);
+
+    & > .content {
+      gap: 2.4rem;
+      max-width: 112rem;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-family: var(--ifm-font-family-title);
+      font-size: 1.2rem;
+      font-weight: 700;
+      // Widest tracking on the site: reads as a rail marker, not a heading.
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: $mute;
+    }
+
+    .rail {
+      position: relative;
+      width: 100%;
+    }
+
+    .bays {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      background-color: rgba(141, 248, 34, 0.03);
+    }
+
+    .bay {
+      @include flex(row, center, center);
+      position: relative;
+      height: 13rem;
+      padding-inline: 2rem;
+      overflow: hidden;
+      text-decoration: none;
+      transition: background-color 0.35s var(--ease-out-quad);
+
+      // Green wash behind the lit partner, faded at the edges so the bay glows
+      // rather than turning into a coloured box.
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          ellipse at center,
+          rgba(141, 248, 34, 0.1),
+          transparent 72%
+        );
+        opacity: 0;
+        transition: opacity 0.35s var(--ease-out-quad);
+        pointer-events: none;
+      }
+
+      // Driven by :hover/:focus only — never by .active. A sticky class would
+      // leave the bay lit after the pointer left, and would stop the animations
+      // below from ever replaying on a second visit.
+      &:hover::before,
+      &:focus-visible::before {
+        opacity: 1;
+      }
+
+      // The sweeping beam itself, parked off-frame until the bay lights up.
+      &::after {
+        content: '';
+        position: absolute;
+        inset-block: 0;
+        left: 0;
+        width: 38%;
+        background-image: linear-gradient(
+          100deg,
+          transparent,
+          rgba(141, 248, 34, 0.2),
+          rgba(245, 246, 250, 0.14),
+          transparent
+        );
+        opacity: 0;
+        transform: translateX(-140%) skewX(-12deg);
+        pointer-events: none;
+      }
+
+      &:hover::after,
+      &:focus-visible::after {
+        animation: partner-sweep 0.75s var(--ease-out-quad);
+      }
+
+      & + .bay {
+        border-left: 0.1rem solid rgba(141, 248, 34, 0.08);
+      }
+
+      &:hover,
+      &:focus-visible {
+        text-decoration: none;
+      }
+
+      &:focus-visible {
+        outline: 0.2rem solid $signal;
+        outline-offset: -0.2rem;
+      }
+    }
+
+    .logo {
+      position: relative;
+      max-width: 100%;
+      max-height: 7rem;
+      object-fit: contain;
+      opacity: 0.55;
+      // Logos differ in visual mass at the same box size; --logo-scale evens them out.
+      transform: scale(var(--logo-scale, 1));
+      // At rest every logo is one neutral ink; colour is the reward for attention.
+      filter: grayscale(1) brightness(1.05);
+      transition:
+        opacity 0.35s var(--ease-out-quad),
+        filter 0.35s var(--ease-out-quad),
+        transform 0.35s var(--ease-back-out-soft);
+    }
+
+    .bay:hover .logo,
+    .bay:focus-visible .logo {
+      opacity: 1;
+      // Drops the greyscale, so the partner's real brand colours come back.
+      filter: drop-shadow(0 0 1.8rem rgba(141, 248, 34, 0.3));
+      transform: translateY(-0.5rem) scale(calc(var(--logo-scale, 1) * 1.06));
+      animation: partner-power-on 0.55s var(--ease-out-quad);
+    }
+
+    .track {
+      position: relative;
+      height: 0.2rem;
+      background-color: rgba(141, 248, 34, 0.18);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.8s var(--ease-out-quad);
+    }
+
+    .content.show .track {
+      transform: scaleX(1);
+    }
+
+    .segment {
+      position: absolute;
+      inset-block: 0;
+      left: 0;
+      width: calc(100% / var(--bays, 1));
+      background-color: $signal;
+      box-shadow: 0 0 1.2rem rgba(141, 248, 34, 0.5);
+      transform: translateX(calc(var(--active, 0) * 100%));
+      transition: transform 0.45s var(--ease-back-out-soft);
+    }
+
+    // A quiet footnote under the rail, not a fourth partner competing with them.
+    .invite {
+      @include flex(row, center, center, wrap);
+      gap: 0.2rem 0.8rem;
+      margin-top: 0.4rem;
+    }
+
+    .invite-text {
+      margin: 0;
+      font-size: 1.3rem;
+      color: $mute;
+    }
+
+    .invite-button {
+      @include flex(row, center, center);
+      gap: 0.5rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: $signal;
+      text-decoration: none;
+      text-underline-offset: 0.4rem;
+
+      &:hover,
+      &:focus-visible {
+        color: $signal;
+        text-decoration: underline;
+      }
+
+      &:focus-visible {
+        outline: 0.2rem solid $signal;
+        outline-offset: 0.4rem;
+        border-radius: 0.2rem;
+      }
+
+      .icon {
+        width: 1.3rem;
+        height: 1.3rem;
+      }
+    }
+
+    @media (max-width: 630px) {
+      padding-bottom: 6rem;
+
+      .bays {
+        grid-auto-flow: row;
+      }
+
+      .bay {
+        height: 10rem;
+        border-bottom: 0.2rem solid rgba(141, 248, 34, 0.12);
+
+        & + .bay {
+          border-left: 0;
+        }
+
+        &.active {
+          border-bottom-color: var(--ifm-color-primary);
+        }
+      }
+
+      .logo {
+        max-height: 5.6rem;
+      }
+
+      // The sliding rail needs a horizontal row; stacked bays carry it themselves.
+      .track {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .track,
+      .segment,
+      .logo,
+      .bay,
+      .bay::before {
+        transition: none;
+      }
+
+      .track {
+        transform: scaleX(1);
+      }
+
+      // Colour and glow still resolve; only the movement is dropped.
+      .bay:hover .logo,
+      .bay:focus-visible .logo {
+        transform: scale(var(--logo-scale, 1));
+        animation: none;
+      }
+
+      .bay:hover::after,
+      .bay:focus-visible::after {
+        animation: none;
+      }
+    }
+  }
+}

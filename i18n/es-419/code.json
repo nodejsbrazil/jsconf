@@ -215,6 +215,15 @@
   "team.monica.position": {
     "message": "Desarrolladora Back-end"
   },
+  "partners.eyebrow": {
+    "message": "Apoyan JSConf Brasil 2026"
+  },
+  "partners.cta.text": {
+    "message": "Tu marca también cabe aquí."
+  },
+  "partners.cta.button": {
+    "message": "Quiero patrocinar"
+  },
   "sponsors.pageTitle": {
     "message": "Patrocinadores"
   },
