@@ -215,6 +215,15 @@
   "team.lucas.position": {
     "message": "Principal Staff Engineer"
   },
+  "partners.eyebrow": {
+    "message": "Apoiam a JSConf Brasil 2026"
+  },
+  "partners.cta.text": {
+    "message": "Sua marca também cabe aqui."
+  },
+  "partners.cta.button": {
+    "message": "Quero patrocinar"
+  },
   "sponsors.pageTitle": {
     "message": "Patrocinadores"
   },
