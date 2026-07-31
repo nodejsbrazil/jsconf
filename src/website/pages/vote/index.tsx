@@ -243,7 +243,7 @@ const Vote = () => {
             )}
 
             <ul className='talks-grid'>
-              {session.talks.map((talk) => {
+              {session.talks.map((talk, index) => {
                 const duration = durationOptions[talk.duration];
                 const audience = audienceLevels[talk.audience_level];
                 const voted = votes.has(talk.id);
@@ -259,6 +259,11 @@ const Vote = () => {
                       .filter(Boolean)
                       .join(' ')}
                   >
+                    {/* Watermarked position, decorative only: it tracks the rendered slot, not
+                        the talk id, so assistive tech is better off never hearing it. */}
+                    <span className='talk-number' aria-hidden='true'>
+                      {index + 1}
+                    </span>
                     <div className='talk-head'>
                       <h3 className='talk-title'>{talk.title}</h3>
                       <div className='talk-meta'>

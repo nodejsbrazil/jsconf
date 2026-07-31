@@ -210,6 +210,9 @@
     background-color: #1f2120;
     border-radius: 1.2rem;
     border: 0.15rem solid transparent;
+    // Containing block + clip for .talk-number, which is taller than the shortest cards.
+    position: relative;
+    overflow: hidden;
     transition:
       border-color 0.3s var(--ease-back-out-soft),
       background-color 0.3s var(--ease-back-out-soft);
@@ -234,6 +237,40 @@
 
     &.budget-out {
       opacity: 0.45;
+    }
+
+    // Decorative slot number, watermarked into the card. Cards size to their description so
+    // there is no height to derive a percentage from: the font-size is tuned so the digits
+    // (line-height 1, so the box is the glyph) cover roughly three quarters of a typical card,
+    // and the card's overflow clips it on the short ones. The negative top offset cancels the
+    // ascent gap the font leaves above the digits so they hug the card's top edge.
+    .talk-number {
+      position: absolute;
+      top: -1.5rem;
+      left: 1rem;
+      z-index: 0;
+      font-family: var(--ifm-font-family-title);
+      font-size: 18rem;
+      font-weight: 800;
+      line-height: 1;
+      // Same white as the titles, dialled down to a watermark so it never fights the text on
+      // either card background (dark gray, or dark green once voted).
+      color: color-mix(in srgb, var(--title-color) 7%, transparent);
+      pointer-events: none;
+      user-select: none;
+
+      // Narrow cards can't spare 18rem of width without the numeral swallowing the title.
+      @media (max-width: 630px) {
+        top: -1rem;
+        font-size: 11rem;
+      }
+    }
+
+    // The number is absolute but still an earlier sibling, so the content needs to be positioned
+    // too (z-index auto, later in the DOM) to paint above it.
+    & > *:not(.talk-number) {
+      position: relative;
+      z-index: 1;
     }
 
     .talk-head {
