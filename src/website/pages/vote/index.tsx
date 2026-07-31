@@ -14,6 +14,7 @@ import {
   audienceLevels,
   durationOptions,
 } from '@site/src/website/contexts/c4p/definitions';
+import { dailyShuffle } from '@site/src/website/helpers/daily-shuffle';
 import '@site/src/website/scss/pages/voting.scss';
 
 type Talk = {
@@ -75,7 +76,12 @@ const Vote = () => {
         };
         setSession({
           ...data,
-          talks: data.talks.map((talk) => ({
+          // Reordered per visitor and held for the day so the first slots don't collect votes
+          // just for being first. Purely how the list is drawn — every vote still travels as
+          // talk.id, so a talk's position never means anything to the API. Safe to do here
+          // because this runs in an effect: the build-time render has no session and no list,
+          // so there's no server markup for the shuffle to disagree with.
+          talks: dailyShuffle(data.talks).map((talk) => ({
             ...talk,
             speaker_name: fakeName(),
           })),
