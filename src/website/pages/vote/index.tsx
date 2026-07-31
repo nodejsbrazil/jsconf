@@ -14,6 +14,10 @@ import {
   audienceLevels,
   durationOptions,
 } from '@site/src/website/contexts/c4p/definitions';
+import {
+  orderTalks,
+  readDaySeed,
+} from '@site/src/website/helpers/daily-shuffle';
 import '@site/src/website/scss/pages/voting.scss';
 
 type Talk = {
@@ -75,7 +79,18 @@ const Vote = () => {
         };
         setSession({
           ...data,
-          talks: data.talks.map((talk) => ({
+          // Ordered once, here, and then left alone: sorting off `data.myVotes` (the votes the
+          // visitor arrived with) rather than the live `votes` state is what stops a card from
+          // leaping to the top under the cursor the moment it's clicked. New votes reorder on
+          // the next load. Purely how the list is drawn — every vote still travels as talk.id,
+          // so a position never means anything to the API. Safe in an effect too: the
+          // build-time render has no session and no list, so no server markup to disagree with.
+          talks: orderTalks(
+            data.talks,
+            data.myVotes,
+            locale,
+            readDaySeed()
+          ).map((talk) => ({
             ...talk,
             speaker_name: fakeName(),
           })),
@@ -84,7 +99,8 @@ const Vote = () => {
         setStatus('ready');
       })
       .catch(() => setStatus('error'));
-  }, [workerDomain]);
+    // `locale` only changes by navigating to another locale's route, which remounts this anyway.
+  }, [workerDomain, locale]);
 
   const closed = session
     ? new Date(session.closesAt).getTime() < Date.now()
@@ -243,7 +259,7 @@ const Vote = () => {
             )}
 
             <ul className='talks-grid'>
-              {session.talks.map((talk) => {
+              {session.talks.map((talk, index) => {
                 const duration = durationOptions[talk.duration];
                 const audience = audienceLevels[talk.audience_level];
                 const voted = votes.has(talk.id);
@@ -259,6 +275,11 @@ const Vote = () => {
                       .filter(Boolean)
                       .join(' ')}
                   >
+                    {/* Watermarked position, decorative only: it tracks the rendered slot, not
+                        the talk id, so assistive tech is better off never hearing it. */}
+                    <span className='talk-number' aria-hidden='true'>
+                      {index + 1}
+                    </span>
                     <div className='talk-head'>
                       <h3 className='talk-title'>{talk.title}</h3>
                       <div className='talk-meta'>
