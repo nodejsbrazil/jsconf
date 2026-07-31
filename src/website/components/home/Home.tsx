@@ -1,6 +1,6 @@
 import Link from '@docusaurus/Link';
 import { CalendarDays, Tickets } from 'lucide-react';
-import { Text } from '@site/src/website/components/shared/i18n';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '../../hooks/useLocalePath';
 import { BR } from '../shared/BR';
 import { Image } from '../shared/Image';
@@ -51,7 +51,7 @@ export const Home = () => {
           <Image
             className='logo'
             src='/img/logotype.png'
-            alt='Logotipo: NodeBR'
+            alt={text({ id: 'home.credits.logoAlt' })}
             title='NodeBR'
           />
         </footer>

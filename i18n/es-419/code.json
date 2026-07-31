@@ -18,7 +18,7 @@
     "message": "Cuenta"
   },
   "navbar.section.sponsors": {
-    "message": "Sé un Patrocinador"
+    "message": "Conviértete en Patrocinador"
   },
   "navbar.tickets": {
     "message": "Entradas"
@@ -41,6 +41,9 @@
   "navbar.locale.label": {
     "message": "Idioma"
   },
+  "navbar.date": {
+    "message": "28 NOV 2026"
+  },
   "footer.description": {
     "message": "Hecho por y para la comunidad. JSConf Brasil es un evento sin fines de lucro dedicado a impulsar el desarrollo web y fortalecer la comunidad JavaScript en Brasil."
   },
@@ -49,6 +52,9 @@
   },
   "footer.copyright": {
     "message": "© 2026 JSConf Brasil. Organizado por"
+  },
+  "home.pageDescription": {
+    "message": "¡La conferencia de JavaScript más grande del mundo está de vuelta!"
   },
   "home.date": {
     "message": "28 de noviembre, 2026 • São Paulo"
@@ -61,6 +67,9 @@
   },
   "home.credits.label": {
     "message": "Organizado por"
+  },
+  "home.credits.logoAlt": {
+    "message": "Logotipo de NodeBR"
   },
   "benefits.title": {
     "message": "¿Qué vas a encontrar?"
@@ -75,7 +84,7 @@
     "message": "Charlas increíbles elegidas por ti"
   },
   "benefits.international.description": {
-    "message": "Comunidad involucrada en la elección de las mejores charlas del evento! Haciéndote parte de la conferencia con nosotros"
+    "message": "¡Comunidad involucrada en la elección de las mejores charlas del evento! Te hacemos parte de la conferencia con nosotros"
   },
   "benefits.networking.title": {
     "message": "Networking"
@@ -140,6 +149,24 @@
   "gallery.firstEdition.description": {
     "message": "2026 marca la primera JSConf Brasil, trayendo la mayor conferencia JS del mundo a nuestro país."
   },
+  "gallery.photo.groupPhoto": {
+    "message": "Foto de grupo del evento presencial"
+  },
+  "gallery.photo.casualTalk": {
+    "message": "Público viendo una charla"
+  },
+  "gallery.photo.networking": {
+    "message": "Grupo haciendo networking en el evento"
+  },
+  "gallery.photo.nodebrSelfie": {
+    "message": "Selfie de grupo de la comunidad NodeBR"
+  },
+  "gallery.photo.selfieGroup": {
+    "message": "Selfie de la comunidad NodeBR"
+  },
+  "gallery.photo.meetupFull": {
+    "message": "Meetup de NodeBR a casa llena"
+  },
   "speakers.title": {
     "message": "Ponentes"
   },
@@ -175,6 +202,9 @@
   },
   "team.subtitle": {
     "message": "Expertos internacionales y talentos locales compartiendo el futuro de la web."
+  },
+  "team.pageDescription": {
+    "message": "Conoce a las personas que organizan y apoyan JSConf Brasil 2026."
   },
   "team.erick.bio": {
     "message": "Erick Wendel es un ponente experimentado en conferencias de tecnología, conocido como keynote speaker, y un reconocido desarrollador del equipo principal de Node.js."
@@ -348,7 +378,7 @@
     "message": "Entérate de todas las novedades"
   },
   "home.waitlist.subheading": {
-    "message": "Suscríbete a nuestra Newsletter y entérate de todo primero: CFP, ponentes, votaciones y más!"
+    "message": "¡Suscríbete a nuestra Newsletter y entérate de todo primero: CFP, ponentes, votaciones y más!"
   },
   "home.waitlist.placeholder": {
     "message": "Tu mejor email"
@@ -377,20 +407,17 @@
   "coc.pageDescription": {
     "message": "Código de Conducta de JSConf Brasil"
   },
-  "supporters.title": {
-    "message": "Nuestros Apoyadores"
-  },
-  "supporters.subtitle": {
-    "message": "Estamos agradecidos por el apoyo de nuestros socios que comparten nuestra visión de fortalecer la comunidad JavaScript en Brasil."
-  },
   "common.loading": {
     "message": "Cargando…"
   },
+  "common.website": {
+    "message": "Sitio web"
+  },
   "auth.login": {
-    "message": "Entrar con guild.host"
+    "message": "Iniciar sesión con guild.host"
   },
   "auth.logout": {
-    "message": "Salir"
+    "message": "Cerrar sesión"
   },
   "vote.title": {
     "message": "Votación - JSConf Brasil 2026"
@@ -462,7 +489,7 @@
     "message": "No tienes una entrada para el evento."
   },
   "login.error.generic": {
-    "message": "Error al entrar. Inténtalo de nuevo."
+    "message": "Error al iniciar sesión. Inténtalo de nuevo."
   },
   "account.title": {
     "message": "Cuenta - JSConf Brasil 2026"
@@ -484,6 +511,9 @@
   },
   "c4p.pageTitle": {
     "message": "Call4Papers - JSConf Brasil 2026"
+  },
+  "c4p.pageDescription": {
+    "message": "Envía tu propuesta de charla para JSConf Brasil 2026."
   },
   "c4p.action.back": {
     "message": "Volver"
@@ -608,6 +638,9 @@
   "c4p.intro.eventDate": {
     "message": "28 de noviembre de 2026"
   },
+  "c4p.intro.eventVenue": {
+    "message": "Universidad Municipal de São Caetano do Sul, São Caetano do Sul - SP"
+  },
   "c4p.intro.topicsIntro": {
     "message": "Estos son algunos de los temas que sugerimos (los que tienen estrella son los preferidos):"
   },
@@ -687,7 +720,7 @@
     "message": "Blanca"
   },
   "c4p.race.1": {
-    "message": "Parda"
+    "message": "Mestiza"
   },
   "c4p.race.2": {
     "message": "Negra"
@@ -714,7 +747,7 @@
     "message": "No puedo / tengo dificultad para caminar o mantenerme de pie sin ayuda"
   },
   "c4p.disability.3": {
-    "message": "No puedo / tengo dificultad para escribir"
+    "message": "No puedo / tengo dificultad para teclear"
   },
   "c4p.disability.4": {
     "message": "No aplica"

@@ -1,8 +1,12 @@
 import { Team } from '../components/home/Team';
+import { text } from '../components/shared/i18n';
 import { Page } from '../components/shared/Page';
 
 export default () => (
-  <Page description='Conheça as pessoas organizadoras e apoiadoras da JSConf Brasil 2026.'>
+  <Page
+    title={text({ id: 'navbar.section.team' })}
+    description={text({ id: 'team.pageDescription' })}
+  >
     <Team />
   </Page>
 );

@@ -194,7 +194,8 @@ export const Navbar = () => {
               <strong className='badge'>2026</strong>
             </h2>
             <small className='date'>
-              28 NOV 2026<span className='location'> • São Paulo</span>
+              <Text id='navbar.date' />
+              <span className='location'> • São Paulo</span>
             </small>
           </div>
         </Link>
@@ -276,7 +277,9 @@ export const Navbar = () => {
               <h2 className='title'>
                 JSConf <span className='highlight'>Brasil</span>
               </h2>
-              <small className='date'>28 NOV 2026</small>
+              <small className='date'>
+                <Text id='navbar.date' />
+              </small>
             </div>
           </Link>
           <button

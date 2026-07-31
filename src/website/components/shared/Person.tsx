@@ -7,6 +7,7 @@ import {
   FaLinkedinIn,
   FaYoutube,
 } from 'react-icons/fa6';
+import { text } from '@site/src/website/components/shared/i18n';
 import { SafeLink } from '@site/src/website/components/shared/SafeLink';
 import { useScroll } from '@site/src/website/hooks/useScroll';
 
@@ -86,7 +87,10 @@ export const Person: FC<MemberProps> = memo(
                 </SafeLink>
               )}
               {social.website && (
-                <SafeLink to={social.website.trim()} title='Website'>
+                <SafeLink
+                  to={social.website.trim()}
+                  title={text({ id: 'common.website' })}
+                >
                   <Link size={16} />
                 </SafeLink>
               )}

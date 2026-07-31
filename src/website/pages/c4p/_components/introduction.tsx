@@ -69,8 +69,7 @@ export const Introduction = () => {
               ),
               venue: (
                 <strong className={styles.strong}>
-                  Universidade Municipal de São Caetano do Sul, São Caetano do
-                  Sul - SP
+                  <Text id='c4p.intro.eventVenue' />
                 </strong>
               ),
             }}

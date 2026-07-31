@@ -88,7 +88,10 @@ const Form = () => {
 };
 
 export default () => (
-  <Page title={text({ id: 'c4p.pageTitle' })}>
+  <Page
+    title={text({ id: 'c4p.pageTitle' })}
+    description={text({ id: 'c4p.pageDescription' })}
+  >
     <C4PProvider>
       <Form />
     </C4PProvider>

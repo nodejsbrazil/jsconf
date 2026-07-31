@@ -41,6 +41,9 @@
   "navbar.locale.label": {
     "message": "Idioma"
   },
+  "navbar.date": {
+    "message": "28 NOV 2026"
+  },
   "footer.description": {
     "message": "Feito pela e para a comunidade. A JSConf Brasil é um evento sem fins lucrativos dedicado a impulsionar o desenvolvimento web e fortalecer a comunidade JavaScript no nosso país."
   },
@@ -49,6 +52,9 @@
   },
   "footer.copyright": {
     "message": "© 2026 JSConf Brasil. Realização"
+  },
+  "home.pageDescription": {
+    "message": "A maior conferência de JavaScript do Mundo está de volta!"
   },
   "home.date": {
     "message": "28 de novembro, 2026 • São Paulo"
@@ -61,6 +67,9 @@
   },
   "home.credits.label": {
     "message": "Realização"
+  },
+  "home.credits.logoAlt": {
+    "message": "Logotipo: NodeBR"
   },
   "benefits.title": {
     "message": "O que você vai encontrar?"
@@ -140,6 +149,24 @@
   "gallery.firstEdition.description": {
     "message": "2026 marca a primeira JSConf Brasil, trazendo a maior conferência JS do mundo para o nosso país."
   },
+  "gallery.photo.groupPhoto": {
+    "message": "Foto em grupo do evento presencial"
+  },
+  "gallery.photo.casualTalk": {
+    "message": "Plateia assistindo a palestra"
+  },
+  "gallery.photo.networking": {
+    "message": "Grupo fazendo networking no evento"
+  },
+  "gallery.photo.nodebrSelfie": {
+    "message": "Selfie em grupo da comunidade NodeBR"
+  },
+  "gallery.photo.selfieGroup": {
+    "message": "Selfie da comunidade NodeBR"
+  },
+  "gallery.photo.meetupFull": {
+    "message": "Meetup da NodeBR com casa cheia"
+  },
   "speakers.title": {
     "message": "Palestrantes"
   },
@@ -175,6 +202,9 @@
   },
   "team.subtitle": {
     "message": "Especialistas internacionais e talentos locais compartilhando o futuro da web."
+  },
+  "team.pageDescription": {
+    "message": "Conheça as pessoas organizadoras e apoiadoras da JSConf Brasil 2026."
   },
   "team.erick.bio": {
     "message": "Erick Wendel é um palestrante experiente em conferências de tecnologia, conhecido como keynote speaker, e um renomado desenvolvedor da equipe principal do Node.js."
@@ -377,14 +407,11 @@
   "tickets.subtitle": {
     "message": "Garanta agora seu lugar na maior conferência de JavaScript do Brasil."
   },
-  "supporters.title": {
-    "message": "Nossos Apoiadores"
-  },
-  "supporters.subtitle": {
-    "message": "Somos gratos pelo apoio de nossos parceiros que compartilham nossa visão de fortalecer a comunidade JavaScript no Brasil."
-  },
   "common.loading": {
     "message": "Carregando…"
+  },
+  "common.website": {
+    "message": "Site"
   },
   "auth.login": {
     "message": "Entrar com guild.host"
@@ -484,6 +511,9 @@
   },
   "c4p.pageTitle": {
     "message": "Call4Papers - JSConf Brasil 2026"
+  },
+  "c4p.pageDescription": {
+    "message": "Envie sua proposta de palestra para a JSConf Brasil 2026."
   },
   "c4p.action.back": {
     "message": "Voltar"
@@ -607,6 +637,9 @@
   },
   "c4p.intro.eventDate": {
     "message": "28 de novembro de 2026"
+  },
+  "c4p.intro.eventVenue": {
+    "message": "Universidade Municipal de São Caetano do Sul, São Caetano do Sul - SP"
   },
   "c4p.intro.topicsIntro": {
     "message": "Esses são alguns dos tópicos que sugerimos (os que têm estrelinha são os preferidos):"

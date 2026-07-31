@@ -6,10 +6,11 @@ import { Partners } from '../components/home/Partners';
 // import { Speakers } from '../components/home/Speakers';
 import { TicketSelection } from '../components/home/TicketSelection';
 import { Waitlist } from '../components/home/Waitlist';
+import { text } from '../components/shared/i18n';
 import { Page } from '../components/shared/Page';
 
 export default () => (
-  <Page description='A maior conferência de JavaScript do Mundo está de volta!'>
+  <Page description={text({ id: 'home.pageDescription' })}>
     <Home />
     <Partners />
     <Benefits />

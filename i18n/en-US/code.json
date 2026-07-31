@@ -41,6 +41,9 @@
   "navbar.locale.label": {
     "message": "Language"
   },
+  "navbar.date": {
+    "message": "NOV 28 2026"
+  },
   "footer.description": {
     "message": "Made by and for the community. JSConf Brasil is a non-profit event dedicated to driving web development and strengthening the JavaScript community in Brazil."
   },
@@ -49,6 +52,9 @@
   },
   "footer.copyright": {
     "message": "© 2026 JSConf Brasil. Organized by"
+  },
+  "home.pageDescription": {
+    "message": "The world's biggest JavaScript conference is back!"
   },
   "home.date": {
     "message": "November 28, 2026 • São Paulo"
@@ -61,6 +67,9 @@
   },
   "home.credits.label": {
     "message": "Organized by"
+  },
+  "home.credits.logoAlt": {
+    "message": "NodeBR logo"
   },
   "benefits.title": {
     "message": "What will you find?"
@@ -129,7 +138,7 @@
     "message": "More than talks: a space to connect, exchange ideas and create opportunities."
   },
   "gallery.events.title": {
-    "message": "10+ Events"
+    "message": "100+ Events since 2016"
   },
   "gallery.events.description": {
     "message": "We've held over 10 in-person events in São Paulo, always with a full house."
@@ -139,6 +148,24 @@
   },
   "gallery.firstEdition.description": {
     "message": "2026 marks the first JSConf Brasil, bringing the world's largest JS conference to our country."
+  },
+  "gallery.photo.groupPhoto": {
+    "message": "Group photo from the in-person event"
+  },
+  "gallery.photo.casualTalk": {
+    "message": "Audience watching a talk"
+  },
+  "gallery.photo.networking": {
+    "message": "Group networking at the event"
+  },
+  "gallery.photo.nodebrSelfie": {
+    "message": "Group selfie with the NodeBR community"
+  },
+  "gallery.photo.selfieGroup": {
+    "message": "Selfie with the NodeBR community"
+  },
+  "gallery.photo.meetupFull": {
+    "message": "A packed NodeBR meetup"
   },
   "speakers.title": {
     "message": "Speakers"
@@ -176,6 +203,9 @@
   "team.subtitle": {
     "message": "International experts and local talent sharing the future of the web."
   },
+  "team.pageDescription": {
+    "message": "Meet the people organizing and supporting JSConf Brasil 2026."
+  },
   "team.erick.bio": {
     "message": "Erick Wendel is an experienced tech conference speaker, known as a keynote speaker, and a renowned developer on the Node.js core team."
   },
@@ -183,7 +213,7 @@
     "message": "Content Creator and Entrepreneur"
   },
   "team.ana.bio": {
-    "message": "Ana Neri is a Senior Software Engineer, NodeBR Leader.... passionate about community"
+    "message": "Ana Neri is a Senior Software Engineer, NodeBR Leader and passionate about the tech community"
   },
   "team.ana.position": {
     "message": "Senior Software Engineer"
@@ -255,7 +285,7 @@
     "message": "What you get"
   },
   "sponsors.benefits.item1": {
-    "message": "10‑minute slot to present your company"
+    "message": "10-minute slot to present your company"
   },
   "sponsors.benefits.item2": {
     "message": "Logo and links shared on our official channels"
@@ -377,14 +407,11 @@
   "coc.pageDescription": {
     "message": "JSConf Brasil Code of Conduct"
   },
-  "supporters.title": {
-    "message": "Our supporters"
-  },
-  "supporters.subtitle": {
-    "message": "We are grateful for the support of our partners who share our vision of strengthening the JavaScript community in Brazil."
-  },
   "common.loading": {
     "message": "Loading…"
+  },
+  "common.website": {
+    "message": "Website"
   },
   "auth.login": {
     "message": "Log in with guild.host"
@@ -484,6 +511,9 @@
   },
   "c4p.pageTitle": {
     "message": "Call4Papers - JSConf Brasil 2026"
+  },
+  "c4p.pageDescription": {
+    "message": "Submit your talk proposal for JSConf Brasil 2026."
   },
   "c4p.action.back": {
     "message": "Back"
@@ -607,6 +637,9 @@
   },
   "c4p.intro.eventDate": {
     "message": "November 28, 2026"
+  },
+  "c4p.intro.eventVenue": {
+    "message": "Municipal University of São Caetano do Sul, São Caetano do Sul - SP"
   },
   "c4p.intro.topicsIntro": {
     "message": "These are some of the topics we suggest (starred ones are preferred):"

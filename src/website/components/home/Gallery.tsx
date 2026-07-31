@@ -9,7 +9,7 @@ import {
   PartyPopper,
   Users,
 } from 'lucide-react';
-import { Text } from '@site/src/website/components/shared/i18n';
+import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '../../hooks/useLocalePath';
 import { useScroll } from '../../hooks/useScroll';
 import { Image } from '../shared/Image';
@@ -80,7 +80,7 @@ export const Gallery = () => {
           />
           <PhotoCard
             src='/img/community/group-photo.webp'
-            alt='Foto em grupo do evento presencial'
+            alt={text({ id: 'gallery.photo.groupPhoto' })}
             className='span-2'
           />
           <TextCard
@@ -91,7 +91,7 @@ export const Gallery = () => {
           {/* Row 2: photo | text | text | photo */}
           <PhotoCard
             src='/img/community/casual-talk.webp'
-            alt='Plateia assistindo a palestra'
+            alt={text({ id: 'gallery.photo.casualTalk' })}
           />
           <TextCard
             icon={<PartyPopper />}
@@ -105,21 +105,21 @@ export const Gallery = () => {
           />
           <PhotoCard
             src='/img/community/networking.webp'
-            alt='Grupo fazendo networking no evento'
+            alt={text({ id: 'gallery.photo.networking' })}
           />
           {/* Row 3: photo | photo (span 2) | photo */}
           <PhotoCard
             src='/img/community/nodebr-selfie.webp'
-            alt='NodeBR selfie group'
+            alt={text({ id: 'gallery.photo.nodebrSelfie' })}
           />
           <PhotoCard
             src='/img/community/selfie-group.webp'
-            alt='NodeBR selfie'
+            alt={text({ id: 'gallery.photo.selfieGroup' })}
             className='span-2'
           />
           <PhotoCard
             src='/img/community/meetup-full.webp'
-            alt='NodeBR meetup full'
+            alt={text({ id: 'gallery.photo.meetupFull' })}
           />
         </div>
         <h1 className='title'>
