@@ -255,7 +255,7 @@
       line-height: 1;
       // Same white as the titles, dialled down to a watermark so it never fights the text on
       // either card background (dark gray, or dark green once voted).
-      color: color-mix(in srgb, var(--title-color) 7%, transparent);
+      color: color-mix(in srgb, var(--title-color) 4%, transparent);
       pointer-events: none;
       user-select: none;
 
