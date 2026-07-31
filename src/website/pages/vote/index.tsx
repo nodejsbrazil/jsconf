@@ -14,7 +14,10 @@ import {
   audienceLevels,
   durationOptions,
 } from '@site/src/website/contexts/c4p/definitions';
-import { dailyShuffle } from '@site/src/website/helpers/daily-shuffle';
+import {
+  orderTalks,
+  readDaySeed,
+} from '@site/src/website/helpers/daily-shuffle';
 import '@site/src/website/scss/pages/voting.scss';
 
 type Talk = {
@@ -76,12 +79,18 @@ const Vote = () => {
         };
         setSession({
           ...data,
-          // Reordered per visitor and held for the day so the first slots don't collect votes
-          // just for being first. Purely how the list is drawn — every vote still travels as
-          // talk.id, so a talk's position never means anything to the API. Safe to do here
-          // because this runs in an effect: the build-time render has no session and no list,
-          // so there's no server markup for the shuffle to disagree with.
-          talks: dailyShuffle(data.talks).map((talk) => ({
+          // Ordered once, here, and then left alone: sorting off `data.myVotes` (the votes the
+          // visitor arrived with) rather than the live `votes` state is what stops a card from
+          // leaping to the top under the cursor the moment it's clicked. New votes reorder on
+          // the next load. Purely how the list is drawn — every vote still travels as talk.id,
+          // so a position never means anything to the API. Safe in an effect too: the
+          // build-time render has no session and no list, so no server markup to disagree with.
+          talks: orderTalks(
+            data.talks,
+            data.myVotes,
+            locale,
+            readDaySeed()
+          ).map((talk) => ({
             ...talk,
             speaker_name: fakeName(),
           })),
@@ -90,7 +99,8 @@ const Vote = () => {
         setStatus('ready');
       })
       .catch(() => setStatus('error'));
-  }, [workerDomain]);
+    // `locale` only changes by navigating to another locale's route, which remounts this anyway.
+  }, [workerDomain, locale]);
 
   const closed = session
     ? new Date(session.closesAt).getTime() < Date.now()

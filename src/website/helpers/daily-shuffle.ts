@@ -1,7 +1,7 @@
-// Per-visitor, per-day ordering for lists where being on top is an unfair advantage (the C4P
-// vote). The seed lives in a cookie next to the day it was minted, so the order holds for the
-// whole day and rolls over on the next one. Nothing here is a secret: the seed only decides who
-// sees which talk first.
+// Ordering for the C4P vote list, where being on top is an unfair advantage. A visitor who has
+// not voted gets a shuffle seeded per visitor per day: the seed lives in a cookie next to the day
+// it was minted, so the order holds for the whole day and rolls over on the next one. Nothing
+// here is a secret — the seed only decides who sees which talk first.
 
 const COOKIE_NAME = 'jsconf_order_seed';
 // Two days, so the cookie outlives a session that starts late at night. The stored day (not the
@@ -67,11 +67,37 @@ export const readDaySeed = (today: string = localDayKey()): number | null => {
 };
 
 /**
- * Reorders a list per visitor, stable for the day. Presentation only — call it where the data
- * lands, never in a way that lets a position stand in for an item's identity.
+ * The vote list's order. Presentation only — resolve it once where the data lands, never anywhere
+ * a rendered position could stand in for a talk's identity.
+ *
+ * Two rules, and which one applies is decided by whether the visitor arrives with votes already
+ * cast. `seed === null` means there was no `document` to read a cookie from (the build-time
+ * render), in which case the incoming order stands.
  */
-export const dailyShuffle = <T>(items: readonly T[]): T[] => {
-  const seed = readDaySeed();
-  if (seed === null) return [...items];
-  return seededShuffle(items, seed);
+export const orderTalks = <T extends { id: number; title: string }>(
+  talks: readonly T[],
+  votedIds: readonly number[],
+  locale: string,
+  seed: number | null
+): T[] => {
+  // Nothing voted for yet, so the shuffle is doing its job: don't disturb it.
+  if (votedIds.length === 0) {
+    return seed === null ? [...talks] : seededShuffle(talks, seed);
+  }
+
+  // Already voted, so the shuffle has served its purpose and their picks pin to the top instead.
+  // Both groups sort by title, which keeps the two halves reading the same way and keeps the
+  // order independent of when any single vote was cast.
+  const voted = new Set(votedIds);
+  // Titles are Brazilian Portuguese. A plain `<` compares UTF-16 code units, which files "Árvore"
+  // after "Zebra"; a collator on the active locale puts the accents where a reader of that locale
+  // expects them.
+  const collator = new Intl.Collator(locale);
+  const byTitle = (left: T, right: T) =>
+    collator.compare(left.title, right.title);
+
+  return [
+    ...talks.filter((talk) => voted.has(talk.id)).sort(byTitle),
+    ...talks.filter((talk) => !voted.has(talk.id)).sort(byTitle),
+  ];
 };
