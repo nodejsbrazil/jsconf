@@ -156,7 +156,7 @@ const Vote = () => {
   );
 
   return (
-    <Page title={text({ id: 'vote.title' })}>
+    <Page title={text({ id: 'vote.title' })} noindex>
       <div className='vote-page page-content'>
         <header className='page-hero'>
           <h1 className='title'>

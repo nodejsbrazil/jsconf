@@ -3,6 +3,28 @@ export const link = {
   sponsors: 'https://forms.gle/SPyyD3SsuurVpvCNA',
 } as const;
 
+/**
+ * The event, in the fixed formats schema.org wants. Every human-readable version of this
+ * lives in i18n (`location.venue.*`); only the parts a crawler needs verbatim are here.
+ */
+export const event = {
+  /** Date with no time: the schedule is not published yet, so no start hour is claimed. */
+  startDate: '2026-11-28',
+  venue: {
+    shortName: 'USCS',
+    locality: 'São Caetano do Sul',
+    region: 'SP',
+    country: 'BR',
+  },
+} as const;
+
+/** Official accounts, the same set the footer links. Used as schema.org `sameAs`. */
+export const social = [
+  'https://www.linkedin.com/company/jsconf-brazil',
+  'https://x.com/jsconf_br',
+  'https://www.instagram.com/jsconfbr/',
+] as const;
+
 export type Partner = {
   name: string;
   logo: string;

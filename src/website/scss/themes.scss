@@ -1,11 +1,10 @@
 @use 'sass:meta' as *;
-@use 'global/functions' as *;
 
-// Google Fonts
+// Google Fonts. The stylesheet itself is requested from `headTags` in docusaurus.config.ts:
+// as a CSS `@import` it was buried in the render-blocking bundle, so the browser could not
+// discover the font host until it had already downloaded and parsed 245 KB of CSS.
 $baseFontFamily: 'Noto Sans';
 $titleFontFamily: 'Onest';
-
-@import url('https://fonts.googleapis.com/css2?display=swap&family=#{set-font($baseFontFamily)}:wght@400;500;600&family=#{set-font($titleFontFamily)}:wght@700;800');
 
 :root {
   // Docusaurus

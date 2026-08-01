@@ -30,7 +30,7 @@ const Account = () => {
   }, [workerDomain]);
 
   return (
-    <Page title={text({ id: 'account.title' })}>
+    <Page title={text({ id: 'account.title' })} noindex>
       <div className='account-page page-content'>
         <header className='page-hero'>
           <h1 className='title'>
