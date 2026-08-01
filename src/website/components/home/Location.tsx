@@ -26,6 +26,8 @@ export const Location = () => {
               className='image'
               src='/img/venue.webp'
               alt={text({ id: 'location.venue.imgAlt' })}
+              width={1024}
+              height={682}
             />
           </div>
           <div className='venue-info'>

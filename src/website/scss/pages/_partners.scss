@@ -144,6 +144,10 @@
       position: relative;
       max-width: 100%;
       max-height: 7rem;
+      // Logos carry their intrinsic width/height attributes; the caps above do the
+      // sizing, so both axes stay on the file's own ratio.
+      width: auto;
+      height: auto;
       object-fit: contain;
       opacity: 0.55;
       // Logos differ in visual mass at the same box size; --logo-scale evens them out.

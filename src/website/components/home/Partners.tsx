@@ -37,6 +37,8 @@ export const Partners = () => {
                   className='logo'
                   src={partner.logo}
                   alt={partner.name}
+                  width={partner.width}
+                  height={partner.height}
                   loading='eager'
                   style={
                     { '--logo-scale': partner.scale ?? 1 } as CSSProperties

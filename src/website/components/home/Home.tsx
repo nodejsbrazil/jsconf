@@ -61,6 +61,8 @@ export const Home = () => {
             src='/img/logotype.png'
             alt={text({ id: 'home.credits.logoAlt' })}
             title='NodeBR'
+            width={350}
+            height={94}
           />
         </footer>
       </div>

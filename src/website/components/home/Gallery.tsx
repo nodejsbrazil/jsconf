@@ -24,6 +24,8 @@ type TextCardProps = {
 type PhotoCardProps = {
   src: string;
   alt: string;
+  width: number;
+  height: number;
   className?: string;
 };
 
@@ -51,13 +53,19 @@ const TextCard: FC<TextCardProps> = ({
   );
 };
 
-const PhotoCard: FC<PhotoCardProps> = ({ src, alt, className = '' }) => {
+const PhotoCard: FC<PhotoCardProps> = ({
+  src,
+  alt,
+  width,
+  height,
+  className = '',
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   useBentoScroll(ref);
 
   return (
     <div className={`bento-item photo-card ${className}`} ref={ref}>
-      <Image src={src} alt={alt} />
+      <Image src={src} alt={alt} width={width} height={height} />
     </div>
   );
 };
@@ -81,6 +89,8 @@ export const Gallery = () => {
           <PhotoCard
             src='/img/community/group-photo.webp'
             alt={text({ id: 'gallery.photo.groupPhoto' })}
+            width={1024}
+            height={768}
             className='span-2'
           />
           <TextCard
@@ -92,6 +102,8 @@ export const Gallery = () => {
           <PhotoCard
             src='/img/community/casual-talk.webp'
             alt={text({ id: 'gallery.photo.casualTalk' })}
+            width={1024}
+            height={682}
           />
           <TextCard
             icon={<PartyPopper />}
@@ -106,20 +118,28 @@ export const Gallery = () => {
           <PhotoCard
             src='/img/community/networking.webp'
             alt={text({ id: 'gallery.photo.networking' })}
+            width={1024}
+            height={682}
           />
           {/* Row 3: photo | photo (span 2) | photo */}
           <PhotoCard
             src='/img/community/nodebr-selfie.webp'
             alt={text({ id: 'gallery.photo.nodebrSelfie' })}
+            width={1024}
+            height={682}
           />
           <PhotoCard
             src='/img/community/selfie-group.webp'
             alt={text({ id: 'gallery.photo.selfieGroup' })}
+            width={1024}
+            height={576}
             className='span-2'
           />
           <PhotoCard
             src='/img/community/meetup-full.webp'
             alt={text({ id: 'gallery.photo.meetupFull' })}
+            width={1024}
+            height={682}
           />
         </div>
         <h2 className='title'>
