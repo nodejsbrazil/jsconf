@@ -7,6 +7,8 @@ try {
 
 const config: Config = {
   title: 'JSConf Brasil',
+  tagline:
+    'A maior conferência de JavaScript do mundo chega ao Brasil: 28 de novembro de 2026, em São Caetano do Sul, SP',
   favicon: 'favicon.ico',
   baseUrl: '/',
   // Origin only, no trailing slash: everything else (canonicals, og:image, JSON-LD @id)
@@ -73,6 +75,23 @@ const config: Config = {
       };
     },
   ],
+  themeConfig: {
+    // ponytail: programmatic placeholder card, generated from the existing logo and brand
+    // colours. Replace it with a designed 1200x630 asset when the organizers have one.
+    // Docusaurus resolves this one against `url` for us.
+    image: 'img/og-card.png',
+    // These, however, are emitted verbatim, so nothing here may be a relative URL.
+    metadata: [
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: 'JSConf Brasil' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      {
+        property: 'og:image:alt',
+        content: 'JSConf Brasil, 28 NOV 2026, São Caetano do Sul, SP',
+      },
+    ],
+  } satisfies Preset.ThemeConfig,
 };
 
 export default config;
