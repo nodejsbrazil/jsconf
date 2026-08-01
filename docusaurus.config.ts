@@ -27,6 +27,31 @@ const config: Config = {
       onBrokenMarkdownLinks: 'warn',
     },
   },
+  // Fonts load from here rather than from a CSS `@import` in themes.scss. Inside the bundle the
+  // browser had to parse the whole stylesheet before it could even resolve fonts.googleapis.com,
+  // and fonts.gstatic.com only after that: three serialized round trips. Warm both up instead.
+  // Keep the families and weights in sync with $baseFontFamily / $titleFontFamily.
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;600&family=Onest:wght@700;800',
+      },
+    },
+  ],
   i18n: {
     defaultLocale: 'pt-BR',
     locales: ['pt-BR', 'en-US', 'es-419'],
