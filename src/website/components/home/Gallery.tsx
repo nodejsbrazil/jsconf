@@ -66,7 +66,7 @@ export const Gallery = () => {
   const { localePath } = useLocalePath();
 
   return (
-    <main id='gallery'>
+    <section id='gallery'>
       <div className='content'>
         <h1 className='title'>
           <Camera className='icon' /> <Text id='gallery.title' />
@@ -142,6 +142,6 @@ export const Gallery = () => {
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 };

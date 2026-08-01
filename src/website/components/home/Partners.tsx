@@ -17,7 +17,7 @@ export const Partners = () => {
   });
 
   return (
-    <main id='partners'>
+    <section id='partners'>
       <div className={show ? 'content show' : 'content'} ref={ref}>
         <p className='eyebrow'>
           <Text id='partners.eyebrow' />
@@ -68,6 +68,6 @@ export const Partners = () => {
           </SafeLink>
         </div>
       </div>
-    </main>
+    </section>
   );
 };

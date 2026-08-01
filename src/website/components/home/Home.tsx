@@ -9,7 +9,7 @@ export const Home = () => {
   const { localePath } = useLocalePath();
 
   return (
-    <main id='home'>
+    <section id='home'>
       <div className='content'>
         <BR className='br' />
         <h1 className='title'>
@@ -56,6 +56,6 @@ export const Home = () => {
           />
         </footer>
       </div>
-    </main>
+    </section>
   );
 };

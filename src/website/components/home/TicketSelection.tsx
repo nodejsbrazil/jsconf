@@ -104,7 +104,7 @@ export const TicketSelection = () => {
   });
 
   return (
-    <main id='tickets'>
+    <section id='tickets'>
       <div className='content' ref={ref}>
         <h1 className='title'>
           <Ticket className='icon' /> <Text id='tickets.title' />
@@ -114,6 +114,6 @@ export const TicketSelection = () => {
         </small>
         <TicketCard />
       </div>
-    </main>
+    </section>
   );
 };

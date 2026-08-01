@@ -12,7 +12,7 @@ export const Location = () => {
   });
 
   return (
-    <main id='location'>
+    <section id='location'>
       <div className='content' ref={ref}>
         <h1 className='title'>
           <MapPin className='icon' /> <Text id='location.title' />
@@ -46,6 +46,6 @@ export const Location = () => {
           </div>
         </section>
       </div>
-    </main>
+    </section>
   );
 };

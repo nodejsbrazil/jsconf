@@ -28,13 +28,15 @@
     margin-bottom: 0;
   }
 
+  // Landing sections are plain <section>s: the single <main> landmark belongs to
+  // the Docusaurus Layout. Content pages opt out through .page-content.
   &,
-  & > main {
+  & > section:not(.page-content) {
     @include flex(column, center, center);
     width: 100%;
   }
 
-  & > main {
+  & > section:not(.page-content) {
     @include base;
 
     &[id] {

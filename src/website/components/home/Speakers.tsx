@@ -11,7 +11,7 @@ export const Speakers = () => {
   });
 
   return (
-    <main id='speakers'>
+    <section id='speakers'>
       <div className='content' ref={ref}>
         <h1 className='title'>
           <MicVocal className='icon' /> <Text id='speakers.title' />
@@ -29,6 +29,6 @@ export const Speakers = () => {
           </p>
         </section>
       </div>
-    </main>
+    </section>
   );
 };
