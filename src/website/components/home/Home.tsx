@@ -12,17 +12,25 @@ export const Home = () => {
     <section id='home'>
       <div className='content'>
         <BR className='br' />
+        {/*
+          The odometer keeps both letters in the DOM, so the visible markup reads
+          "Brazsil". Everything animated is hidden from the accessibility tree and
+          the canonical wordmark is carried by the visually hidden span instead.
+          The pieces stay separate elements so they remain three flex items of
+          .title, exactly like the bare text nodes they replaced.
+        */}
         <h1 className='title'>
-          JSConf{' '}
-          <span className='highlight'>
+          <span className='sr-only'>JSConf Brasil 2026</span>
+          <span aria-hidden='true'>JSConf</span>
+          <span className='highlight' aria-hidden='true'>
             Bra
             <em className='odometer'>
               <span className='letter'>z</span>
               <span className='letter'>s</span>
             </em>
             il
-          </span>{' '}
-          2026
+          </span>
+          <span aria-hidden='true'>2026</span>
         </h1>
         <small className='date'>
           <CalendarDays className='icon' /> <Text id='home.date' />
