@@ -9,14 +9,20 @@ const config: Config = {
   title: 'JSConf Brasil',
   favicon: 'favicon.ico',
   baseUrl: '/',
-  url: 'https://jsconf.com.br/',
+  // Origin only, no trailing slash: everything else (canonicals, og:image, JSON-LD @id)
+  // is built by concatenating a leading-slash path onto this.
+  url: 'https://jsconf.com.br',
   trailingSlash: true,
-  onBrokenLinks: 'ignore',
+  onBrokenLinks: 'warn',
+  // Stays off: the anchor checker only knows about MDX heading anchors, so on a site whose
+  // sections are React components it flags every single `/#id` link — including ones that do
+  // render (`#home`, `#benefits`, `#location`, `#tickets` are all in the built HTML). 54 false
+  // positives per build is how people learn to stop reading build output.
   onBrokenAnchors: 'ignore',
-  onDuplicateRoutes: 'ignore',
+  onDuplicateRoutes: 'warn',
   markdown: {
     hooks: {
-      onBrokenMarkdownLinks: 'ignore',
+      onBrokenMarkdownLinks: 'warn',
     },
   },
   i18n: {
