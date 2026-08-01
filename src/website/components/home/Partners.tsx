@@ -39,7 +39,11 @@ export const Partners = () => {
                   alt={partner.name}
                   width={partner.width}
                   height={partner.height}
+                  // The rail clears the fold on a standard desktop viewport and
+                  // carries the largest images up there, so it is the LCP
+                  // candidate: never deferred, never queued behind the grids.
                   loading='eager'
+                  fetchPriority='high'
                   style={
                     { '--logo-scale': partner.scale ?? 1 } as CSSProperties
                   }

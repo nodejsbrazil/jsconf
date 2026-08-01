@@ -63,6 +63,10 @@ export const Home = () => {
             title='NodeBR'
             width={350}
             height={94}
+            // Sits inside the hero, so it is always in the first viewport: the
+            // shared wrapper's lazy default would defer an image that is already
+            // on screen.
+            loading='eager'
           />
         </footer>
       </div>
