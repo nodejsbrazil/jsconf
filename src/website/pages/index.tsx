@@ -10,7 +10,10 @@ import { text } from '../components/shared/i18n';
 import { Page } from '../components/shared/Page';
 
 export default () => (
-  <Page description={text({ id: 'home.pageDescription' })}>
+  <Page
+    title={text({ id: 'home.pageTitle' })}
+    description={text({ id: 'home.pageDescription' })}
+  >
     <Home />
     <Partners />
     <Benefits />

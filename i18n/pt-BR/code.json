@@ -53,8 +53,11 @@
   "footer.copyright": {
     "message": "© 2026 JSConf Brasil. Realização"
   },
+  "home.pageTitle": {
+    "message": "A maior conferência de JavaScript do mundo, no Brasil"
+  },
   "home.pageDescription": {
-    "message": "A maior conferência de JavaScript do Brasil está de volta!"
+    "message": "A primeira JSConf Brasil acontece em 28 de novembro de 2026, na USCS, em São Caetano do Sul. Um dia inteiro de palestras sobre JavaScript, feito com a comunidade."
   },
   "home.date": {
     "message": "28 de novembro, 2026 • São Paulo"
@@ -378,7 +381,7 @@
     "message": "Código de Conduta"
   },
   "coc.pageDescription": {
-    "message": "Código de Conduta da JSConf Brasil"
+    "message": "O Código de Conduta da JSConf Brasil: o que esperamos de quem participa, o que não toleramos e como relatar um incidente durante o evento."
   },
   "home.waitlist.heading": {
     "message": "Fique por dentro de todas as novidades"
