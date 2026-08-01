@@ -74,9 +74,9 @@ export const Waitlist = () => {
             title={text({ id: 'navbar.aria.logo' })}
           />
         </div>
-        <h1 className='title'>
+        <h2 className='title'>
           <Text id='home.waitlist.heading' />
-        </h1>
+        </h2>
         <p className='subtitle'>
           <Text id='home.waitlist.subheading' />
         </p>

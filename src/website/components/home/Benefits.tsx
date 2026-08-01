@@ -47,9 +47,9 @@ export const Benefits = () => {
   return (
     <section id='benefits'>
       <div className='content'>
-        <h1 className='title'>
+        <h2 className='title'>
           <Text id='benefits.title' />
-        </h1>
+        </h2>
         <Cards items={benefits} />
       </div>
     </section>

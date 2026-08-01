@@ -106,9 +106,9 @@ export const TicketSelection = () => {
   return (
     <section id='tickets'>
       <div className='content' ref={ref}>
-        <h1 className='title'>
+        <h2 className='title'>
           <Ticket className='icon' /> <Text id='tickets.title' />
-        </h1>
+        </h2>
         <small className='subtitle'>
           <Text id='tickets.subtitle' />
         </small>

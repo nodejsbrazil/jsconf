@@ -68,9 +68,9 @@ export const Gallery = () => {
   return (
     <section id='gallery'>
       <div className='content'>
-        <h1 className='title'>
+        <h2 className='title'>
           <Camera className='icon' /> <Text id='gallery.title' />
-        </h1>
+        </h2>
         <div className='bento-grid'>
           {/* Row 1: text | photo (span 2) | text */}
           <TextCard
@@ -122,9 +122,9 @@ export const Gallery = () => {
             alt={text({ id: 'gallery.photo.meetupFull' })}
           />
         </div>
-        <h1 className='title'>
+        <h2 className='title'>
           <Mic className='icon' /> <Text id='gallery.c4pGuide.heading' />
-        </h1>
+        </h2>
         <div className='c4p-cta'>
           <div className='c4p-cta-content'>
             <FileText className='c4p-cta-icon' />
