@@ -66,7 +66,7 @@ export const Waitlist = () => {
   };
 
   return (
-    <main id='waitlist'>
+    <section id='waitlist' className='landing-section'>
       <div ref={ref} className='content'>
         <div className='logo'>
           <Logo
@@ -74,9 +74,9 @@ export const Waitlist = () => {
             title={text({ id: 'navbar.aria.logo' })}
           />
         </div>
-        <h1 className='title'>
+        <h2 className='title'>
           <Text id='home.waitlist.heading' />
-        </h1>
+        </h2>
         <p className='subtitle'>
           <Text id='home.waitlist.subheading' />
         </p>
@@ -112,6 +112,6 @@ export const Waitlist = () => {
           </button>
         </form>
       </div>
-    </main>
+    </section>
   );
 };

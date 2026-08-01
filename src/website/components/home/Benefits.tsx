@@ -45,13 +45,13 @@ const benefits: CardProps[] = [
 
 export const Benefits = () => {
   return (
-    <main id='benefits'>
+    <section id='benefits' className='landing-section'>
       <div className='content'>
-        <h1 className='title'>
+        <h2 className='title'>
           <Text id='benefits.title' />
-        </h1>
+        </h2>
         <Cards items={benefits} />
       </div>
-    </main>
+    </section>
   );
 };

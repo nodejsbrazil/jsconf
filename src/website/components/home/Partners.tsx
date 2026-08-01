@@ -17,7 +17,7 @@ export const Partners = () => {
   });
 
   return (
-    <main id='partners'>
+    <section id='partners' className='landing-section'>
       <div className={show ? 'content show' : 'content'} ref={ref}>
         <p className='eyebrow'>
           <Text id='partners.eyebrow' />
@@ -37,7 +37,13 @@ export const Partners = () => {
                   className='logo'
                   src={partner.logo}
                   alt={partner.name}
+                  width={partner.width}
+                  height={partner.height}
+                  // The rail clears the fold on a standard desktop viewport and
+                  // carries the largest images up there, so it is the LCP
+                  // candidate: never deferred, never queued behind the grids.
                   loading='eager'
+                  fetchPriority='high'
                   style={
                     { '--logo-scale': partner.scale ?? 1 } as CSSProperties
                   }
@@ -68,6 +74,6 @@ export const Partners = () => {
           </SafeLink>
         </div>
       </div>
-    </main>
+    </section>
   );
 };

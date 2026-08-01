@@ -12,11 +12,11 @@ export const Location = () => {
   });
 
   return (
-    <main id='location'>
+    <section id='location' className='landing-section'>
       <div className='content' ref={ref}>
-        <h1 className='title'>
+        <h2 className='title'>
           <MapPin className='icon' /> <Text id='location.title' />
-        </h1>
+        </h2>
         <small className='subtitle'>
           <Text id='location.subtitle' />
         </small>
@@ -26,10 +26,12 @@ export const Location = () => {
               className='image'
               src='/img/venue.webp'
               alt={text({ id: 'location.venue.imgAlt' })}
+              width={1024}
+              height={682}
             />
           </div>
           <div className='venue-info'>
-            <h2 className='venue-name'>USCS</h2>
+            <h3 className='venue-name'>USCS</h3>
             <p className='venue-address'>
               <Text id='location.venue.address' />
             </p>
@@ -46,6 +48,6 @@ export const Location = () => {
           </div>
         </section>
       </div>
-    </main>
+    </section>
   );
 };

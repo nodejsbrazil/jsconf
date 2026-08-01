@@ -9,20 +9,28 @@ export const Home = () => {
   const { localePath } = useLocalePath();
 
   return (
-    <main id='home'>
+    <section id='home' className='landing-section'>
       <div className='content'>
         <BR className='br' />
+        {/*
+          The odometer keeps both letters in the DOM, so the visible markup reads
+          "Brazsil". Everything animated is hidden from the accessibility tree and
+          the canonical wordmark is carried by the visually hidden span instead.
+          The pieces stay separate elements so they remain three flex items of
+          .title, exactly like the bare text nodes they replaced.
+        */}
         <h1 className='title'>
-          JSConf{' '}
-          <span className='highlight'>
+          <span className='sr-only'>JSConf Brasil 2026</span>
+          <span aria-hidden='true'>JSConf</span>
+          <span className='highlight' aria-hidden='true'>
             Bra
             <em className='odometer'>
               <span className='letter'>z</span>
               <span className='letter'>s</span>
             </em>
             il
-          </span>{' '}
-          2026
+          </span>
+          <span aria-hidden='true'>2026</span>
         </h1>
         <small className='date'>
           <CalendarDays className='icon' /> <Text id='home.date' />
@@ -53,9 +61,15 @@ export const Home = () => {
             src='/img/logotype.png'
             alt={text({ id: 'home.credits.logoAlt' })}
             title='NodeBR'
+            width={350}
+            height={94}
+            // Sits inside the hero, so it is always in the first viewport: the
+            // shared wrapper's lazy default would defer an image that is already
+            // on screen.
+            loading='eager'
           />
         </footer>
       </div>
-    </main>
+    </section>
   );
 };

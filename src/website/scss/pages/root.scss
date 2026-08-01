@@ -28,13 +28,17 @@
     margin-bottom: 0;
   }
 
+  // Landing sections are matched by class, not by tag: a page that is one single
+  // section marks it up as the <main> itself, while a page made of several stacks
+  // them inside one <main>. Both stack full-width, and so does the wrapper.
   &,
-  & > main {
+  & > main,
+  .landing-section {
     @include flex(column, center, center);
     width: 100%;
   }
 
-  & > main {
+  .landing-section {
     @include base;
 
     &[id] {

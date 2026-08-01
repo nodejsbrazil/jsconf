@@ -104,16 +104,16 @@ export const TicketSelection = () => {
   });
 
   return (
-    <main id='tickets'>
+    <section id='tickets' className='landing-section'>
       <div className='content' ref={ref}>
-        <h1 className='title'>
+        <h2 className='title'>
           <Ticket className='icon' /> <Text id='tickets.title' />
-        </h1>
+        </h2>
         <small className='subtitle'>
           <Text id='tickets.subtitle' />
         </small>
         <TicketCard />
       </div>
-    </main>
+    </section>
   );
 };

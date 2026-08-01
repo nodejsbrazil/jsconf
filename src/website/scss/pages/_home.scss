@@ -166,6 +166,9 @@
 
         .logo {
           height: 3.2rem;
+          // The width/height attributes reserve the box; the cap is on the height,
+          // so the width has to go back to the intrinsic ratio.
+          width: auto;
           pointer-events: none;
           filter: drop-shadow(0 0 2.5rem rgba(0, 0, 0, 0.75));
         }
