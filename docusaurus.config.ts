@@ -57,6 +57,11 @@ const config: Config = {
         theme: {
           customCss: ['./src/website/scss/themes.scss'],
         },
+        sitemap: {
+          // Both are `noindex` shells that fill themselves in client-side; listing them in a
+          // sitemap only asks crawlers to spend budget on pages we are telling them to drop.
+          ignorePatterns: ['**/vote/**', '**/account/**'],
+        },
       } satisfies Preset.Options,
     ],
   ],
