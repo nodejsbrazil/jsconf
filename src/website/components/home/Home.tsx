@@ -9,7 +9,7 @@ export const Home = () => {
   const { localePath } = useLocalePath();
 
   return (
-    <section id='home'>
+    <section id='home' className='landing-section'>
       <div className='content'>
         <BR className='br' />
         {/*

@@ -28,15 +28,17 @@
     margin-bottom: 0;
   }
 
-  // Landing sections are plain <section>s: the single <main> landmark belongs to
-  // the Docusaurus Layout. Content pages opt out through .page-content.
+  // Landing sections are matched by class, not by tag: a page that is one single
+  // section marks it up as the <main> itself, while a page made of several stacks
+  // them inside one <main>. Both stack full-width, and so does the wrapper.
   &,
-  & > section:not(.page-content) {
+  & > main,
+  .landing-section {
     @include flex(column, center, center);
     width: 100%;
   }
 
-  & > section:not(.page-content) {
+  .landing-section {
     @include base;
 
     &[id] {

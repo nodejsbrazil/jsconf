@@ -45,7 +45,7 @@ const benefits: CardProps[] = [
 
 export const Benefits = () => {
   return (
-    <section id='benefits'>
+    <section id='benefits' className='landing-section'>
       <div className='content'>
         <h2 className='title'>
           <Text id='benefits.title' />

@@ -11,13 +11,15 @@ import { Page } from '../components/shared/Page';
 
 export default () => (
   <Page description={text({ id: 'home.pageDescription' })}>
-    <Home />
-    <Partners />
-    <Benefits />
-    <Gallery />
-    {/* <Speakers /> */}
-    <TicketSelection />
-    <Waitlist />
-    <Location />
+    <main>
+      <Home />
+      <Partners />
+      <Benefits />
+      <Gallery />
+      {/* <Speakers /> */}
+      <TicketSelection />
+      <Waitlist />
+      <Location />
+    </main>
   </Page>
 );

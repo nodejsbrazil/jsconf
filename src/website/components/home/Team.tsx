@@ -13,7 +13,7 @@ export const Team = () => {
   });
 
   return (
-    <section id='team'>
+    <main id='team' className='landing-section'>
       <div className={show ? 'content show' : 'content'} ref={ref}>
         <h1 className='title'>
           <Boxes className='icon' /> <Text id='team.title' />
@@ -113,6 +113,6 @@ export const Team = () => {
           />
         </section>
       </div>
-    </section>
+    </main>
   );
 };

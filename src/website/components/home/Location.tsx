@@ -12,7 +12,7 @@ export const Location = () => {
   });
 
   return (
-    <section id='location'>
+    <section id='location' className='landing-section'>
       <div className='content' ref={ref}>
         <h2 className='title'>
           <MapPin className='icon' /> <Text id='location.title' />

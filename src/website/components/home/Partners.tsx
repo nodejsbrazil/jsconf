@@ -17,7 +17,7 @@ export const Partners = () => {
   });
 
   return (
-    <section id='partners'>
+    <section id='partners' className='landing-section'>
       <div className={show ? 'content show' : 'content'} ref={ref}>
         <p className='eyebrow'>
           <Text id='partners.eyebrow' />

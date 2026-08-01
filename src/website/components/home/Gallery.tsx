@@ -74,7 +74,7 @@ export const Gallery = () => {
   const { localePath } = useLocalePath();
 
   return (
-    <section id='gallery'>
+    <section id='gallery' className='landing-section'>
       <div className='content'>
         <h2 className='title'>
           <Camera className='icon' /> <Text id='gallery.title' />

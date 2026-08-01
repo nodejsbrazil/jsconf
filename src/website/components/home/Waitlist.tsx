@@ -66,7 +66,7 @@ export const Waitlist = () => {
   };
 
   return (
-    <section id='waitlist'>
+    <section id='waitlist' className='landing-section'>
       <div ref={ref} className='content'>
         <div className='logo'>
           <Logo
