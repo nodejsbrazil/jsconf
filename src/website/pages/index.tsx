@@ -6,6 +6,7 @@ import { Partners } from '../components/home/Partners';
 // import { Speakers } from '../components/home/Speakers';
 import { TicketSelection } from '../components/home/TicketSelection';
 import { Waitlist } from '../components/home/Waitlist';
+import { EventSchema } from '../components/shared/EventSchema';
 import { text } from '../components/shared/i18n';
 import { Page } from '../components/shared/Page';
 
@@ -14,6 +15,7 @@ export default () => (
     title={text({ id: 'home.pageTitle' })}
     description={text({ id: 'home.pageDescription' })}
   >
+    <EventSchema />
     <Home />
     <Partners />
     <Benefits />
