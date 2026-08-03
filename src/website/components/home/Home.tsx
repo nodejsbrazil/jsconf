@@ -63,6 +63,10 @@ export const Home = () => {
             title='NodeBR'
             width={350}
             height={94}
+            // `scss/pages/_home.scss` pins `.credits .logo` to `height: 3.2rem`
+            // with `width: auto`, so the box is 32px x 350/94 ≈ 119px at every
+            // viewport. One fixed length, rounded up to the next whole rem.
+            sizes='12rem'
             // Sits inside the hero, so it is always in the first viewport: the
             // shared wrapper's lazy default would defer an image that is already
             // on screen.
