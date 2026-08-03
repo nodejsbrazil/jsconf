@@ -1,0 +1,82 @@
+// Self-hosted Google Fonts: same two families, same weights, same subsets the
+// fonts.googleapis.com stylesheet used to serve. What is gone is the third party — a
+// render-blocking cross-origin stylesheet plus two extra DNS+TLS handshakes sat between the
+// first byte of HTML and the first glyph, and no amount of `preconnect` makes that free.
+//
+// These are the variable builds Google itself serves, so one file covers a whole weight
+// range: that is why Noto Sans 400/500/600 and Onest 700/800 are four rules and not ten.
+// `font-stretch: 100%` pins Noto Sans' width axis exactly like the upstream CSS does.
+//
+// Only latin and latin-ext are shipped (no cyrillic, greek, devanagari or vietnamese — no
+// locale here has content in them). `unicode-range` is copied verbatim from the Google CSS,
+// including the upstream latin-ext-before-latin order: the two overlap on the combining
+// marks U+0304/U+0308/U+0329 and the later rule wins, so the order is load-bearing.
+// Portuguese and Spanish accents (ã in "São", ê in "conferência", á in "más") all live in
+// latin's U+0000-00FF; latin-ext stays lazily fetched behind its own range.
+//
+// The files sit in the static directory, so these URLs are also the deployed paths and match
+// the `preload` hints in docusaurus.config.ts. Both families are OFL 1.1, license text next
+// to the binaries in assets/fonts/.
+//
+// The `webpackIgnore` markers are the price of that stability: Docusaurus resolves
+// root-relative url()s against the static directory and re-emits them under /assets/fonts/
+// with a content hash, so the CSS would point at a filename no `preload` in the config could
+// name, and every font would ship twice. The marker tells css-loader to leave the URL alone.
+// Two details are load-bearing: it has to be its own comment above the declaration (Dart Sass
+// deletes comments written inside url()), and it has to be a `/*!` comment, because sass-loader
+// compiles with `style: compressed` in production and that drops every other comment before
+// css-loader ever sees it.
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400 600;
+  font-stretch: 100%;
+  font-display: swap;
+  /*! webpackIgnore: true */
+  src: url('/fonts/noto-sans-v42-latin-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400 600;
+  font-stretch: 100%;
+  font-display: swap;
+  /*! webpackIgnore: true */
+  src: url('/fonts/noto-sans-v42-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 700 800;
+  font-display: swap;
+  /*! webpackIgnore: true */
+  src: url('/fonts/onest-v9-latin-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 700 800;
+  font-display: swap;
+  /*! webpackIgnore: true */
+  src: url('/fonts/onest-v9-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}

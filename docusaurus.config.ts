@@ -27,10 +27,14 @@ const config: Config = {
       onBrokenMarkdownLinks: 'warn',
     },
   },
-  // Fonts load from here rather than from a CSS `@import` in themes.scss. Inside the bundle the
-  // browser had to parse the whole stylesheet before it could even resolve fonts.googleapis.com,
-  // and fonts.gstatic.com only after that: three serialized round trips. Warm both up instead.
-  // Keep the families and weights in sync with $baseFontFamily / $titleFontFamily.
+  // The fonts are self-hosted (scss/global/_fonts.scss), so nothing here talks to
+  // fonts.googleapis.com any more. What is left is a preload for the two files first paint
+  // actually needs — body regular and the title weight, latin subset. The @font-face rules
+  // live inside the render-blocking bundle, so without these the browser cannot even ask for
+  // a glyph until the CSS is parsed. latin-ext is deliberately not preloaded: its
+  // `unicode-range` means it is only fetched when a page really uses those codepoints.
+  // `crossorigin` is not optional even same-origin — fonts are always fetched in CORS mode,
+  // and a preload without it is a second, wasted request.
   headTags: [
     {
       tagName: 'link',
@@ -46,21 +50,22 @@ const config: Config = {
     },
     {
       tagName: 'link',
-      attributes: { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-    },
-    {
-      tagName: 'link',
       attributes: {
-        rel: 'preconnect',
-        href: 'https://fonts.gstatic.com',
+        rel: 'preload',
+        href: '/fonts/noto-sans-v42-latin.woff2',
+        as: 'font',
+        type: 'font/woff2',
         crossorigin: 'anonymous',
       },
     },
     {
       tagName: 'link',
       attributes: {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;600&family=Onest:wght@700;800',
+        rel: 'preload',
+        href: '/fonts/onest-v9-latin.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'anonymous',
       },
     },
   ],

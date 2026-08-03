@@ -1,8 +1,6 @@
 @use 'sass:meta' as *;
 
-// Google Fonts. The stylesheet itself is requested from `headTags` in docusaurus.config.ts:
-// as a CSS `@import` it was buried in the render-blocking bundle, so the browser could not
-// discover the font host until it had already downloaded and parsed 245 KB of CSS.
+// Both families are self-hosted — see global/_fonts.scss for the @font-face rules and why.
 $baseFontFamily: 'Noto Sans';
 $titleFontFamily: 'Onest';
 
@@ -43,6 +41,7 @@ mark {
   text-shadow: none;
 }
 
+@include load-css('global/fonts');
 @include load-css('global/reset');
 @include load-css('global/animations');
 @include load-css('global/root');
