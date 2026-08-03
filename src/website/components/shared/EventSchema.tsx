@@ -24,6 +24,7 @@ export const EventSchema = () => {
         name: siteConfig.title,
         description: text({ id: 'home.pageDescription' }),
         startDate: event.startDate,
+        endDate: event.endDate,
         eventStatus: 'https://schema.org/EventScheduled',
         eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
         url: withBaseUrl('/', { absolute: true }),
@@ -47,12 +48,12 @@ export const EventSchema = () => {
             addressCountry: event.venue.country,
           },
         },
-        // No price: nothing in the repo states one, and a wrong price in a rich result is
-        // worse than a missing field.
         offers: {
           '@type': 'Offer',
           url: link.tickets,
           availability: 'https://schema.org/InStock',
+          price: event.offer.price,
+          priceCurrency: event.offer.currency,
         },
       }}
     />

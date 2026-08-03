@@ -10,6 +10,12 @@ export const link = {
 export const event = {
   /** Date with no time: the schedule is not published yet, so no start hour is claimed. */
   startDate: '2026-11-28',
+  /** Single-day event, so this matches `startDate`. Google wants it stated, not inferred. */
+  endDate: '2026-11-28',
+  offer: {
+    price: '160',
+    currency: 'BRL',
+  },
   venue: {
     shortName: 'USCS',
     locality: 'São Caetano do Sul',
