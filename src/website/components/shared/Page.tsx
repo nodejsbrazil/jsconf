@@ -82,7 +82,8 @@ export const Page = ({ title, description, noindex, children }: PageProps) => {
       <StructuredData
         graph={{ '@context': 'https://schema.org', '@graph': graph }}
       />
-      <div id='root'>{children}</div>
+      {/* Docusaurus's Layout wraps content in a plain div, so this is every route's main landmark. */}
+      <main id='root'>{children}</main>
     </Layout>
   );
 };

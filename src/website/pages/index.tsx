@@ -16,15 +16,13 @@ export default () => (
     description={text({ id: 'home.pageDescription' })}
   >
     <EventSchema />
-    <main>
-      <Home />
-      <Partners />
-      <Benefits />
-      <Gallery />
-      {/* <Speakers /> */}
-      <TicketSelection />
-      <Waitlist />
-      <Location />
-    </main>
+    <Home />
+    <Partners />
+    <Benefits />
+    <Gallery />
+    {/* <Speakers /> */}
+    <TicketSelection />
+    <Waitlist />
+    <Location />
   </Page>
 );
