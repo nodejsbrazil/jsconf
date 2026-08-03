@@ -8,8 +8,19 @@ import {
   FaYoutube,
 } from 'react-icons/fa6';
 import { text } from '@site/src/website/components/shared/i18n';
+import { Image } from '@site/src/website/components/shared/Image';
 import { SafeLink } from '@site/src/website/components/shared/SafeLink';
 import { useScroll } from '@site/src/website/hooks/useScroll';
+
+// `scss/pages/_speakers.scss`: the `.speakers` grid runs 4 columns / 3rem gap,
+// then 3 columns at 1280px, 2 columns capped at 72rem at 1080px, and 1 column
+// capped at 40rem at 780px. The widest a card ever gets is 35.5rem, in the
+// 3-column band; below 440px the single column is just the padded viewport.
+const PHOTO_SIZES = [
+  '(max-width: 440px) calc(100vw - 4rem)',
+  '(max-width: 780px) 40rem',
+  '35.5rem',
+].join(', ');
 
 type SocialLinks = {
   linkedin?: string;
@@ -22,6 +33,9 @@ type SocialLinks = {
 type MemberProps = {
   name: string;
   img: string;
+  /** Intrinsic pixel size of the photo file — the team's headshots are not uniform. */
+  imgWidth: number;
+  imgHeight: number;
   position?: string;
   company?: string;
   bio?: string;
@@ -29,7 +43,7 @@ type MemberProps = {
 };
 
 export const Person: FC<MemberProps> = memo(
-  ({ name, img, position, company, bio, social }) => {
+  ({ name, img, imgWidth, imgHeight, position, company, bio, social }) => {
     const ref = useRef<HTMLDivElement>(null);
 
     useScroll(ref, (isVisible, target) => {
@@ -39,7 +53,14 @@ export const Person: FC<MemberProps> = memo(
     return (
       <section ref={ref} className='team-detail-card'>
         <div className='team-detail-photo-wrap'>
-          <img className='team-detail-photo' src={img} alt={name} />
+          <Image
+            className='team-detail-photo'
+            src={img}
+            alt={name}
+            width={imgWidth}
+            height={imgHeight}
+            sizes={PHOTO_SIZES}
+          />
         </div>
 
         <div className='team-detail-body'>

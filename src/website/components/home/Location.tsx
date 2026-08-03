@@ -4,6 +4,16 @@ import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useScroll } from '../../hooks/useScroll';
 import { Image } from '../shared/Image';
 
+// The venue card is the full content column (`scss/pages/_location.scss`: `.venue`
+// is `width: 100%`, the photo `width: 100%`), so the slot is the section's inner
+// width: viewport less 8rem of padding per side, less 2rem per side under 630px,
+// capped by `.content { max-width: 128rem }` from 1440px up.
+const VENUE_SIZES = [
+  '(max-width: 630px) calc(100vw - 4rem)',
+  '(max-width: 1440px) calc(100vw - 16rem)',
+  '128rem',
+].join(', ');
+
 export const Location = () => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -28,6 +38,7 @@ export const Location = () => {
               alt={text({ id: 'location.venue.imgAlt' })}
               width={1024}
               height={682}
+              sizes={VENUE_SIZES}
             />
           </div>
           <div className='venue-info'>

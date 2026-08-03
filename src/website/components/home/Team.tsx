@@ -25,6 +25,8 @@ export const Team = () => {
           <Person
             name='Erick Wendel'
             img='/img/team/erick-wendel.webp'
+            imgWidth={600}
+            imgHeight={500}
             bio={text({ id: 'team.erick.bio' })}
             position={text({ id: 'team.erick.position' })}
             company='EW Academy'
@@ -39,6 +41,8 @@ export const Team = () => {
           <Person
             name='Ana Neri'
             img='/img/team/ana-neri.webp'
+            imgWidth={600}
+            imgHeight={500}
             bio={text({ id: 'team.ana.bio' })}
             position={text({ id: 'team.ana.position' })}
             company='Clutch'
@@ -53,6 +57,8 @@ export const Team = () => {
           <Person
             name='Lojhan'
             img='/img/team/lojhan.webp'
+            imgWidth={800}
+            imgHeight={800}
             bio={text({ id: 'team.lojhan.bio' })}
             position={text({ id: 'team.lojhan.position' })}
             company='lojhan.com'
@@ -66,6 +72,8 @@ export const Team = () => {
           <Person
             name='Lucas Santos'
             img='/img/team/lucas.webp'
+            imgWidth={600}
+            imgHeight={500}
             bio={text({ id: 'team.lucas.bio' })}
             position={text({ id: 'team.lucas.position' })}
             company='Hemnet'
@@ -80,6 +88,8 @@ export const Team = () => {
           <Person
             name='Micaele Magalhães'
             img='/img/team/mi.webp'
+            imgWidth={600}
+            imgHeight={500}
             bio={text({ id: 'team.micaele.bio' })}
             social={{
               instagram: 'micaele_magalhaes',
@@ -88,6 +98,8 @@ export const Team = () => {
           <Person
             name='Mônica'
             img='/img/team/monica.webp'
+            imgWidth={600}
+            imgHeight={500}
             bio={text({ id: 'team.monica.bio' })}
             position={text({ id: 'team.monica.position' })}
             company='CRMBonus'
@@ -101,6 +113,8 @@ export const Team = () => {
           <Person
             name='Cristian Magalhães'
             img='/img/team/cristian.webp'
+            imgWidth={600}
+            imgHeight={500}
             bio={text({ id: 'team.cristian.bio' })}
             position={text({ id: 'team.cristian.position' })}
             company='Monest'

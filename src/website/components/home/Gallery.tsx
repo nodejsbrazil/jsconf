@@ -26,8 +26,30 @@ type PhotoCardProps = {
   alt: string;
   width: number;
   height: number;
-  className?: string;
+  /** Takes two grid columns instead of one, which also doubles its `sizes` slot. */
+  wide?: boolean;
 };
+
+// Read straight off `scss/pages/_gallery.scss` + `scss/pages/root.scss` (1rem =
+// 10px, `:root { font-size: 62.5% }`). The grid is 4 columns / 2rem gap, drops to
+// 2 columns / 1.25rem gap at 1080px and to 1 column at 540px; the section is
+// padded 8rem per side, 2rem per side under 630px, and `.content` caps at 128rem.
+// Photo cards are `object-fit: cover`, so the slot width is what the browser has
+// to fill.
+const PHOTO_SIZES = [
+  '(max-width: 540px) calc(100vw - 4rem)',
+  '(max-width: 630px) calc(50vw - 2.6rem)',
+  '(max-width: 1080px) calc(50vw - 8.6rem)',
+  '30.5rem',
+].join(', ');
+
+// `.span-2` takes two of the four columns plus the gap between them, the whole
+// grid in the 2-column band, and collapses back to one column at 540px.
+const WIDE_PHOTO_SIZES = [
+  '(max-width: 630px) calc(100vw - 4rem)',
+  '(max-width: 1080px) calc(100vw - 16rem)',
+  '63rem',
+].join(', ');
 
 const useBentoScroll = (ref: RefObject<HTMLDivElement | null>) => {
   useScroll(ref, (isVisible, target) => {
@@ -58,14 +80,25 @@ const PhotoCard: FC<PhotoCardProps> = ({
   alt,
   width,
   height,
-  className = '',
+  wide = false,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   useBentoScroll(ref);
 
   return (
-    <div className={`bento-item photo-card ${className}`} ref={ref}>
-      <Image src={src} alt={alt} width={width} height={height} />
+    <div
+      className={
+        wide ? 'bento-item photo-card span-2' : 'bento-item photo-card'
+      }
+      ref={ref}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        sizes={wide ? WIDE_PHOTO_SIZES : PHOTO_SIZES}
+      />
     </div>
   );
 };
@@ -91,7 +124,7 @@ export const Gallery = () => {
             alt={text({ id: 'gallery.photo.groupPhoto' })}
             width={1024}
             height={768}
-            className='span-2'
+            wide
           />
           <TextCard
             icon={<Handshake />}
@@ -133,7 +166,7 @@ export const Gallery = () => {
             alt={text({ id: 'gallery.photo.selfieGroup' })}
             width={1024}
             height={576}
-            className='span-2'
+            wide
           />
           <PhotoCard
             src='/img/community/meetup-full.webp'
