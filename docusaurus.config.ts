@@ -69,16 +69,16 @@ const config: Config = {
     locales: ['pt-BR', 'en-US', 'es-419'],
     localeConfigs: {
       'pt-BR': {
+        // No `path`: as the default locale it is served from the root, so a
+        // `path` here only implies a /pt-BR/ route that does not exist.
         label: '🇧🇷 Português',
-        path: 'pt-BR',
       },
       'en-US': {
         label: '🇺🇸 English',
         path: 'en-US',
       },
       'es-419': {
-        // 🌎 rather than 🇪🇸: es-419 is Latin American Spanish, not Spain's.
-        label: '🌎 Español',
+        label: '🇪🇸 Español',
         path: 'es-419',
       },
     },
