@@ -69,11 +69,12 @@ export const Footer = () => {
                 <Text id='navbar.section.home' />
               </Link>
             </li>
-            <li>
+            {/* Restore alongside <Speakers /> in pages/index.tsx once the lineup is announced. */}
+            {/* <li>
               <Link to={localePath('/#speakers')}>
                 <Text id='navbar.section.speakers' />
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to={localePath('/#location')}>
                 <Text id='navbar.section.location' />

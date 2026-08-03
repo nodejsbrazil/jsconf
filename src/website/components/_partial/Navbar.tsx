@@ -44,7 +44,8 @@ const SECTIONS: Section[] = [
     priority: 2,
   },
   {
-    id: 'sponsors',
+    // The homepage section is `partners`; the label stays "sponsors" because that is the CTA.
+    id: 'partners',
     label: <Text id='navbar.section.sponsors' />,
     priority: 1,
   },
