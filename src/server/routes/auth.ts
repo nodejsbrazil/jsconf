@@ -92,16 +92,24 @@ export const authLogin = async ({
   return redirect(authorizeUrl, cookies);
 };
 
-// Returns the logged-in voter's guild.host user id, for the account page. 401 when unauthenticated.
+// Returns the logged-in voter's guild.host user id, for the account page and the navbar.
+// Anonymous is a normal answer here, not an error: this runs on every page load, so a 401
+// would have every visitor's console logging a failed request. Callers branch on
+// `authenticated`, never on the status code.
 export const authMe = async ({
   request,
   env,
   cors,
 }: MeOptions): Promise<Response> => {
   const session = await getSession(request, env);
-  if (!session) return response({ error: 'Unauthorized.' }, 401, cors);
+  if (!session) return response({ authenticated: false }, 200, cors);
   return response(
-    { userId: session.userId, name: session.name, photo: session.photo },
+    {
+      authenticated: true,
+      userId: session.userId,
+      name: session.name,
+      photo: session.photo,
+    },
     200,
     cors
   );

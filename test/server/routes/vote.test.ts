@@ -124,13 +124,16 @@ describe('repositories.vote.budgetForTier', async () => {
 });
 
 describe('routes.authMe', async () => {
-  await it('returns 401 without a session', async () => {
+  // 200 rather than 401 on purpose: this runs on every page load, and a 401 puts a failed
+  // request in every anonymous visitor's console.
+  await it('reports anonymous as 200 without a session', async () => {
     const res = await routes.authMe({
       request: new Request('http://localhost/api/vote/me'),
       cors,
       env: makeEnv(),
     });
-    assert.equal(res.status, 401);
+    assert.equal(res.status, 200);
+    assert.deepEqual(await res.json(), { authenticated: false });
   });
 
   await it('returns the user id from the session (dev header)', async () => {
@@ -142,7 +145,10 @@ describe('routes.authMe', async () => {
       env: makeEnv(),
     });
     assert.equal(res.status, 200);
-    assert.deepEqual(await res.json(), { userId: 'user-1' });
+    assert.deepEqual(await res.json(), {
+      authenticated: true,
+      userId: 'user-1',
+    });
   });
 });
 

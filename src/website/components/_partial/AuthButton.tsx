@@ -8,6 +8,7 @@ import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 // /api/vote/me returns the session identity. name/photo come from the guild userinfo; when absent
 // we fall back to the userId + a generic icon.
 type Me = { userId: string; name?: string; photo?: string };
+type MeResponse = ({ authenticated: true } & Me) | { authenticated: false };
 
 export const AuthButton = () => {
   const { siteConfig } = useDocusaurusContext();
@@ -22,8 +23,9 @@ export const AuthButton = () => {
   useEffect(() => {
     if (!workerDomain) return;
     fetch(`${workerDomain}/api/vote/me`, { credentials: 'include' })
-      .then((res) => (res.ok ? (res.json() as Promise<Me>) : null))
-      .then(setMe)
+      .then((res) => (res.ok ? (res.json() as Promise<MeResponse>) : null))
+      // Anonymous comes back as 200 { authenticated: false }, so branch on the flag.
+      .then((body) => setMe(body?.authenticated ? body : null))
       .catch(() => setMe(null));
   }, [workerDomain]);
 

@@ -20,9 +20,12 @@ const Account = () => {
     if (!workerDomain) return setStatus('error');
     fetch(`${workerDomain}/api/vote/me`, { credentials: 'include' })
       .then(async (res) => {
-        if (res.status === 401) return setStatus('out');
         if (!res.ok) return setStatus('error');
-        const data = (await res.json()) as { userId: string };
+        // Anonymous is 200 { authenticated: false }, so the flag decides, not the status.
+        const data = (await res.json()) as
+          | { authenticated: true; userId: string }
+          | { authenticated: false };
+        if (!data.authenticated) return setStatus('out');
         setUserId(data.userId);
         setStatus('in');
       })
