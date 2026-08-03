@@ -8,7 +8,7 @@ try {
 const config: Config = {
   title: 'JSConf Brasil',
   tagline:
-    'A maior conferência de JavaScript do mundo chega ao Brasil: 28 de novembro de 2026, em São Caetano do Sul, SP',
+    'A maior conferência de JavaScript do Brasil: 28 de novembro de 2026, em São Caetano do Sul, SP',
   favicon: 'favicon.ico',
   baseUrl: '/',
   // Origin only, no trailing slash: everything else (canonicals, og:image, JSON-LD @id)
