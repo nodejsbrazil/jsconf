@@ -13,10 +13,10 @@ export const Footer = () => {
     <footer className='main-footer'>
       <div className='content'>
         <aside className='about'>
-          <h2 className='title'>
+          <div className='title'>
             <Logo className='logo' aria-hidden /> JSConf{' '}
             <span className='highlight'>Brasil</span>
-          </h2>
+          </div>
           <p className='description'>
             <Text id='footer.description' />
           </p>

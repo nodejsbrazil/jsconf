@@ -190,10 +190,10 @@ export const Navbar = () => {
             title={text({ id: 'navbar.aria.logo' })}
           />
           <div className='group'>
-            <h2 className='title'>
+            <div className='title'>
               JSConf <span className='highlight'>Brasil</span>{' '}
               <strong className='badge'>2026</strong>
-            </h2>
+            </div>
             <small className='date'>
               <Text id='navbar.date' />
               <span className='location'> • São Paulo</span>
@@ -275,9 +275,9 @@ export const Navbar = () => {
           <Link className='brand' to={localePath('/')} onClick={closeMenu}>
             <Logo className='logo' />
             <div className='group'>
-              <h2 className='title'>
+              <div className='title'>
                 JSConf <span className='highlight'>Brasil</span>
-              </h2>
+              </div>
               <small className='date'>
                 <Text id='navbar.date' />
               </small>

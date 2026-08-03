@@ -7,6 +7,8 @@
     @include flex(row, center, flex-start);
     gap: 0.55rem;
     margin: 0;
+    // Branding is not a heading; this carries the weight the old <h2> supplied.
+    font-weight: var(--ifm-heading-font-weight);
     font-family: var(--ifm-font-family-title);
     font-size: 2.6rem;
     letter-spacing: -0.1rem;
