@@ -34,6 +34,18 @@ const config: Config = {
   headTags: [
     {
       tagName: 'link',
+      attributes: {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/img/apple-touch-icon.png',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: { rel: 'manifest', href: '/manifest.webmanifest' },
+    },
+    {
+      tagName: 'link',
       attributes: { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     },
     {
@@ -65,7 +77,8 @@ const config: Config = {
         path: 'en-US',
       },
       'es-419': {
-        label: '🇪🇸 Español',
+        // 🌎 rather than 🇪🇸: es-419 is Latin American Spanish, not Spain's.
+        label: '🌎 Español',
         path: 'es-419',
       },
     },
