@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Docusaurus writes one sitemap per locale and crawlers only auto-discover the root one,
+# which leaves two thirds of the URLs with no discovery path. All three are listed here.
+#
+# Nothing is disallowed on purpose: /vote/ and /account/ are kept out of the index with a
+# `noindex` meta tag, and a Disallow would stop crawlers from ever fetching the page to see it.
+Sitemap: https://jsconf.com.br/sitemap.xml
+Sitemap: https://jsconf.com.br/en-US/sitemap.xml
+Sitemap: https://jsconf.com.br/es-419/sitemap.xml
