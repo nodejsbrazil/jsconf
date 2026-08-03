@@ -12,10 +12,6 @@ export const event = {
   startDate: '2026-11-28',
   /** Single-day event, so this matches `startDate`. Google wants it stated, not inferred. */
   endDate: '2026-11-28',
-  offer: {
-    price: '160',
-    currency: 'BRL',
-  },
   venue: {
     shortName: 'USCS',
     locality: 'São Caetano do Sul',

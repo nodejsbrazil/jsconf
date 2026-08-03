@@ -48,12 +48,12 @@ export const EventSchema = () => {
             addressCountry: event.venue.country,
           },
         },
+        // No price while the tiers are still being decided. Once they exist, this wants to be
+        // an AggregateOffer with lowPrice/highPrice rather than a single Offer.
         offers: {
           '@type': 'Offer',
           url: link.tickets,
           availability: 'https://schema.org/InStock',
-          price: event.offer.price,
-          priceCurrency: event.offer.currency,
         },
       }}
     />
