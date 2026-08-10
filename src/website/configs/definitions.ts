@@ -43,7 +43,7 @@ export const partners: Partner[] = [
     // Compact logotype (1.9:1) — fills the height cap long before the others.
     name: 'Salvy',
     logo: '/img/partners/salvy.webp',
-    url: 'https://salvy.com.br/',
+    url: 'https://salvy.com.br/?utm_source=jsconf_2026&utm_medium=banner-site&utm_campaign=evebti&utm_term=banner&utm_content=',
     width: 390,
     height: 208,
     scale: 0.95,
