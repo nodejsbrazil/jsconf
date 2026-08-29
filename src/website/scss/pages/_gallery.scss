@@ -136,65 +136,6 @@
           }
         }
       }
-
-      .c4p-cta {
-        width: 100%;
-        border-radius: 2rem;
-        border: 0.1rem solid #022514;
-        background-color: #021509b3;
-        padding: 2.5rem 3rem;
-
-        .c4p-cta-content {
-          @include flex(row, center, space-between);
-          gap: 2.5rem;
-          flex-wrap: wrap;
-
-          @media (max-width: 780px) {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-        }
-
-        .c4p-cta-icon {
-          width: 3rem;
-          height: 3rem;
-          stroke: var(--ifm-color-primary-darker);
-          flex-shrink: 0;
-        }
-
-        .c4p-cta-title {
-          font-family: var(--ifm-font-family-title);
-          font-size: 1.8rem;
-          font-weight: 800;
-          color: #fff;
-          margin: 0 0 0.6rem;
-        }
-
-        .c4p-cta-description {
-          font-size: 1.3rem;
-          font-weight: 500;
-          line-height: 1.6;
-          opacity: 0.75;
-          margin: 0;
-        }
-
-        .c4p-cta-link {
-          flex-shrink: 0;
-          padding: 1rem 2.2rem;
-          border-radius: 10rem;
-          background-color: var(--ifm-color-primary);
-          color: #000;
-          font-size: 1.4rem;
-          font-weight: 700;
-          text-decoration: none;
-          transition: opacity 0.2s ease;
-
-          &:hover {
-            opacity: 0.85;
-            text-decoration: none;
-          }
-        }
-      }
     }
   }
 }

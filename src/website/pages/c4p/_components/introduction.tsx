@@ -1,20 +1,8 @@
-import { ArrowRight } from 'lucide-react';
-import { toast } from 'sonner';
-import { Text, text } from '@site/src/website/components/shared/i18n';
+import { Text } from '@site/src/website/components/shared/i18n';
 import * as styles from '../_styles';
-import { topics, useC4P } from '../../../contexts/c4p';
+import { topics } from '../../../contexts/c4p';
 
 export const Introduction = () => {
-  const { goToStep } = useC4P();
-
-  const handleContinue = () => {
-    toast.success(text({ id: 'c4p.intro.toastTitle' }), {
-      description: text({ id: 'c4p.intro.toastDesc' }),
-    });
-
-    goToStep(2);
-  };
-
   return (
     <>
       <section className={styles.section}>
@@ -96,17 +84,6 @@ export const Introduction = () => {
           ))}
         </ul>
       </section>
-
-      <button
-        type='button'
-        className={styles.submitButton}
-        onClick={handleContinue}
-      >
-        <span>
-          <Text id='c4p.action.continue' />
-        </span>
-        <ArrowRight className={styles.submitIcon} aria-hidden />
-      </button>
     </>
   );
 };

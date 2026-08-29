@@ -122,18 +122,6 @@
   "gallery.community.description": {
     "message": "Organizamos meetups y eventos conectando desarrolladores Node.js en todo Brasil."
   },
-  "gallery.c4pGuide.heading": {
-    "message": "¡Envía tu charla!"
-  },
-  "gallery.c4pGuide.title": {
-    "message": "Guía de Call 4 Papers"
-  },
-  "gallery.c4pGuide.description": {
-    "message": "¿Quieres enviar una charla? Consulta la guía completa con criterios, consejos y fechas."
-  },
-  "gallery.c4pGuide.cta": {
-    "message": "Ver guía"
-  },
   "gallery.networking.title": {
     "message": "Networking"
   },
@@ -515,6 +503,15 @@
   "c4p.pageDescription": {
     "message": "Envía tu propuesta de charla para JSConf Brasil 2026."
   },
+  "c4p.closed.heading": {
+    "message": "Inscripciones cerradas"
+  },
+  "c4p.closed.subheading": {
+    "message": "El período de envío de propuestas para el Call for Papers de JSConf Brasil 2026 ha finalizado."
+  },
+  "c4p.closed.status": {
+    "message": "Gracias a todos los que enviaron su propuesta! Pronto anunciaremos las charlas seleccionadas."
+  },
   "c4p.action.back": {
     "message": "Volver"
   },
@@ -604,12 +601,6 @@
   },
   "c4p.submit.error": {
     "message": "Error al enviar la propuesta. Inténtalo de nuevo."
-  },
-  "c4p.intro.toastTitle": {
-    "message": "Tus datos se guardan en el navegador."
-  },
-  "c4p.intro.toastDesc": {
-    "message": "Puedes continuar donde lo dejaste en cualquier momento."
   },
   "c4p.intro.heading1": {
     "message": "¿Quieres dar una charla en la JSConf Brasil de este año?"

@@ -122,18 +122,6 @@
   "gallery.community.description": {
     "message": "Organizamos meetups e eventos conectando desenvolvedores Node.js por todo o Brasil."
   },
-  "gallery.c4pGuide.heading": {
-    "message": "Mande sua palestra!"
-  },
-  "gallery.c4pGuide.title": {
-    "message": "Guia de Call 4 Papers"
-  },
-  "gallery.c4pGuide.description": {
-    "message": "Quer submeter uma palestra? Veja o guia completo com critérios, dicas e prazos."
-  },
-  "gallery.c4pGuide.cta": {
-    "message": "Acessar guia"
-  },
   "gallery.networking.title": {
     "message": "Networking"
   },
@@ -515,6 +503,15 @@
   "c4p.pageDescription": {
     "message": "Envie sua proposta de palestra para a JSConf Brasil 2026."
   },
+  "c4p.closed.heading": {
+    "message": "Inscrições encerradas"
+  },
+  "c4p.closed.subheading": {
+    "message": "O período de envio de propostas para o Call for Papers da JSConf Brasil 2026 foi encerrado."
+  },
+  "c4p.closed.status": {
+    "message": "Obrigado a todos que enviaram suas propostas! Em breve anunciaremos a grade de palestras selecionadas."
+  },
   "c4p.action.back": {
     "message": "Voltar"
   },
@@ -604,12 +601,6 @@
   },
   "c4p.submit.error": {
     "message": "Erro ao enviar proposta. Tente novamente."
-  },
-  "c4p.intro.toastTitle": {
-    "message": "Seus dados ficam salvos no navegador."
-  },
-  "c4p.intro.toastDesc": {
-    "message": "Você pode continuar de onde parou a qualquer momento."
   },
   "c4p.intro.heading1": {
     "message": "Quer palestrar na JSConf Brasil deste ano?"
