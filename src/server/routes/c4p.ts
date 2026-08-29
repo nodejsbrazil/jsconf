@@ -1,4 +1,5 @@
 import type { Database } from '../types.js';
+import { isC4pOpen } from '../configs/c4p.js';
 import { parseRequest } from '../helpers/request.js';
 import { response } from '../helpers/response.js';
 import { c4p as repository } from '../repositories/c4p.js';
@@ -25,6 +26,8 @@ export const c4p = async ({
   // Bot Honeypot
   if (parsed.data.confirm_email.length > 0)
     return response({ success: true }, 201, cors);
+
+  if (!isC4pOpen()) return response({ error: 'C4P closed.' }, 403, cors);
 
   const result = await submit(parsed.data, ip);
 

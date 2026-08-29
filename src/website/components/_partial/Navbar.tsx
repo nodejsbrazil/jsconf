@@ -213,9 +213,6 @@ export const Navbar = () => {
               </Link>
             )
           )}
-          <Link to={localePath('/c4p')} data-priority={1}>
-            C4P
-          </Link>
           <Link to={localePath('/team')} data-priority={1}>
             <Text id='navbar.section.team' />
           </Link>
@@ -302,9 +299,6 @@ export const Navbar = () => {
               {label}
             </Link>
           ))}
-          <Link to={localePath('/c4p')} onClick={closeMenu}>
-            C4P
-          </Link>
           <Link to={localePath('/team')} onClick={closeMenu}>
             <Text id='navbar.section.team' />
           </Link>

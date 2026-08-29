@@ -122,18 +122,6 @@
   "gallery.community.description": {
     "message": "We organize meetups and events connecting Node.js developers across Brazil."
   },
-  "gallery.c4pGuide.heading": {
-    "message": "Submit your talk!"
-  },
-  "gallery.c4pGuide.title": {
-    "message": "Call 4 Papers Guide"
-  },
-  "gallery.c4pGuide.description": {
-    "message": "Want to submit a talk? Read the full guide with criteria, tips, and deadlines."
-  },
-  "gallery.c4pGuide.cta": {
-    "message": "Open guide"
-  },
   "gallery.networking.title": {
     "message": "Networking"
   },
@@ -515,6 +503,15 @@
   "c4p.pageDescription": {
     "message": "Submit your talk proposal for JSConf Brasil 2026."
   },
+  "c4p.closed.heading": {
+    "message": "Submissions closed"
+  },
+  "c4p.closed.subheading": {
+    "message": "The Call for Papers for JSConf Brasil 2026 is no longer accepting talk submissions."
+  },
+  "c4p.closed.status": {
+    "message": "Thank you to everyone who submitted a proposal! We'll announce the selected talks soon."
+  },
   "c4p.action.back": {
     "message": "Back"
   },
@@ -604,12 +601,6 @@
   },
   "c4p.submit.error": {
     "message": "Error submitting your proposal. Try again."
-  },
-  "c4p.intro.toastTitle": {
-    "message": "Your data is saved in your browser."
-  },
-  "c4p.intro.toastDesc": {
-    "message": "You can pick up where you left off anytime."
   },
   "c4p.intro.heading1": {
     "message": "Want to speak at this year's JSConf Brasil?"

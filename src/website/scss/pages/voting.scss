@@ -2,7 +2,8 @@
 
 .vote-page,
 .account-page,
-.admin-page {
+.admin-page,
+.c4p-page {
   @include flex(column);
   gap: 3rem;
   width: 100%;

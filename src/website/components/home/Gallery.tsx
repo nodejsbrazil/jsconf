@@ -1,16 +1,7 @@
 import type { FC, ReactNode, RefObject } from 'react';
 import { useRef } from 'react';
-import Link from '@docusaurus/Link';
-import {
-  Camera,
-  FileText,
-  Handshake,
-  Mic,
-  PartyPopper,
-  Users,
-} from 'lucide-react';
+import { Camera, Handshake, PartyPopper, Users } from 'lucide-react';
 import { Text, text } from '@site/src/website/components/shared/i18n';
-import { useLocalePath } from '../../hooks/useLocalePath';
 import { useScroll } from '../../hooks/useScroll';
 import { Image } from '../shared/Image';
 
@@ -104,8 +95,6 @@ const PhotoCard: FC<PhotoCardProps> = ({
 };
 
 export const Gallery = () => {
-  const { localePath } = useLocalePath();
-
   return (
     <section id='gallery' className='landing-section'>
       <div className='content'>
@@ -174,25 +163,6 @@ export const Gallery = () => {
             width={1024}
             height={682}
           />
-        </div>
-        <h2 className='title'>
-          <Mic className='icon' /> <Text id='gallery.c4pGuide.heading' />
-        </h2>
-        <div className='c4p-cta'>
-          <div className='c4p-cta-content'>
-            <FileText className='c4p-cta-icon' />
-            <div>
-              <h3 className='c4p-cta-title'>
-                <Text id='gallery.c4pGuide.title' />
-              </h3>
-              <p className='c4p-cta-description'>
-                <Text id='gallery.c4pGuide.description' />
-              </p>
-            </div>
-            <Link to={localePath('/c4p')} className='c4p-cta-link'>
-              <Text id='gallery.c4pGuide.cta' />
-            </Link>
-          </div>
         </div>
       </div>
     </section>
