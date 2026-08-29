@@ -168,6 +168,52 @@ export const fetchAttendeeRoster = async (
 ): Promise<Map<string, Attendee>> =>
   rosterPage(accessToken, slug, '', 150, new Map());
 
+type MintedToken = {
+  access_token: string;
+  refresh_token?: string;
+  expires_in?: number;
+  // The token this mint was made with, so the caller can persist it when guild returns no
+  // rotated replacement.
+  used: string;
+};
+
+// One refresh_token exchange. Returns null on any refusal so the caller can decide whether a
+// second attempt with a different token is worth making.
+const mintManagerToken = async (
+  refreshToken: string,
+  clientId: string,
+  clientSecret: string
+): Promise<MintedToken | null> => {
+  const res = await fetch(TOKEN_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id: clientId,
+      client_secret: clientSecret,
+    }),
+  }).catch(() => null);
+
+  if (!res || !res.ok) {
+    // Logs status + error body only, never the token. Useful when guild revokes or rotates
+    // unexpectedly, which is the usual reason a previously working token starts failing.
+    console.log(
+      '[manager] status',
+      res?.status ?? 'fetch-error',
+      res ? await res.text() : ''
+    );
+    return null;
+  }
+
+  const data = (await res.json()) as {
+    access_token: string;
+    refresh_token?: string;
+    expires_in?: number;
+  };
+  return { ...data, used: refreshToken };
+};
+
 // Manager access token used to read the attendees list. Cached in D1 (shared across worker
 // instances) until it expires; guild rotates the refresh token on use, so the rotated token is
 // written back here. At expiry two cold instances could race the refresh and one login would fail
@@ -192,32 +238,25 @@ export const managerAccessToken = async (
   const row = results[0];
   if (row?.access_token && row.expires_at - 60 > now) return row.access_token;
 
-  const refreshToken = row?.refresh_token ?? bootstrapRefresh;
-  const res = await fetch(TOKEN_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken,
-      client_id: clientId,
-      client_secret: clientSecret,
-    }),
-  }).catch(() => null);
-  if (!res || !res.ok) {
-    // Logs status + error body only, never the token — useful if guild revokes/rotates unexpectedly.
-    console.log(
-      '[manager] status',
-      res?.status ?? 'fetch-error',
-      res ? await res.text() : ''
-    );
-    return null;
-  }
-  const data = (await res.json()) as {
-    access_token: string;
-    refresh_token?: string;
-    expires_in?: number;
-  };
-  // guild rotates the refresh token on use — persist the rotated one so the next mint still works.
+  const stored = row?.refresh_token;
+  // Try the token D1 holds first, since guild's rotation makes it the newest one we know about.
+  const fromStored = stored
+    ? await mintManagerToken(stored, clientId, clientSecret)
+    : null;
+
+  // Stored token refused. That means the chain broke: someone rotated GUILD_ORG_REFRESH_TOKEN by
+  // hand, or the stored one was spent elsewhere (another environment sharing the same credential).
+  // Retrying with the bootstrap secret lets a rotated secret take effect on its own, instead of
+  // needing the D1 row deleted manually before the new value is ever read.
+  const minted =
+    fromStored ??
+    (stored !== bootstrapRefresh
+      ? await mintManagerToken(bootstrapRefresh, clientId, clientSecret)
+      : null);
+
+  if (!minted) return null;
+
+  // guild rotates the refresh token on use, so persist the rotated one or the next mint fails.
   await database
     .prepare(
       `INSERT INTO manager_oauth (id, refresh_token, access_token, expires_at, updated_at)
@@ -229,12 +268,12 @@ export const managerAccessToken = async (
          updated_at = datetime('now')`
     )
     .bind(
-      data.refresh_token ?? refreshToken,
-      data.access_token,
-      now + (data.expires_in ?? 3600)
+      minted.refresh_token ?? minted.used,
+      minted.access_token,
+      now + (minted.expires_in ?? 3600)
     )
     .run();
-  return data.access_token;
+  return minted.access_token;
 };
 
 export const fetchUserInfo = async (
