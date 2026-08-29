@@ -239,9 +239,6 @@
   "team.lucas.position": {
     "message": "Principal Staff Engineer"
   },
-  "team.micaele.bio": {
-    "message": "Micaele Magalhães is an illustrator and designer, ADS student, responsible for the visual identity of several Brazilian open source projects, such as the mascot of the Poku test runner and Awesome You (an initiative that highlights open source project maintainers in Brazil)."
-  },
   "team.monica.bio": {
     "message": "Born and raised in Rio, former artistic roller skater, gamer, #TechMaromba, Emotional Dev, used to do calculations but nowadays I'm \"just on the compiuter\", energy drink lover and aspiring Tech Influencer."
   },
@@ -991,5 +988,11 @@
   "account.adminCta": {
     "message": "Open the vote dashboard",
     "description": "Admin dashboard link on the account page"
+  },
+  "team.mayara.bio": {
+    "message": "Software developer with over four years of experience building web applications, REST APIs, microservices and distributed architectures."
+  },
+  "team.mayara.position": {
+    "message": "Software Engineer"
   }
 }

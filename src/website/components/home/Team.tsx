@@ -86,13 +86,16 @@ export const Team = () => {
             }}
           />
           <Person
-            name='Micaele Magalhães'
-            img='/img/team/mi.webp'
+            name='Mayara Milanesi'
+            img='/img/team/mayara.webp'
             imgWidth={600}
             imgHeight={500}
-            bio={text({ id: 'team.micaele.bio' })}
+            bio={text({ id: 'team.mayara.bio' })}
+            position={text({ id: 'team.mayara.position' })}
+            company='FCamara'
             social={{
-              instagram: 'micaele_magalhaes',
+              linkedin: 'mayara-milanesi',
+              github: 'mayaramilanesi',
             }}
           />
           <Person

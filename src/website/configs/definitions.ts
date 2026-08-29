@@ -65,4 +65,13 @@ export const partners: Partner[] = [
     height: 263,
     scale: 0.7,
   },
+  {
+    // Bold wordmark (4.7:1): heavier strokes than Salvy, but not as width-bound as Cod3rs.
+    name: 'Resend',
+    logo: '/img/partners/resend.webp',
+    url: 'https://resend.com/',
+    width: 900,
+    height: 191,
+    scale: 0.85,
+  },
 ];

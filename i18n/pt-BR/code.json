@@ -233,9 +233,6 @@
   "team.cristian.position": {
     "message": "Software Engineer"
   },
-  "team.micaele.bio": {
-    "message": "Micaele Magalhães é ilustradora e designer, estudante de ADS, responsável pela identidade visual de diversos projetos open source brasileiros, como o mascote do executor de testes Poku e da Awesome You (iniciativa que coloca em evidência pessoas mantenedoras de projetos open source no Brasil)."
-  },
   "team.monica.bio": {
     "message": "Carioca da gema, ex-patinadora artística, gamer, #TechMaromba, Dev Emocionada, costumava fazer cálculos por aí mas hoje em dia fico \"só nos compiuter\", amante de energético e aspirante a Influencer Tech."
   },
@@ -991,5 +988,11 @@
   "account.adminCta": {
     "message": "Abrir o painel de votos",
     "description": "Admin dashboard link on the account page"
+  },
+  "team.mayara.bio": {
+    "message": "Desenvolvedora de Software com mais de quatro anos de experiência no desenvolvimento de aplicações web, APIs REST, microsserviços e arquiteturas distribuídas."
+  },
+  "team.mayara.position": {
+    "message": "Engenheira de Software"
   }
 }
