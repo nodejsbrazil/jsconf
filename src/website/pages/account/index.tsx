@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { LogOut, User } from 'lucide-react';
+import { BarChart3, LogOut, User } from 'lucide-react';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { Page } from '@site/src/website/components/shared/Page';
+import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import '@site/src/website/scss/pages/voting.scss';
+import '@site/src/website/scss/pages/admin.scss';
 
 const Account = () => {
   const { siteConfig } = useDocusaurusContext();
@@ -11,7 +14,9 @@ const Account = () => {
     | string
     | undefined;
 
+  const { localePath } = useLocalePath();
   const [userId, setUserId] = useState<string | null>(null);
+  const [admin, setAdmin] = useState(false);
   const [status, setStatus] = useState<'loading' | 'in' | 'out' | 'error'>(
     'loading'
   );
@@ -23,10 +28,11 @@ const Account = () => {
         if (!res.ok) return setStatus('error');
         // Anonymous is 200 { authenticated: false }, so the flag decides, not the status.
         const data = (await res.json()) as
-          | { authenticated: true; userId: string }
+          | { authenticated: true; userId: string; admin?: boolean }
           | { authenticated: false };
         if (!data.authenticated) return setStatus('out');
         setUserId(data.userId);
+        setAdmin(data.admin === true);
         setStatus('in');
       })
       .catch(() => setStatus('error'));
@@ -86,6 +92,17 @@ const Account = () => {
               <Text id='auth.logout' />
             </a>
           </div>
+        )}
+        {/* Only organizers ever see this: `admin` comes from the session, which the server sets
+            after guild.host confirmed the account can manage the event. */}
+        {status === 'in' && admin && (
+          <Link
+            className='button button--primary button--sm admin-cta'
+            to={localePath('/admin/votes')}
+          >
+            <BarChart3 className='icon' aria-hidden />
+            <Text id='account.adminCta' />
+          </Link>
         )}
       </div>
     </Page>

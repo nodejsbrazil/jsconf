@@ -1,3 +1,9 @@
+import {
+  adminAudit,
+  adminRemoveVote,
+  adminVoteDetail,
+  adminVotes,
+} from './routes/admin.js';
 import { authCallback, authLogin, authLogout, authMe } from './routes/auth.js';
 import { c4p } from './routes/c4p.js';
 import { voteGet, voteSubmit } from './routes/vote.js';
@@ -12,4 +18,8 @@ export const routes = {
   authLogout,
   authMe,
   authCallback,
+  adminVotes,
+  adminVoteDetail,
+  adminRemoveVote,
+  adminAudit,
 };

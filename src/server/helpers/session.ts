@@ -11,6 +11,8 @@ export type Session = {
   budget: number;
   name?: string;
   photo?: string;
+  // True only when guild.host confirmed at login that this user can manage the event.
+  admin?: boolean;
 };
 
 const key = (secret: string): Uint8Array => new TextEncoder().encode(secret);
@@ -20,9 +22,16 @@ export const signSession = async (
   budget: number,
   secret: string,
   ttlSeconds: number = SESSION_TTL_SECONDS,
-  identity: { name?: string; photo?: string } = {}
+  identity: { name?: string; photo?: string; admin?: boolean } = {}
 ): Promise<string> =>
-  new SignJWT({ budget, name: identity.name, photo: identity.photo })
+  // `admin` is written only when true, so a tampered-looking `admin: false` claim can never exist
+  // and every read below treats "absent" as "not an admin".
+  new SignJWT({
+    budget,
+    name: identity.name,
+    photo: identity.photo,
+    ...(identity.admin ? { admin: true } : {}),
+  })
     .setProtectedHeader({ alg: 'HS256' })
     .setSubject(userId)
     .setExpirationTime(Math.floor(Date.now() / 1000) + ttlSeconds)
@@ -42,6 +51,7 @@ export const verifySession = async (
     const session: Session = { userId: payload.sub, budget };
     if (typeof payload['name'] === 'string') session.name = payload['name'];
     if (typeof payload['photo'] === 'string') session.photo = payload['photo'];
+    if (payload['admin'] === true) session.admin = true;
     return session;
   } catch {
     return null;
@@ -65,7 +75,12 @@ export const getSession = async (
   // so an unset/misconfigured ENVIRONMENT in production never activates it.
   if (env.ENVIRONMENT === 'development') {
     const devUser = request.headers.get('X-Dev-User');
-    if (devUser) return { userId: devUser, budget: DEV_BUDGET };
+    if (devUser)
+      return {
+        userId: devUser,
+        budget: DEV_BUDGET,
+        admin: request.headers.get('X-Dev-Admin') === '1',
+      };
   }
   return null;
 };

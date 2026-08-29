@@ -871,5 +871,125 @@
   },
   "c4p.div.disability": {
     "message": "Situación de discapacidad: ¿cuál de las opciones describe tu caso, si aplica?"
+  },
+  "admin.title": {
+    "message": "Panel de votos - JSConf Brasil 2026",
+    "description": "Title of the admin voting dashboard page"
+  },
+  "admin.heading": {
+    "message": "Panel de votos",
+    "description": "Heading of the admin voting dashboard"
+  },
+  "admin.subheading": {
+    "message": "Total de votos por charla. Haz clic en el número de votos para ver quién votó.",
+    "description": "Subheading of the admin voting dashboard"
+  },
+  "admin.loadError": {
+    "message": "No se pudo cargar el panel. Inténtalo de nuevo.",
+    "description": "Error shown when the admin dashboard fails to load"
+  },
+  "admin.forbidden": {
+    "message": "Esta área es solo para organizadores del evento.",
+    "description": "Message shown to a logged-in non-admin"
+  },
+  "admin.loginHeading": {
+    "message": "Inicia sesión para continuar",
+    "description": "Login heading on the admin dashboard"
+  },
+  "admin.loginPrompt": {
+    "message": "Inicia sesión con tu cuenta de guild.host para abrir el panel.",
+    "description": "Login prompt on the admin dashboard"
+  },
+  "admin.totalVotes": {
+    "message": "{total} votos en {talks} charlas",
+    "description": "Summary line with the total vote and talk counts"
+  },
+  "admin.emptyTalks": {
+    "message": "No hay charlas abiertas para votación.",
+    "description": "Shown when there are no votable talks"
+  },
+  "admin.colTalk": {
+    "message": "Charla",
+    "description": "Talk column header"
+  },
+  "admin.colVotes": {
+    "message": "Votos",
+    "description": "Votes column header"
+  },
+  "admin.viewVotersFor": {
+    "message": "Ver quién votó por {title}",
+    "description": "Accessible label for the vote count button"
+  },
+  "admin.votersFor": {
+    "message": "Quién votó por",
+    "description": "Label above the selected talk title in the voters panel"
+  },
+  "admin.close": {
+    "message": "Cerrar",
+    "description": "Accessible label for the close button"
+  },
+  "admin.noVoters": {
+    "message": "Nadie ha votado por esta charla todavía.",
+    "description": "Shown when a talk has no votes"
+  },
+  "admin.detailError": {
+    "message": "No se pudieron cargar los votos de esta charla.",
+    "description": "Error toast when the voter list fails to load"
+  },
+  "admin.unknownMember": {
+    "message": "Nombre no disponible",
+    "description": "Placeholder when the attendee name is missing"
+  },
+  "admin.noTier": {
+    "message": "Sin tier",
+    "description": "Placeholder when the attendee has no ticket tier"
+  },
+  "admin.votePosition": {
+    "message": "{position} de {budget}",
+    "description": "Which of the members votes this one is"
+  },
+  "admin.rosterUnavailable": {
+    "message": "Lista de asistentes no disponible: no se pudieron cargar nombres ni tiers.",
+    "description": "Warning when the guild attendee roster could not be read"
+  },
+  "admin.removeVoteFrom": {
+    "message": "Eliminar el voto de {name}",
+    "description": "Accessible label for the remove vote button"
+  },
+  "admin.removeConfirm": {
+    "message": "¿Eliminar el voto de {name}? Esto no se puede deshacer.",
+    "description": "Confirmation before removing a vote"
+  },
+  "admin.removeSuccess": {
+    "message": "Voto eliminado.",
+    "description": "Toast after a vote is removed"
+  },
+  "admin.removeError": {
+    "message": "No se pudo eliminar el voto.",
+    "description": "Toast when removing a vote fails"
+  },
+  "admin.auditToggle": {
+    "message": "Historial",
+    "description": "Button that opens the audit log"
+  },
+  "admin.auditHeading": {
+    "message": "Historial de cambios",
+    "description": "Heading of the audit log section"
+  },
+  "admin.auditEmpty": {
+    "message": "No hay cambios registrados.",
+    "description": "Shown when the audit log is empty"
+  },
+  "admin.auditRemoved": {
+    "message": "{actor} eliminó el voto de {user} en {talk}",
+    "description": "One audit log line"
+  },
+  "navbar.admin": {
+    "message": "Panel de votos",
+    "description": "Admin dashboard link in the account dropdown"
+  },
+  "account.adminCta": {
+    "message": "Abrir el panel de votos",
+    "description": "Admin dashboard link on the account page"
   }
 }

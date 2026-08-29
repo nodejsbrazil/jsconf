@@ -7,7 +7,13 @@ import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 
 // /api/vote/me returns the session identity. name/photo come from the guild userinfo; when absent
 // we fall back to the userId + a generic icon.
-type Me = { userId: string; name?: string; photo?: string };
+type Me = {
+  userId: string;
+  name?: string;
+  photo?: string;
+  // Set by the server only when guild.host confirmed this user manages the event.
+  admin?: boolean;
+};
 type MeResponse = ({ authenticated: true } & Me) | { authenticated: false };
 
 export const AuthButton = () => {
@@ -68,6 +74,14 @@ export const AuthButton = () => {
           <Link to={localePath('/vote')} onClick={() => setOpen(false)}>
             <Text id='navbar.vote' />
           </Link>
+          {me.admin && (
+            <Link
+              to={localePath('/admin/votes')}
+              onClick={() => setOpen(false)}
+            >
+              <Text id='navbar.admin' />
+            </Link>
+          )}
           <a href={`${workerDomain}/api/vote/logout`}>
             <Text id='auth.logout' />
           </a>

@@ -49,6 +49,14 @@ export default {
         return routes.voteGet({ request, cors, database: env.DB, env });
       case 'POST /api/vote':
         return routes.voteSubmit({ request, cors, database: env.DB, env });
+      case 'GET /api/admin/votes':
+        return routes.adminVotes({ request, cors, database: env.DB, env });
+      case 'GET /api/admin/votes/detail':
+        return routes.adminVoteDetail({ request, cors, database: env.DB, env });
+      case 'POST /api/admin/votes/remove':
+        return routes.adminRemoveVote({ request, cors, database: env.DB, env });
+      case 'GET /api/admin/audit':
+        return routes.adminAudit({ request, cors, database: env.DB, env });
       case 'POST /api/waitlist':
         return routes.waitlist({ request, cors, database: env.DB, ip });
       default:

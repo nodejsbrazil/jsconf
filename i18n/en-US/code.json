@@ -871,5 +871,125 @@
   },
   "c4p.div.disability": {
     "message": "Disability status: which of the options below describes you, if any?"
+  },
+  "admin.title": {
+    "message": "Vote dashboard - JSConf Brasil 2026",
+    "description": "Title of the admin voting dashboard page"
+  },
+  "admin.heading": {
+    "message": "Vote dashboard",
+    "description": "Heading of the admin voting dashboard"
+  },
+  "admin.subheading": {
+    "message": "Total votes per talk. Click a vote count to see who voted.",
+    "description": "Subheading of the admin voting dashboard"
+  },
+  "admin.loadError": {
+    "message": "Could not load the dashboard. Try again.",
+    "description": "Error shown when the admin dashboard fails to load"
+  },
+  "admin.forbidden": {
+    "message": "This area is for event organizers only.",
+    "description": "Message shown to a logged-in non-admin"
+  },
+  "admin.loginHeading": {
+    "message": "Log in to continue",
+    "description": "Login heading on the admin dashboard"
+  },
+  "admin.loginPrompt": {
+    "message": "Log in with your guild.host account to open the dashboard.",
+    "description": "Login prompt on the admin dashboard"
+  },
+  "admin.totalVotes": {
+    "message": "{total} votes across {talks} talks",
+    "description": "Summary line with the total vote and talk counts"
+  },
+  "admin.emptyTalks": {
+    "message": "No talks are open for voting.",
+    "description": "Shown when there are no votable talks"
+  },
+  "admin.colTalk": {
+    "message": "Talk",
+    "description": "Talk column header"
+  },
+  "admin.colVotes": {
+    "message": "Votes",
+    "description": "Votes column header"
+  },
+  "admin.viewVotersFor": {
+    "message": "See who voted for {title}",
+    "description": "Accessible label for the vote count button"
+  },
+  "admin.votersFor": {
+    "message": "Who voted for",
+    "description": "Label above the selected talk title in the voters panel"
+  },
+  "admin.close": {
+    "message": "Close",
+    "description": "Accessible label for the close button"
+  },
+  "admin.noVoters": {
+    "message": "Nobody has voted for this talk yet.",
+    "description": "Shown when a talk has no votes"
+  },
+  "admin.detailError": {
+    "message": "Could not load the votes for this talk.",
+    "description": "Error toast when the voter list fails to load"
+  },
+  "admin.unknownMember": {
+    "message": "Name unavailable",
+    "description": "Placeholder when the attendee name is missing"
+  },
+  "admin.noTier": {
+    "message": "No tier",
+    "description": "Placeholder when the attendee has no ticket tier"
+  },
+  "admin.votePosition": {
+    "message": "{position} of {budget}",
+    "description": "Which of the members votes this one is"
+  },
+  "admin.rosterUnavailable": {
+    "message": "Attendee list unavailable: names and tiers could not be loaded.",
+    "description": "Warning when the guild attendee roster could not be read"
+  },
+  "admin.removeVoteFrom": {
+    "message": "Remove the vote from {name}",
+    "description": "Accessible label for the remove vote button"
+  },
+  "admin.removeConfirm": {
+    "message": "Remove the vote from {name}? This cannot be undone.",
+    "description": "Confirmation before removing a vote"
+  },
+  "admin.removeSuccess": {
+    "message": "Vote removed.",
+    "description": "Toast after a vote is removed"
+  },
+  "admin.removeError": {
+    "message": "Could not remove the vote.",
+    "description": "Toast when removing a vote fails"
+  },
+  "admin.auditToggle": {
+    "message": "History",
+    "description": "Button that opens the audit log"
+  },
+  "admin.auditHeading": {
+    "message": "Change history",
+    "description": "Heading of the audit log section"
+  },
+  "admin.auditEmpty": {
+    "message": "No changes recorded.",
+    "description": "Shown when the audit log is empty"
+  },
+  "admin.auditRemoved": {
+    "message": "{actor} removed the vote from {user} on {talk}",
+    "description": "One audit log line"
+  },
+  "navbar.admin": {
+    "message": "Vote dashboard",
+    "description": "Admin dashboard link in the account dropdown"
+  },
+  "account.adminCta": {
+    "message": "Open the vote dashboard",
+    "description": "Admin dashboard link on the account page"
   }
 }
