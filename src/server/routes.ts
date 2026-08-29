@@ -2,6 +2,7 @@ import {
   adminAudit,
   adminRemoveVote,
   adminVoteDetail,
+  adminVoterDetail,
   adminVotes,
 } from './routes/admin.js';
 import { authCallback, authLogin, authLogout, authMe } from './routes/auth.js';
@@ -20,6 +21,7 @@ export const routes = {
   authCallback,
   adminVotes,
   adminVoteDetail,
+  adminVoterDetail,
   adminRemoveVote,
   adminAudit,
 };

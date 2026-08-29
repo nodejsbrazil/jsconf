@@ -17,6 +17,15 @@ export type VoteRow = {
   position: number;
 };
 
+export type UserVoteRow = {
+  talk_id: number;
+  title: string | null;
+  created_at: string;
+  position: number;
+};
+
+export type RosterEntry = { name: string | null; tier: string | null };
+
 export type AuditAction = 'remove';
 
 export type AuditEntry = {
@@ -163,6 +172,72 @@ export const vote = (database: Database) => {
     return new Map(results.map((row) => [row.name, row.budget]));
   };
 
+  // Every vote one person cast, with the talk title, for the per-voter drill-down. `position` is
+  // the same 1-based index the per-talk view shows, so both views agree on "2 of 5".
+  const votesByUser = async (userId: string): Promise<UserVoteRow[]> => {
+    const { results } = await database
+      .prepare(
+        `SELECT v.talk_id, v.created_at, v.position, t.title FROM (
+           SELECT user_id, talk_id, created_at,
+                  ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at, id) AS position
+           FROM c4p_votes
+         ) v
+         LEFT JOIN talks t ON t.id = v.talk_id
+         WHERE v.user_id = ?
+         ORDER BY v.created_at`
+      )
+      .bind(userId)
+      .all<UserVoteRow>();
+    return results;
+  };
+
+  // Cached attendee roster. Returns the rows plus how old the newest one is, so the caller can
+  // decide whether the guild walk is worth paying for.
+  const cachedRoster = async (): Promise<{
+    roster: Map<string, RosterEntry>;
+    syncedAt: number;
+  }> => {
+    const { results } = await database
+      .prepare('SELECT user_id, name, tier, synced_at FROM attendee_roster')
+      .bind()
+      .all<{
+        user_id: string;
+        name: string | null;
+        tier: string | null;
+        synced_at: number;
+      }>();
+    return {
+      roster: new Map(
+        results.map((row) => [row.user_id, { name: row.name, tier: row.tier }])
+      ),
+      syncedAt: results.reduce(
+        (newest, row) => Math.max(newest, row.synced_at),
+        0
+      ),
+    };
+  };
+
+  // Upsert on user_id so a re-sync updates names and tiers in place. Rows for attendees who left
+  // are not deleted: their votes still exist, and a stale name beats no name at all.
+  const saveRoster = async (
+    roster: Map<string, RosterEntry>,
+    syncedAt: number
+  ): Promise<void> => {
+    for (const [userId, entry] of roster) {
+      await database
+        .prepare(
+          `INSERT INTO attendee_roster (user_id, name, tier, synced_at)
+           VALUES (?, ?, ?, ?)
+           ON CONFLICT(user_id) DO UPDATE SET
+             name = excluded.name,
+             tier = excluded.tier,
+             synced_at = excluded.synced_at`
+        )
+        .bind(userId, entry.name, entry.tier, syncedAt)
+        .run();
+    }
+  };
+
   const recordAudit = async (entry: AuditEntry): Promise<void> => {
     await database
       .prepare(
@@ -203,7 +278,10 @@ export const vote = (database: Database) => {
     budgetForTier,
     talkVoteCounts,
     votesForTalk,
+    votesByUser,
     tierBudgets,
+    cachedRoster,
+    saveRoster,
     recordAudit,
     listAudit,
   };

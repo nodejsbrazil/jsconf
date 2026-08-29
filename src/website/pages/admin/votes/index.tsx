@@ -28,6 +28,19 @@ type AuditEntry = {
   at: string;
 };
 
+type VoterDetail = {
+  userId: string;
+  name: string | null;
+  tier: string | null;
+  budget: number;
+  votes: {
+    talkId: number;
+    title: string | null;
+    position: number;
+    votedAt: string;
+  }[];
+};
+
 type Status = 'loading' | 'ready' | 'unauth' | 'forbidden' | 'error';
 
 const AdminVotes = () => {
@@ -45,6 +58,10 @@ const AdminVotes = () => {
   const [rosterAvailable, setRosterAvailable] = useState(true);
   const [audit, setAudit] = useState<AuditEntry[]>([]);
   const [auditOpen, setAuditOpen] = useState(false);
+  // The per-voter view replaces the per-talk panel while it is open, so only one of the two is
+  // ever on screen and the panel never has to decide which drill-down wins.
+  const [voter, setVoter] = useState<VoterDetail | null>(null);
+  const [voterLoading, setVoterLoading] = useState(false);
 
   const loadSummary = useCallback(async (): Promise<void> => {
     if (!workerDomain) return setStatus('error');
@@ -99,10 +116,28 @@ const AdminVotes = () => {
 
   const open = useCallback(
     (talk: TalkCount): void => {
+      setVoter(null);
       setSelected(talk);
       void loadDetails(talk.talkId);
     },
     [loadDetails]
+  );
+
+  const openVoter = useCallback(
+    async (userId: string): Promise<void> => {
+      setVoterLoading(true);
+      const res = await fetch(
+        `${workerDomain}/api/admin/votes/voter?userId=${encodeURIComponent(userId)}`,
+        { credentials: 'include' }
+      ).catch(() => null);
+      setVoterLoading(false);
+      if (!res?.ok) {
+        toast.error(text({ id: 'admin.voterError' }));
+        return;
+      }
+      setVoter((await res.json()) as VoterDetail);
+    },
+    [workerDomain]
   );
 
   const remove = useCallback(
@@ -129,13 +164,15 @@ const AdminVotes = () => {
       }
       toast.success(text({ id: 'admin.removeSuccess' }));
       // Both lists come from the server again: the count in the table has to agree with the drawer.
+      // The audit log only refetches when its panel is open, since the API budget is per IP and
+      // fetching a list nobody is looking at spends it for nothing.
       await Promise.all([
         loadDetails(selected.talkId),
         loadSummary(),
-        loadAudit(),
+        ...(auditOpen ? [loadAudit()] : []),
       ]);
     },
-    [selected, workerDomain, loadDetails, loadSummary, loadAudit]
+    [selected, workerDomain, loadDetails, loadSummary, loadAudit, auditOpen]
   );
 
   const toggleAudit = useCallback((): void => {
@@ -301,7 +338,81 @@ const AdminVotes = () => {
               )}
             </section>
 
-            {selected && (
+            {(voter || voterLoading) && (
+              <aside className='voters-panel' aria-live='polite'>
+                <div className='voters-head'>
+                  <div>
+                    <p className='voters-label'>
+                      <Text id='admin.votesFrom' />
+                    </p>
+                    <h2 className='voters-title'>
+                      {voter?.name ?? voter?.userId}
+                    </h2>
+                    {voter && (
+                      <p className='voter-summary'>
+                        <span className='voter-tier'>
+                          {voter.tier ?? <Text id='admin.noTier' />}
+                        </span>{' '}
+                        <span className='voter-position'>
+                          <Text
+                            id='admin.votesUsed'
+                            values={{
+                              used: voter.votes.length,
+                              budget: voter.budget,
+                            }}
+                          />
+                        </span>
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    type='button'
+                    className='voters-close'
+                    onClick={() => setVoter(null)}
+                    aria-label={text({ id: 'admin.close' })}
+                  >
+                    <X className='icon' aria-hidden />
+                  </button>
+                </div>
+
+                {voterLoading && (
+                  <p className='status'>
+                    <Text id='common.loading' />
+                  </p>
+                )}
+
+                {voter && voter.votes.length > 0 && (
+                  <ul className='voters-list'>
+                    {voter.votes.map((vote) => (
+                      <li key={vote.talkId} className='voter-row'>
+                        <div className='voter-main'>
+                          <span className='voter-name-static'>
+                            {vote.title ?? `#${vote.talkId}`}
+                          </span>
+                          <span className='voter-id'>#{vote.talkId}</span>
+                        </div>
+                        <div className='voter-meta'>
+                          <span className='voter-position'>
+                            <Text
+                              id='admin.votePosition'
+                              values={{
+                                position: vote.position,
+                                budget: voter.budget,
+                              }}
+                            />
+                          </span>
+                          <span className='voter-date'>
+                            {formatDate(vote.votedAt)}
+                          </span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </aside>
+            )}
+
+            {selected && !voter && !voterLoading && (
               <aside className='voters-panel' aria-live='polite'>
                 <div className='voters-head'>
                   <div>
@@ -342,9 +453,19 @@ const AdminVotes = () => {
                     {details.map((vote) => (
                       <li key={vote.userId} className='voter-row'>
                         <div className='voter-main'>
-                          <span className='voter-name'>
+                          {/* A button so the per-voter drill-down is keyboard reachable and
+                              announced as an action rather than as plain text. */}
+                          <button
+                            type='button'
+                            className='voter-name'
+                            onClick={() => void openVoter(vote.userId)}
+                            aria-label={text(
+                              { id: 'admin.seeAllVotesFrom' },
+                              { name: vote.name ?? vote.userId }
+                            )}
+                          >
                             {vote.name ?? <Text id='admin.unknownMember' />}
-                          </span>
+                          </button>
                           <span className='voter-id'>{vote.userId}</span>
                         </div>
                         <div className='voter-meta'>

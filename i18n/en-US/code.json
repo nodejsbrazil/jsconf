@@ -985,5 +985,21 @@
   },
   "team.mayara.position": {
     "message": "Software Engineer"
+  },
+  "admin.votesFrom": {
+    "message": "Votes from",
+    "description": "Label above the voter name in the per-voter panel"
+  },
+  "admin.seeAllVotesFrom": {
+    "message": "See every vote from {name}",
+    "description": "Accessible label for the voter name button"
+  },
+  "admin.votesUsed": {
+    "message": "{used} of {budget} votes used",
+    "description": "How many of their votes the person has cast"
+  },
+  "admin.voterError": {
+    "message": "Could not load this person’s votes.",
+    "description": "Error toast when the per-voter list fails to load"
   }
 }

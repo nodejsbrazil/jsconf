@@ -99,3 +99,17 @@ CREATE TABLE IF NOT EXISTS c4p_vote_audit (
 
 CREATE INDEX IF NOT EXISTS idx_c4p_vote_audit_talk ON c4p_vote_audit(talk_id);
 CREATE INDEX IF NOT EXISTS idx_c4p_vote_audit_created ON c4p_vote_audit(created_at);
+
+-- Cached copy of the event attendee roster from guild.host. The dashboard joins vote rows (which
+-- store only a guild user id) to a name and ticket tier, and guild has no lookup-by-id: resolving
+-- one attendee means walking the whole paginated list, 20 per request. At 311 attendees that is 16
+-- sequential requests, so doing it per drill-down made every click cost about 11 seconds. This
+-- table holds the result so the walk runs on a TTL instead of on every click.
+CREATE TABLE IF NOT EXISTS attendee_roster (
+  user_id    TEXT    PRIMARY KEY,  -- guild.host user id, the same value c4p_votes.user_id stores
+  name       TEXT,
+  tier       TEXT,
+  synced_at  INTEGER NOT NULL      -- unix seconds of the walk that wrote this row
+);
+
+CREATE INDEX IF NOT EXISTS idx_attendee_roster_synced ON attendee_roster(synced_at);

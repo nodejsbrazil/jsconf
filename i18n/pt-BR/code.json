@@ -985,5 +985,21 @@
   },
   "team.mayara.position": {
     "message": "Engenheira de Software"
+  },
+  "admin.votesFrom": {
+    "message": "Votos de",
+    "description": "Label above the voter name in the per-voter panel"
+  },
+  "admin.seeAllVotesFrom": {
+    "message": "Ver todos os votos de {name}",
+    "description": "Accessible label for the voter name button"
+  },
+  "admin.votesUsed": {
+    "message": "{used} de {budget} votos usados",
+    "description": "How many of their votes the person has cast"
+  },
+  "admin.voterError": {
+    "message": "Não foi possível carregar os votos desta pessoa.",
+    "description": "Error toast when the per-voter list fails to load"
   }
 }
