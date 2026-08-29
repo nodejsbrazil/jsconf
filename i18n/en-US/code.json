@@ -988,5 +988,11 @@
   "account.adminCta": {
     "message": "Open the vote dashboard",
     "description": "Admin dashboard link on the account page"
+  },
+  "team.mayara.bio": {
+    "message": "Software developer with over four years of experience building web applications, REST APIs, microservices and distributed architectures."
+  },
+  "team.mayara.position": {
+    "message": "Software Engineer"
   }
 }

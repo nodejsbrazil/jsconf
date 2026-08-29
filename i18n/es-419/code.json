@@ -988,5 +988,11 @@
   "account.adminCta": {
     "message": "Abrir el panel de votos",
     "description": "Admin dashboard link on the account page"
+  },
+  "team.mayara.bio": {
+    "message": "Desarrolladora de software con más de cuatro años de experiencia en el desarrollo de aplicaciones web, APIs REST, microservicios y arquitecturas distribuidas."
+  },
+  "team.mayara.position": {
+    "message": "Ingeniera de Software"
   }
 }
