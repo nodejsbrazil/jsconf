@@ -14,6 +14,8 @@ type Options = {
   cors: Record<string, string>;
   database: Database;
   env: Env;
+  /** Only the summary route passes this, to warm the roster after responding. */
+  ctx?: ExecutionContext;
 };
 
 const removeSchema = z.object({
@@ -38,14 +40,31 @@ const requireAdmin = async (
 };
 
 // Talk titles + vote counts. Pure SQL, so the dashboard's main table costs zero guild.host calls.
+//
+// Opening the page is also the moment to warm the roster. The walk takes about 11 seconds (16
+// sequential guild requests), and doing it lazily meant the first drill-down click paid for it.
+// `ctx.waitUntil()` keeps the walk alive after this response is sent, so it runs while the
+// organizer is still reading the table and the click that follows hits a warm cache.
 export const adminVotes = async ({
   request,
   cors,
   database,
   env,
+  ctx,
 }: Options): Promise<Response> => {
   const auth = await requireAdmin(request, env, cors);
   if (auth instanceof Response) return auth;
+
+  // Nothing is awaited here: a slow or failing guild must never delay or break the summary, which
+  // is pure SQL and is the only thing this endpoint promises.
+  if (ctx)
+    ctx.waitUntil(
+      resolveRoster(database, env, []).catch(() => {
+        // Swallowed on purpose: a failed warm-up just leaves the drill-down to walk on demand,
+        // exactly the behaviour it had before, and an unhandled rejection here would be logged as
+        // a worker error for something purely optional.
+      })
+    );
 
   const talks = await repository(database).talkVoteCounts();
   return response(

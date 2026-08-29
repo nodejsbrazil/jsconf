@@ -5,7 +5,14 @@ import { response } from './helpers/response.js';
 import { routes } from './routes.js';
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  // `ctx` is here only so the dashboard summary can warm the attendee roster with
+  // `ctx.waitUntil()`: the walk keeps running after the response is sent, instead of the organizer
+  // waiting through it on their first drill-down click.
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext
+  ): Promise<Response> {
     const origin = env.ALLOWED_ORIGIN || '*';
     const cors: Record<string, string> = {
       'Access-Control-Allow-Origin': origin,
@@ -50,7 +57,7 @@ export default {
       case 'POST /api/vote':
         return routes.voteSubmit({ request, cors, database: env.DB, env });
       case 'GET /api/admin/votes':
-        return routes.adminVotes({ request, cors, database: env.DB, env });
+        return routes.adminVotes({ request, cors, database: env.DB, env, ctx });
       case 'GET /api/admin/votes/detail':
         return routes.adminVoteDetail({ request, cors, database: env.DB, env });
       case 'POST /api/admin/votes/remove':
