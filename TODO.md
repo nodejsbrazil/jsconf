@@ -37,6 +37,33 @@
 9. Do one real login against prod post-deploy — confirm guild consent → callback → tier resolution
    → session → vote cast, end to end — before announcing voting is open.
 
+## Admin vote dashboard (`/admin/votes`)
+
+Organizer-only view: one row per votable talk with its vote count, a side panel listing who voted
+(guild id, name, ticket tier, "2 of 5" against their tier budget, timestamp), vote removal, and an
+audit log of every removal.
+
+Who counts as an organizer is guild's answer, not ours. Every login now requests
+`profile:read event_attendees:read`, and the callback calls `GET /events/{slug}/attendees?first=1`
+with the **voter's own** access token. guild answers that endpoint only for users who can manage the
+event and returns 403 for everyone else, so a 200 means organizer and the session JWT gets
+`admin: true`. Nobody is listed in code or config.
+
+Deploy notes on top of the checklist above:
+
+1. `npm run db:init:remote` again after merging: `resources/schema.sql` gained `c4p_vote_audit`
+   (idempotent, so re-running is safe).
+2. Nothing new to add with `wrangler secret put`. The dashboard reuses `GUILD_ORG_REFRESH_TOKEN`
+   for the attendee roster.
+3. After deploy, log in once as an organizer (the dashboard link shows up on `/account` and in the
+   navbar dropdown) and once as a plain ticket holder (no link, `/admin/votes` says organizers
+   only, and normal voting still works). That second login is the one that proves the wider consent
+   scope did not break attendee login.
+
+If guild ever refuses to issue `event_attendees:read` to non-managers at authorize time, it answers
+`error=invalid_scope`; `authCallback` catches that and retries once with `profile:read` alone, so
+attendees still get in as non-admins.
+
 ## Known caveats (not blocking, but real)
 
 - **Budget is baked into the session JWT at login time.** Changing a tier's `budget` in
@@ -46,6 +73,14 @@
   (`src/server/helpers/oauth.ts`) returns the tier from the FIRST matching attendee node in guild's
   paginated list, not an aggregate/max. Untested in practice (no real multi-ticket account seen
   yet) — if it comes up, decide whether to prefer the highest-budget tier instead.
+- **Admin status is baked into the session JWT at login,** exactly like `budget`. Removing someone's
+  guild manager role does not take effect until their session expires (24h) or they log out.
+- **Vote removal is a hard `DELETE`.** `c4p_vote_audit` records who removed what and when, but the
+  vote row itself is gone and cannot be restored from the log.
+- **The attendee roster is walked live on every drill-down,** 20 attendees per guild call (guild
+  caps `first` at 20 regardless of what you ask for). Fine at the current event size; if it gets
+  slow, cache the roster in D1 on a TTL. Marked with a `ponytail:` comment in
+  `src/server/helpers/oauth.ts`.
 - **Rate limiter shares one bucket in local dev.** `checkRateLimit` keys on
   `CF-Connecting-IP`/`X-Forwarded-For`, absent locally, so ALL local requests (yours + any curl
   testing) share a single `'unknown'` bucket (10 req/60s). Not a prod issue — Cloudflare always

@@ -2,6 +2,7 @@ import type { Database, Env } from '../types.js';
 import {
   EVENT_SLUG,
   MANAGER_SCOPE,
+  PROFILE_SCOPE,
   SESSION_COOKIE,
   SESSION_TTL_SECONDS,
   STATE_COOKIE,
@@ -9,6 +10,7 @@ import {
 import { readCookie } from '../helpers/cookies.js';
 import {
   buildAuthorizeUrl,
+  canManageEvent,
   exchangeCode,
   fetchTicketTier,
   fetchUserInfo,
@@ -55,12 +57,14 @@ export const authLogin = async ({
   // Dev-only UI login (opt-in via ?dev=1) — signs a session for a fixed user so the
   // /vote UI is testable without a live guild.host token exchange. Never honored in production.
   if (dev && url.searchParams.has('dev') && env.SESSION_SECRET) {
+    // `?dev=1&admin=1` signs an organizer session so /admin/votes is reachable locally without a
+    // guild round-trip. Same environment guard as the rest of the dev paths.
     const session = await signSession(
       'dev-user',
       3,
       env.SESSION_SECRET,
       SESSION_TTL_SECONDS,
-      { name: 'Dev User' }
+      { name: 'Dev User', admin: url.searchParams.has('admin') }
     );
     return redirect(`${websiteOrigin(request, env)}/vote`, [
       `${SESSION_COOKIE}=${session}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${SESSION_TTL_SECONDS}`,
@@ -109,6 +113,7 @@ export const authMe = async ({
       userId: session.userId,
       name: session.name,
       photo: session.photo,
+      admin: session.admin === true,
     },
     200,
     cors
@@ -134,8 +139,27 @@ export const authCallback = async ({
   const params = new URL(request.url).searchParams;
   const site = websiteOrigin(request, env);
 
-  // On any failure the user is bounced to the site home with an ?error= code; a global handler
-  // there surfaces the message. Only a clean login lands them on /vote.
+  // Every login asks for the attendee-read scope so the callback can tell organizers apart from
+  // ordinary attendees. If guild ever refuses to issue that scope, it answers `invalid_scope`
+  // rather than a code; retry once with identity-only so a normal ticket holder still gets in
+  // (as a non-admin). Without this branch, a stricter guild would lock everyone out of voting.
+  if (params.get('error') === 'invalid_scope' && env.GUILD_OAUTH_CLIENT_ID) {
+    const state = randomState();
+    return redirect(
+      buildAuthorizeUrl(
+        env.GUILD_OAUTH_CLIENT_ID,
+        redirectUri(request, env),
+        state,
+        PROFILE_SCOPE
+      ),
+      [
+        `${STATE_COOKIE}=${state}; HttpOnly; Secure; SameSite=Lax; Path=/api/vote; Max-Age=600`,
+      ]
+    );
+  }
+
+  // On any other failure the user is bounced to the site home with an ?error= code; a global
+  // handler there shows the message. Only a clean login takes them to /vote.
   if (params.get('error')) return redirect(`${site}/?error=denied`);
 
   const code = params.get('code');
@@ -204,12 +228,17 @@ export const authCallback = async ({
   if (!tier) return redirect(`${site}/?error=notattendee`);
   const budget = await vote(database).budgetForTier(tier);
 
+  // Admin check: guild answers the attendees endpoint only for users who can manage the event, so
+  // a 200 with THIS voter's own token is proof they are an organizer. Deliberately uses the
+  // voter's token, never the manager one, which would say yes for everybody.
+  const admin = await canManageEvent(tokens.access_token, EVENT_SLUG);
+
   const session = await signSession(
     identity.id,
     budget,
     env.SESSION_SECRET,
     SESSION_TTL_SECONDS,
-    { name: identity.name, photo: identity.photo }
+    { name: identity.name, photo: identity.photo, admin }
   );
   // Session cookie is SameSite=None;Secure so it's sent on the website's
   // cross-origin fetch to the API subdomain. Both must be HTTPS.

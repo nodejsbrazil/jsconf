@@ -145,9 +145,12 @@ describe('routes.authMe', async () => {
       env: makeEnv(),
     });
     assert.equal(res.status, 200);
+    // `admin` is always present so the frontend can branch on it without a fallback; false here
+    // because the dev bypass only reports an organizer when X-Dev-Admin is set.
     assert.deepEqual(await res.json(), {
       authenticated: true,
       userId: 'user-1',
+      admin: false,
     });
   });
 });

@@ -9,6 +9,34 @@ export type TalkRow = {
   audience_level: number;
 };
 
+export type TalkVoteCount = { talk_id: number; title: string; votes: number };
+
+export type VoteRow = {
+  user_id: string;
+  created_at: string;
+  position: number;
+};
+
+export type AuditAction = 'remove';
+
+export type AuditEntry = {
+  actorId: string;
+  actorName?: string | undefined;
+  action: AuditAction;
+  userId: string;
+  talkId: number;
+};
+
+export type AuditRow = {
+  actor_id: string;
+  actor_name: string | null;
+  action: AuditAction;
+  user_id: string;
+  talk_id: number;
+  title: string | null;
+  created_at: string;
+};
+
 type CastResult =
   | { success: true }
   | { success: false; reason: 'budget' | 'invalid_talk' };
@@ -90,5 +118,93 @@ export const vote = (database: Database) => {
     return results[0]?.budget ?? 1;
   };
 
-  return { listTalks, listUserVotes, castVote, removeVote, budgetForTier };
+  // Dashboard summary: every votable talk with its vote count, busiest first. Still no speaker
+  // join, for the same reason listTalks has none.
+  const talkVoteCounts = async (): Promise<TalkVoteCount[]> => {
+    const { results } = await database
+      .prepare(
+        `SELECT t.id AS talk_id, t.title, COUNT(v.id) AS votes
+         FROM talks t
+         LEFT JOIN c4p_votes v ON v.talk_id = t.id
+         WHERE t.status = ?
+         GROUP BY t.id, t.title
+         ORDER BY votes DESC, t.id`
+      )
+      .bind(VOTABLE_TALK_STATUS)
+      .all<TalkVoteCount>();
+    return results;
+  };
+
+  // One row per vote on a talk. `position` is where this vote falls in that voter's own timeline
+  // (their 1st, 2nd, ...), which the dashboard renders as "2 of 5" against their tier's budget.
+  const votesForTalk = async (talkId: number): Promise<VoteRow[]> => {
+    const { results } = await database
+      .prepare(
+        `SELECT user_id, created_at, position FROM (
+           SELECT user_id, talk_id, created_at,
+                  ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at, id) AS position
+           FROM c4p_votes
+         )
+         WHERE talk_id = ?
+         ORDER BY created_at`
+      )
+      .bind(talkId)
+      .all<VoteRow>();
+    return results;
+  };
+
+  // Every tier override at once, for the dashboard's per-voter budget column. Callers apply the
+  // same default budgetForTier uses: a tier with no row here is worth 1 vote.
+  const tierBudgets = async (): Promise<Map<string, number>> => {
+    const { results } = await database
+      .prepare('SELECT name, budget FROM ticket_tiers')
+      .bind()
+      .all<{ name: string; budget: number }>();
+    return new Map(results.map((row) => [row.name, row.budget]));
+  };
+
+  const recordAudit = async (entry: AuditEntry): Promise<void> => {
+    await database
+      .prepare(
+        `INSERT INTO c4p_vote_audit (actor_id, actor_name, action, user_id, talk_id)
+         VALUES (?, ?, ?, ?, ?)`
+      )
+      .bind(
+        entry.actorId,
+        entry.actorName ?? null,
+        entry.action,
+        entry.userId,
+        entry.talkId
+      )
+      .run();
+  };
+
+  // Newest first, capped, joined to the talk title so the log reads without a second lookup.
+  const listAudit = async (limit: number = 100): Promise<AuditRow[]> => {
+    const { results } = await database
+      .prepare(
+        `SELECT a.actor_id, a.actor_name, a.action, a.user_id, a.talk_id,
+                a.created_at, t.title
+         FROM c4p_vote_audit a
+         LEFT JOIN talks t ON t.id = a.talk_id
+         ORDER BY a.created_at DESC, a.id DESC
+         LIMIT ?`
+      )
+      .bind(limit)
+      .all<AuditRow>();
+    return results;
+  };
+
+  return {
+    listTalks,
+    listUserVotes,
+    castVote,
+    removeVote,
+    budgetForTier,
+    talkVoteCounts,
+    votesForTalk,
+    tierBudgets,
+    recordAudit,
+    listAudit,
+  };
 };

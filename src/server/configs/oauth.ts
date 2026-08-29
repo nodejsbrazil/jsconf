@@ -4,12 +4,18 @@ export const TOKEN_URL = 'https://guild.host/api/oauth/token';
 export const USERINFO_URL = 'https://guild.host/api/oauth/userinfo';
 export const EVENTS_BASE = 'https://guild.host/api/next/events';
 
-// Voters only need identity — the tier is read server-side with the manager token, so a normal
-// login requests just profile:read. Space-separated per OAuth 2.0; URLSearchParams encodes ' ' as '+'.
-export const OAUTH_SCOPE = 'profile:read';
+// Identity only. Used as the fallback when guild rejects the wider scope below with
+// error=invalid_scope, so an ordinary attendee can still log in.
+// Space-separated per OAuth 2.0; URLSearchParams encodes ' ' as '+'.
+export const PROFILE_SCOPE = 'profile:read';
 
-// Manager scope, used once to mint GUILD_ORG_REFRESH_TOKEN. Adds attendee-list read (only granted
-// for events the account manages).
+// Every login asks for the attendee-list read too. guild only lets that endpoint answer for users
+// who can manage the event (403 otherwise), so calling it once with the voter's OWN token is the
+// admin check for the dashboard. No hardcoded organizer list anywhere.
+export const OAUTH_SCOPE = 'profile:read event_attendees:read';
+
+// Manager scope, used once to mint GUILD_ORG_REFRESH_TOKEN. Same set as OAUTH_SCOPE today, kept
+// separate because the capture path's needs are its own.
 export const MANAGER_SCOPE = 'profile:read event_attendees:read';
 
 // Event slug hardcoded (same one the ticket widget uses, TicketSelection.tsx).

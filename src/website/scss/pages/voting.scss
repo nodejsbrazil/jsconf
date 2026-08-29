@@ -1,7 +1,8 @@
 @use '../global/mixins' as *;
 
 .vote-page,
-.account-page {
+.account-page,
+.admin-page {
   @include flex(column);
   gap: 3rem;
   width: 100%;

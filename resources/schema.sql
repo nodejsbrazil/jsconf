@@ -83,3 +83,19 @@ CREATE TABLE IF NOT EXISTS manager_oauth (
   expires_at    INTEGER NOT NULL DEFAULT 0,
   updated_at    VARCHAR(20) NOT NULL DEFAULT (datetime('now'))
 );
+
+-- Audit trail for organizer actions on votes. Append-only: the dashboard can delete a vote, and
+-- this records who did it, to whom, and when. `actor_name` is the organizer's guild display name
+-- at the time of the action, stored alongside the id so the log stays readable if they rename.
+CREATE TABLE IF NOT EXISTS c4p_vote_audit (
+  id           INTEGER     PRIMARY KEY AUTOINCREMENT,
+  actor_id     TEXT        NOT NULL,  -- guild.host user id of the organizer who acted
+  actor_name   TEXT,
+  action       TEXT        NOT NULL CHECK(action IN ('remove')),
+  user_id      TEXT        NOT NULL,  -- guild.host user id whose vote was affected
+  talk_id      INTEGER     NOT NULL REFERENCES talks(id),
+  created_at   VARCHAR(20) NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_c4p_vote_audit_talk ON c4p_vote_audit(talk_id);
+CREATE INDEX IF NOT EXISTS idx_c4p_vote_audit_created ON c4p_vote_audit(created_at);
