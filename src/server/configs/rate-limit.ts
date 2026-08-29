@@ -5,7 +5,17 @@ type RateLimitEntry = {
   windowStart: number;
 };
 
-const MAX_REQUESTS = 10;
+/**
+ * One budget covers every endpoint, so it has to fit the chattiest legitimate caller rather than
+ * the cheapest one. The admin dashboard is that caller: opening it spends two requests, each
+ * drill-down one, and removing a vote three. At the old ceiling of 10 an organizer hit 429 after
+ * roughly three removals, which reads as the page being broken.
+ *
+ * 30 leaves room for that while staying far below anything abusive on the public write endpoints:
+ * the waitlist is the one worth protecting, and 30 signups a minute from a single IP is not a
+ * person. Exported so the tests read the real number instead of restating it.
+ */
+export const MAX_REQUESTS = 30;
 const WINDOW_MS = 60_000;
 
 const cache = createLRU<string, RateLimitEntry>({ max: 1000 });

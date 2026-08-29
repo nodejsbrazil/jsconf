@@ -2,6 +2,7 @@ import { assert, describe, it } from 'poku';
 import {
   checkRateLimit,
   getRateLimitKey,
+  MAX_REQUESTS,
 } from '../../src/server/configs/rate-limit.js';
 
 const makeRequest = (ipAddress: string): Request =>
@@ -40,17 +41,18 @@ describe('Rate Limit', () => {
 
     it('allows requests under the limit', () => {
       const request = makeRequest('under-limit');
-      for (let index = 0; index < 10; index++) {
+      for (let index = 0; index < MAX_REQUESTS; index++) {
         const result = checkRateLimit(request);
 
         assert.equal(result.allowed, true);
       }
     });
 
-    it('blocks the 11th request in the same window', () => {
+    it('blocks the request just past the limit in the same window', () => {
       const request = makeRequest('over-limit');
 
-      for (let index = 0; index < 10; index++) checkRateLimit(request);
+      for (let index = 0; index < MAX_REQUESTS; index++)
+        checkRateLimit(request);
 
       const result = checkRateLimit(request);
 
@@ -64,7 +66,8 @@ describe('Rate Limit', () => {
 
       const request = makeRequest('window-reset');
 
-      for (let index = 0; index < 11; index++) checkRateLimit(request);
+      for (let index = 0; index <= MAX_REQUESTS; index++)
+        checkRateLimit(request);
 
       const blocked = checkRateLimit(request);
 
@@ -83,7 +86,8 @@ describe('Rate Limit', () => {
       const requestA = makeRequest('independent-a');
       const requestB = makeRequest('independent-b');
 
-      for (let index = 0; index < 10; index++) checkRateLimit(requestA);
+      for (let index = 0; index < MAX_REQUESTS; index++)
+        checkRateLimit(requestA);
 
       const resultB = checkRateLimit(requestB);
 
