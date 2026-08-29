@@ -86,16 +86,6 @@ export const Team = () => {
             }}
           />
           <Person
-            name='Micaele Magalhães'
-            img='/img/team/mi.webp'
-            imgWidth={600}
-            imgHeight={500}
-            bio={text({ id: 'team.micaele.bio' })}
-            social={{
-              instagram: 'micaele_magalhaes',
-            }}
-          />
-          <Person
             name='Mônica'
             img='/img/team/monica.webp'
             imgWidth={600}
