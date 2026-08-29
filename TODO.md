@@ -5,10 +5,37 @@
 > guild.host login. What's left is deploy + a couple of known caveats. `HANDOVER.md` is deleted —
 > this file plus `DEVELOPMENT.md` are now the source of truth.
 
+## Operational notes
+
+Two things that cost real time in August 2026, both worth reading before touching prod.
+
+**`npm run db:init:remote` only works in CI.** `wrangler.jsonc` ships `database_id: "local"` as a
+placeholder and `tools/prepare-worker.mts` swaps in the real UUID from the `WORKER_D1` secret at
+build time. Without `.env` the literal string `local` reaches the API and it fails with
+`Invalid property: databaseId => Invalid uuid`. From a laptop, target the database by name:
+
+```sh
+npx wrangler d1 execute jsconf --remote --file='resources/schema.sql'
+```
+
+Note the name is **`jsconf`**, not `jsconf-br`. The binding in `wrangler.jsonc` and the actual D1
+database name are different, which is what makes the documented command misleading.
+
+**The manager refresh token cannot be shared between environments.** guild rotates it on every use
+and revokes the previous one, so if local and prod hold the same token, whichever refreshes first
+kills the other. Give each environment its own token from a separate `?manager=1` capture. Worker
+secrets are also write-only once set (`wrangler secret list` returns names only), so a lost token
+means recapturing, never reading it back. The client id IS recoverable, since it travels in the
+`/api/vote/login` redirect.
+
 ## Deploy checklist
 
+Completed for the 2026 event; kept as the runbook for next time.
+
 1. Confirm `EVENT_SLUG` in `src/server/configs/oauth.ts` matches the real event (`vdc8dh` today).
-2. `npm run db:init:remote` — applies `resources/schema.sql` to prod D1 (idempotent).
+2. Apply `resources/schema.sql` to prod D1 (idempotent). See the operational note above: use
+   `npx wrangler d1 execute jsconf --remote --file='resources/schema.sql'` locally, since
+   `npm run db:init:remote` needs `WORKER_D1` and only works in CI.
 3. Seed prod `ticket_tiers` (tier name must match guild.host exactly, case-sensitive):
    ```sql
    INSERT INTO ticket_tiers (name, budget) VALUES ('Super Early Bird', 2), ('Early Bird', 1);
@@ -26,8 +53,12 @@
    `wrangler dev` with `ENVIRONMENT=development`, or a throwaway dev deploy. Hit `/api/vote/login?manager=1`,
    log in with the org account, and copy the printed refresh token into the **prod** secret. The token is
    org-scoped, so where you capture it doesn't matter. After first use, D1 (`manager_oauth` table) keeps
-   itself current — guild rotates the refresh token on every use, and `managerAccessToken()` writes the new
+   itself current: guild rotates the refresh token on every use, and `managerAccessToken()` writes the new
    one back automatically.
+   **If you ever rotate the secret by hand,** know that D1 wins over the env var while a row exists.
+   `managerAccessToken()` now retries with the bootstrap secret when the stored token is refused, so a
+   rotated secret recovers on its own. Before that fallback existed this needed
+   `DELETE FROM manager_oauth WHERE id = 1` to make the new value reachable at all.
 7. Delete the dev-only `?manager=1` capture branch in `authLogin`/`authCallback`
    (`src/server/routes/auth.ts`) once the prod token is bootstrapped — already inert in production,
    but worth removing as cleanup.
