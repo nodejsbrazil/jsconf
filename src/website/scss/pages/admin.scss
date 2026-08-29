@@ -165,6 +165,24 @@
         margin: 0;
       }
 
+      // Tier plus "3 of 5 votes used", under the name in the per-voter panel.
+      .voter-summary {
+        @include flex(row, center, flex-start, wrap);
+        gap: 0.8rem;
+        margin: 0.6rem 0 0;
+        font-size: 1.3rem;
+
+        .voter-tier {
+          font-weight: 700;
+          color: var(--ifm-color-primary);
+        }
+
+        .voter-position {
+          color: #b0b0b0;
+          font-variant-numeric: tabular-nums;
+        }
+      }
+
       .voters-close {
         @include flex(row, center, center);
         flex-shrink: 0;
@@ -210,7 +228,26 @@
         gap: 0.2rem;
         min-width: 0;
 
+        // Clickable in the per-talk view (opens that person's own vote list) and static in the
+        // per-voter view, where the row is a talk rather than a person.
         .voter-name {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: var(--ifm-color-primary);
+          text-align: left;
+          padding: 0;
+          background: none;
+          border: none;
+          border-bottom: 0.1rem dashed rgba(141, 248, 34, 0.4);
+          cursor: pointer;
+
+          &:hover,
+          &:focus-visible {
+            border-bottom-color: var(--ifm-color-primary);
+          }
+        }
+
+        .voter-name-static {
           font-size: 1.5rem;
           font-weight: 700;
           color: var(--title-color);
