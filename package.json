@@ -55,7 +55,7 @@
     "lucide-react": "^1.7.0",
     "packages-update": "^2.0.0",
     "poku": "^4.2.1",
-    "postcss": "^8.5.10",
+    "postcss": "^8.5.28",
     "prettier": "^3.8.1",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.4",
@@ -70,7 +70,7 @@
     "tailwindcss": "^4.2.2",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
-    "wrangler": "^4.110.0",
+    "wrangler": "^4.140.0",
     "zod": "^4.3.6"
   },
   "browserslist": {
