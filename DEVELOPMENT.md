@@ -239,7 +239,7 @@ Ver `resources/schema.sql` pras colunas exatas. Tabelas relevantes pra votação
 
 ### Operações administrativas
 
-Rode com `npx wrangler d1 execute jsconf-br --file=<arquivo.sql>` (adicione `--remote` pra produção).
+Rode com `npx wrangler d1 execute jsconf-br --file=<arquivo.sql>` no banco local. Pra produção, use o UUID no lugar do nome: `npx wrangler d1 execute d27cd50c-f3ed-44fc-9297-15eedc8c73a0 --remote --file=<arquivo.sql>` (o `wrangler.jsonc` só tem o placeholder `local`; ver "Operational notes" no `TODO.md`).
 
 - **Adicionar uma palestra votável:** insira o speaker, depois a talk com `status = 2`.
 

@@ -23,8 +23,8 @@ Branch `feat/sympla-ticket-link`, not merged yet.
 - [ ] Cast a vote with the Sympla session, then check the guild.host invite at the end of the ballot.
 - [ ] Check that a guild.host login with no Guild ticket shows the error pointing to the ticket login.
 - [ ] Move `VOTE_CLOSES_AT` before reopening voting.
-- [ ] Merge, then `wrangler secret put SYMPLA_TOKEN` and, for prod D1,
-      `npx wrangler d1 execute jsconf --remote --file='resources/schema.sql'` (see Operational notes).
+- [x] Prod D1 has `sympla_guild_join` (schema applied and checked 2026-09-25).
+- [ ] Confirm the prod `SYMPLA_TOKEN` secret is set (`wrangler secret list` shows names), then merge.
 
 ## Operational notes
 
@@ -33,14 +33,17 @@ Two things that cost real time in August 2026, both worth reading before touchin
 **`npm run db:init:remote` only works in CI.** `wrangler.jsonc` ships `database_id: "local"` as a
 placeholder and `tools/prepare-worker.mts` swaps in the real UUID from the `WORKER_D1` secret at
 build time. Without `.env` the literal string `local` reaches the API and it fails with
-`Invalid property: databaseId => Invalid uuid`. From a laptop, target the database by name:
+`Invalid property: databaseId => Invalid uuid`. From a laptop, target the database by UUID:
 
 ```sh
-npx wrangler d1 execute jsconf --remote --file='resources/schema.sql'
+npx wrangler d1 execute d27cd50c-f3ed-44fc-9297-15eedc8c73a0 --remote --file='resources/schema.sql'
 ```
 
-Note the name is **`jsconf`**, not `jsconf-br`. The binding in `wrangler.jsonc` and the actual D1
-database name are different, which is what makes the documented command misleading.
+The D1 database is named **`jsconf`** (UUID above, from `npx wrangler d1 list`), while
+`wrangler.jsonc` calls it `jsconf-br`. Passing the name `jsconf` does not work: it is not in the
+config, so wrangler sends it to the API as a database id and gets a misleading
+`Authentication error [code: 10000]`. Passing `WORKER_D1` from a local `.env` does not work either
+when that file still holds the `local` placeholder.
 
 **The manager refresh token cannot be shared between environments.** guild rotates it on every use
 and revokes the previous one, so if local and prod hold the same token, whichever refreshes first
@@ -55,7 +58,8 @@ Completed for the 2026 event; kept as the runbook for next time.
 
 1. Confirm `EVENT_SLUG` in `src/server/configs/oauth.ts` matches the real event (`vdc8dh` today).
 2. Apply `resources/schema.sql` to prod D1 (idempotent). See the operational note above: use
-   `npx wrangler d1 execute jsconf --remote --file='resources/schema.sql'` locally, since
+   `npx wrangler d1 execute d27cd50c-f3ed-44fc-9297-15eedc8c73a0 --remote --file='resources/schema.sql'`
+   locally, since
    `npm run db:init:remote` needs `WORKER_D1` and only works in CI.
 3. Seed prod `ticket_tiers` (tier name must match guild.host exactly, case-sensitive):
    ```sql
