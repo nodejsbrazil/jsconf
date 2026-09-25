@@ -414,7 +414,10 @@
     "message": "Vote for talks"
   },
   "vote.subheading": {
-    "message": "Choose the talks you want to see on stage."
+    "message": "At JSConf 2026, {you} choose the talks we will see on stage!"
+  },
+  "vote.subheadingYou": {
+    "message": "you"
   },
   "vote.hideAuthorsTitle": {
     "message": "Why do we hide the authors' names?"
@@ -423,7 +426,13 @@
     "message": "To reduce bias, the names of who proposed each talk are hidden. Vote for the talk's content, not for who wrote it."
   },
   "vote.loginHeading": {
-    "message": "Sign in to vote"
+    "message": "How did you buy your ticket?"
+  },
+  "vote.loginSubheading": {
+    "message": "Because we changed ticketing providers, you may have bought your ticket in one of two ways: through our partner Guild.host or through Sympla."
+  },
+  "vote.guildHeading": {
+    "message": "Through Guild.host"
   },
   "vote.closedHeading": {
     "message": "Voting is closed"
@@ -441,7 +450,7 @@
     "message": "Voted"
   },
   "vote.loginPrompt": {
-    "message": "Sign in with your guild.host account to vote for talks."
+    "message": "Log in with your guild.host account to vote!"
   },
   "vote.loadError": {
     "message": "Could not load voting. Try again later."
@@ -474,13 +483,16 @@
     "message": "Could not identify your guild.host account."
   },
   "vote.ticket.heading": {
-    "message": "Bought on Sympla?"
+    "message": "Through Sympla?"
   },
   "vote.ticket.prompt": {
-    "message": "Log in with your ticket number and the email on the ticket. No guild.host account needed."
+    "message": "Log in with your ticket number and the email on the ticket!"
   },
   "vote.ticket.number": {
     "message": "Ticket number"
+  },
+  "vote.ticket.numberPlaceholder": {
+    "message": "Ticket number, e.g. UV8MZAU6D6 (with or without dashes)"
   },
   "vote.ticket.email": {
     "message": "Ticket email"
@@ -498,7 +510,7 @@
     "message": "Follow JSConf on guild.host"
   },
   "vote.guildInvite.body": {
-    "message": "That is where we post news about the schedule, the event and upcoming meetups. Create an account and join the event so you miss nothing."
+    "message": "NodeBR is on Guild.host! That's where you'll find more about upcoming events, meetups and a lot more. Sign up, it's free!"
   },
   "vote.guildInvite.cta": {
     "message": "Go to guild.host"

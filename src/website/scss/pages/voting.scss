@@ -103,11 +103,45 @@
       }
     }
 
-    .login-divider {
+    // Two sign-in paths side by side, split by a vertical line; stacked on narrow screens.
+    .login-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       align-self: stretch;
-      margin: 1rem 0;
-      border: none;
-      border-top: 0.1rem solid rgba(141, 248, 34, 0.2);
+      margin-top: 1.5rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .login-option {
+      @include flex(column, flex-start, flex-start);
+      gap: 1.5rem;
+      min-width: 0;
+
+      &:first-child {
+        padding-right: 3rem;
+      }
+
+      & + .login-option {
+        padding-left: 3rem;
+        border-left: 0.1rem solid rgba(141, 248, 34, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        &:first-child {
+          padding-right: 0;
+          padding-bottom: 2.5rem;
+        }
+
+        & + .login-option {
+          padding-left: 0;
+          padding-top: 2.5rem;
+          border-left: none;
+          border-top: 0.1rem solid rgba(141, 248, 34, 0.2);
+        }
+      }
     }
 
     .login-subtitle {
@@ -119,10 +153,12 @@
     }
 
     .ticket-form {
-      @include flex(row, center, flex-start, wrap);
+      @include flex(column, stretch, flex-start);
+      align-self: stretch;
       gap: 1rem;
 
       .login-cta {
+        align-self: flex-start;
         margin-top: 0;
         border: none;
         cursor: pointer;
@@ -137,8 +173,7 @@
       font-size: 1.4rem;
       color: var(--title-color);
       min-width: 0;
-      width: 24rem;
-      max-width: 100%;
+      width: 100%;
     }
   }
 

@@ -189,7 +189,16 @@ const Vote = () => {
             <Text id='vote.heading' />
           </h1>
           <p className='subtitle'>
-            <Text id='vote.subheading' />
+            <Text
+              id='vote.subheading'
+              values={{
+                you: (
+                  <strong>
+                    <Text id='vote.subheadingYou' />
+                  </strong>
+                ),
+              }}
+            />
           </p>
         </header>
 
@@ -209,47 +218,61 @@ const Vote = () => {
               <Text id='vote.loginHeading' />
             </h2>
             <p className='login-text'>
-              <Text id='vote.loginPrompt' />
+              <Text id='vote.loginSubheading' />
             </p>
-            <a className='login-cta' href={`${workerDomain}/api/vote/login`}>
-              <Text id='auth.login' />
-            </a>
-            <hr className='login-divider' />
-            <h3 className='login-subtitle'>
-              <Text id='vote.ticket.heading' />
-            </h3>
-            <p className='login-text'>
-              <Text id='vote.ticket.prompt' />
-            </p>
-            <form className='ticket-form' onSubmit={ticketLogin}>
-              <input
-                className='ticket-input'
-                aria-label={text({ id: 'vote.ticket.number' })}
-                placeholder={text({ id: 'vote.ticket.number' })}
-                inputMode='numeric'
-                autoComplete='off'
-                required
-                value={ticketNumber}
-                onChange={(event) => setTicketNumber(event.target.value)}
-              />
-              <input
-                className='ticket-input'
-                type='email'
-                aria-label={text({ id: 'vote.ticket.email' })}
-                placeholder={text({ id: 'vote.ticket.email' })}
-                autoComplete='email'
-                required
-                value={ticketEmail}
-                onChange={(event) => setTicketEmail(event.target.value)}
-              />
-              <button
-                className='login-cta'
-                type='submit'
-                disabled={ticketLoading}
-              >
-                <Text id='vote.ticket.submit' />
-              </button>
-            </form>
+            <div className='login-options'>
+              <div className='login-option'>
+                <h3 className='login-subtitle'>
+                  <Text id='vote.guildHeading' />
+                </h3>
+                <p className='login-text'>
+                  <Text id='vote.loginPrompt' />
+                </p>
+                <a
+                  className='login-cta'
+                  href={`${workerDomain}/api/vote/login`}
+                >
+                  <Text id='auth.login' />
+                </a>
+              </div>
+              <div className='login-option'>
+                <h3 className='login-subtitle'>
+                  <Text id='vote.ticket.heading' />
+                </h3>
+                <p className='login-text'>
+                  <Text id='vote.ticket.prompt' />
+                </p>
+                <form className='ticket-form' onSubmit={ticketLogin}>
+                  <input
+                    className='ticket-input'
+                    aria-label={text({ id: 'vote.ticket.number' })}
+                    placeholder={text({ id: 'vote.ticket.numberPlaceholder' })}
+                    autoCapitalize='characters'
+                    autoComplete='off'
+                    required
+                    value={ticketNumber}
+                    onChange={(event) => setTicketNumber(event.target.value)}
+                  />
+                  <input
+                    className='ticket-input'
+                    type='email'
+                    aria-label={text({ id: 'vote.ticket.email' })}
+                    placeholder={text({ id: 'vote.ticket.email' })}
+                    autoComplete='email'
+                    required
+                    value={ticketEmail}
+                    onChange={(event) => setTicketEmail(event.target.value)}
+                  />
+                  <button
+                    className='login-cta'
+                    type='submit'
+                    disabled={ticketLoading}
+                  >
+                    <Text id='vote.ticket.submit' />
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         )}
 
