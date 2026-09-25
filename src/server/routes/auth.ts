@@ -21,7 +21,11 @@ import {
 import { parseRequest } from '../helpers/request.js';
 import { response } from '../helpers/response.js';
 import { getSession, sessionCookie, signSession } from '../helpers/session.js';
-import { fetchSymplaTicket, isValidSymplaLogin } from '../helpers/sympla.js';
+import {
+  fetchSymplaTicket,
+  isValidSymplaLogin,
+  normalizeTicketNumber,
+} from '../helpers/sympla.js';
 import { symplaJoin } from '../repositories/sympla.js';
 import { vote } from '../repositories/vote.js';
 
@@ -253,8 +257,8 @@ export const authCallback = async ({
   ]);
 };
 
-// Sympla ticket numbers are digits (e.g. 94461180000001); the looser charset only keeps the path
-// segment safe, Sympla is the real check.
+// Sympla ticket numbers look like `UV8M-ZA-U6D6`; the charset only keeps the path segment safe,
+// Sympla is the real check.
 const ticketSchema = z.object({
   ticketNumber: z
     .string()
@@ -280,7 +284,8 @@ export const authTicket = async ({
   const parsed = await parseRequest(request, ticketSchema, 512);
   if ('error' in parsed)
     return response({ error: parsed.error }, parsed.status, cors);
-  const { ticketNumber, email } = parsed.data;
+  const { email } = parsed.data;
+  const ticketNumber = normalizeTicketNumber(parsed.data.ticketNumber);
 
   const participant = await fetchSymplaTicket(env.SYMPLA_TOKEN, ticketNumber);
   if (!participant)

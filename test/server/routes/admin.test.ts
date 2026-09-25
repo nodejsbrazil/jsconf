@@ -197,6 +197,8 @@ describe('routes.adminVotes', async () => {
         { talkId: 2, title: 'B', votes: 0 },
       ],
       total: 2,
+      // No SYMPLA_TOKEN in the test env, so cancelled tickets were not checked.
+      symplaChecked: false,
     });
   });
 });
@@ -221,6 +223,8 @@ describe('routes.adminVoteDetail', async () => {
     assert.deepEqual(await res.json(), {
       talkId: 1,
       rosterAvailable: true,
+      // No Sympla votes on this talk, so there was nothing to check against Sympla.
+      symplaChecked: true,
       votes: [
         {
           userId: 'u1',

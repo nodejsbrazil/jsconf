@@ -12,6 +12,7 @@ import { fetchAttendeeRoster, managerAccessToken } from '../helpers/oauth.js';
 import { parseRequest } from '../helpers/request.js';
 import { response } from '../helpers/response.js';
 import { getSession } from '../helpers/session.js';
+import { fetchCancelledTickets } from '../helpers/sympla.js';
 import { vote as repository } from '../repositories/vote.js';
 
 type Options = {
@@ -44,7 +45,21 @@ const requireAdmin = async (
   return session;
 };
 
+// Voter ids of cancelled or refunded Sympla tickets, whose votes must not count. Checked at tally
+// time rather than at vote time, so it covers a ticket cancelled after voting and a session still
+// open after the cancellation. null means Sympla was not asked or did not answer: callers count
+// everything and report `symplaChecked: false`.
+const cancelledSymplaVoters = async (env: Env): Promise<Set<string> | null> => {
+  if (!env.SYMPLA_TOKEN) return null;
+  const tickets = await fetchCancelledTickets(env.SYMPLA_TOKEN);
+  if (!tickets) return null;
+  return new Set(
+    [...tickets].map((ticket) => `${SYMPLA_USER_PREFIX}${ticket}`)
+  );
+};
+
 // Talk titles + vote counts. Pure SQL, so the dashboard's main table costs zero guild.host calls.
+// It does ask Sympla for cancelled tickets, one request per 500 cancellations.
 //
 // Opening the page is also the moment to warm the roster. The walk takes about 11 seconds (16
 // sequential guild requests), and doing it lazily meant the first drill-down click paid for it.
@@ -71,7 +86,10 @@ export const adminVotes = async ({
       })
     );
 
-  const talks = await repository(database).talkVoteCounts();
+  const cancelled = await cancelledSymplaVoters(env);
+  const talks = await repository(database).talkVoteCounts([
+    ...(cancelled ?? []),
+  ]);
   return response(
     {
       talks: talks.map((row) => ({
@@ -80,6 +98,7 @@ export const adminVotes = async ({
         votes: row.votes,
       })),
       total: talks.reduce((sum, row) => sum + row.votes, 0),
+      symplaChecked: cancelled !== null,
     },
     200,
     cors
@@ -180,10 +199,17 @@ export const adminVoteDetail = async ({
     return response({ error: 'Invalid talk id.' }, 422, cors);
 
   const repo = repository(database);
-  const [votes, budgets] = await Promise.all([
+  const [allVotes, budgets] = await Promise.all([
     repo.votesForTalk(talkId),
     repo.tierBudgets(),
   ]);
+
+  // Same exclusion as the summary, so the drill-down list matches the count. Sympla is only asked
+  // when this talk actually has Sympla votes.
+  const cancelled = allVotes.some((row) => isSympla(row.user_id))
+    ? await cancelledSymplaVoters(env)
+    : new Set<string>();
+  const votes = allVotes.filter((row) => !cancelled?.has(row.user_id));
 
   // A roster we can't read degrades the columns, never the list: the votes still render with their
   // ids, which is what an organizer actually needs to act on.
@@ -197,6 +223,7 @@ export const adminVoteDetail = async ({
     {
       talkId,
       rosterAvailable: roster.size > 0,
+      symplaChecked: cancelled !== null,
       votes: votes.map((row) => ({
         userId: row.user_id,
         ...voterIdentity(row.user_id, roster, budgets),

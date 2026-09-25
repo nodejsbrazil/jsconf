@@ -11,18 +11,20 @@ Branch `feat/sympla-ticket-link`, not merged yet.
 
 - [ ] Push the branch: `git push -u origin feat/sympla-ticket-link`.
 - [ ] Add `SYMPLA_TOKEN` to `.dev.vars`.
-- [ ] `npm run db:init` (creates `sympla_guild_join` locally), then `npm start`.
-- [ ] Open `/vote` and log in with a real Sympla ticket number + the email on that ticket.
-- [ ] Confirm an approved ticket returns `"order_status": "A"`. If Sympla uses another value,
-      update `SYMPLA_PAID_ORDER_STATUS` in `src/server/configs/sympla.ts`, or every login gets 422.
-- [ ] Confirm the numeric event id `3593934` works in the API path (the spec calls it
-      `eventIdHash`). If it 404s, list `/v1.6.0/events?fields=id,name` and use the id it returns
-      in `SYMPLA_EVENT_ID`.
-- [ ] Check the failure cases: wrong email, unknown ticket number, a cancelled/refunded ticket if
-      one exists. All three should show the same "invalid ticket" message.
+- [x] `npm run db:init` (creates `sympla_guild_join` locally), then `npm start`.
+- [x] Log in with a real Sympla ticket number + the email on that ticket (2026-09-25, via the
+      local worker; works with `UV8M-ZA-U6D6`, `UV8MZAU6D6` and lowercase).
+- [x] Real approved order returns `"order_status": "APPROVED"` (not `"A"`), now in
+      `SYMPLA_PAID_ORDER_STATUS`.
+- [x] The API wants the event hash `s36d6ce`, not the numeric `3593934` from the public URL
+      ("Event not found"). Now in `SYMPLA_EVENT_ID`.
+- [x] Failure cases: wrong email and unknown ticket (including the order number `3DLMEBNC7UQ`,
+      which people confuse with the ticket number) both get 422 "invalid ticket". Unknown tickets
+      come back as 404 from the live API, not the 204 the spec lists.
+- [ ] Log in through the `/vote` page in a browser (the API path is verified, the UI is not).
 - [ ] Cast a vote with the Sympla session, then check the guild.host invite at the end of the ballot.
 - [ ] Check that a guild.host login with no Guild ticket shows the error pointing to the ticket login.
-- [ ] Move `VOTE_CLOSES_AT` before reopening voting.
+- [x] `VOTE_CLOSES_AT` moved to the end of 2026-11-01 (Brasília time).
 - [x] Prod D1 has `sympla_guild_join` (schema applied and checked 2026-09-25).
 - [ ] Confirm the prod `SYMPLA_TOKEN` secret is set (`wrangler secret list` shows names), then merge.
 
@@ -70,7 +72,7 @@ Completed for the 2026 event; kept as the runbook for next time.
 4. `npm run secret` (`wrangler secret put`) for: `GUILD_OAUTH_CLIENT_ID`,
    `GUILD_OAUTH_CLIENT_SECRET`, `SESSION_SECRET`, `GUILD_ORG_REFRESH_TOKEN`, `SYMPLA_TOKEN`.
    Without `SYMPLA_TOKEN`, Sympla buyers can't log in (500 on `/api/vote/ticket`). The Sympla
-   event id (`3593934`) is a constant in `src/server/configs/sympla.ts`.
+   event hash (`s36d6ce`) is a constant in `src/server/configs/sympla.ts`.
    `ALLOWED_ORIGIN` = `https://jsconf.com.br` (never `*` — credentialed cookies need an explicit
    origin).
 5. Confirm the guild.host OAuth app has `https://api.jsconf.com.br/api/vote/callback` registered
@@ -135,14 +137,15 @@ attendees still get in as non-admins.
   with the same ticket bought once on Sympla can't double vote (the guild login has no ticket), but
   someone with a guild ticket AND a Sympla ticket votes with both, which is correct: two tickets.
 
-- **Sympla `order_status` values are unconfirmed.** The official OpenAPI spec types the field as a
-  bare string. `SYMPLA_PAID_ORDER_STATUS = ['A']` (`src/server/configs/sympla.ts`) comes from
-  Kondado's connector docs. Before announcing, call the ticket-number endpoint for one real
-  approved ticket and confirm it returns `"order_status": "A"`, or every Sympla login fails with 422.
-  The same call also confirms the path accepts the numeric event id `3593934`: the spec names the
-  parameter `eventIdHash`. If it 404s, list `/v1.6.0/events?fields=id,name` and use the id it returns.
-- **`VOTE_CLOSES_AT` (`2026-09-01`) is in the past**, so voting is closed. Move the date before
-  reopening.
+- **Sympla statuses seen live (2026-09-25):** `APPROVED` for a paid order, `CANCELLED` after
+  cancelling it. Only `APPROVED` logs in. A refunded order has not been observed; anything other
+  than `APPROVED` is rejected, so the failure mode is "can't log in", never "votes without paying".
+- **Cancelled Sympla votes stay in `c4p_votes` but are left out of the tally.** `/admin/votes`
+  asks Sympla for cancelled tickets on every load (`cancelled_filter=only`). If Sympla is down the
+  dashboard counts everything and returns `symplaChecked: false`; the UI doesn't show that flag
+  yet, so check the response before trusting a tally taken during a Sympla outage.
+- **Voting closes at the end of 2026-11-01, Brasília time** (`VOTE_CLOSES_AT =
+2026-11-02T03:00:00Z`). The date is hardcoded, so changing it needs a deploy.
 
 - **Budget is baked into the session JWT at login time.** Changing a tier's `budget` in
   `ticket_tiers` does NOT retroactively update anyone already logged in — they need to log out and

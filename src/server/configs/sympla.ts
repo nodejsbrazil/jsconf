@@ -2,13 +2,15 @@
 // generated in Sympla under Minha Conta > Integrações.
 export const SYMPLA_API = 'https://api.sympla.com.br/public/v1.6.0';
 
-// JSConf Brasil event on Sympla. Move to an Env var if it ever changes per environment.
-export const SYMPLA_EVENT_ID = '3593934';
+// JSConf Brasil event on Sympla. The API wants the event hash (`id` from `GET /events`), not the
+// numeric `reference_id` 3593934 in the public URL, which answers "Event not found".
+// Move to an Env var if it ever changes per environment.
+export const SYMPLA_EVENT_ID = 's36d6ce';
 
-// order_status values that count as a paid ticket: A = aprovado. P (pending), NA (not approved),
-// NP (not paid), R (refund requested) and C (cancelled) are rejected. The official spec types the
-// field as a bare string; these values come from Kondado's Sympla connector docs.
-export const SYMPLA_PAID_ORDER_STATUS = ['A'];
+// order_status values that count as a paid ticket. The official spec types the field as a bare
+// string; a real approved order returned "APPROVED" from v1.6.0 (checked 2026-09-25). Anything else
+// (pending, cancelled, refunded) is rejected.
+export const SYMPLA_PAID_ORDER_STATUS = ['APPROVED'];
 
 // Sympla sells a single tier, worth one vote. SYMPLA_TIER is the label the admin dashboard shows.
 export const SYMPLA_BUDGET = 1;
