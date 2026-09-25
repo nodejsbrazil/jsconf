@@ -43,7 +43,9 @@ Completed for the 2026 event; kept as the runbook for next time.
    Any tier NOT listed here defaults to budget 1 (see `budgetForTier` in
    `src/server/repositories/vote.ts`) — only add rows for overrides.
 4. `npm run secret` (`wrangler secret put`) for: `GUILD_OAUTH_CLIENT_ID`,
-   `GUILD_OAUTH_CLIENT_SECRET`, `SESSION_SECRET`, `GUILD_ORG_REFRESH_TOKEN`.
+   `GUILD_OAUTH_CLIENT_SECRET`, `SESSION_SECRET`, `GUILD_ORG_REFRESH_TOKEN`, `SYMPLA_TOKEN`.
+   Without `SYMPLA_TOKEN`, Sympla buyers can't log in (500 on `/api/vote/ticket`). The Sympla
+   event id (`3593934`) is a constant in `src/server/configs/sympla.ts`.
    `ALLOWED_ORIGIN` = `https://jsconf.com.br` (never `*` — credentialed cookies need an explicit
    origin).
 5. Confirm the guild.host OAuth app has `https://api.jsconf.com.br/api/vote/callback` registered
@@ -96,6 +98,21 @@ If guild ever refuses to issue `event_attendees:read` to non-managers at authori
 attendees still get in as non-admins.
 
 ## Known caveats (not blocking, but real)
+
+- **Sympla voters and guild.host accounts are not linked yet.** Sympla buyers vote as
+  `sympla:<ticket_number>`; `sympla_guild_join` keeps each ticket's email with `guild_user_id`
+  NULL. Backfill later by matching those emails to guild accounts. A person who logs in both ways
+  with the same ticket bought once on Sympla can't double vote (the guild login has no ticket), but
+  someone with a guild ticket AND a Sympla ticket votes with both, which is correct: two tickets.
+
+- **Sympla `order_status` values are unconfirmed.** The official OpenAPI spec types the field as a
+  bare string. `SYMPLA_PAID_ORDER_STATUS = ['A']` (`src/server/configs/sympla.ts`) comes from
+  Kondado's connector docs. Before announcing, call the ticket-number endpoint for one real
+  approved ticket and confirm it returns `"order_status": "A"`, or every Sympla login fails with 422.
+  The same call also confirms the path accepts the numeric event id `3593934`: the spec names the
+  parameter `eventIdHash`. If it 404s, list `/v1.6.0/events?fields=id,name` and use the id it returns.
+- **`VOTE_CLOSES_AT` (`2026-09-01`) is in the past**, so voting is closed. Move the date before
+  reopening.
 
 - **Budget is baked into the session JWT at login time.** Changing a tier's `budget` in
   `ticket_tiers` does NOT retroactively update anyone already logged in — they need to log out and

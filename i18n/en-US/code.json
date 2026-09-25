@@ -473,8 +473,38 @@
   "login.error.identity": {
     "message": "Could not identify your guild.host account."
   },
+  "vote.ticket.heading": {
+    "message": "Bought on Sympla?"
+  },
+  "vote.ticket.prompt": {
+    "message": "Log in with your ticket number and the email on the ticket. No guild.host account needed."
+  },
+  "vote.ticket.number": {
+    "message": "Ticket number"
+  },
+  "vote.ticket.email": {
+    "message": "Ticket email"
+  },
+  "vote.ticket.submit": {
+    "message": "Log in with ticket"
+  },
+  "vote.ticket.invalid": {
+    "message": "Ticket not found, order not approved, or the email doesn't match the ticket."
+  },
+  "vote.ticket.error": {
+    "message": "Couldn't check the ticket right now. Try again."
+  },
+  "vote.guildInvite.title": {
+    "message": "Follow JSConf on guild.host"
+  },
+  "vote.guildInvite.body": {
+    "message": "That is where we post news about the schedule, the event and upcoming meetups. Create an account and join the event so you miss nothing."
+  },
+  "vote.guildInvite.cta": {
+    "message": "Go to guild.host"
+  },
   "login.error.notattendee": {
-    "message": "You do not have a ticket for the event."
+    "message": "We couldn't find a ticket on your guild.host account. If you bought on Sympla, log in with your ticket number on the voting page."
   },
   "login.error.generic": {
     "message": "Login error. Try again."

@@ -102,6 +102,50 @@
         background-color: var(--ifm-color-primary-darker);
       }
     }
+
+    .login-divider {
+      align-self: stretch;
+      margin: 1rem 0;
+      border: none;
+      border-top: 0.1rem solid rgba(141, 248, 34, 0.2);
+    }
+
+    .login-subtitle {
+      font-family: var(--ifm-font-family-title);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--title-color);
+      margin: 0;
+    }
+
+    .ticket-form {
+      @include flex(row, center, flex-start, wrap);
+      gap: 1rem;
+
+      .login-cta {
+        margin-top: 0;
+        border: none;
+        cursor: pointer;
+      }
+    }
+
+    .ticket-input {
+      padding: 1.1rem 1.4rem;
+      border-radius: 0.75rem;
+      border: 0.15rem solid rgba(141, 248, 34, 0.2);
+      background-color: #1f2120;
+      font-size: 1.4rem;
+      color: var(--title-color);
+      min-width: 0;
+      width: 24rem;
+      max-width: 100%;
+    }
+  }
+
+  // Closing invite for Sympla voters, reusing the login-hero look.
+  .guild-invite {
+    margin-top: 3rem;
+    padding: 3rem;
   }
 
   .budget-bar {

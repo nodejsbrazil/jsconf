@@ -10,6 +10,7 @@ import {
 import { toast } from 'sonner';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { Page } from '@site/src/website/components/shared/Page';
+import { link } from '@site/src/website/configs/definitions';
 import {
   audienceLevels,
   durationOptions,
@@ -34,6 +35,7 @@ type Session = {
   talks: (Talk & { speaker_name: string })[];
   myVotes: number[];
   closesAt: string;
+  sympla: boolean;
 };
 
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
@@ -67,7 +69,7 @@ const Vote = () => {
   const queueRef = useRef<Map<number, 'add' | 'remove'>>(new Map());
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!workerDomain) return setStatus('error');
     fetch(`${workerDomain}/api/vote`, { credentials: 'include' })
       .then(async (res) => {
@@ -101,6 +103,29 @@ const Vote = () => {
       .catch(() => setStatus('error'));
     // `locale` only changes by navigating to another locale's route, which remounts this anyway.
   }, [workerDomain, locale]);
+
+  useEffect(load, [load]);
+
+  // Sympla buyers have no guild.host account: they log in with ticket number + ticket email. A
+  // successful login sets the session cookie, so reloading the ballot is all that's left.
+  const [ticketNumber, setTicketNumber] = useState('');
+  const [ticketEmail, setTicketEmail] = useState('');
+  const [ticketLoading, setTicketLoading] = useState(false);
+  const ticketLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setTicketLoading(true);
+    const res = await fetch(`${workerDomain}/api/vote/ticket`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ ticketNumber, email: ticketEmail }),
+    }).catch(() => null);
+    setTicketLoading(false);
+    if (res?.ok) return load();
+    if (res?.status === 422)
+      return toast.error(text({ id: 'vote.ticket.invalid' }));
+    toast.error(text({ id: 'vote.ticket.error' }));
+  };
 
   const closed = session
     ? new Date(session.closesAt).getTime() < Date.now()
@@ -189,6 +214,42 @@ const Vote = () => {
             <a className='login-cta' href={`${workerDomain}/api/vote/login`}>
               <Text id='auth.login' />
             </a>
+            <hr className='login-divider' />
+            <h3 className='login-subtitle'>
+              <Text id='vote.ticket.heading' />
+            </h3>
+            <p className='login-text'>
+              <Text id='vote.ticket.prompt' />
+            </p>
+            <form className='ticket-form' onSubmit={ticketLogin}>
+              <input
+                className='ticket-input'
+                aria-label={text({ id: 'vote.ticket.number' })}
+                placeholder={text({ id: 'vote.ticket.number' })}
+                inputMode='numeric'
+                autoComplete='off'
+                required
+                value={ticketNumber}
+                onChange={(event) => setTicketNumber(event.target.value)}
+              />
+              <input
+                className='ticket-input'
+                type='email'
+                aria-label={text({ id: 'vote.ticket.email' })}
+                placeholder={text({ id: 'vote.ticket.email' })}
+                autoComplete='email'
+                required
+                value={ticketEmail}
+                onChange={(event) => setTicketEmail(event.target.value)}
+              />
+              <button
+                className='login-cta'
+                type='submit'
+                disabled={ticketLoading}
+              >
+                <Text id='vote.ticket.submit' />
+              </button>
+            </form>
           </div>
         )}
 
@@ -319,6 +380,25 @@ const Vote = () => {
                 );
               })}
             </ul>
+
+            {session.sympla && (
+              <aside className='login-hero guild-invite'>
+                <h2 className='login-title'>
+                  <Text id='vote.guildInvite.title' />
+                </h2>
+                <p className='login-text'>
+                  <Text id='vote.guildInvite.body' />
+                </p>
+                <a
+                  className='login-cta'
+                  href={link.guild}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <Text id='vote.guildInvite.cta' />
+                </a>
+              </aside>
+            )}
           </>
         )}
       </div>

@@ -473,8 +473,38 @@
   "login.error.identity": {
     "message": "No se pudo identificar tu cuenta de guild.host."
   },
+  "vote.ticket.heading": {
+    "message": "¿Compraste en Sympla?"
+  },
+  "vote.ticket.prompt": {
+    "message": "Ingresa con el número de tu entrada y el correo registrado en ella. No necesitas cuenta en guild.host."
+  },
+  "vote.ticket.number": {
+    "message": "Número de entrada"
+  },
+  "vote.ticket.email": {
+    "message": "Correo de la entrada"
+  },
+  "vote.ticket.submit": {
+    "message": "Ingresar con la entrada"
+  },
+  "vote.ticket.invalid": {
+    "message": "Entrada no encontrada, pedido no aprobado o correo distinto al registrado."
+  },
+  "vote.ticket.error": {
+    "message": "No pudimos verificar la entrada ahora. Inténtalo de nuevo."
+  },
+  "vote.guildInvite.title": {
+    "message": "Sigue JSConf en guild.host"
+  },
+  "vote.guildInvite.body": {
+    "message": "Ahí publicamos novedades sobre el programa, el evento y los próximos encuentros. Crea tu cuenta y únete al evento para no perderte nada."
+  },
+  "vote.guildInvite.cta": {
+    "message": "Ir a guild.host"
+  },
   "login.error.notattendee": {
-    "message": "No tienes una entrada para el evento."
+    "message": "No encontramos una entrada en tu cuenta de guild.host. Si compraste en Sympla, ingresa con el número de entrada en la página de votación."
   },
   "login.error.generic": {
     "message": "Error al iniciar sesión. Inténtalo de nuevo."

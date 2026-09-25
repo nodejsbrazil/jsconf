@@ -17,3 +17,6 @@ ALLOWED_ORIGIN=http://localhost:3000
 
 # 'production' disables the X-Dev-User bypass and the dev session shortcut.
 ENVIRONMENT=development
+
+# Sympla public API, for the ticket login of Sympla buyers. Token from Sympla: Minha Conta > Integrações.
+SYMPLA_TOKEN=

@@ -1,5 +1,6 @@
 import type { Database, Env } from '../types.js';
 import { z } from 'zod';
+import { SYMPLA_USER_PREFIX } from '../configs/sympla.js';
 import { isVotingOpen, VOTE_CLOSES_AT } from '../configs/vote.js';
 import { parseRequest } from '../helpers/request.js';
 import { response } from '../helpers/response.js';
@@ -11,6 +12,8 @@ type Options = {
   cors: Record<string, string>;
   database: Database;
   env: Env;
+  // Clock for the voting-window check; tests pin it so they don't expire with VOTE_CLOSES_AT.
+  now?: Date;
 };
 
 const submitSchema = z.object({
@@ -35,7 +38,15 @@ export const voteGet = async ({
   ]);
 
   return response(
-    { budget, used: myVotes.length, talks, myVotes, closesAt: VOTE_CLOSES_AT },
+    {
+      budget,
+      used: myVotes.length,
+      talks,
+      myVotes,
+      closesAt: VOTE_CLOSES_AT,
+      // Sympla voters get the "follow the event on guild.host" invite under the ballot.
+      sympla: userId.startsWith(SYMPLA_USER_PREFIX),
+    },
     200,
     cors
   );
@@ -46,12 +57,14 @@ export const voteSubmit = async ({
   cors,
   database,
   env,
+  now = new Date(),
 }: Options): Promise<Response> => {
   const session = await getSession(request, env);
   if (!session) return response({ error: 'Unauthorized.' }, 401, cors);
   const { userId, budget } = session;
 
-  if (!isVotingOpen()) return response({ error: 'Voting closed.' }, 403, cors);
+  if (!isVotingOpen(now))
+    return response({ error: 'Voting closed.' }, 403, cors);
 
   const parsed = await parseRequest(request, submitSchema, 1024);
   if ('error' in parsed)

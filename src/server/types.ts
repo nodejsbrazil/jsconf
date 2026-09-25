@@ -19,4 +19,6 @@ export type Env = {
   // Manager refresh token (from a one-time manager login); the server exchanges it for an access
   // token to read the event attendees list — the only place the ticketing tier is exposed.
   GUILD_ORG_REFRESH_TOKEN?: string;
+  // Sympla public API token, used to log in voters who bought their ticket on Sympla.
+  SYMPLA_TOKEN?: string;
 };
