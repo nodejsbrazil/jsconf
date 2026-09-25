@@ -386,6 +386,9 @@
   "tickets.subtitle": {
     "message": "Secure your spot at the biggest JavaScript conference in Brazil."
   },
+  "tickets.cta": {
+    "message": "Buy on Sympla"
+  },
   "home.waitlist.error": {
     "message": "Something went wrong. Please try again later."
   },

@@ -395,6 +395,9 @@
   "tickets.subtitle": {
     "message": "Garanta agora seu lugar na maior conferência de JavaScript do Brasil."
   },
+  "tickets.cta": {
+    "message": "Comprar na Sympla"
+  },
   "common.loading": {
     "message": "Carregando…"
   },
