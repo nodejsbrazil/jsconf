@@ -71,6 +71,8 @@ export default {
         });
       case 'GET /api/admin/audit':
         return routes.adminAudit({ request, cors, database: env.DB, env });
+      case 'POST /api/vote/ticket':
+        return routes.authTicket({ request, cors, database: env.DB, env });
       case 'POST /api/waitlist':
         return routes.waitlist({ request, cors, database: env.DB, ip });
       default:

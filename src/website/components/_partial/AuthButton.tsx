@@ -48,12 +48,13 @@ export const AuthButton = () => {
   // Misconfigured worker domain: no functional auth endpoints, so render nothing.
   if (!workerDomain) return null;
 
-  // Logged out (and during load): a plain "log in" button that starts the OAuth flow.
+  // Logged out (and during load): a "log in" button to /vote, which offers both the guild.host
+  // login and the Sympla ticket login.
   if (!me)
     return (
-      <a className='account' href={`${workerDomain}/api/vote/login`}>
+      <Link className='account' to={localePath('/vote')}>
         <User /> <Text id='navbar.login' />
-      </a>
+      </Link>
     );
 
   // Logged in: name + photo toggles a dropdown with Votar / Sair.

@@ -1,5 +1,8 @@
 export const link = {
   tickets: 'https://www.sympla.com.br/evento/jsconf-brasil/3593934',
+  // Where the vote page invites Sympla buyers to follow NodeBR. Stays on guild.host now that
+  // `tickets` points at Sympla.
+  guild: 'https://guild.host/events/jsconf-brasil-primeira-vdc8dh',
   sponsors: 'https://forms.gle/SPyyD3SsuurVpvCNA',
 } as const;
 

@@ -1,4 +1,5 @@
 import type { Database, Env } from '../types.js';
+import { z } from 'zod';
 import {
   EVENT_SLUG,
   MANAGER_SCOPE,
@@ -7,6 +8,7 @@ import {
   SESSION_TTL_SECONDS,
   STATE_COOKIE,
 } from '../configs/oauth.js';
+import { SYMPLA_BUDGET, SYMPLA_USER_PREFIX } from '../configs/sympla.js';
 import { readCookie } from '../helpers/cookies.js';
 import {
   buildAuthorizeUrl,
@@ -16,13 +18,21 @@ import {
   fetchUserInfo,
   managerAccessToken,
 } from '../helpers/oauth.js';
+import { parseRequest } from '../helpers/request.js';
 import { response } from '../helpers/response.js';
-import { getSession, signSession } from '../helpers/session.js';
+import { getSession, sessionCookie, signSession } from '../helpers/session.js';
+import {
+  fetchSymplaTicket,
+  isValidSymplaLogin,
+  normalizeTicketNumber,
+} from '../helpers/sympla.js';
+import { symplaJoin } from '../repositories/sympla.js';
 import { vote } from '../repositories/vote.js';
 
 type Options = { request: Request; env: Env };
 type CallbackOptions = Options & { database: Database };
 type MeOptions = Options & { cors: Record<string, string> };
+type TicketOptions = CallbackOptions & MeOptions;
 
 const randomState = (): string => {
   const bytes = crypto.getRandomValues(new Uint8Array(16));
@@ -67,7 +77,7 @@ export const authLogin = async ({
       { name: 'Dev User', admin: url.searchParams.has('admin') }
     );
     return redirect(`${websiteOrigin(request, env)}/vote`, [
-      `${SESSION_COOKIE}=${session}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${SESSION_TTL_SECONDS}`,
+      sessionCookie(session),
     ]);
   }
 
@@ -224,6 +234,7 @@ export const authCallback = async ({
   // A manager-token failure is an org-auth/config problem, not the voter's identity — use ?error=token.
   if (!managerToken) return redirect(`${site}/?error=token`);
 
+  // No guild ticket → the error message points Sympla buyers to the ticket login on /vote.
   const tier = await fetchTicketTier(managerToken, EVENT_SLUG, identity.id);
   if (!tier) return redirect(`${site}/?error=notattendee`);
   const budget = await vote(database).budgetForTier(tier);
@@ -240,10 +251,61 @@ export const authCallback = async ({
     SESSION_TTL_SECONDS,
     { name: identity.name, photo: identity.photo, admin }
   );
-  // Session cookie is SameSite=None;Secure so it's sent on the website's
-  // cross-origin fetch to the API subdomain. Both must be HTTPS.
   return redirect(`${site}/vote`, [
-    `${SESSION_COOKIE}=${session}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${SESSION_TTL_SECONDS}`,
+    sessionCookie(session),
     `${STATE_COOKIE}=; HttpOnly; Secure; SameSite=Lax; Path=/api/vote; Max-Age=0`,
   ]);
+};
+
+// Sympla ticket numbers look like `UV8M-ZA-U6D6`; the charset only keeps the path segment safe,
+// Sympla is the real check.
+const ticketSchema = z.object({
+  ticketNumber: z
+    .string()
+    .trim()
+    .regex(/^[\w-]{4,40}$/),
+  email: z.string().trim().pipe(z.email().max(254)),
+});
+
+// Login for Sympla buyers, who have no guild.host account: ticket number + the email on the ticket.
+// The voter id is the ticket itself, so the same ticket always maps to the same votes. Checked
+// against Sympla on every login, so a refund stops the next login.
+export const authTicket = async ({
+  request,
+  env,
+  cors,
+  database,
+}: TicketOptions): Promise<Response> => {
+  if (!env.SYMPLA_TOKEN || !env.SESSION_SECRET) {
+    console.log('[sympla] SYMPLA_TOKEN or SESSION_SECRET missing');
+    return response({ error: 'Ticket login not configured.' }, 500, cors);
+  }
+
+  const parsed = await parseRequest(request, ticketSchema, 512);
+  if ('error' in parsed)
+    return response({ error: parsed.error }, parsed.status, cors);
+  const { email } = parsed.data;
+  const ticketNumber = normalizeTicketNumber(parsed.data.ticketNumber);
+
+  const participant = await fetchSymplaTicket(env.SYMPLA_TOKEN, ticketNumber);
+  if (!participant)
+    return response({ error: 'Ticket check unavailable.' }, 502, cors);
+  // One answer for unknown ticket, unpaid order and wrong email, so the endpoint can't be used to
+  // find out which ticket numbers exist.
+  if (!isValidSymplaLogin(participant, email))
+    return response({ error: 'Invalid ticket.' }, 422, cors);
+
+  await symplaJoin(database).remember(ticketNumber, email.toLowerCase());
+
+  const session = await signSession(
+    `${SYMPLA_USER_PREFIX}${ticketNumber}`,
+    SYMPLA_BUDGET,
+    env.SESSION_SECRET,
+    SESSION_TTL_SECONDS,
+    { name: participant.first_name }
+  );
+  return response({ success: true }, 200, {
+    ...cors,
+    'Set-Cookie': sessionCookie(session),
+  });
 };

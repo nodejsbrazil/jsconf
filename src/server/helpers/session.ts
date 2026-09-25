@@ -37,6 +37,11 @@ export const signSession = async (
     .setExpirationTime(Math.floor(Date.now() / 1000) + ttlSeconds)
     .sign(key(secret));
 
+// SameSite=None;Secure so it's sent on the website's cross-origin fetch to the API subdomain.
+// Both must be HTTPS.
+export const sessionCookie = (token: string): string =>
+  `${SESSION_COOKIE}=${token}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${SESSION_TTL_SECONDS}`;
+
 export const verifySession = async (
   token: string,
   secret: string

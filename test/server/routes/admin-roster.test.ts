@@ -193,6 +193,48 @@ describe('admin roster cache', async () => {
     assert.equal(body.votes[0]?.name, 'New Voter');
   });
 
+  // Sympla voters are never in the guild roster, so they must not count as missing.
+  await it('labels Sympla voters without walking guild', async () => {
+    const { database } = makeMock(
+      [
+        { user_id: 'u1', talk_id: 1, created_at: '2026-08-01 10:00:00' },
+        {
+          user_id: 'sympla:94461180000001',
+          talk_id: 1,
+          created_at: '2026-08-01 11:00:00',
+        },
+      ],
+      [
+        {
+          user_id: 'u1',
+          name: 'Ada Lovelace',
+          tier: 'Super Early Bird',
+          synced_at: now(),
+        },
+      ]
+    );
+    const restore = stubGuild([]);
+    const res = await routes.adminVoteDetail({
+      request: adminReq('/api/admin/votes/detail?talkId=1'),
+      cors,
+      database,
+      env: env(),
+    });
+    const walks = restore();
+
+    assert.equal(walks, 0);
+    const body = (await res.json()) as {
+      votes: { name: string | null; tier: string | null; budget: number }[];
+    };
+    assert.deepEqual(
+      body.votes.map(({ name, tier, budget }) => ({ name, tier, budget })),
+      [
+        { name: 'Ada Lovelace', tier: 'Super Early Bird', budget: 5 },
+        { name: null, tier: 'Sympla', budget: 1 },
+      ]
+    );
+  });
+
   await it('re-walks once the cached roster is older than the TTL', async () => {
     const { database } = makeMock(
       [{ user_id: 'u1', talk_id: 1, created_at: '2026-08-01 10:00:00' }],

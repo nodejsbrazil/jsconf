@@ -417,7 +417,10 @@
     "message": "Vota por las charlas"
   },
   "vote.subheading": {
-    "message": "Elige las charlas que quieres ver en el escenario."
+    "message": "¡En la JSConf 2026 eres {you} quien elige las charlas que vamos a ver en el escenario!"
+  },
+  "vote.subheadingYou": {
+    "message": "tú"
   },
   "vote.hideAuthorsTitle": {
     "message": "¿Por qué ocultamos los nombres de los autores?"
@@ -426,7 +429,13 @@
     "message": "Para reducir sesgos, ocultamos los nombres de quienes propusieron cada charla. Vota por el contenido de la charla, no por quién la escribió."
   },
   "vote.loginHeading": {
-    "message": "Inicia sesión para votar"
+    "message": "¿Cómo compraste tu entrada?"
+  },
+  "vote.loginSubheading": {
+    "message": "Debido a un cambio de proveedores, puedes haber comprado tu entrada de dos formas: a través de nuestro socio Guild.host o por el sistema de Sympla."
+  },
+  "vote.guildHeading": {
+    "message": "A través de Guild.host"
   },
   "vote.closedHeading": {
     "message": "La votación está cerrada"
@@ -444,7 +453,7 @@
     "message": "Votado"
   },
   "vote.loginPrompt": {
-    "message": "Inicia sesión con tu cuenta de guild.host para votar por las charlas."
+    "message": "¡Inicia sesión con tu cuenta de guild.host para votar!"
   },
   "vote.loadError": {
     "message": "No se pudo cargar la votación. Inténtalo más tarde."
@@ -476,8 +485,41 @@
   "login.error.identity": {
     "message": "No se pudo identificar tu cuenta de guild.host."
   },
+  "vote.ticket.heading": {
+    "message": "¿A través de Sympla?"
+  },
+  "vote.ticket.prompt": {
+    "message": "¡Ingresa con el número de tu entrada y el correo registrado en ella!"
+  },
+  "vote.ticket.number": {
+    "message": "Número de entrada"
+  },
+  "vote.ticket.numberPlaceholder": {
+    "message": "Nº de entrada, ej.: UV8MZAU6D6 (con o sin guiones)"
+  },
+  "vote.ticket.email": {
+    "message": "Correo de la entrada"
+  },
+  "vote.ticket.submit": {
+    "message": "Ingresar con la entrada"
+  },
+  "vote.ticket.invalid": {
+    "message": "Entrada no encontrada, pedido no aprobado o correo distinto al registrado."
+  },
+  "vote.ticket.error": {
+    "message": "No pudimos verificar la entrada ahora. Inténtalo de nuevo."
+  },
+  "vote.guildInvite.title": {
+    "message": "Sigue JSConf en guild.host"
+  },
+  "vote.guildInvite.body": {
+    "message": "¡NodeBR está en Guild.host! Ahí encuentras más detalles sobre próximos eventos, meetups y mucho más. ¡Regístrate, es gratis!"
+  },
+  "vote.guildInvite.cta": {
+    "message": "Ir a guild.host"
+  },
   "login.error.notattendee": {
-    "message": "No tienes una entrada para el evento."
+    "message": "No encontramos una entrada en tu cuenta de guild.host. Si compraste en Sympla, ingresa con el número de entrada en la página de votación."
   },
   "login.error.generic": {
     "message": "Error al iniciar sesión. Inténtalo de nuevo."
