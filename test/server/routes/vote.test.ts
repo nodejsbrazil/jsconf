@@ -9,6 +9,8 @@ import { vote } from '../../../src/server/repositories/vote.js';
 import { routes } from '../../../src/server/routes.js';
 
 const cors = { 'Access-Control-Allow-Origin': '*' };
+// A date inside the voting window, so voteSubmit tests don't depend on today vs VOTE_CLOSES_AT.
+const OPEN = new Date('2026-01-01T00:00:00Z');
 
 const talks = [
   { id: 1, title: 'A', description: 'da' },
@@ -229,6 +231,7 @@ describe('routes.voteSubmit', async () => {
       cors,
       database: mock.database,
       env: makeEnv(),
+      now: OPEN,
     });
     assert.equal(res.status, 200);
     assert.deepEqual(await res.json(), { success: true });
@@ -242,6 +245,7 @@ describe('routes.voteSubmit', async () => {
       cors,
       database: mock.database,
       env: makeEnv(),
+      now: OPEN,
     });
     assert.equal(res.status, 422);
     assert.deepEqual(await res.json(), { error: 'Vote limit reached.' });
@@ -255,6 +259,7 @@ describe('routes.voteSubmit', async () => {
       cors,
       database: mock.database,
       env: makeEnv(),
+      now: OPEN,
     });
     assert.equal(res.status, 200);
     assert.equal(mock.votes.size, 3);
@@ -267,6 +272,7 @@ describe('routes.voteSubmit', async () => {
       cors,
       database: mock.database,
       env: makeEnv(),
+      now: OPEN,
     });
     assert.equal(res.status, 200);
     assert.equal(mock.votes.has(1), false);
@@ -279,6 +285,7 @@ describe('routes.voteSubmit', async () => {
       cors,
       database: mock.database,
       env: makeEnv(),
+      now: OPEN,
     });
     assert.equal(res.status, 422);
     assert.deepEqual(await res.json(), { error: 'Invalid talk.' });
@@ -291,6 +298,7 @@ describe('routes.voteSubmit', async () => {
       cors,
       database: makeMock().database,
       env: makeEnv(),
+      now: OPEN,
     });
     assert.equal(res.status, 401);
   });
@@ -304,6 +312,7 @@ describe('routes.voteSubmit', async () => {
       cors,
       database: makeMock().database,
       env: makeEnv(),
+      now: OPEN,
     });
     assert.equal(res.status, 415);
   });
@@ -314,7 +323,21 @@ describe('routes.voteSubmit', async () => {
       cors,
       database: makeMock().database,
       env: makeEnv(),
+      now: OPEN,
     });
     assert.equal(res.status, 422);
+  });
+
+  await it('returns 403 once voting has closed', async () => {
+    const mock = makeMock();
+    const res = await routes.voteSubmit({
+      request: postReq({ talkId: 2 }, { userId: 'user-1' }),
+      cors,
+      database: mock.database,
+      env: makeEnv(),
+      now: new Date('2099-01-01T00:00:00Z'),
+    });
+    assert.equal(res.status, 403);
+    assert.equal(mock.votes.has(2), false);
   });
 });

@@ -5,6 +5,29 @@
 > guild.host login. What's left is deploy + a couple of known caveats. `HANDOVER.md` is deleted —
 > this file plus `DEVELOPMENT.md` are now the source of truth.
 
+## Sympla ticket login: test before merging
+
+Branch `feat/sympla-ticket-link`, not merged yet.
+
+- [ ] Push the branch: `git push -u origin feat/sympla-ticket-link`.
+- [ ] Add `SYMPLA_TOKEN` to `.dev.vars`.
+- [x] `npm run db:init` (creates `sympla_guild_join` locally), then `npm start`.
+- [x] Log in with a real Sympla ticket number + the email on that ticket (2026-09-25, via the
+      local worker; works with `UV8M-ZA-U6D6`, `UV8MZAU6D6` and lowercase).
+- [x] Real approved order returns `"order_status": "APPROVED"` (not `"A"`), now in
+      `SYMPLA_PAID_ORDER_STATUS`.
+- [x] The API wants the event hash `s36d6ce`, not the numeric `3593934` from the public URL
+      ("Event not found"). Now in `SYMPLA_EVENT_ID`.
+- [x] Failure cases: wrong email and unknown ticket (including the order number `3DLMEBNC7UQ`,
+      which people confuse with the ticket number) both get 422 "invalid ticket". Unknown tickets
+      come back as 404 from the live API, not the 204 the spec lists.
+- [ ] Log in through the `/vote` page in a browser (the API path is verified, the UI is not).
+- [ ] Cast a vote with the Sympla session, then check the guild.host invite at the end of the ballot.
+- [ ] Check that a guild.host login with no Guild ticket shows the error pointing to the ticket login.
+- [x] `VOTE_CLOSES_AT` moved to the end of 2026-11-01 (Brasília time).
+- [x] Prod D1 has `sympla_guild_join` (schema applied and checked 2026-09-25).
+- [ ] Confirm the prod `SYMPLA_TOKEN` secret is set (`wrangler secret list` shows names), then merge.
+
 ## Operational notes
 
 Two things that cost real time in August 2026, both worth reading before touching prod.
@@ -12,14 +35,17 @@ Two things that cost real time in August 2026, both worth reading before touchin
 **`npm run db:init:remote` only works in CI.** `wrangler.jsonc` ships `database_id: "local"` as a
 placeholder and `tools/prepare-worker.mts` swaps in the real UUID from the `WORKER_D1` secret at
 build time. Without `.env` the literal string `local` reaches the API and it fails with
-`Invalid property: databaseId => Invalid uuid`. From a laptop, target the database by name:
+`Invalid property: databaseId => Invalid uuid`. From a laptop, target the database by UUID:
 
 ```sh
-npx wrangler d1 execute jsconf --remote --file='resources/schema.sql'
+npx wrangler d1 execute d27cd50c-f3ed-44fc-9297-15eedc8c73a0 --remote --file='resources/schema.sql'
 ```
 
-Note the name is **`jsconf`**, not `jsconf-br`. The binding in `wrangler.jsonc` and the actual D1
-database name are different, which is what makes the documented command misleading.
+The D1 database is named **`jsconf`** (UUID above, from `npx wrangler d1 list`), while
+`wrangler.jsonc` calls it `jsconf-br`. Passing the name `jsconf` does not work: it is not in the
+config, so wrangler sends it to the API as a database id and gets a misleading
+`Authentication error [code: 10000]`. Passing `WORKER_D1` from a local `.env` does not work either
+when that file still holds the `local` placeholder.
 
 **The manager refresh token cannot be shared between environments.** guild rotates it on every use
 and revokes the previous one, so if local and prod hold the same token, whichever refreshes first
@@ -34,7 +60,8 @@ Completed for the 2026 event; kept as the runbook for next time.
 
 1. Confirm `EVENT_SLUG` in `src/server/configs/oauth.ts` matches the real event (`vdc8dh` today).
 2. Apply `resources/schema.sql` to prod D1 (idempotent). See the operational note above: use
-   `npx wrangler d1 execute jsconf --remote --file='resources/schema.sql'` locally, since
+   `npx wrangler d1 execute d27cd50c-f3ed-44fc-9297-15eedc8c73a0 --remote --file='resources/schema.sql'`
+   locally, since
    `npm run db:init:remote` needs `WORKER_D1` and only works in CI.
 3. Seed prod `ticket_tiers` (tier name must match guild.host exactly, case-sensitive):
    ```sql
@@ -43,7 +70,9 @@ Completed for the 2026 event; kept as the runbook for next time.
    Any tier NOT listed here defaults to budget 1 (see `budgetForTier` in
    `src/server/repositories/vote.ts`) — only add rows for overrides.
 4. `npm run secret` (`wrangler secret put`) for: `GUILD_OAUTH_CLIENT_ID`,
-   `GUILD_OAUTH_CLIENT_SECRET`, `SESSION_SECRET`, `GUILD_ORG_REFRESH_TOKEN`.
+   `GUILD_OAUTH_CLIENT_SECRET`, `SESSION_SECRET`, `GUILD_ORG_REFRESH_TOKEN`, `SYMPLA_TOKEN`.
+   Without `SYMPLA_TOKEN`, Sympla buyers can't log in (500 on `/api/vote/ticket`). The Sympla
+   event hash (`s36d6ce`) is a constant in `src/server/configs/sympla.ts`.
    `ALLOWED_ORIGIN` = `https://jsconf.com.br` (never `*` — credentialed cookies need an explicit
    origin).
 5. Confirm the guild.host OAuth app has `https://api.jsconf.com.br/api/vote/callback` registered
@@ -96,6 +125,27 @@ If guild ever refuses to issue `event_attendees:read` to non-managers at authori
 attendees still get in as non-admins.
 
 ## Known caveats (not blocking, but real)
+
+- **Old Sympla group orders carry the buyer's email on every ticket.** Since 2026-09-25 the Sympla
+  form asks name, surname and email for every ticket, so each guest logs in with their own email.
+  Orders placed before that change may still have the buyer's details on all tickets, so those
+  guests need the buyer's email to log in. If one reports "invalid ticket" with their own email,
+  that's the likely cause.
+- **Sympla voters and guild.host accounts are not linked yet.** Sympla buyers vote as
+  `sympla:<ticket_number>`; `sympla_guild_join` keeps each ticket's email with `guild_user_id`
+  NULL. Backfill later by matching those emails to guild accounts. A person who logs in both ways
+  with the same ticket bought once on Sympla can't double vote (the guild login has no ticket), but
+  someone with a guild ticket AND a Sympla ticket votes with both, which is correct: two tickets.
+
+- **Sympla statuses seen live (2026-09-25):** `APPROVED` for a paid order, `CANCELLED` after
+  cancelling it. Only `APPROVED` logs in. A refunded order has not been observed; anything other
+  than `APPROVED` is rejected, so the failure mode is "can't log in", never "votes without paying".
+- **Cancelled Sympla votes stay in `c4p_votes` but are left out of the tally.** `/admin/votes`
+  asks Sympla for cancelled tickets on every load (`cancelled_filter=only`). If Sympla is down the
+  dashboard counts everything and returns `symplaChecked: false`; the UI doesn't show that flag
+  yet, so check the response before trusting a tally taken during a Sympla outage.
+- **Voting closes at the end of 2026-11-01, Brasília time** (`VOTE_CLOSES_AT =
+2026-11-02T03:00:00Z`). The date is hardcoded, so changing it needs a deploy.
 
 - **Budget is baked into the session JWT at login time.** Changing a tier's `budget` in
   `ticket_tiers` does NOT retroactively update anyone already logged in — they need to log out and

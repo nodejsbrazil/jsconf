@@ -113,3 +113,13 @@ CREATE TABLE IF NOT EXISTS attendee_roster (
 );
 
 CREATE INDEX IF NOT EXISTS idx_attendee_roster_synced ON attendee_roster(synced_at);
+
+-- Sympla tickets that logged in to vote. Sympla buyers vote as `sympla:<ticket_number>` without a
+-- guild.host account; the email is kept so those votes can be tied to a guild account later.
+-- guild_user_id stays NULL until that backfill exists (UNIQUE still allows many NULLs).
+CREATE TABLE IF NOT EXISTS sympla_guild_join (
+  ticket_number TEXT         PRIMARY KEY,
+  email         VARCHAR(254) NOT NULL,
+  guild_user_id TEXT         UNIQUE,
+  created_at    VARCHAR(20)  NOT NULL DEFAULT (datetime('now'))
+);

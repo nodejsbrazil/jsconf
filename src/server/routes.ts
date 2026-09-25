@@ -5,7 +5,13 @@ import {
   adminVoterDetail,
   adminVotes,
 } from './routes/admin.js';
-import { authCallback, authLogin, authLogout, authMe } from './routes/auth.js';
+import {
+  authCallback,
+  authLogin,
+  authLogout,
+  authMe,
+  authTicket,
+} from './routes/auth.js';
 import { c4p } from './routes/c4p.js';
 import { voteGet, voteSubmit } from './routes/vote.js';
 import { waitlist } from './routes/waitlist.js';
@@ -24,4 +30,5 @@ export const routes = {
   adminVoterDetail,
   adminRemoveVote,
   adminAudit,
+  authTicket,
 };

@@ -128,18 +128,23 @@ export const vote = (database: Database) => {
   };
 
   // Dashboard summary: every votable talk with its vote count, busiest first. Still no speaker
-  // join, for the same reason listTalks has none.
-  const talkVoteCounts = async (): Promise<TalkVoteCount[]> => {
+  // join, for the same reason listTalks has none. `excludedUserIds` drops voters whose ticket no
+  // longer counts (cancelled Sympla tickets); it goes in as one JSON array so the list length
+  // never runs into D1's bound-parameter limit.
+  const talkVoteCounts = async (
+    excludedUserIds: string[] = []
+  ): Promise<TalkVoteCount[]> => {
     const { results } = await database
       .prepare(
         `SELECT t.id AS talk_id, t.title, COUNT(v.id) AS votes
          FROM talks t
          LEFT JOIN c4p_votes v ON v.talk_id = t.id
+           AND v.user_id NOT IN (SELECT value FROM json_each(?))
          WHERE t.status = ?
          GROUP BY t.id, t.title
          ORDER BY votes DESC, t.id`
       )
-      .bind(VOTABLE_TALK_STATUS)
+      .bind(JSON.stringify(excludedUserIds), VOTABLE_TALK_STATUS)
       .all<TalkVoteCount>();
     return results;
   };

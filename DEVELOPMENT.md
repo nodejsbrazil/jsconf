@@ -142,7 +142,7 @@ sequenceDiagram
     end
     W->>G: GET /events/{slug}/attendees?first=100 (paginado, token de organizador)
     G-->>W: tier do ingresso (ou nada)
-    alt sem tier (não é participante)
+    alt sem tier (não é participante no guild)
         W-->>B: 302 -> site/?error=notattendee
     else tier encontrado
         W->>D: SELECT budget FROM ticket_tiers WHERE name = tier
@@ -159,10 +159,10 @@ Passo a passo:
 4. `fetchUserInfo(access_token)` — `{ id (sub), name, picture }` do `/oauth/userinfo` do guild.
 5. `managerAccessToken(...)` — obtém (ou renova) o token de organizador, lendo/gravando `manager_oauth` no D1 (ver seção acima).
 6. `fetchTicketTier(managerToken, EVENT_SLUG, identity.id)` — pagina `/events/{slug}/attendees?first=100` (recursivo, até 30 páginas) procurando o nó cujo `userId` é o da votante, e retorna `node.ticketOrder.eventTicketOrderItems.nodes[0].eventTicketingTier.name`, ou `null` se não houver pedido de ingresso.
-7. Sem tier → redireciona pra home com `?error=notattendee` (nenhuma sessão é assinada). Com tier → `budgetForTier(tier)` consulta a tabela `ticket_tiers` no D1 (qualquer tier sem linha lá recebe `1` por padrão).
+7. Sem tier → redireciona pra home com `?error=notattendee` (nenhuma sessão é assinada; a mensagem aponta quem comprou na Sympla pro login com ingresso). Com tier → `budgetForTier(tier)` consulta a tabela `ticket_tiers` no D1 (qualquer tier sem linha lá recebe `1` por padrão).
 8. `signSession(id, budget, secret, ttl, { name, photo })` assina um JWT (HS256, via `jose`) com o **budget já embutido**. Seta o cookie `vote_session` (`SameSite=None; Secure`, 24h) e redireciona pra `/vote`.
 9. **Cuidado:** como o budget fica embutido no JWT no momento do login, mudar o budget de um tier no banco **não afeta quem já está logado** — a pessoa precisa deslogar e logar de novo pra pegar um JWT novo com o budget atualizado. Isso já aconteceu de verdade em teste, não é hipotético.
-10. Caminhos de erro (todos redirecionam pra home com um `?error=`, exibido por um handler global na navbar que lê o query param e limpa ele em seguida): `?error=denied` (recusou no guild.host), `?error=state` (state não bate, possível CSRF), `?error=token` (troca do code falhou), `?error=identity` (userinfo ou token de organizador falhou), `?error=notattendee` (sem ingresso pra este evento).
+10. Caminhos de erro (todos redirecionam pra home com um `?error=`, exibido por um handler global na navbar que lê o query param e limpa ele em seguida): `?error=denied` (recusou no guild.host), `?error=state` (state não bate, possível CSRF), `?error=token` (troca do code falhou), `?error=identity` (userinfo ou token de organizador falhou), `?error=notattendee` (sem ingresso no guild pra este evento).
 
 ### Autenticação a cada request (depois do login)
 
@@ -179,6 +179,19 @@ Passo a passo:
 - `GET /api/vote` (`voteGet`) — exige sessão; retorna `{ budget, used, talks, myVotes, closesAt }`. `listTalks()` (`src/server/repositories/vote.ts`) só seleciona palestras com `status = 2` (`VOTABLE_TALK_STATUS`, em `src/server/configs/vote.ts`) e **deliberadamente não faz join** com `speakers` — a API nunca pode expor quem propôs a palestra, pra evitar viés. O frontend (`src/website/pages/vote/index.tsx`) gera, por palestra e a cada fetch, um nome fake com cara de nome (tipo "Aabd Cdaes", não é um nome real) e mostra ele borrado via CSS (`.speaker-name { filter: blur(...) }`) — isso é só estético/cosmético, não é um controle de segurança, já que nada sensível estava sendo escondido (o nome real nunca chegou a ser enviado).
 - `POST /api/vote` (`voteSubmit`) — corpo `{ talkId, action: 'add' | 'remove' }`, validado com `zod`. Checa `isVotingOpen()` (`VOTE_CLOSES_AT` em `src/server/configs/vote.ts`, uma data ISO fixa no código — mudar a data exige deploy, de propósito, já que muda raramente). `castVote()` (`src/server/repositories/vote.ts`) confere o número de votos atual contra o budget (422 se já bateu o limite) e faz `INSERT OR IGNORE` em `c4p_votes`. `removeVote()` só faz `DELETE`, sem checagem de budget.
 - **UX do frontend:** clicar no botão de votar de uma palestra vira o estado local na hora (otimista) e enfileira `{ talkId, action }` numa fila com debounce (1s de espera, reseta a cada novo clique), então uma rajada de cliques vira uma única leva de requests em vez de um request por clique. Isso existe porque, em dev local, o rate limiter compartilha um único bucket entre todos os requests quando não há header `CF-Connecting-IP` — é uma peculiaridade real de dev local, não acontece em produção (a Cloudflare sempre seta esse header lá). Quando o budget acaba, todo card de palestra ainda não votada fica esmaecido e desabilitado (classe CSS `budget-out`), exceto as já votadas, que continuam clicáveis pra desvotar — desvotar reabilita tudo na hora, sem refetch, é tudo derivado do estado local.
+
+### Ingressos da Sympla
+
+Os ingressos passaram a ser vendidos na Sympla, mas o guild.host continua sendo o canal de comunicação dos eventos. Quem compra na Sympla provavelmente não tem conta no guild, e a gente não consegue criar uma pra pessoa, então a Sympla vira um segundo jeito de logar no `/vote`.
+
+- A tela de login do `/vote` mostra os dois caminhos: "Entrar" com o guild (como antes) e um formulário com número do ingresso + e-mail do ingresso.
+- `POST /api/vote/ticket` (`authTicket`, `src/server/routes/auth.ts`) — corpo `{ ticketNumber, email }`, validado com `zod`. `fetchSymplaTicket()` (`src/server/helpers/sympla.ts`) chama `GET /public/v1.6.0/events/s36d6ce/participants/ticketNumber/{n}` com o header `s_token`. A API quer o hash do evento (`s36d6ce`, o `id` de `GET /events`), não o `3593934` da URL pública. O número do ingresso tem o formato `UV8M-ZA-U6D6`, e a Sympla só acha ele exatamente assim; o PDF do ingresso mostra sem traços (`UV8MZAU6D6`), então `normalizeTicketNumber()` passa pra maiúsculas e recoloca os traços. Não confundir com o número do pedido (`3DLMEBNC7UQ`). `isValidSymplaLogin()` exige `order_status` em `SYMPLA_PAID_ORDER_STATUS` (hoje só `APPROVED`, conferido num pedido real em 2026-09-25) e o e-mail igual ao do participante (sem diferenciar maiúsculas). Ingresso inexistente volta 404 da API ao vivo (a spec fala 204); os dois viram 422.
+- Respostas: `200` + cookie de sessão, `422` pra ingresso inexistente, pedido não aprovado ou e-mail errado (sempre a mesma resposta, pra rota não revelar quais números existem), `502` Sympla fora do ar, `500` `SYMPLA_TOKEN` faltando.
+- A sessão usa `userId = sympla:<ticket_number>` e budget `SYMPLA_BUDGET = 1` (a Sympla vende um tier só). O mesmo ingresso sempre cai nos mesmos votos. Cada login confere o pedido de novo, então um ingresso cancelado ou reembolsado (`order_status: CANCELLED`) não loga mais.
+- Ingresso cancelado não conta na apuração. O resumo do `/admin/votes` e o detalhe por palestra pedem à Sympla os ingressos cancelados (`GET /participants?cancelled_filter=only`, 500 por página) e descartam os votos de `sympla:<ticket>` que estão na lista. Isso cobre quem votou e cancelou depois, e quem ainda tinha a sessão aberta (24h) quando cancelou. O voto continua no `c4p_votes`; só não entra na contagem. Se a Sympla não responder, o painel conta tudo e devolve `symplaChecked: false`.
+- Cada login grava `ticket_number` + e-mail em `sympla_guild_join`. `guild_user_id` fica `NULL` até existir um backfill ligando esses votos a contas do guild.
+- `GET /api/vote` devolve `sympla: true` pra essas sessões, e o `/vote` mostra no fim da cédula um convite pra seguir o evento no guild.host (`link.guild` em `src/website/configs/definitions.ts`).
+- Referência da API: `https://developers.sympla.com.br/api-docs` (OpenAPI oficial). O token é gerado na Sympla em **_Minha Conta -> Integrações_**. A API não tem webhooks.
 
 ### Banco de dados
 
@@ -203,6 +216,12 @@ erDiagram
         INTEGER expires_at
         VARCHAR updated_at
     }
+    sympla_guild_join {
+        TEXT ticket_number PK
+        VARCHAR email
+        TEXT guild_user_id UK
+        VARCHAR created_at
+    }
     talks {
         INTEGER id PK
         INTEGER speaker_id FK
@@ -217,10 +236,11 @@ Ver `resources/schema.sql` pras colunas exatas. Tabelas relevantes pra votação
 - **`ticket_tiers`** — `name` (`VARCHAR(200) PRIMARY KEY`, precisa bater exatamente com o nome do tier no guild.host) e `budget`. É uma tabela de **overrides**: `budgetForTier()` retorna `1` por padrão pra qualquer tier sem linha aqui, então só vale adicionar linha pros tiers que têm budget diferente de `1`.
 - **`c4p_votes`** — `user_id` é o `sub` (UUID) do guild.host, `talk_id` referencia `talks`, e `UNIQUE(user_id, talk_id)` impede voto duplicado.
 - **`manager_oauth`** — tabela de uma linha só (`id INTEGER PRIMARY KEY CHECK(id = 1)`) que guarda o refresh token rotativo do organizador, o access token em cache e a expiração.
+- **`sympla_guild_join`** — ingressos da Sympla que já logaram pra votar, com o e-mail. `guild_user_id` (`UNIQUE`, aceita vários `NULL`) fica vazio até o backfill que vai ligar esses votos a contas do guild. Em `c4p_votes`, esses votos aparecem com `user_id = 'sympla:<ticket_number>'`.
 
 ### Operações administrativas
 
-Rode com `npx wrangler d1 execute jsconf-br --file=<arquivo.sql>` (adicione `--remote` pra produção).
+Rode com `npx wrangler d1 execute jsconf-br --file=<arquivo.sql>` no banco local. Pra produção, use o UUID no lugar do nome: `npx wrangler d1 execute d27cd50c-f3ed-44fc-9297-15eedc8c73a0 --remote --file=<arquivo.sql>` (o `wrangler.jsonc` só tem o placeholder `local`; ver "Operational notes" no `TODO.md`).
 
 - **Adicionar uma palestra votável:** insira o speaker, depois a talk com `status = 2`.
 
@@ -247,7 +267,7 @@ Rode com `npx wrangler d1 execute jsconf-br --file=<arquivo.sql>` (adicione `--r
 
 `fetchTicketTier` retorna o tier do **primeiro** nó de participante que bater na lista paginada do guild, não uma agregação/melhor-tier, caso a mesma pessoa apareça mais de uma vez na lista de participantes do evento. Isso ainda não foi testado na prática (só contas com um único ingresso foram usadas nos testes até agora) — é uma limitação conhecida, não um bug observado.
 
-Secrets do Worker: `GUILD_OAUTH_CLIENT_ID`, `GUILD_OAUTH_CLIENT_SECRET`, `GUILD_OAUTH_REDIRECT_URI`, `GUILD_ORG_REFRESH_TOKEN`, `SESSION_SECRET`. O `ALLOWED_ORIGIN` precisa ser a origem do site (não pode ser `*`, senão o cookie de sessão não vai).
+Secrets do Worker: `GUILD_OAUTH_CLIENT_ID`, `GUILD_OAUTH_CLIENT_SECRET`, `GUILD_OAUTH_REDIRECT_URI`, `GUILD_ORG_REFRESH_TOKEN`, `SESSION_SECRET`, `SYMPLA_TOKEN`. O `ALLOWED_ORIGIN` precisa ser a origem do site (não pode ser `*`, senão o cookie de sessão não vai).
 
 ### Variáveis de ambiente (dois arquivos)
 
