@@ -10,8 +10,9 @@ export const SYMPLA_EVENT_ID = '3593934';
 // field as a bare string; these values come from Kondado's Sympla connector docs.
 export const SYMPLA_PAID_ORDER_STATUS = ['A'];
 
-// Sympla sells a single tier, worth one vote.
+// Sympla sells a single tier, worth one vote. SYMPLA_TIER is the label the admin dashboard shows.
 export const SYMPLA_BUDGET = 1;
+export const SYMPLA_TIER = 'Sympla';
 
 // Voter id prefix for Sympla ticket logins, so they never collide with guild.host user ids.
 export const SYMPLA_USER_PREFIX = 'sympla:';

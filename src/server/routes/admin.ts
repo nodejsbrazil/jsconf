@@ -3,6 +3,11 @@ import type { RosterEntry } from '../repositories/vote.js';
 import type { Database, Env } from '../types.js';
 import { z } from 'zod';
 import { EVENT_SLUG } from '../configs/oauth.js';
+import {
+  SYMPLA_BUDGET,
+  SYMPLA_TIER,
+  SYMPLA_USER_PREFIX,
+} from '../configs/sympla.js';
 import { fetchAttendeeRoster, managerAccessToken } from '../helpers/oauth.js';
 import { parseRequest } from '../helpers/request.js';
 import { response } from '../helpers/response.js';
@@ -99,6 +104,28 @@ const ROSTER_TTL_SECONDS = 3600;
  * waits for the walk. Move it behind ctx.waitUntil (serve stale, refresh in the background) if
  * that one slow request per hour ever matters.
  */
+// Sympla voters (`sympla:<ticket>`) are never in the guild roster: they get a fixed tier and budget
+// and no name, and they must not count as "missing" or every drill-down would force the guild walk.
+const isSympla = (userId: string): boolean =>
+  userId.startsWith(SYMPLA_USER_PREFIX);
+
+const voterIdentity = (
+  userId: string,
+  roster: Map<string, RosterEntry>,
+  budgets: Map<string, number>
+): { name: string | null; tier: string | null; budget: number } => {
+  if (isSympla(userId))
+    return { name: null, tier: SYMPLA_TIER, budget: SYMPLA_BUDGET };
+  const attendee = roster.get(userId);
+  const tier = attendee?.tier ?? null;
+  // Same default budgetForTier applies: a tier with no override row is worth one vote.
+  return {
+    name: attendee?.name ?? null,
+    tier,
+    budget: tier ? (budgets.get(tier) ?? 1) : 1,
+  };
+};
+
 const resolveRoster = async (
   database: Database,
   env: Env,
@@ -109,7 +136,9 @@ const resolveRoster = async (
   const now = Math.floor(Date.now() / 1000);
 
   const stale = now - syncedAt > ROSTER_TTL_SECONDS;
-  const missing = expectedUserIds.some((id) => !roster.has(id));
+  const missing = expectedUserIds.some(
+    (id) => !isSympla(id) && !roster.has(id)
+  );
   if (roster.size > 0 && !stale && !missing) return { roster, fresh: true };
 
   if (
@@ -168,19 +197,12 @@ export const adminVoteDetail = async ({
     {
       talkId,
       rosterAvailable: roster.size > 0,
-      votes: votes.map((row) => {
-        const attendee = roster.get(row.user_id);
-        const tier = attendee?.tier ?? null;
-        return {
-          userId: row.user_id,
-          name: attendee?.name ?? null,
-          tier,
-          // Same default budgetForTier applies: a tier with no override row is worth one vote.
-          budget: tier ? (budgets.get(tier) ?? 1) : 1,
-          position: row.position,
-          votedAt: row.created_at,
-        };
-      }),
+      votes: votes.map((row) => ({
+        userId: row.user_id,
+        ...voterIdentity(row.user_id, roster, budgets),
+        position: row.position,
+        votedAt: row.created_at,
+      })),
     },
     200,
     cors
@@ -208,15 +230,11 @@ export const adminVoterDetail = async ({
   ]);
 
   const { roster } = await resolveRoster(database, env, [userId]);
-  const attendee = roster.get(userId);
-  const tier = attendee?.tier ?? null;
 
   return response(
     {
       userId,
-      name: attendee?.name ?? null,
-      tier,
-      budget: tier ? (budgets.get(tier) ?? 1) : 1,
+      ...voterIdentity(userId, roster, budgets),
       votes: votes.map((row) => ({
         talkId: row.talk_id,
         title: row.title,
