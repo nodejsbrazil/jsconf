@@ -124,6 +124,11 @@ attendees still get in as non-admins.
 
 ## Known caveats (not blocking, but real)
 
+- **Old Sympla group orders carry the buyer's email on every ticket.** Since 2026-09-25 the Sympla
+  form asks name, surname and email for every ticket, so each guest logs in with their own email.
+  Orders placed before that change may still have the buyer's details on all tickets, so those
+  guests need the buyer's email to log in. If one reports "invalid ticket" with their own email,
+  that's the likely cause.
 - **Sympla voters and guild.host accounts are not linked yet.** Sympla buyers vote as
   `sympla:<ticket_number>`; `sympla_guild_join` keeps each ticket's email with `guild_user_id`
   NULL. Backfill later by matching those emails to guild accounts. A person who logs in both ways
