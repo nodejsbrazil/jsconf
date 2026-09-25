@@ -5,6 +5,27 @@
 > guild.host login. What's left is deploy + a couple of known caveats. `HANDOVER.md` is deleted —
 > this file plus `DEVELOPMENT.md` are now the source of truth.
 
+## Sympla ticket login: test before merging
+
+Branch `feat/sympla-ticket-link`, not merged yet.
+
+- [ ] Push the branch: `git push -u origin feat/sympla-ticket-link`.
+- [ ] Add `SYMPLA_TOKEN` to `.dev.vars`.
+- [ ] `npm run db:init` (creates `sympla_guild_join` locally), then `npm start`.
+- [ ] Open `/vote` and log in with a real Sympla ticket number + the email on that ticket.
+- [ ] Confirm an approved ticket returns `"order_status": "A"`. If Sympla uses another value,
+      update `SYMPLA_PAID_ORDER_STATUS` in `src/server/configs/sympla.ts`, or every login gets 422.
+- [ ] Confirm the numeric event id `3593934` works in the API path (the spec calls it
+      `eventIdHash`). If it 404s, list `/v1.6.0/events?fields=id,name` and use the id it returns
+      in `SYMPLA_EVENT_ID`.
+- [ ] Check the failure cases: wrong email, unknown ticket number, a cancelled/refunded ticket if
+      one exists. All three should show the same "invalid ticket" message.
+- [ ] Cast a vote with the Sympla session, then check the guild.host invite at the end of the ballot.
+- [ ] Check that a guild.host login with no Guild ticket shows the error pointing to the ticket login.
+- [ ] Move `VOTE_CLOSES_AT` before reopening voting.
+- [ ] Merge, then `wrangler secret put SYMPLA_TOKEN` and, for prod D1,
+      `npx wrangler d1 execute jsconf --remote --file='resources/schema.sql'` (see Operational notes).
+
 ## Operational notes
 
 Two things that cost real time in August 2026, both worth reading before touching prod.
