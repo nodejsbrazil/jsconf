@@ -1,5 +1,5 @@
 export const link = {
-  tickets: 'https://guild.host/events/jsconf-brasil-primeira-vdc8dh',
+  tickets: 'https://www.sympla.com.br/evento/jsconf-brasil/3593934',
   sponsors: 'https://forms.gle/SPyyD3SsuurVpvCNA',
 } as const;
 
