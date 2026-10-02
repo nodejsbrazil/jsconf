@@ -177,16 +177,16 @@
     "message": "Saiba onde será a JSConf Brasil 2026."
   },
   "location.venue.address": {
-    "message": "Universidade Municipal de São Caetano do Sul"
+    "message": "Universidade Municipal de São Caetano do Sul - Campus Centro"
   },
   "location.venue.city": {
-    "message": "São Caetano do Sul, SP"
+    "message": "R. Santo Antonio, 50 - Centro, São Caetano do Sul - SP, 09521-160"
   },
   "location.venue.date": {
     "message": "28 de novembro de 2026"
   },
   "location.venue.imgAlt": {
-    "message": "USCS - Universidade Municipal de São Caetano do Sul"
+    "message": "USCS - Universidade Municipal de São Caetano do Sul - Campus Centro"
   },
   "team.title": {
     "message": "O time por trás da JSConfBR"
@@ -675,7 +675,7 @@
     "message": "28 de novembro de 2026"
   },
   "c4p.intro.eventVenue": {
-    "message": "Universidade Municipal de São Caetano do Sul, São Caetano do Sul - SP"
+    "message": "Universidade Municipal de São Caetano do Sul - Campus Centro, R. Santo Antonio, 50 - Centro, São Caetano do Sul - SP, 09521-160"
   },
   "c4p.intro.topicsIntro": {
     "message": "Esses são alguns dos tópicos que sugerimos (os que têm estrelinha são os preferidos):"

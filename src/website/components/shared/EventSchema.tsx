@@ -43,6 +43,8 @@ export const EventSchema = () => {
           alternateName: event.venue.shortName,
           address: {
             '@type': 'PostalAddress',
+            streetAddress: event.venue.streetAddress,
+            postalCode: event.venue.postalCode,
             addressLocality: event.venue.locality,
             addressRegion: event.venue.region,
             addressCountry: event.venue.country,

@@ -17,6 +17,8 @@ export const event = {
   endDate: '2026-11-28',
   venue: {
     shortName: 'USCS',
+    streetAddress: 'R. Santo Antonio, 50 - Centro',
+    postalCode: '09521-160',
     locality: 'São Caetano do Sul',
     region: 'SP',
     country: 'BR',
