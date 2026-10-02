@@ -55,13 +55,23 @@
         }
 
         .venue-info {
-          @include flex(row, center, flex-start);
-          flex-wrap: wrap;
+          // Two columns: name + university left-aligned, address + date right-aligned.
+          // `.venue-details` is `display: contents` so its chips take part in this grid.
+          display: grid;
+          grid-template-columns: auto 1fr;
+          align-items: center;
           padding: 2.5rem 3.5rem;
-          gap: 1.5rem 4rem;
+          gap: 0.8rem 4rem;
           border-top: 0.1rem solid rgba(141, 248, 34, 0.08);
 
+          .venue-name,
+          .venue-address {
+            grid-column: 1;
+            justify-self: start;
+          }
+
           .venue-name {
+            grid-row: 1;
             font-family: var(--ifm-font-family-title);
             font-size: 3.6rem;
             font-weight: 700;
@@ -71,6 +81,7 @@
           }
 
           .venue-address {
+            grid-row: 2;
             font-size: 1.5rem;
             opacity: 0.8;
             margin: 0;
@@ -78,17 +89,25 @@
           }
 
           .venue-details {
-            @include flex(row, center);
-            gap: 2rem;
-            margin-left: auto;
+            display: contents;
 
             .detail {
+              grid-column: 2;
+              justify-self: end;
               @include flex(row, center);
               gap: 0.6rem;
               font-size: 1.4rem;
               font-weight: 600;
               color: #e0e0e0;
               white-space: nowrap;
+
+              &:first-child {
+                grid-row: 1;
+              }
+
+              &:last-child {
+                grid-row: 2;
+              }
 
               .detail-icon {
                 width: 1.6rem;
@@ -106,17 +125,22 @@
           }
 
           .venue-info {
-            flex-direction: column;
-            align-items: center;
+            grid-template-columns: 1fr;
+            justify-items: center;
             text-align: center;
             padding: 2.5rem;
             gap: 1rem;
 
-            .venue-details {
-              flex-direction: column;
-              gap: 0.8rem;
-              margin-left: 0;
-              align-items: center;
+            .venue-name,
+            .venue-address,
+            .venue-details .detail {
+              grid-column: 1;
+              grid-row: auto;
+              justify-self: center;
+            }
+
+            .venue-details .detail {
+              white-space: normal;
             }
           }
         }
