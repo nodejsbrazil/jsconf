@@ -1,6 +1,6 @@
 import { useBaseUrlUtils } from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { event, link, social } from '../../configs/definitions';
+import { event, social } from '../../configs/definitions';
 import { text } from './i18n';
 import { StructuredData } from './StructuredData';
 
@@ -25,7 +25,7 @@ export const EventSchema = () => {
         description: text({ id: 'home.pageDescription' }),
         startDate: event.startDate,
         endDate: event.endDate,
-        eventStatus: 'https://schema.org/EventScheduled',
+        eventStatus: 'https://schema.org/EventCancelled',
         eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
         url: withBaseUrl('/', { absolute: true }),
         image: `${siteConfig.url}/img/og-card.png`,
@@ -49,13 +49,6 @@ export const EventSchema = () => {
             addressRegion: event.venue.region,
             addressCountry: event.venue.country,
           },
-        },
-        // No price while the tiers are still being decided. Once they exist, this wants to be
-        // an AggregateOffer with lowPrice/highPrice rather than a single Offer.
-        offers: {
-          '@type': 'Offer',
-          url: link.tickets,
-          availability: 'https://schema.org/InStock',
         },
       }}
     />

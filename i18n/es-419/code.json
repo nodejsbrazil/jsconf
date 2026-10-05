@@ -20,9 +20,6 @@
   "navbar.section.sponsors": {
     "message": "Conviértete en Patrocinador"
   },
-  "navbar.tickets": {
-    "message": "Entradas"
-  },
   "navbar.login": {
     "message": "Iniciar sesión"
   },
@@ -66,7 +63,7 @@
     "message": "Únete a la comunidad de desarrolladores en un día lleno de código, innovación y networking de alta calidad."
   },
   "home.cta.tickets": {
-    "message": "COMPRAR ENTRADAS"
+    "message": "EVENTO CANCELADO"
   },
   "home.credits.label": {
     "message": "Organizado por"
@@ -384,10 +381,10 @@
     "message": "Entradas"
   },
   "tickets.subtitle": {
-    "message": "Asegura tu lugar en la mayor conferencia de JavaScript de Brasil."
+    "message": "Lamentablemente, la JSConf Brasil fue cancelada y la venta de entradas está cerrada."
   },
   "tickets.cta": {
-    "message": "Comprar en Sympla"
+    "message": "Todas las entradas serán reembolsadas. Nos pondremos en contacto contigo lo antes posible."
   },
   "home.waitlist.error": {
     "message": "Algo salió mal. Por favor, inténtalo más tarde."

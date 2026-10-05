@@ -3,15 +3,13 @@ import { useCallback, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { ChevronDown, Menu, Ticket, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { IoLanguage } from 'react-icons/io5';
 import { toast, Toaster } from 'sonner';
 import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import { useScrollSpy } from '@site/src/website/hooks/useScrollSpy';
 import Logo from '../../assets/img/logo.svg';
-import { link } from '../../configs/definitions';
-import { SafeLink } from '../shared/SafeLink';
 import { AuthButton } from './AuthButton';
 
 type Section = {
@@ -261,9 +259,6 @@ export const Navbar = () => {
           >
             <Menu className='icon' />
           </button>
-          <SafeLink className='tickets' to={link.tickets}>
-            <Ticket /> <Text id='navbar.tickets' />
-          </SafeLink>
           <AuthButton />
         </div>
       </div>
@@ -302,9 +297,6 @@ export const Navbar = () => {
           <Link to={localePath('/team')} onClick={closeMenu}>
             <Text id='navbar.section.team' />
           </Link>
-          <SafeLink className='tickets' to={link.tickets}>
-            <Ticket /> <Text id='navbar.tickets' />
-          </SafeLink>
           {otherLocales.length > 0 && (
             <div ref={localeMobileRef} className='locale-mobile'>
               <button

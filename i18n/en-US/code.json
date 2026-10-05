@@ -20,9 +20,6 @@
   "navbar.section.sponsors": {
     "message": "Become a Sponsor"
   },
-  "navbar.tickets": {
-    "message": "Tickets"
-  },
   "navbar.login": {
     "message": "Log in"
   },
@@ -66,7 +63,7 @@
     "message": "Join the developer community for a day filled with code, innovation and high-quality networking."
   },
   "home.cta.tickets": {
-    "message": "BUY TICKETS"
+    "message": "EVENT CANCELLED"
   },
   "home.credits.label": {
     "message": "Organized by"
@@ -384,10 +381,10 @@
     "message": "Tickets"
   },
   "tickets.subtitle": {
-    "message": "Secure your spot at the biggest JavaScript conference in Brazil."
+    "message": "Unfortunately, JSConf Brasil has been cancelled and ticket sales are closed."
   },
   "tickets.cta": {
-    "message": "Buy on Sympla"
+    "message": "Everyone will have their tickets refunded. We will get in touch with you as soon as possible."
   },
   "home.waitlist.error": {
     "message": "Something went wrong. Please try again later."
