@@ -1,7 +1,6 @@
 export const link = {
   // Where the vote page invites Sympla buyers to follow NodeBR.
   guild: 'https://guild.host/events/jsconf-brasil-primeira-vdc8dh',
-  sponsors: 'https://forms.gle/SPyyD3SsuurVpvCNA',
 } as const;
 
 /**

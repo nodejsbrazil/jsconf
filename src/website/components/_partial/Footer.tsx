@@ -81,11 +81,6 @@ export const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to={localePath('/sponsors')}>
-                <Text id='navbar.section.sponsors' />
-              </Link>
-            </li>
-            <li>
               <Link to={localePath('/brand')}>
                 <Text id='brand.pageTitle' />
               </Link>

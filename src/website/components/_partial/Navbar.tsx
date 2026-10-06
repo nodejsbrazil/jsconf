@@ -10,7 +10,6 @@ import { Text, text } from '@site/src/website/components/shared/i18n';
 import { useLocalePath } from '@site/src/website/hooks/useLocalePath';
 import { useScrollSpy } from '@site/src/website/hooks/useScrollSpy';
 import Logo from '../../assets/img/logo.svg';
-import { AuthButton } from './AuthButton';
 
 type Section = {
   id: string;
@@ -40,12 +39,6 @@ const SECTIONS: Section[] = [
     id: 'location',
     label: <Text id='navbar.section.location' />,
     priority: 2,
-  },
-  {
-    // The homepage section is `partners`; the label stays "sponsors" because that is the CTA.
-    id: 'partners',
-    label: <Text id='navbar.section.sponsors' />,
-    priority: 1,
   },
 ];
 
@@ -259,7 +252,6 @@ export const Navbar = () => {
           >
             <Menu className='icon' />
           </button>
-          <AuthButton />
         </div>
       </div>
       <div ref={menuNode} className='mobile-menu'>

@@ -1,10 +1,9 @@
 import type { CSSProperties } from 'react';
 import type { Partner } from '../../configs/definitions';
 import { useRef, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
 import { Text } from '@site/src/website/components/shared/i18n';
 import { SafeLink } from '@site/src/website/components/shared/SafeLink';
-import { link, partners } from '../../configs/definitions';
+import { partners } from '../../configs/definitions';
 import { useScroll } from '../../hooks/useScroll';
 import { Image } from '../shared/Image';
 
@@ -86,15 +85,6 @@ export const Partners = () => {
               }
             />
           </div>
-        </div>
-
-        <div className='invite'>
-          <p className='invite-text'>
-            <Text id='partners.cta.text' />
-          </p>
-          <SafeLink to={link.sponsors} className='invite-button'>
-            <Text id='partners.cta.button' /> <ArrowRight className='icon' />
-          </SafeLink>
         </div>
       </div>
     </section>
